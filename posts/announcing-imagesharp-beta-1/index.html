@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcing ImageSharp Beta 1</title>
+    <meta name="description" content="Fantastic news, We&#39;ve released our first beta!!">
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"/>
+    <link 
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
+      crossorigin="anonymous"/>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.7.2/build/styles/default.min.css"/>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/highlightjs-themes@1.0.0/monokai_sublime.min.css"/>
+    <link rel="stylesheet" href="/css/style.css">
+    
+    
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Six Labors">
+    <link rel="alternate" href="/feed/feed.json" type="application/json" title="Six Labors">
+  </head>
+  <body>
+    <header class="navbar navbar-expand-md sl-navbar">
+      <nav class="container-xxl flex-wrap flex-md-nowrap">
+        <a class="navbar-brand" href="/">
+          <img
+            src="/css/img/sixlabors.text.svg"
+            alt="Six Labors"
+            class="sl-brand"/>
+          <span class="visually-hidden">Six Labors</span>
+        </a>
+        <button
+          class="navbar-toggler collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#slNavbar"
+          aria-controls="slNavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            class="bi"
+            fill="currentColor"
+            viewBox="0 0 16 16">
+            <path
+              fill-rule="evenodd"
+              d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+            ></path>
+          </svg>
+        </button>
+        <div class="navbar-collapse collapse" id="slNavbar">
+          <ul class="navbar-nav flex-row flex-wrap sl-navbar-nav pt-2 py-md-0">
+              <li class="nav-item col-6 col-md-auto" >
+                <a 
+                  class="nav-link p-2" 
+                  href="/"
+                  >Home</a>
+              </li>
+              <li class="nav-item col-6 col-md-auto" >
+                <a 
+                  class="nav-link p-2" 
+                  href="/products/"
+                  >Products</a>
+              </li>
+              <li class="nav-item col-6 col-md-auto" >
+                <a 
+                  class="nav-link p-2" 
+                  href="/pricing/"
+                  >Pricing</a>
+              </li>
+              <li class="nav-item col-6 col-md-auto" >
+                <a 
+                  class="nav-link p-2" 
+                  href="https://docs.sixlabors.com"
+                   target="_blank" rel="noopener">Documentation</a>
+              </li>
+              <li class="nav-item col-6 col-md-auto" >
+                <a 
+                  class="nav-link p-2" 
+                  href="/posts/"
+                  >Blog</a>
+              </li>
+          </ul>
+
+          <hr class="d-md-none text-secondary"/>
+
+          <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+            <li class="nav-item col-6 col-md-auto">
+              <a
+                class="nav-link p-2"
+                href="https://github.com/sixlabors"
+                target="_blank"
+                rel="noopener">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  class="navbar-nav-svg d-inline-block align-text-top"
+                  viewBox="0 0 512 499.36"
+                  role="img">
+                  <title>GitHub</title>
+                  <path
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                    d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z"
+                  ></path>
+                </svg>
+                <span class="d-md-none ms-2">GitHub</span>
+              </a>
+            </li>
+            <li class="nav-item col-6 col-md-auto">
+              <a
+                class="nav-link p-2"
+                href="https://twitter.com/sixlabors"
+                target="_blank"
+                rel="noopener"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  class="navbar-nav-svg d-inline-block align-text-top"
+                  viewBox="0 0 512 416.32"
+                  role="img">
+                  <title>Twitter</title>
+                  <path
+                    fill="currentColor"
+                    d="M160.83 416.32c193.2 0 298.92-160.22 298.92-298.92 0-4.51 0-9-.2-13.52A214 214 0 0 0 512 49.38a212.93 212.93 0 0 1-60.44 16.6 105.7 105.7 0 0 0 46.3-58.19 209 209 0 0 1-66.79 25.37 105.09 105.09 0 0 0-181.73 71.91 116.12 116.12 0 0 0 2.66 24c-87.28-4.3-164.73-46.3-216.56-109.82A105.48 105.48 0 0 0 68 159.6a106.27 106.27 0 0 1-47.53-13.11v1.43a105.28 105.28 0 0 0 84.21 103.06 105.67 105.67 0 0 1-47.33 1.84 105.06 105.06 0 0 0 98.14 72.94A210.72 210.72 0 0 1 25 370.84a202.17 202.17 0 0 1-25-1.43 298.85 298.85 0 0 0 160.83 46.92"
+                  ></path>
+                </svg>
+                <span class="d-md-none ms-2">Twitter</span>
+              </a>
+            </li>
+            <li class="nav-item col-6 col-md-auto">
+              <a
+                class="nav-link p-2"
+                href="https://opencollective.com/sixlabors"
+                target="_blank"
+                rel="noopener">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                  class="navbar-nav-svg d-inline-block align-text-top"
+                  viewBox="0 0 40 41"
+                  role="img">
+                  <title>Open Collective</title>
+                  <path
+                    fill-opacity=".4"
+                    d="M32.8 21c0 2.4-.8 4.9-2 6.9l5.1 5.1c2.5-3.4 4.1-7.6 4.1-12 0-4.6-1.6-8.8-4-12.2L30.7 14c1.2 2 2 4.3 2 7z"
+                  ></path>
+                  <path
+                    d="M20 33.7a12.8 12.8 0 0 1 0-25.6c2.6 0 5 .7 7 2.1L32 5a20 20 0 1 0 .1 31.9l-5-5.2a13 13 0 0 1-7 2z"
+                  ></path>
+                </svg>
+                <span class="d-md-none ms-2">Open Collective</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main class="tmpl-post">
+      
+
+
+
+      <!-- Delete this message -->
+      
+      <!-- Stop deleting -->
+
+      <div class="masthead">
+  <div class="container">
+    <h1 class="mb-3">
+      Announcing ImageSharp Beta 1
+    </h1>
+    <p class="lead mb-4">
+      Fantastic news, We&#39;ve released our first beta!!
+    </p>
+    <div class="d-flex flex-column flex-md-row"><a href="/tags/imagesharp/" class="post-tag btn btn-primary">ImageSharp</a><a href="/tags/releases/" class="post-tag btn btn-primary">Releases</a>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class= row>
+      <div class="col-md-8">
+        <article>
+          <time datetime="2017-09-15">15 Sep 2017</time>
+
+          <p><img src="/img/cheers.jpg" alt="Leonardo Dicaprio from the Great Gatsby saying cheers" class="img-fluid"></p>
+<blockquote>
+<p>&quot;O frabjous day! Callooh! Callay!&quot; He chortled in his joy.</p>
+<figcaption><cite><a href="https://en.wikipedia.org/wiki/Through_the_Looking-Glass" target="_blank">Through the Looking-Glass, and What Alice Found There (Lewis Carroll 1871)</a></cite></figcaption>
+</blockquote>
+<p>I'm brimming with excitement writing this blog post; it's a truly fantastic moment for the ImageSharp team,</p>
+<p><strong>We've released our first beta!!</strong></p>
+<p>With over 2 1/2 years of development, 4,400+ commits, and the formation of Six Labors from a dedicated team of developers, ImageSharp has come a very long way. I'm immensly proud of everyone involved and would like to thank the community at large for sticking with us for such a long time.</p>
+<p><strong>We've built the better part of a full managed 2D Graphics API that is truly cross-platform.</strong></p>
+<p><strong>Let that sink in for a moment... Amazing!</strong></p>
+<p>Let's have a quick look at what we've delivered so far.</p>
+<h2 id="the-current-state-of-play">The Current State of Play <a class="direct-link" href="#the-current-state-of-play">#</a></h2>
+<p>ImageSharp is split into three major libraries:</p>
+<ul>
+<li><strong><a href="https://www.nuget.org/packages/SixLabors.ImageSharp/" target="_blank">ImageSharp</a></strong> - Color and image primitives, formats, filters, transforms and other standard algorithms</li>
+<li><strong><a href="https://www.nuget.org/packages/SixLabors.ImageSharp.Drawing/" target="_blank">ImageSharp.Drawing</a></strong> - Image, shape, and line drawing primitives and algorithms</li>
+<li><strong><a href="https://www.nuget.org/packages/SixLabors.ImageSharp.Web/" target="_blank">ImageSharp.Web</a></strong> - Extensible middleware for <a href="http://ASP.NET" target="_blank">ASP.NET</a> Core projects that allows processing and caching of images</li>
+</ul>
+<p>Without the constraints of <code>System.Drawing</code> We have been able to develop an API that is much more flexible, easier to code against, and much, much less prone to memory leaks when consuming.</p>
+<h3 id="the-imagesharp-api">The ImageSharp API <a class="direct-link" href="#the-imagesharp-api">#</a></h3>
+<p>The API centers around a single generic image class. <code>Image&lt;TPixel&gt;</code> where <code>TPixel</code> can be one of <a href="https://github.com/SixLabors/ImageSharp/tree/master/src/ImageSharp/PixelFormats" target="_blank">many supported pixel formats</a>. The generic nature of this design allows excellent flexibility when working with the different formats with each method format-agnostic.</p>
+<p>You want <code>Bgr24</code>? Use <code>Image&lt;Bgr24&gt;</code>! <code>Alpha8</code>? Use <code>Image&lt;Alpha8&gt;</code>, nice and easy!</p>
+<p>Many common operations have been added to our API and we've designed it to allow these to be performed simply but with great  flexibility .</p>
+<p>Check out this example resizing and transforming the colors of a jpeg:</p>
+<div class="frame">
+<pre><code class="language-csharp">// Image.Load(string path) is a shortcut for our default type. 
+// Other pixel formats use Image.Load&lt;TPixel&gt;(string path)) or one of the many other available overloads.
+using (Image&lt;Rgba32&gt; image = Image.Load(&quot;foo.jpg&quot;))
+{
+    image.Mutate(ctx =&gt; ctx
+         .Resize(image.Width / 2, image.Height / 2)
+         .Grayscale());
+    image.Save(&quot;bar.jpg&quot;); // Automatic encoder selected based on extension.
+}
+</code></pre>
+</div>
+<h3 id="processing-images-with-mutate%2Fclone-and-extension-methods">Processing Images with Mutate/Clone and Extension Methods <a class="direct-link" href="#processing-images-with-mutate%2Fclone-and-extension-methods">#</a></h3>
+<p>We've got the API pretty much locked down but there's a fair amount of cheese moving from the previous alphas. (We apologise for that and salute early testers - You Rock!) The greatest of these changes is moving all our fluent image processing methods to two main operations: <code>Mutate</code> and <code>Clone</code>:</p>
+<ol>
+<li><code>Mutate</code> applies a chain of operations on the original image, changing it's state:</li>
+</ol>
+<div class="frame">
+<pre><code class="language-csharp">image.Mutate(ctx =&gt; ctx.Operation1().Operation2() ...)
+</code></pre>
+</div>
+<ol start="2">
+<li><code>Clone</code> creates a clone of the original image with subsequent operations applied to the new instance:</li>
+</ol>
+<div class="frame">
+<pre><code class="language-csharp">using (Image&lt;Rgba32&gt; cloneImage = image.Clone(ctx =&gt; ctx.Operation1().Operation2() ...))
+{
+    // Operate on cloneImage
+}
+</code></pre>
+</div>
+<p>The original image is left untouched. <em>It's important to note, that you are responsible for the disposal of both images when creating a clone.</em></p>
+<p>We have a few good reasons behind this API decision:</p>
+<ol>
+<li>Throughout the alpha API we realised that it wasn't obvious that the extension methods returned the same image instance. Many developers expected <code>image.Resize(...)</code> to return a new resized image, leaving the original untouched. Now we have provided control over this behaviour by distinguishing <code>Mutate()</code> and <code>Clone()</code>.</li>
+<li>The new <code>Clone(...)</code> operation enables optimizations behind the scenes. This might be very useful in use cases where both the original and the modified image instances should be preserved.</li>
+</ol>
+<p>For example, this operation ...</p>
+<div class="frame">
+<pre><code class="language-csharp">var mipmap1 = image.Clone(ctx =&gt; ctx.Resize(image.Width / 2, image.Height / 2);
+</code></pre>
+</div>
+<p>... is cheaper than this one:</p>
+<div class="frame">
+<pre><code class="language-csharp">var mipmap1 = image.Clone();
+mipmap1.Mutate(ctx =&gt; ctx.Resize(image.Width / 2, image.Height / 2));
+</code></pre>
+</div>
+<p>With extension methods operating on <code>IImageProcessingContext&lt;T&gt;</code> we are able to use the same fluent methods with both Mutate and Clone semantics. There's a veritable smörgåsbord of methods to choose from, each designed to handle a full range of use cases.</p>
+<p>This all means that there is much less noise around the main <code>Image&lt;T&gt;</code> class now  and we think that's much better.</p>
+<p>The API has also been designed to provide you the tools to allow you to implement your own algorithms and integrate the library into your own <a href="https://github.com/mellinoe/veldrid" target="_blank">applications</a>.</p>
+<h3 id="direct-access-to-image-pixels">Direct Access to Image Pixels <a class="direct-link" href="#direct-access-to-image-pixels">#</a></h3>
+<p>During the alpha we introduced fast pixel manipulation API's utilizing <a href="https://github.com/adamsitnik/adamsitnik.github.io/blob/master/_posts/2017-07-13-Span.md" target="_blank"><code>Span&lt;T&gt;</code>, the new low level memory manipulation tool</a>, via  <code>image.GetRowSpan(rowIdx)</code> and <code>image.Pixels</code>. However, we faced several issues from exposing these methods publicly, the most difficult to overcome being that <a href="https://www.nuget.org/packages/System.Memory/" target="_blank">System.Memory</a> will be in preview state until the 2.1 release of the .NET Standard.</p>
+<p>As such, we decided to internalize all the functions exposing <code>Span&lt;T&gt;</code> for now though we still have API's to directly access pixel data for most common use-cases:</p>
+<ul>
+<li>You can save pixels to a <code>byte[]</code> buffer by calling <code>image.SavePixelData(bytes)</code></li>
+<li>You can manipulate individual pixels by using indexers on <code>Image&lt;T&gt;</code> and <code>ImageFrame&lt;T&gt;</code>. This is slower than writing Spans of rows, but still much faster than <code>System.Drawing</code>'s <code>GetPixel</code>/<code>SetPixel</code>!</li>
+</ul>
+<p>We plan to reintroduce the <code>Span&lt;T&gt;</code> methods as soon as the first official release of <code>System.Memory</code> lands, providing a modern API for advanced users with low-level pixel manipulation needs.</p>
+<h3 id="image-formats">Image Formats <a class="direct-link" href="#image-formats">#</a></h3>
+<p>Out of the box we support decoding and encoding of bmp, png, gif, and jpeg formats with tiff well underway. We've provided increased functionality for several formats (animation, quantization, compression) and extensible endpoints for implementing your own image formats.</p>
+<p><strong>For beta-1 we managed to solve all the most difficult issues affecting our Jpeg decoder:</strong></p>
+<ul>
+<li>Improved accuracy and standard-conformity. For most cases our output pixels are ~99.9% similar when compared to libjpeg-turbo output.<br>
+<em><strong>Update:</strong> An accuracy bug has been managed to sneak into <code>beta-1</code>, will be fixed in the next release!</em></li>
+<li>Significantly reduced memory consumption.</li>
+<li>We are capable of decoding <a href="https://github.com/SixLabors/ImageSharp/issues/159" target="_blank">many</a> <a href="https://github.com/SixLabors/ImageSharp/issues/178" target="_blank">kinds</a> of broken Jpegs, and manage errors properly in the <a href="https://github.com/SixLabors/ImageSharp/issues/214" target="_blank">worst cases</a>.</li>
+<li>We achieved the previous points without performance drops! Although parallel processing is disabled in Jpeg decoder for now, single-core  performance has been improved since alpha releases thanks to several SIMD optimizations. We think that the lack of parallelism should not be an issue for server users, because throughput of high-load image processing services depends mostly on single core performance. However, multi-core Jpeg processing might be important for desktop/mobile users, so we plan to re-add it in future releases.</li>
+</ul>
+<p>We've also implemented support for EXIF and ICC metadata.</p>
+<h3 id="drawing">Drawing <a class="direct-link" href="#drawing">#</a></h3>
+<p>We support a full suite of shape, path and image drawing algorithms from complex polygons, simple straight lines, to image blending. All of which support the full range of <a href="https://www.w3.org/TR/compositing-1/#porterduffcompositingoperators" target="_blank">Porter-Duff</a> compositing operators</p>
+<p>Check out this example of loading an image, using the drawing API to draw a rectangle and blend it over the source images using the <code>source</code> blending mode. This will generate an image that looks like a frame with the outer edge 10 pixels from the source image.</p>
+<div class="frame">
+<pre><code class="language-csharp">using (Image&lt;Rgba32&gt; image = Image.Load(&quot;foo.jpg&quot;))
+{
+    var borderSize = 10;
+    image.Mutate(ctx =&gt; ctx
+         .Fill(Rgba32.Transparent,
+           new RectangleF(borderSize, borderSize, image.Width - (borderSize * 2), image.Height - (borderSize * 2)), 
+           new GraphicsOptions(true)
+           {
+               BlenderMode = PixelBlenderMode.Src // Enforces that any part of this shape that has color is punched out of the background
+           }));
+    image.Save(&quot;bar.jpg&quot;); // Automatic encoder selected based on extension.
+}
+</code></pre>
+</div>
+<h2 id="so-what's-next%3F">So What's Next? <a class="direct-link" href="#so-what's-next%3F">#</a></h2>
+<p>Future work will come at a much faster cadence. We feel like we've done most of the difficult work now and will be able to concentrate on performance, bug fixes, and API tweaks.</p>
+<h3 id="roadmap">Roadmap <a class="direct-link" href="#roadmap">#</a></h3>
+<p>The latest planned date for a v1.0 Final release is Q1 2018. This lines up with the scheduled release date of <a href="https://github.com/dotnet/core/blob/master/roadmap.md" target="_blank">Net Standard 2.1</a> We're lining up with that release as we want to introduce fast API endpoints utilizing the <code>System.Memory</code> classes. If we are able to release before then we will do.</p>
+<p>In the interim we will:</p>
+<ul>
+<li>Perform optimization of all our image formats introducing SIMD where required</li>
+<li>Add missing features where we can to our image formats</li>
+<li>Perform optimization on any manipulations algorithms where required</li>
+<li>Implement any missing sanitation code</li>
+<li>Expose a full suite of ColorSpace conversion algorithms</li>
+<li>Tweak public APIs to ensure they are as usable as possible</li>
+<li>Apply any bug fixes.</li>
+</ul>
+<p>Additionaly we shall create full API documentation for the library as well as and expanded set of sample projects within the Github repository to demonstrate the functionality we offer.</p>
+<h2 id="you-can-help">You Can Help <a class="direct-link" href="#you-can-help">#</a></h2>
+<p>ImageSharp is fully open source and built for the community at large. You can help us reach v1.0</p>
+<p>We are always looking for assistance optimizing our code so if you've got performance chops please get in touch.</p>
+<p>Additionaly we've got plenty of <a href="https://github.com/SixLabors/ImageSharp/issues?q=is%3Aissue+is%3Aopen+label%3Aup-for-grabs" target="_blank"></a> tickets that you can help with and we'd love some help getting documentation together, it doesn't matter how little or how much you can offer, we really appreciate every bit of assistance.</p>
+<p>You can also really help us by downloading and testing the libraries. We really want to deliver something that is not only performant and robust, but also extremely useable.</p>
+<p>Cheers!</p>
+<p><strong>P.S. Follow us on <a href="http://twitter.com/sixlabors" target="_blank">Twitter</a>!</strong></p>
+
+            <hr>
+            <ul>
+                <li>Next: <a href="/posts/beta-3-is-a-magic-number/">Beta 3 Is A Magic Number</a>
+                </li>
+              
+                <li>Previous: <a href="/posts/a-taste-of-things-to-come/">A Taste of Things to Come.</a>
+                </li>
+              
+            </ul>
+        </article>
+      </div>
+      <div class="col-md-3 offset-md-1">
+        <aside>
+          <h3>Tags</h3>
+          <ul>
+            
+              
+              <li>
+                <a href="/tags/imagesharp/" class="post-tag btn btn-primary">ImageSharp</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/fonts/" class="post-tag btn btn-primary">Fonts</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/shapes/" class="post-tag btn btn-primary">Shapes</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/releases/" class="post-tag btn btn-primary">Releases</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/imagesharp.web/" class="post-tag btn btn-primary">ImageSharp.Web</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/announcements/" class="post-tag btn btn-primary">Announcements</a>
+              </li>
+            
+          </ul>
+
+        </aside>
+
+        <aside>
+          
+          <h3>Recent  Posts
+          </h3>
+
+          
+          
+          <ul class="postlist">
+            
+              <li class="postlist-item">
+                <a href="/posts/announcing-imagesharpweb-100/" class="postlist-link">
+                  Announcing ImageSharp.Web 1.0.0
+                  
+                </a>
+              </li>
+            
+              <li class="postlist-item">
+                <a href="/posts/announcing-imagesharp-100/" class="postlist-link">
+                  Announcing ImageSharp 1.0.0
+                  
+                </a>
+              </li>
+            
+              <li class="postlist-item">
+                <a href="/posts/announcing-imagesharp-10-release-candidate-1/" class="postlist-link">
+                  Announcing ImageSharp 1.0 Release Candidate 1
+                  
+                </a>
+              </li>
+            
+              <li class="postlist-item">
+                <a href="/posts/beta-7/" class="postlist-link">
+                  Beta 7.
+                  
+                </a>
+              </li>
+            
+              <li class="postlist-item">
+                <a href="/posts/imagesharp-joins-the-net-foundation/" class="postlist-link">
+                  ImageSharp joins the .NET foundation.
+                  
+                </a>
+              </li>
+            
+          </ul>
+
+          <p>More posts can be found in <a href="/posts/">the archive</a>.</p>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    </main>
+
+    <footer class="sl-footer p-3 p-md-5 mt-5 bg-light text-center text-sm-start">
+      <div class="container">
+        <ul class="sl-footer-links ps-0 mb-3">
+          <li class="d-inline-block">
+            <a href="https://github.com/sixlabors">GitHub</a>
+          </li>
+          <li class="d-inline-block ms-3">
+            <a href="https://twitter.com/sixlabors">Twitter</a>
+          </li>
+        </ul>
+        <p class="mb-0">Copyright Six Labors &copy;</p>
+        <hr/>
+        <img
+            src="/css/img/sixlabors.text.svg"
+            alt="Six Labors"
+            class="sl-brand"/>
+        <p>Proud members of the <a href="https://dotnetfoundation.org/" target="_blank" rel="noopener">.NET Foundation</a>.</p>
+      </div>
+    </footer>
+
+    <!-- Current page: /posts/announcing-imagesharp-beta-1/ -->
+    <script 
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" 
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.7.2/build/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/dist/highlightjs-line-numbers.min.js"></script>
+    <script>
+      hljs.highlightAll();
+      hljs.initLineNumbersOnLoad({singleLine: true});
+    </script>
+  </body>
+</html>

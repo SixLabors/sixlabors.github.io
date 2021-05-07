@@ -1,0 +1,724 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+	<title>Six Labors</title>
+	<subtitle>Six Labors products and information.</subtitle>
+	
+	<link href="https://sixlabors.com/feed/feed.xml" rel="self"/>
+	<link href="https://sixlabors.com/"/>
+	<updated>2020-09-18T00:00:00Z</updated>
+	<id>https://sixlabors.com/</id>
+	<author>
+		<name>Your Name Here</name>
+		<email>youremailaddress@example.com</email>
+	</author>
+	
+	<entry>
+		<title>Announcing ImageSharp.Web 1.0.0</title>
+		<link href="https://sixlabors.com/posts/announcing-imagesharpweb-100/"/>
+		<updated>2020-09-18T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/announcing-imagesharpweb-100/</id>
+		<content type="html">&lt;div class=&quot;ratio ratio-16x9&quot;&gt;
+&lt;iframe src=&quot;https://www.youtube.com/embed/UWLIgjB9gGw&quot; allow=&quot;autoplay; encrypted-media;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;h2 id=&quot;imagesharp.web-is-1.0.0!&quot;&gt;&lt;a href=&quot;http://imagesharp.web/&quot; target=&quot;_blank&quot;&gt;ImageSharp.Web&lt;/a&gt; is 1.0.0! &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharpweb-100/#imagesharp.web-is-1.0.0!&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;We are very excited to announce the release of &lt;a href=&quot;http://imagesharp.web/&quot; target=&quot;_blank&quot;&gt;ImageSharp.Web&lt;/a&gt; 1.0.0 final. &lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp.Web/1.0.0&quot; target=&quot;_blank&quot;&gt;You can download it today&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/SixLabors/ImageSharp.Web&quot; target=&quot;_blank&quot;&gt;ImageSharp.Web&lt;/a&gt; is a high performance &lt;a href=&quot;http://asp.net/&quot; target=&quot;_blank&quot;&gt;ASP.NET&lt;/a&gt; Core Middleware built on top of &lt;a href=&quot;https://github.com/SixLabors/ImageSharp&quot; target=&quot;_blank&quot;&gt;ImageSharp&lt;/a&gt; that allows the processing and caching of image requests via a simple API.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://imagesharp.web/&quot; target=&quot;_blank&quot;&gt;ImageSharp.Web&lt;/a&gt; is designed from the ground up to be flexible and extensible. The library provides API endpoints for common image processing operations and the building blocks to allow for the development of additional extensions to add image sources, caching mechanisms or even your own processing API.&lt;/p&gt;
+&lt;h4 id=&quot;what&#39;s-new-since-the-rc&quot;&gt;What&#39;s New Since the RC &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharpweb-100/#what&#39;s-new-since-the-rc&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;We&#39;ve added culture aware command processing, fine grained cache timing configuration options, the ability to set the quality of jpeg&#39;s and a new &lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp.Web.Providers.Azure/1.0.0&quot; target=&quot;_blank&quot;&gt;Azure Blob Storage provider and cache&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Oh and we made it fast... Real fast!&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sixlabors.com/img/fast.gif&quot; alt=&quot;Quicksilver from the &#39;X-Men: Apocalypse&#39; trailer&quot; class=&quot;img-fluid&quot; /&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I&#39;d like to take a moment here to give a massive shout out to &lt;a href=&quot;https://github.com/deanmarcussen&quot; target=&quot;_blank&quot;&gt;Dean Marcussen&lt;/a&gt; and &lt;a href=&quot;https://github.com/sebastienros&quot; target=&quot;_blank&quot;&gt;Sébastien Ros&lt;/a&gt; for providing code and benchmarks to help us really &lt;a href=&quot;https://github.com/dotnet/crank&quot; target=&quot;_blank&quot;&gt;Crank&lt;/a&gt; up the speed. We&#39;re currently seeing 60,000 request/sec in our benchmarks!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;You can see the full &lt;a href=&quot;https://github.com/SixLabors/ImageSharp.Web/releases/tag/v1.0.0&quot; target=&quot;_blank&quot;&gt;Release Notes&lt;/a&gt; in the repository.&lt;/p&gt;
+&lt;h3 id=&quot;licensing.&quot;&gt;Licensing. &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharpweb-100/#licensing.&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;http://imagesharp.web/&quot; target=&quot;_blank&quot;&gt;ImageSharp.Web&lt;/a&gt; and accompanying projects are released under the permissive &lt;a href=&quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot; target=&quot;_blank&quot;&gt;Apache 2.0&lt;/a&gt; license. This means that the library is open source and free to use but is released AS-IS with no support for issues or feature requests.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;If you require support you should purchase a &lt;a href=&quot;https://sixlabors.com/pricing/&quot;&gt;Support License&lt;/a&gt; otherwise you will need to submit pull requests against the repository. &lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&quot;getting-started&quot;&gt;Getting Started &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharpweb-100/#getting-started&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;h4 id=&quot;installation&quot;&gt;Installation &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharpweb-100/#installation&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;Once you&#39;ve installed the package from &lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp.Web&quot; target=&quot;_blank&quot;&gt;NuGet&lt;/a&gt; you will need to add the following code to &lt;code&gt;ConfigureServices&lt;/code&gt; and &lt;code&gt;Configure&lt;/code&gt; in your &lt;code&gt;Startup.cs&lt;/code&gt; file.&lt;/p&gt;
+&lt;p&gt;This installs the the default service and options.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-c#&quot;&gt;public void ConfigureServices(IServiceCollection services) {
+    // Add the default service and options.
+    services.AddImageSharp();
+}
+
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
+
+    // Add the image processing middleware.
+    app.UseImageSharp();
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;The fluent configuration is flexible allowing you to configure a multitude of different options. For example you can add the default service and custom options.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-c#&quot;&gt;// Add the default service and custom options.
+services.AddImageSharp(
+    options =&amp;gt;
+        {
+            options.BrowserMaxAge = TimeSpan.FromDays(7);
+            options.CacheMaxAge = TimeSpan.FromDays(365);
+        });
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Or you can fine-grain control adding the default options and configure other services.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-c#&quot;&gt;// Fine-grain control adding the default options and configure other services.
+services.AddImageSharp()
+        .RemoveProcessor&amp;lt;FormatWebProcessor&amp;gt;()
+        .RemoveProcessor&amp;lt;BackgroundColorWebProcessor&amp;gt;();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Full Configuration API options are available &lt;a href=&quot;https://docs.sixlabors.com/api/ImageSharp.Web/SixLabors.ImageSharp.Web.DependencyInjection.ImageSharpBuilderExtensions.html&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;h4 id=&quot;processing-images&quot;&gt;Processing Images &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharpweb-100/#processing-images&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The &lt;a href=&quot;http://imagesharp.web/&quot; target=&quot;_blank&quot;&gt;ImageSharp.Web&lt;/a&gt; processing API is imperative. This means that the order in which you supply the individual processing operations is the order in which they are are compiled and applied. This allows the API to be very flexible, allowing you to combine processes in any order.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;em&gt;It is possible to configure your own processing command pipeline by implementing and registering your own version of the IRequestParser interface.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The following processors are built into the middleware. In addition extension points are available to register you own command processors. All processing output is cached for future requests in a high performance intelligent cache which detects changes in source material. This storage mechanism for the cache can be replaced by any implementation you choose.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Resize&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Allows the resizing of images.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;{PATH_TO_YOUR_IMAGE}?width=300
+{PATH_TO_YOUR_IMAGE}?width=300&amp;amp;height=120&amp;amp;rxy=30,30
+{PATH_TO_YOUR_IMAGE}?width=50&amp;amp;height=50&amp;amp;rsampler=nearest&amp;amp;rmode=stretch
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Format&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Allows the encoding of the output image to a new image format. The available formats depend on your configuration settings.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;{PATH_TO_YOUR_IMAGE}?format=jpg
+{PATH_TO_YOUR_IMAGE}?format=gif
+{PATH_TO_YOUR_IMAGE}?format=png
+{PATH_TO_YOUR_IMAGE}?format=bmp
+{PATH_TO_YOUR_IMAGE}?format=tga
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Quality&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Allows the encoding of the output image at the given quality.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;For Jpeg this ranges from 1-100.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;{PATH_TO_YOUR_IMAGE}?quality=90
+{PATH_TO_YOUR_IMAGE}?format=jpg&amp;amp;quality=42
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;em&gt;Only certain formats support adjustable quality. This is a constraint of individual image standards not the API.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Background Color&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Allows the changing of the background color of transparent images.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;{PATH_TO_YOUR_IMAGE}?bgcolor=FFFF00
+{PATH_TO_YOUR_IMAGE}?bgcolor=C1FF0080
+{PATH_TO_YOUR_IMAGE}?bgcolor=red
+{PATH_TO_YOUR_IMAGE}?bgcolor=128,64,32
+{PATH_TO_YOUR_IMAGE}?bgcolor=128,64,32,16
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;As you can see it&#39;s extremely powerful yet simple to use. You can find full Processing API options in our &lt;a href=&quot;https://docs.sixlabors.com/articles/imagesharp.web/processingcommands.html&quot; target=&quot;_blank&quot;&gt;documentation&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;the-future&quot;&gt;The Future &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharpweb-100/#the-future&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;From a roadmap perspective we&#39;ll continue to bring usability and performance enhancements to &lt;a href=&quot;http://imagesharp.web/&quot; target=&quot;_blank&quot;&gt;ImageSharp.Web&lt;/a&gt; but the immediate focus will shift to bringing SixLabors.ImageSharp.Drawing, and SixLabors.Fonts development up to a production ready standard. Any and all assistance there would be greatly appreciated.&lt;/p&gt;
+&lt;h3 id=&quot;closing&quot;&gt;Closing &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharpweb-100/#closing&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Thanks again for all the feedback and usage. It’s been a pleasure to build &lt;a href=&quot;http://imagsharp.web/&quot; target=&quot;_blank&quot;&gt;ImagSharp.Web&lt;/a&gt; so far and to see so many people try it out; we really appreciate it. Please continue exploring the product and learning what it’s capable of.&lt;/p&gt;
+</content>
+	</entry>
+	
+	<entry>
+		<title>Announcing ImageSharp 1.0.0</title>
+		<link href="https://sixlabors.com/posts/announcing-imagesharp-100/"/>
+		<updated>2020-08-04T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/announcing-imagesharp-100/</id>
+		<content type="html">&lt;p&gt;&lt;img src=&quot;https://sixlabors.com/img/celebrate.gif&quot; alt=&quot;Seinfield cast celebrating&quot; class=&quot;img-fluid&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;We are very excited to announce the release of ImageSharp 1.0.0 final. You can &lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp/1.0.0&quot; target=&quot;_blank&quot;&gt;download it today&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;ImageSharp is a new, fully featured, fully managed, cross-platform, 2D graphics library. Designed to simplify image processing, ImageSharp brings you an incredibly powerful yet beautifully simple API.&lt;/p&gt;
+&lt;p&gt;ImageSharp is designed from the ground up to be flexible and extensible. The library provides API endpoints for common image processing operations and the building blocks to allow for the development of additional operations.&lt;/p&gt;
+&lt;p&gt;Built against .NET Standard 1.3, ImageSharp can be used in device, cloud, and embedded/IoT scenarios.&lt;/p&gt;
+&lt;h4 id=&quot;what&#39;s-new-since-rc3&quot;&gt;What&#39;s new since RC3 &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-100/#what&#39;s-new-since-rc3&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;The biggest change that may affect early adopters of our new async API-s is the introduction of cancellation on those.&lt;br /&gt;
+Code utilizing overloads of &lt;code&gt;Image.LoadAsync()&lt;/code&gt;, &lt;code&gt;image.SaveAsync()&lt;/code&gt; has to be recompiled against the new package.&lt;/p&gt;
+&lt;p&gt;Read the &lt;a href=&quot;https://github.com/SixLabors/ImageSharp/releases/tag/v1.0.0&quot; target=&quot;_blank&quot;&gt;release notes&lt;/a&gt; for detailed release information.&lt;/p&gt;
+&lt;h2 id=&quot;getting-started&quot;&gt;Getting Started &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-100/#getting-started&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;We&#39;ve designed the ImageSharp API to be simple to use and extend with some awesome built-in functionality.&lt;/p&gt;
+&lt;h4 id=&quot;loading-and-saving-images&quot;&gt;Loading and Saving Images &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-100/#loading-and-saving-images&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;ImageSharp provides several options for loading and saving images to cover different scenarios. The library automatically detects the source image format upon load and it is possible to dictate which image format to save an image pixel data to.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-c#&quot;&gt;using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
+
+// Open the file automatically detecting the file type to decode it.
+// Our image is now in an uncompressed, file format agnostic, structure in-memory as
+// a series of pixels.
+using (Image image = Image.Load(&amp;quot;foo.jpg&amp;quot;)) 
+{
+    // Resize the image in place and return it for chaining.
+    // &#39;x&#39; signifies the current image processing context.
+    image.Mutate(x =&amp;gt; x.Resize(image.Width / 2, image.Height / 2)); 
+
+    // The library automatically picks an encoder based on the file extension then
+    // encodes and write the data to disk.
+    // You can optionally set the encoder to choose.
+    image.Save(&amp;quot;bar.jpg&amp;quot;); 
+} // Dispose - releasing memory into a memory pool ready for the next image you wish to process.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h4 id=&quot;inititalizing-new-images&quot;&gt;Inititalizing New Images &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-100/#inititalizing-new-images&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;Creating a new image is simple too.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-c#&quot;&gt;using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+
+int width = 640;
+int height = 480;
+
+// Creates a new image with empty pixel data. 
+using(var image = new Image&amp;lt;Rgba32&amp;gt;(width, height)) 
+{
+  // Do your thing in here...
+
+} // Dispose - releasing memory into a memory pool ready for the next image you wish to process.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;There are more examples and full API docs to help you get started at &lt;a href=&quot;https://docs.sixlabors.com/&quot; target=&quot;_blank&quot;&gt;https://docs.sixlabors.com&lt;/a&gt;; the documentation you see there is just a start. You can follow our progress at &lt;a href=&quot;https://github.com/SixLabors/docs&quot; target=&quot;_blank&quot;&gt;docs&lt;/a&gt; on GitHub.&lt;/p&gt;
+&lt;h2 id=&quot;the-imagesharp-journey&quot;&gt;The ImageSharp Journey &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-100/#the-imagesharp-journey&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Around five years ago When .NET Core 1.0 was still in development there was a lot of negative feedback in the Microsoft .NET issue trackers regarding the lack of the System.Drawing namespace in the proposed framework.&lt;/p&gt;
+&lt;p&gt;ImageSharp was started as a result of listening to that feedback with the dream of collaboratively building a fully featured, fully managed, cross-platform, 2D graphics API for the next generation of .NET applications.&lt;/p&gt;
+&lt;p&gt;Today those namespaces have been added to the framework but with caviets. We still believe that ImageSharp is the smarter choice for the future, Microsoft agree...&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://docs.microsoft.com/en-us/dotnet/api/system.drawing?view=netcore-3.1#remarks&quot; target=&quot;_blank&quot;&gt;The System.Drawing namespace is not recommended for new development, due to not being supported within a Windows or ASP.NET service and it is not cross-platform. ImageSharp and SkiaSharp are recommended as alternatives.&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;We’d like to express our gratitude for everyone that has tried ImageSharp and has given us feedback. We know that thousands of you have been using the pre-1.0 product. Thanks! We’ve received a lot of feedback about design choices, user experience, performance, communication and other topics. We’ve tried our best to apply all of that feedback. The release is much better for it. We couldn’t have done it without you!&lt;/p&gt;
+&lt;p&gt;If you haven&#39;t used ImageSharp before or haven’t used it in a while, now is a great moment to try it. You can enjoy the productivity and power of ImageSharp with no constraints, on any OS, with any tool and for any application. All of that fully open source, developed with the community.&lt;/p&gt;
+&lt;h2 id=&quot;the-future&quot;&gt;The Future &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-100/#the-future&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Today ImageSharp and accompanying projects are released under the permissive &lt;a href=&quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot; target=&quot;_blank&quot;&gt;Apache 2.0 license&lt;/a&gt;. They are managed by Six Labors -  A company set up with the dream of ensuring the sustainable future of the projects. We&#39;re a member of the .NET Foundation and are working with them to improve the .NET Open Source ecosystem for both maintainers of projects and the companies that use them.&lt;/p&gt;
+&lt;p&gt;That future, however, can only be ensured with the help and support of the .NET community either by &lt;strong&gt;&lt;a href=&quot;https://sixlabors.com/pricing/&quot;&gt;purchasing a Commercial Support License&lt;/a&gt;&lt;/strong&gt; or by submitting code and documentation patches to the various &lt;a href=&quot;https://github.com/SixLabors&quot; target=&quot;_blank&quot;&gt;Six Labors repositories&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Without your support ImageSharp and co will go the way of other pioneering .NET projects like &lt;a href=&quot;https://github.com/NancyFx/Nancy/issues/3010&quot; target=&quot;_blank&quot;&gt;NancyFX&lt;/a&gt; and fade away into history.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;But of course you&#39;ll help out... Why?&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sixlabors.com/img/heroes-thor.jpg&quot; alt=&quot;Thor daying &#39;Because that&#39;s what heroes do&#39;.&quot; class=&quot;img-fluid&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;From a roadmap perspective we&#39;ll continue to bring usability and performance enhancements to ImageSharp but the immediate focus will shift to bringing &lt;a href=&quot;https://github.com/SixLabors/ImageSharp.Drawing&quot; target=&quot;_blank&quot;&gt;SixLabors.ImageSharp.Drawing&lt;/a&gt;, &lt;a href=&quot;https://github.com/SixLabors/ImageSharp.Web&quot; target=&quot;_blank&quot;&gt;SixLabors.ImageSharp.Web&lt;/a&gt; and &lt;a href=&quot;https://github.com/SixLabors/Fonts&quot; target=&quot;_blank&quot;&gt;SixLabors.Fonts&lt;/a&gt; development up to a production ready standard. Any and all assistance there would be greatly appreciated.&lt;/p&gt;
+&lt;h2 id=&quot;closing&quot;&gt;Closing &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-100/#closing&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Thanks again for all the feedback and usage. It’s been a pleasure to build ImagSharp so far and to see so many people try it out; we really appreciate it. Please continue exploring the product and learning what it’s capable of.&lt;/p&gt;
+</content>
+	</entry>
+	
+	<entry>
+		<title>Announcing ImageSharp 1.0 Release Candidate 1</title>
+		<link href="https://sixlabors.com/posts/announcing-imagesharp-10-release-candidate-1/"/>
+		<updated>2020-05-01T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/announcing-imagesharp-10-release-candidate-1/</id>
+		<content type="html">&lt;p&gt;&lt;img src=&quot;https://sixlabors.com/img/fireworks.jpg&quot; alt=&quot;Fireworks in a night sky&quot; class=&quot;img-fluid&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Today, we’re announcing ImageSharp 1.0 Release Candidate 1. With this release, along with the usual performance improvements and bug fixes we’ve focused on polishing ImageSharp 1.0 for a final release. We are now getting very, very close.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp/&quot; target=&quot;_blank&quot;&gt;Download ImageSharp 1.0 RC1&lt;/a&gt; on Windows, macOS, and Linux, available now.&lt;/p&gt;
+&lt;p&gt;This is a momentous day for us. ImageSharp has been in development now for 4 1/2 years and we&#39;re proud to deliver what we believe to be a comprehensive, well performing, solution with a great modern API.&lt;/p&gt;
+&lt;h2 id=&quot;license&quot;&gt;License &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-10-release-candidate-1/#license&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;As announced in &lt;a href=&quot;https://sixlabors.com/blog/beta-six-labors/#licensing-plans&quot; target=&quot;_blank&quot;&gt;January 2019&lt;/a&gt; the Release Candidate comes with a new license. We&#39;ve worked hard to try to strike the correct balance between supporting the open source community and protecting the future of the project. We believe we have now found that balance.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ImageSharp is licensed under the &lt;a href=&quot;https://www.gnu.org/licenses/agpl-3.0&quot; target=&quot;_blank&quot;&gt;GNU Affero General Public License v3&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;An alternative Commercial License can be purchased for Closed Source projects and applications.&lt;br /&gt;
+Please visit &lt;a href=&quot;https://sixlabors.com/pricing&quot; target=&quot;_blank&quot;&gt;https://sixlabors.com/pricing&lt;/a&gt; for details.&lt;/li&gt;
+&lt;li&gt;Open Source projects who have taken a dependency on ImageSharp prior to adoption of the AGPL v3 license are permitted to use ImageSharp (including all future versions) under the previous &lt;a href=&quot;https://opensource.org/licenses/Apache-2.0&quot; target=&quot;_blank&quot;&gt;Apache 2.0 License&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Going forward the license changes will also apply for &lt;a href=&quot;http://imagesharp.web/&quot; target=&quot;_blank&quot;&gt;ImageSharp.Web&lt;/a&gt; 1.0 RC1, ImageSharp.Drawing 1.0-Beta8, and Fonts 1.0-Beta10.&lt;/p&gt;
+&lt;h2 id=&quot;documentation&quot;&gt;Documentation &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-10-release-candidate-1/#documentation&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Full API documentation for all the Six Labors libraries is available at &lt;a href=&quot;https://docs.sixlabors.com/&quot; target=&quot;_blank&quot;&gt;https://docs.sixlabors.com&lt;/a&gt; alongside conceptual documentation and links to runnable sample applications. We will continue to add to this documentation to provide&lt;/p&gt;
+&lt;h2 id=&quot;go-live&quot;&gt;Go Live &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-10-release-candidate-1/#go-live&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;ImageSharp 1.0 Release Candidate 11 is supported by Six Labors and can be used in production. We strongly recommend that you test your app running on the RC1 before deploying into production. If you find an issue with ImageSharp, please file a &lt;a href=&quot;https://github.com/SixLabors/ImageSharp/issues/new/choose&quot; target=&quot;_blank&quot;&gt;GitHub issue&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;1.0&quot;&gt;1.0 &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-10-release-candidate-1/#1.0&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;We hope to release the final 1.0 version within the next few months. The API is be considered stable and work will be focused on performance improvements and bug fixes with no additional feature planned.&lt;/p&gt;
+</content>
+	</entry>
+	
+	<entry>
+		<title>Beta 7.</title>
+		<link href="https://sixlabors.com/posts/beta-7/"/>
+		<updated>2019-09-04T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/beta-7/</id>
+		<content type="html">&lt;p class=&quot;lead&quot;&gt;...&lt;strike&gt;a new Tool album has been finally relased&lt;/strike&gt;&lt;/p&gt;
+&lt;h1 id=&quot;imagesharp-beta-7-is-available-on-nuget&quot;&gt;ImageSharp beta 7 is available on &lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp/1.0.0-beta0007&quot; target=&quot;_blank&quot;&gt;NuGet&lt;/a&gt; &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-7/#imagesharp-beta-7-is-available-on-nuget&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;h3 id=&quot;wait!-you-told%2C-there-will-be-no-more-beta-versions-...&quot;&gt;Wait! You told, there will be no more beta versions ... &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-7/#wait!-you-told%2C-there-will-be-no-more-beta-versions-...&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;We haven&#39;t yet reached all our RC1 goals but there were so many improvements in the last few months, we just can&#39;t keep them behind the walls of MyGet any longer!&lt;/p&gt;
+&lt;p&gt;So let&#39;s talk about the changes...&lt;/p&gt;
+&lt;h2 id=&quot;api-improvements&quot;&gt;API Improvements &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-7/#api-improvements&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;There were &lt;a href=&quot;https://github.com/SixLabors/ImageSharp/pull/897&quot; target=&quot;_blank&quot;&gt;several issues&lt;/a&gt; about the way the main &lt;code&gt;Image&amp;lt;TPixel&amp;gt;&lt;/code&gt;&lt;br /&gt;
+class was exposed to our users. The pixel type &lt;code&gt;TPixel&lt;/code&gt; is a noise for people who just want to do simple things like resize &amp;amp; resave an image. A major design goal of our libraries is to make things as simple as possible. Therefore we decided to no longer force users to operate with types like &lt;code&gt;Image&amp;lt;Rgba32&amp;gt;&lt;/code&gt; when &lt;code&gt;Rgba32&lt;/code&gt; is an implementation detail for them.&lt;/p&gt;
+&lt;p&gt;Previously &lt;code&gt;Image&lt;/code&gt; was a static helper class with methods to load images from different data sources.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Starting from beta 7, &lt;code&gt;Image&lt;/code&gt; is an abstract, pixel-agnostic base class for the pixel-specific &lt;code&gt;Image&amp;lt;TPixel&amp;gt;&lt;/code&gt; generic type.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Non-generic &lt;code&gt;Image.Load&lt;/code&gt; overloads no longer return &lt;code&gt;Image&amp;lt;Rgba32&amp;gt;&lt;/code&gt;. The pixel-agnostic &lt;code&gt;Image&lt;/code&gt; is being returned instead:&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-c#&quot;&gt;using (Image image = Image.Load(&amp;quot;foo.jpg&amp;quot;))
+{
+    image.Mutate(x =&amp;gt; x.Resize(100, 100);
+    image.SaveAsJpeg(someStream);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;This change is also opening up optimization opportunities for future versions: if no specific pixel type is forced on the call site,  ImageSharp can decode/re-encode images into their &amp;quot;native&amp;quot; pixel formats faster.&lt;/p&gt;
+&lt;h3 id=&quot;adapting-existing-code&quot;&gt;Adapting existing code &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-7/#adapting-existing-code&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Yes, all overloads of the &lt;code&gt;Image.Load(...)&lt;/code&gt; method went through a &lt;strong&gt;breaking change&lt;/strong&gt;, and all users should recompile their projects after the package update. On the other hand the impacts should be minimal:&lt;/p&gt;
+&lt;h4 id=&quot;1.-simple-processing-code-using-var-should-be-unaffected%3A&quot;&gt;1. Simple processing code using &lt;code&gt;var&lt;/code&gt; should be unaffected: &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-7/#1.-simple-processing-code-using-var-should-be-unaffected%3A&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-c#&quot;&gt;using (var image = Image.Load(&amp;quot;foo.jpg&amp;quot;))
+{
+    image.Mutate(x =&amp;gt; x
+         .Resize(image.Width / 2, image.Height / 2);
+    image.Save(&amp;quot;bar.jpg&amp;quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h4 id=&quot;2.-code-using-specific-pixel-types-with-image.load%3Ct%3E(...)-should-be-unaffected%3A&quot;&gt;2. Code using specific pixel types with &lt;code&gt;Image.Load&amp;lt;T&amp;gt;(...)&lt;/code&gt; should be unaffected: &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-7/#2.-code-using-specific-pixel-types-with-image.load%3Ct%3E(...)-should-be-unaffected%3A&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-c#&quot;&gt;using (Image&amp;lt;Rgb24&amp;gt; image = Image.Load&amp;lt;Rgb24&amp;gt;(&amp;quot;foo.jpg&amp;quot;))
+{
+    image.Mutate(x =&amp;gt; x
+         .Resize(image.Width / 2, image.Height / 2);
+    image.Save(&amp;quot;bar.jpg&amp;quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h4 id=&quot;3.-if-the-code-used-to-specify-image%3Crgba32%3E-with-image.load(...)&quot;&gt;3. If the code used to specify &lt;code&gt;Image&amp;lt;Rgba32&amp;gt;&lt;/code&gt; with &lt;code&gt;Image.Load(...)&lt;/code&gt; &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-7/#3.-if-the-code-used-to-specify-image%3Crgba32%3E-with-image.load(...)&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;It could be easily adapted by replacing &lt;code&gt;Image&amp;lt;Rgba32&amp;gt;&lt;/code&gt; with &lt;code&gt;Image&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-c#&quot;&gt;using (Image image = Image.Load(&amp;quot;foo.jpg&amp;quot;))
+{
+    image.Mutate(x =&amp;gt; x
+         .Resize(image.Width / 2, image.Height / 2);
+    image.Save(&amp;quot;bar.jpg&amp;quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h4 id=&quot;4.-if-the-code-is-strongly-depending-on-the-occurences-of-image%3Crgba32%3E&quot;&gt;4. If the code is strongly depending on the occurences of &lt;code&gt;Image&amp;lt;Rgba32&amp;gt;&lt;/code&gt; &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-7/#4.-if-the-code-is-strongly-depending-on-the-occurences-of-image%3Crgba32%3E&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;Image.Load(...)&lt;/code&gt; could be replaced with &lt;code&gt;Image.Load&amp;lt;Rgba32&amp;gt;(...)&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-c#&quot;&gt;void ProcessMyImage(Image&amp;lt;Rgba32&amp;gt; image)
+{
+    // do stuff ...
+}
+
+using (Image&amp;lt;Rgba32&amp;gt; image = Image.Load&amp;lt;Rgba32&amp;gt;(&amp;quot;foo.jpg&amp;quot;))
+{
+    ProcessMyImage(image);
+    image.Save(&amp;quot;bar.jpg&amp;quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h3 id=&quot;pixel-independent-color-and-drawing&quot;&gt;Pixel-independent Color and Drawing &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-7/#pixel-independent-color-and-drawing&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;In the spirit of the new, pixel-agnostic &lt;code&gt;Image&lt;/code&gt; API-s, we have introduced a new &lt;code&gt;Color&lt;/code&gt; type, convertible to any pixel representation:&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-c#&quot;&gt;Bgr565 pixel = Color.Blue.ToPixel&amp;lt;Bgr565&amp;gt;();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;Color&lt;/code&gt; is enabling drawing API-s on non-generic &lt;code&gt;Image&lt;/code&gt; instances:&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-c#&quot;&gt;using (Image image = Image.Load(&amp;quot;test.jpg&amp;quot;))
+{
+    Color color = Color.FromHex(&amp;quot;#f2e7cf&amp;quot;);
+    image.Mutate(x =&amp;gt; x.Fill(color, new Rectangle(10, 10, 200, 100)));
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h4 id=&quot;consequence-on-imagesharp-terminology&quot;&gt;Consequence on ImageSharp terminology &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-7/#consequence-on-imagesharp-terminology&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;During the initial design of the library, we took the assumption that &lt;em&gt;Color&lt;/em&gt; and &lt;em&gt;Pixel&lt;/em&gt; are synonyms. This is no longer the case: &lt;em&gt;Color&lt;/em&gt; is a general term, while &lt;em&gt;Pixel&lt;/em&gt; is a specific (and in many cases, limited) representation drawable on an &lt;code&gt;Image&amp;lt;TPixel&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+&lt;h4 id=&quot;obsolete-types&quot;&gt;Obsolete types &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-7/#obsolete-types&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;Color&lt;/code&gt; has rendered the helper classes &lt;code&gt;ColorBuilder&amp;lt;TPixel&amp;gt;&lt;/code&gt; and &lt;code&gt;NamedColors&amp;lt;TPixel&amp;gt;&lt;/code&gt; obsolete, and we removed them.&lt;/p&gt;
+&lt;h3 id=&quot;changelog&quot;&gt;Changelog &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-7/#changelog&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;There were 90 separate PRs included in this release, a massive list containing bugfix, performance improvements, and some great additions to the library.&lt;/p&gt;
+&lt;p&gt;We&#39;ve vastly increased our Bmp support, added text metadata handling and interlaced encoding support to Png, added Bokeh Blur algorithms, reduced resizing memory consumption, improved Jpeg encoding performance, fixed bugs and much, much more!&lt;/p&gt;
+&lt;p&gt;Full release notes can be found &lt;a href=&quot;https://github.com/SixLabors/ImageSharp/releases/tag/v1.0.0-beta7&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;..&lt;/p&gt;
+&lt;h3 id=&quot;special-thanks&quot;&gt;Special thanks &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-7/#special-thanks&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;As ever, we wouldn&#39;t be able to create great releases like this without the help from our ever growing community. We&#39;re grateful for everything you do!&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/brianpopow&quot; target=&quot;_blank&quot;&gt;brianpopow&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/Lakritzator&quot; target=&quot;_blank&quot;&gt;Lakritzator&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/Sergio0694&quot; target=&quot;_blank&quot;&gt;Sergio0694&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/bulldetektor&quot; target=&quot;_blank&quot;&gt;bulldetektor&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/tannergooding&quot; target=&quot;_blank&quot;&gt;tannergooding&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/Poyo-SSB&quot; target=&quot;_blank&quot;&gt;Poyo-SSB&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/iamcarbon&quot; target=&quot;_blank&quot;&gt;iamcarbon&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/atruskie&quot; target=&quot;_blank&quot;&gt;atruskie&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/BorisTheBrave&quot; target=&quot;_blank&quot;&gt;BorisTheBrave&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/SLane35&quot; target=&quot;_blank&quot;&gt;SLane35&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/tonygameplan&quot; target=&quot;_blank&quot;&gt;tonygameplan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/fredeil&quot; target=&quot;_blank&quot;&gt;fredeil&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/dmanning23&quot; target=&quot;_blank&quot;&gt;dmanning23&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/IldarKhayrutdinov&quot; target=&quot;_blank&quot;&gt;IldarKhayrutdinov&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/SimonCropp&quot; target=&quot;_blank&quot;&gt;SimonCropp&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/101100&quot; target=&quot;_blank&quot;&gt;101100&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/mysticfall&quot; target=&quot;_blank&quot;&gt;mysticfall&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+	</entry>
+	
+	<entry>
+		<title>ImageSharp joins the .NET foundation.</title>
+		<link href="https://sixlabors.com/posts/imagesharp-joins-the-net-foundation/"/>
+		<updated>2019-05-03T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/imagesharp-joins-the-net-foundation/</id>
+		<content type="html">&lt;p&gt;&lt;img src=&quot;https://sixlabors.com/img/dotnetfoundation-imagesharp.png&quot; alt=&quot;ImageSharp + DotNet Foundation = strong!&quot; class=&quot;img-fluid&quot; /&gt;&lt;/p&gt;
+&lt;h1 id=&quot;getting-strong-now...*&quot;&gt;Getting Strong Now...* &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/imagesharp-joins-the-net-foundation/#getting-strong-now...*&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;Today we’re really happy and excited to share that ImageSharp is joining the .NET foundation!&lt;/p&gt;
+&lt;p&gt;This is a big deal to us but what does this mean for the future of ImageSharp?&lt;/p&gt;
+&lt;p&gt;Great things! It’ll still be maintained and governed by the same hardworking band of crack coding commandos as before, but with the support and guidance from a vast array of experts across various fields from within the .NET Foundation.&lt;/p&gt;
+&lt;p&gt;It&#39;s a match made in heaven, the sheer breadth of experiance available to us from within the Foundation can only benefit our project, and we make them look cool 😜&lt;/p&gt;
+&lt;p&gt;Read more about ImageSharp joining on the .NET foundation &lt;a href=&quot;https://dotnetfoundation.org/blog&quot; target=&quot;_blank&quot;&gt;blog&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;about-the-.net-foundation&quot;&gt;About the .NET Foundation &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/imagesharp-joins-the-net-foundation/#about-the-.net-foundation&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The .NET Foundation is an independent organization created to foster innovation, which we believe starts with open development and collaboration. It&#39;s also a forum for community and commercial developers to broaden and strengthen the future of the .NET ecosystem.&lt;/p&gt;
+&lt;p&gt;Learn more about the .NET foundation at &lt;a href=&quot;https://dotnetfoundation.org/&quot; target=&quot;_blank&quot;&gt;dotnetfoundation.org&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;*You now have the Rocky theme stuck in your head. You&#39;re welcome...&lt;/p&gt;
+</content>
+	</entry>
+	
+	<entry>
+		<title>Fantastic Beta Four</title>
+		<link href="https://sixlabors.com/posts/fantastic-beta-four/"/>
+		<updated>2018-05-26T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/fantastic-beta-four/</id>
+		<content type="html">&lt;p&gt;&lt;img src=&quot;https://sixlabors.com/img/444444.jpeg&quot; alt=&quot;Fantastic Four with ImageSharp logos&quot; class=&quot;img-fluid&quot; /&gt;&lt;/p&gt;
+&lt;h2 id=&quot;imagesharp-beta-4-is-available-on-nuget&quot;&gt;ImageSharp beta 4 &lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp/1.0.0-beta0004&quot; target=&quot;_blank&quot;&gt;is available on NuGet&lt;/a&gt; &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/fantastic-beta-four/#imagesharp-beta-4-is-available-on-nuget&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;This time the majority of the contributions were made by the community around the project, and we feel really happy about this!&lt;/p&gt;
+&lt;h2 id=&quot;improvements-since-the-last-beta&quot;&gt;Improvements since the last beta &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/fantastic-beta-four/#improvements-since-the-last-beta&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Full support for .NET Core 2.1: we got rid of the annoying &lt;a href=&quot;https://github.com/SixLabors/ImageSharp/issues/563&quot; target=&quot;_blank&quot;&gt;MissingMethodException&#39;s&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fixed a &lt;a href=&quot;https://github.com/SixLabors/ImageSharp/issues/496&quot; target=&quot;_blank&quot;&gt;bug&lt;/a&gt; related to drawing large and complex shapes (eg. pages of text)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/SixLabors/ImageSharp/pull/542&quot; target=&quot;_blank&quot;&gt;Gradient brushes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/SixLabors/ImageSharp/pull/546&quot; target=&quot;_blank&quot;&gt;Projective non-affine transforms (tilt, perspective)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Improved the robustness of our Jpeg decoder:
+&lt;ul&gt;
+&lt;li&gt;A large part of the implementation &lt;a href=&quot;https://github.com/SixLabors/ImageSharp/pull/571&quot; target=&quot;_blank&quot;&gt;has been replaced&lt;/a&gt;, allowing to parse a wider range of incorrectly encoded images&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/SixLabors/ImageSharp/pull/588&quot; target=&quot;_blank&quot;&gt;Better ICC reader&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Basic &lt;code&gt;System.Memory&lt;/code&gt; API integration: &lt;a href=&quot;https://sixlabors.github.io/docs/api/ImageSharp/SixLabors.ImageSharp.Image.html#SixLabors_ImageSharp_Image_LoadPixelData__1_SixLabors_ImageSharp_Configuration_ReadOnlySpan___0__System_Int32_System_Int32_&quot; target=&quot;_blank&quot;&gt;Image.LoadPixelData()&lt;/a&gt; and &lt;a href=&quot;https://sixlabors.github.io/docs/api/ImageSharp/SixLabors.ImageSharp.ImageExtensions.html#SixLabors_ImageSharp_ImageExtensions_SavePixelData__1_SixLabors_ImageSharp_ImageFrame___0__Span___0__&quot; target=&quot;_blank&quot;&gt;SavePixelData()&lt;/a&gt; are now &lt;a href=&quot;https://github.com/SixLabors/ImageSharp/pull/567&quot; target=&quot;_blank&quot;&gt;able to consume spans&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/SixLabors/ImageSharp/pull/552/files&quot; target=&quot;_blank&quot;&gt;Improved&lt;/a&gt; &lt;code&gt;.Fill(color)&lt;/code&gt; performance and added &lt;a href=&quot;https://sixlabors.github.io/docs/api/ImageSharp/SixLabors.ImageSharp.Image-1.html#SixLabors_ImageSharp_Image_1__ctor_SixLabors_ImageSharp_Configuration_System_Int32_System_Int32__0_&quot; target=&quot;_blank&quot;&gt;a constructor&lt;/a&gt; initializing images with a default fill color&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;special-thanks&quot;&gt;Special thanks &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/fantastic-beta-four/#special-thanks&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/woutware&quot; target=&quot;_blank&quot;&gt;@woutware&lt;/a&gt; for his optimization and bugfix work on Drawing topics&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/JBildstein&quot; target=&quot;_blank&quot;&gt;@JBildstein&lt;/a&gt; for the ICC improvements&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/jongleur1983&quot; target=&quot;_blank&quot;&gt;@jongleur1983&lt;/a&gt; for his mind blowing gradient brushes&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/iamcarbon&quot; target=&quot;_blank&quot;&gt;@iamcarbon&lt;/a&gt; for adding .NET Core 2.1 support, API and code quality improvements&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/brianpopow&quot; target=&quot;_blank&quot;&gt;@brianpopow&lt;/a&gt; for investigating and &lt;a href=&quot;https://github.com/SixLabors/ImageSharp/pull/591&quot; target=&quot;_blank&quot;&gt;fixing&lt;/a&gt; hardly reproducible issues related to JIT code generation bugs&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+	</entry>
+	
+	<entry>
+		<title>Beta 3 Is A Magic Number</title>
+		<link href="https://sixlabors.com/posts/beta-3-is-a-magic-number/"/>
+		<updated>2018-03-28T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/beta-3-is-a-magic-number/</id>
+		<content type="html">&lt;div class=&quot;ratio ratio-16x9&quot;&gt;
+&lt;iframe src=&quot;https://www.youtube.com/embed/aU4pyiB-kq0?rel=0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen=&quot;&quot;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;p&gt;It&#39;s been four months since our last beta and we&#39;ve been very, very busy. Since our last release we have.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Created API documentation and additional articles to help developers work with the library.&lt;/li&gt;
+&lt;li&gt;Introduced a full memory management API that allows fine grained control of how ImageSharp manages large buffers.
+&lt;ul&gt;
+&lt;li&gt;For the default pooling memory management implementation we managed to halve the memory footprint of the library without significant loss in speed.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Made codecs easier to use. The performance of the Jpeg decoder is doubled since the first beta!&lt;/li&gt;
+&lt;li&gt;Introduced a new metadata-only decoding API &lt;a href=&quot;https://github.com/SixLabors/ImageSharp/pull/292#issuecomment-358265674&quot; target=&quot;_blank&quot;&gt;with the help of the community&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Introduced new affine transform methods that allow the composition of affine transforms.&lt;/li&gt;
+&lt;li&gt;Refactored all filters (Hue, Brightness, Saturation etc) to match the behaviour described in the W3C specification.&lt;/li&gt;
+&lt;li&gt;Introduced static instances of reusable algorithms for use as method parameters.&lt;/li&gt;
+&lt;li&gt;Refactored the namespaces to logical groups based on functionality.&lt;/li&gt;
+&lt;li&gt;Fixed the resampling processes to correctly blend semi-transparent output.&lt;/li&gt;
+&lt;li&gt;Many other performance improvements and bug fixes.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I&#39;ll talk about some of the bigger changes below. While you&#39;re reading that, download the updated package from &lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp/&quot; target=&quot;_blank&quot;&gt;Nuget&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;documentation.&quot;&gt;Documentation. &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-3-is-a-magic-number/#documentation.&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Our new documentation, built with DocFX, is hosted at &lt;a href=&quot;https://sixlabors.github.io/docs/&quot; target=&quot;_blank&quot;&gt;https://sixlabors.github.io/docs/&lt;/a&gt;. There you will find complete API documentation for all the SixLabors libraries plus additional articles describing the where&#39;s and what-how&#39;s of ImageProcessing.&lt;/p&gt;
+&lt;p&gt;Please bear in mind that this documentation is a work-in-progress, being very labor intensive to write. All pages offer edit links so please help out if you spot any errors!&lt;/p&gt;
+&lt;h2 id=&quot;memory-management&quot;&gt;Memory Management &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-3-is-a-magic-number/#memory-management&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;By default, ImageSharp uses ArrayPools for performance reasons, however, this behavior is fully configurable.&lt;br /&gt;
+All large buffers within the API are managed by the &lt;code&gt;MemoryManager&lt;/code&gt; implementation associated to &lt;code&gt;Configuration&lt;/code&gt; classes &lt;code&gt;MemoryManager&lt;/code&gt; property. We default to using &lt;code&gt;ArrayPoolMemoryManager&lt;/code&gt; in order to utilize the benefits of array pooling.&lt;/p&gt;
+&lt;p&gt;This means:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Less pressure on the GC (Garbage Collector), because buffers are being reused most of the time.&lt;/li&gt;
+&lt;li&gt;Reduced LOH (Large Object Heap) fragmentation.&lt;/li&gt;
+&lt;li&gt;When working with unclean buffers is acceptable, we can spare on array cleaning behavior also.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Pooling helps us to reduce CPU work and increase throughput by the cost of a larger memory footprint.&lt;/p&gt;
+&lt;h3 id=&quot;working-in-memory-constrained-environments&quot;&gt;Working in Memory Constrained Environments &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-3-is-a-magic-number/#working-in-memory-constrained-environments&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Sometimes having larger memory footprint is not an option. Let&#39;s mention a few cases:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;When horizontal scaling is achieved by having multiple memory constrained containers in a cloud environment.&lt;/li&gt;
+&lt;li&gt;Mobile applications.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Before scaling down pooling behavior because of unwanted &lt;code&gt;OutOfMemoryException&lt;/code&gt;&#39;s in a cloud or desktop environment, make sure that you are running your service in a 64 bit process.&lt;/p&gt;
+&lt;p&gt;There are several pre-defined factory methods to create an &lt;code&gt;ArrayPoolMemoryManager&lt;/code&gt; instance for memory constrained environments. For example &lt;code&gt;ArrayPoolMemoryManager.CreateWithModeratePooling&lt;/code&gt; might be suitable in most constrained situations:&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-c#&quot;&gt;Configuration.Default.MemoryManager = ArrayPoolMemoryManager.CreateWithModeratePooling();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Of course, you may also configure a &lt;code&gt;MemoryManager&lt;/code&gt; on your own &lt;code&gt;Configuration&lt;/code&gt; instance.&lt;/p&gt;
+&lt;h2 id=&quot;filters&quot;&gt;Filters &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-3-is-a-magic-number/#filters&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Filters were originally part of the SVG specification. However, when their usefulness became evident, W3C started working on adding some common filter effects to CSS as well.&lt;/p&gt;
+&lt;p&gt;In beta 3 we&#39;ve added filter methods by means of the &lt;code&gt;Matrix4x4&lt;/code&gt; struct found in &lt;code&gt;System.Numerics.Vectors&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;These methods match the behaviour of many CSS filters. You can use them to blur, brighten or saturate images among other things. They can be used alone or in combination with other filters.&lt;/p&gt;
+&lt;p&gt;One big advantage with using the filter matrix is that composite filters can be obtained by matrix multiplication; the order of multiplication determining the transformed output.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-c#&quot;&gt;using (var image = Image.Load(&amp;quot;in.png&amp;quot;))
+{
+    Matrix4x4 brightness = KnownFilterMatrices.CreateBrightnessFilter(0.9F);
+    Matrix4x4 hue = KnownFilterMatrices.CreateHueFilter(180F);
+    Matrix4x4 saturation = KnownFilterMatrices.CreateSaturateFilter(1.5F);
+    Matrix4x4 m = brightness * hue * saturation;
+
+    image.Mutate(i =&amp;gt; i.Filter(m));
+
+    image.Save(&amp;quot;out.png&amp;quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;In addition to the composable filters we have added convenience methods for each individual filter. For example:&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-c#&quot;&gt;image.Mutate(x =&amp;gt; x.Grayscale(GrayscaleMode.Bt709));
+
+image.Mutate(x =&amp;gt; x.Hue(-180F));
+
+image.Mutate(x =&amp;gt; x.Brightness(0.9F));
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Additional methods can be found in the API documentation.&lt;/p&gt;
+&lt;h2 id=&quot;affine-transforms&quot;&gt;Affine Transforms &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-3-is-a-magic-number/#affine-transforms&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;In geometry, an affine transformation is a function between affine spaces which preserves points, straight lines and planes. Also, sets of parallel lines remain parallel after an affine transformation. An affine transformation does not necessarily preserve angles between lines or distances between points, though it does preserve ratios of distances between points lying on a straight line.&lt;/p&gt;
+&lt;p&gt;Translation, scaling, rotation, and skewing are all classified as affine transforms.&lt;/p&gt;
+&lt;p&gt;In beta 3 we&#39;ve added affine transformation methods by means of the &lt;code&gt;Matrix3x2&lt;/code&gt; struct found in &lt;code&gt;System.Numerics.Vectors&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;As with filters the big advantage with using the transform matrix is that composite transforms can be obtained by matrix multiplication; the order of multiplication determining the transformed output.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-c#&quot;&gt;using (var image = Image.Load(&amp;quot;in.png&amp;quot;))
+{
+    Matrix3x2 rotate = Matrix3x2Extensions.CreateRotationDegrees(45F);
+    var translate = Matrix3x2.CreateTranslation(5, 10);
+    var scale = Matrix3x2.CreateScale(.5F, .5F);
+    Matrix3x2 m = rotate * scale * translate;
+
+    image.Mutate(i =&amp;gt; i.Transform(m, KnownResamplers.Bicubic));
+
+    image.Save(&amp;quot;out.png&amp;quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;In addition to the freeform transforms we have added convenience methods for &lt;code&gt;Rotate&lt;/code&gt; and &lt;code&gt;Skew&lt;/code&gt; with multiple overloads, that maintain the center point of the transformed image and automatically adjust the output image dimensions to fit.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-c#&quot;&gt;image.Mutate(x =&amp;gt; x.Rotate(45F));
+
+image.Mutate(x =&amp;gt; x.Skew(-20F, 10F));
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;All our transform methods have multiple overloads and accept the same &lt;code&gt;IResampler&lt;/code&gt; implementation as &lt;code&gt;Resize&lt;/code&gt; to determine the resampling filter to assign during processing.&lt;/p&gt;
+&lt;h2 id=&quot;metadata-only-decoding&quot;&gt;Metadata-only decoding &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-3-is-a-magic-number/#metadata-only-decoding&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Our new feature is very similar to &lt;code&gt;magick identify&lt;/code&gt; from &lt;a href=&quot;https://www.imagemagick.org/script/identify.php&quot; target=&quot;_blank&quot;&gt;ImageMagick&lt;/a&gt;. To enable work with metadata-only results the types &lt;a href=&quot;https://sixlabors.github.io/docs/api/ImageSharp/SixLabors.ImageSharp.IImageInfo.html&quot; target=&quot;_blank&quot;&gt;&lt;code&gt;IImageInfo&lt;/code&gt;&lt;/a&gt; and &lt;a href=&quot;https://sixlabors.github.io/docs/api/ImageSharp/SixLabors.ImageSharp.Formats.PixelTypeInfo.html&quot; target=&quot;_blank&quot;&gt;&lt;code&gt;PixelTypeInfo&lt;/code&gt;&lt;/a&gt; have been itroduced:&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-C#&quot;&gt;using (Stream stream = OpenMyStream())
+{
+    IImageInfo info = Image.Identify(stream);
+    Console.WriteLine(&amp;quot;bits/pixel: &amp;quot;  + info.PixelType.BitsPerPixel);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h2 id=&quot;roadmap&quot;&gt;RoadMap &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-3-is-a-magic-number/#roadmap&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;All things going to plan this should be the last beta. We&#39;re very pleased with the shape and robustness of the API and we are not planning on making any more large-scale changes. We shall be concentrating now on bug fixes and performance improvements.&lt;/p&gt;
+&lt;p&gt;We will however be considering:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Projective non-affine transforms (Tilt, Warp)&lt;/li&gt;
+&lt;li&gt;Non-Rgb-based &lt;code&gt;TPixel&lt;/code&gt; implementations (Cmyk, CieLab etc)&lt;/li&gt;
+&lt;li&gt;Adding a full suite of colorspace conversion algorithms&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;you-can-help&quot;&gt;You Can Help &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-3-is-a-magic-number/#you-can-help&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;ImageSharp is fully open source and built for the community at large. You can help us reach v1.0&lt;/p&gt;
+&lt;p&gt;We had some fantastic help over the last four months from several community members, I&#39;d like to shout out to, in no particular order:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/xakep139&quot; target=&quot;_blank&quot;&gt;Nikita Balabaev&lt;/a&gt; and &lt;a href=&quot;https://github.com/denisivan0v&quot; target=&quot;_blank&quot;&gt;Denis Ivanov&lt;/a&gt; for building the MetaData API&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/rytmis&quot; target=&quot;_blank&quot;&gt;Lauri Kotilainen&lt;/a&gt; for assisting in the build of the new Memory Management API&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/vpenades&quot; target=&quot;_blank&quot;&gt;Vicente Penades&lt;/a&gt; for pushing us to produce correct resampling output and providing the best test images imaginable.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/iamcarbon&quot; target=&quot;_blank&quot;&gt;Jason Nelson&lt;/a&gt; for continued support and some brilliant optimization refactorings.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If I&#39;ve missed you out here (I deeply apologise if I have) please has a good growl at at me in our &lt;a href=&quot;https://gitter.im/ImageSharp/General&quot; target=&quot;_blank&quot;&gt;Gitter Channel&lt;/a&gt; and I&#39;ll add you to the list.&lt;/p&gt;
+&lt;p&gt;We are always looking for assistance optimizing our code so if you&#39;ve got performance chops please get in touch.&lt;/p&gt;
+&lt;p&gt;Additionally we&#39;ve got plenty of tickets that you can help with and we&#39;d love some help checking our spelling and grammar in the documentation, it doesn&#39;t matter how little or how much you can offer, we really appreciate every bit of assistance.&lt;/p&gt;
+&lt;p&gt;You can also really help us by downloading and testing the libraries. We really want to deliver something that is not only performant and robust, but also extremely usable.&lt;/p&gt;
+&lt;p&gt;Enjoy!&lt;/p&gt;
+</content>
+	</entry>
+	
+	<entry>
+		<title>Announcing ImageSharp Beta 1</title>
+		<link href="https://sixlabors.com/posts/announcing-imagesharp-beta-1/"/>
+		<updated>2017-09-15T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/announcing-imagesharp-beta-1/</id>
+		<content type="html">&lt;p&gt;&lt;img src=&quot;https://sixlabors.com/img/cheers.jpg&quot; alt=&quot;Leonardo Dicaprio from the Great Gatsby saying cheers&quot; class=&quot;img-fluid&quot; /&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;quot;O frabjous day! Callooh! Callay!&amp;quot; He chortled in his joy.&lt;/p&gt;
+&lt;figcaption&gt;&lt;cite&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Through_the_Looking-Glass&quot; target=&quot;_blank&quot;&gt;Through the Looking-Glass, and What Alice Found There (Lewis Carroll 1871)&lt;/a&gt;&lt;/cite&gt;&lt;/figcaption&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;I&#39;m brimming with excitement writing this blog post; it&#39;s a truly fantastic moment for the ImageSharp team,&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;We&#39;ve released our first beta!!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;With over 2 1/2 years of development, 4,400+ commits, and the formation of Six Labors from a dedicated team of developers, ImageSharp has come a very long way. I&#39;m immensly proud of everyone involved and would like to thank the community at large for sticking with us for such a long time.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;We&#39;ve built the better part of a full managed 2D Graphics API that is truly cross-platform.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Let that sink in for a moment... Amazing!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Let&#39;s have a quick look at what we&#39;ve delivered so far.&lt;/p&gt;
+&lt;h2 id=&quot;the-current-state-of-play&quot;&gt;The Current State of Play &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-beta-1/#the-current-state-of-play&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;ImageSharp is split into three major libraries:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp/&quot; target=&quot;_blank&quot;&gt;ImageSharp&lt;/a&gt;&lt;/strong&gt; - Color and image primitives, formats, filters, transforms and other standard algorithms&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp.Drawing/&quot; target=&quot;_blank&quot;&gt;ImageSharp.Drawing&lt;/a&gt;&lt;/strong&gt; - Image, shape, and line drawing primitives and algorithms&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp.Web/&quot; target=&quot;_blank&quot;&gt;ImageSharp.Web&lt;/a&gt;&lt;/strong&gt; - Extensible middleware for &lt;a href=&quot;http://asp.net/&quot; target=&quot;_blank&quot;&gt;ASP.NET&lt;/a&gt; Core projects that allows processing and caching of images&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Without the constraints of &lt;code&gt;System.Drawing&lt;/code&gt; We have been able to develop an API that is much more flexible, easier to code against, and much, much less prone to memory leaks when consuming.&lt;/p&gt;
+&lt;h3 id=&quot;the-imagesharp-api&quot;&gt;The ImageSharp API &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-beta-1/#the-imagesharp-api&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;The API centers around a single generic image class. &lt;code&gt;Image&amp;lt;TPixel&amp;gt;&lt;/code&gt; where &lt;code&gt;TPixel&lt;/code&gt; can be one of &lt;a href=&quot;https://github.com/SixLabors/ImageSharp/tree/master/src/ImageSharp/PixelFormats&quot; target=&quot;_blank&quot;&gt;many supported pixel formats&lt;/a&gt;. The generic nature of this design allows excellent flexibility when working with the different formats with each method format-agnostic.&lt;/p&gt;
+&lt;p&gt;You want &lt;code&gt;Bgr24&lt;/code&gt;? Use &lt;code&gt;Image&amp;lt;Bgr24&amp;gt;&lt;/code&gt;! &lt;code&gt;Alpha8&lt;/code&gt;? Use &lt;code&gt;Image&amp;lt;Alpha8&amp;gt;&lt;/code&gt;, nice and easy!&lt;/p&gt;
+&lt;p&gt;Many common operations have been added to our API and we&#39;ve designed it to allow these to be performed simply but with great  flexibility .&lt;/p&gt;
+&lt;p&gt;Check out this example resizing and transforming the colors of a jpeg:&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;// Image.Load(string path) is a shortcut for our default type. 
+// Other pixel formats use Image.Load&amp;lt;TPixel&amp;gt;(string path)) or one of the many other available overloads.
+using (Image&amp;lt;Rgba32&amp;gt; image = Image.Load(&amp;quot;foo.jpg&amp;quot;))
+{
+    image.Mutate(ctx =&amp;gt; ctx
+         .Resize(image.Width / 2, image.Height / 2)
+         .Grayscale());
+    image.Save(&amp;quot;bar.jpg&amp;quot;); // Automatic encoder selected based on extension.
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h3 id=&quot;processing-images-with-mutate%2Fclone-and-extension-methods&quot;&gt;Processing Images with Mutate/Clone and Extension Methods &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-beta-1/#processing-images-with-mutate%2Fclone-and-extension-methods&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;We&#39;ve got the API pretty much locked down but there&#39;s a fair amount of cheese moving from the previous alphas. (We apologise for that and salute early testers - You Rock!) The greatest of these changes is moving all our fluent image processing methods to two main operations: &lt;code&gt;Mutate&lt;/code&gt; and &lt;code&gt;Clone&lt;/code&gt;:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;Mutate&lt;/code&gt; applies a chain of operations on the original image, changing it&#39;s state:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;image.Mutate(ctx =&amp;gt; ctx.Operation1().Operation2() ...)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;&lt;code&gt;Clone&lt;/code&gt; creates a clone of the original image with subsequent operations applied to the new instance:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using (Image&amp;lt;Rgba32&amp;gt; cloneImage = image.Clone(ctx =&amp;gt; ctx.Operation1().Operation2() ...))
+{
+    // Operate on cloneImage
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;The original image is left untouched. &lt;em&gt;It&#39;s important to note, that you are responsible for the disposal of both images when creating a clone.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;We have a few good reasons behind this API decision:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Throughout the alpha API we realised that it wasn&#39;t obvious that the extension methods returned the same image instance. Many developers expected &lt;code&gt;image.Resize(...)&lt;/code&gt; to return a new resized image, leaving the original untouched. Now we have provided control over this behaviour by distinguishing &lt;code&gt;Mutate()&lt;/code&gt; and &lt;code&gt;Clone()&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;The new &lt;code&gt;Clone(...)&lt;/code&gt; operation enables optimizations behind the scenes. This might be very useful in use cases where both the original and the modified image instances should be preserved.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;For example, this operation ...&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;var mipmap1 = image.Clone(ctx =&amp;gt; ctx.Resize(image.Width / 2, image.Height / 2);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;... is cheaper than this one:&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;var mipmap1 = image.Clone();
+mipmap1.Mutate(ctx =&amp;gt; ctx.Resize(image.Width / 2, image.Height / 2));
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;With extension methods operating on &lt;code&gt;IImageProcessingContext&amp;lt;T&amp;gt;&lt;/code&gt; we are able to use the same fluent methods with both Mutate and Clone semantics. There&#39;s a veritable smörgåsbord of methods to choose from, each designed to handle a full range of use cases.&lt;/p&gt;
+&lt;p&gt;This all means that there is much less noise around the main &lt;code&gt;Image&amp;lt;T&amp;gt;&lt;/code&gt; class now  and we think that&#39;s much better.&lt;/p&gt;
+&lt;p&gt;The API has also been designed to provide you the tools to allow you to implement your own algorithms and integrate the library into your own &lt;a href=&quot;https://github.com/mellinoe/veldrid&quot; target=&quot;_blank&quot;&gt;applications&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;direct-access-to-image-pixels&quot;&gt;Direct Access to Image Pixels &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-beta-1/#direct-access-to-image-pixels&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;During the alpha we introduced fast pixel manipulation API&#39;s utilizing &lt;a href=&quot;https://github.com/adamsitnik/adamsitnik.github.io/blob/master/_posts/2017-07-13-Span.md&quot; target=&quot;_blank&quot;&gt;&lt;code&gt;Span&amp;lt;T&amp;gt;&lt;/code&gt;, the new low level memory manipulation tool&lt;/a&gt;, via  &lt;code&gt;image.GetRowSpan(rowIdx)&lt;/code&gt; and &lt;code&gt;image.Pixels&lt;/code&gt;. However, we faced several issues from exposing these methods publicly, the most difficult to overcome being that &lt;a href=&quot;https://www.nuget.org/packages/System.Memory/&quot; target=&quot;_blank&quot;&gt;System.Memory&lt;/a&gt; will be in preview state until the 2.1 release of the .NET Standard.&lt;/p&gt;
+&lt;p&gt;As such, we decided to internalize all the functions exposing &lt;code&gt;Span&amp;lt;T&amp;gt;&lt;/code&gt; for now though we still have API&#39;s to directly access pixel data for most common use-cases:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;You can save pixels to a &lt;code&gt;byte[]&lt;/code&gt; buffer by calling &lt;code&gt;image.SavePixelData(bytes)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;You can manipulate individual pixels by using indexers on &lt;code&gt;Image&amp;lt;T&amp;gt;&lt;/code&gt; and &lt;code&gt;ImageFrame&amp;lt;T&amp;gt;&lt;/code&gt;. This is slower than writing Spans of rows, but still much faster than &lt;code&gt;System.Drawing&lt;/code&gt;&#39;s &lt;code&gt;GetPixel&lt;/code&gt;/&lt;code&gt;SetPixel&lt;/code&gt;!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We plan to reintroduce the &lt;code&gt;Span&amp;lt;T&amp;gt;&lt;/code&gt; methods as soon as the first official release of &lt;code&gt;System.Memory&lt;/code&gt; lands, providing a modern API for advanced users with low-level pixel manipulation needs.&lt;/p&gt;
+&lt;h3 id=&quot;image-formats&quot;&gt;Image Formats &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-beta-1/#image-formats&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Out of the box we support decoding and encoding of bmp, png, gif, and jpeg formats with tiff well underway. We&#39;ve provided increased functionality for several formats (animation, quantization, compression) and extensible endpoints for implementing your own image formats.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;For beta-1 we managed to solve all the most difficult issues affecting our Jpeg decoder:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Improved accuracy and standard-conformity. For most cases our output pixels are ~99.9% similar when compared to libjpeg-turbo output.&lt;br /&gt;
+&lt;em&gt;&lt;strong&gt;Update:&lt;/strong&gt; An accuracy bug has been managed to sneak into &lt;code&gt;beta-1&lt;/code&gt;, will be fixed in the next release!&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;Significantly reduced memory consumption.&lt;/li&gt;
+&lt;li&gt;We are capable of decoding &lt;a href=&quot;https://github.com/SixLabors/ImageSharp/issues/159&quot; target=&quot;_blank&quot;&gt;many&lt;/a&gt; &lt;a href=&quot;https://github.com/SixLabors/ImageSharp/issues/178&quot; target=&quot;_blank&quot;&gt;kinds&lt;/a&gt; of broken Jpegs, and manage errors properly in the &lt;a href=&quot;https://github.com/SixLabors/ImageSharp/issues/214&quot; target=&quot;_blank&quot;&gt;worst cases&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;We achieved the previous points without performance drops! Although parallel processing is disabled in Jpeg decoder for now, single-core  performance has been improved since alpha releases thanks to several SIMD optimizations. We think that the lack of parallelism should not be an issue for server users, because throughput of high-load image processing services depends mostly on single core performance. However, multi-core Jpeg processing might be important for desktop/mobile users, so we plan to re-add it in future releases.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We&#39;ve also implemented support for EXIF and ICC metadata.&lt;/p&gt;
+&lt;h3 id=&quot;drawing&quot;&gt;Drawing &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-beta-1/#drawing&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;We support a full suite of shape, path and image drawing algorithms from complex polygons, simple straight lines, to image blending. All of which support the full range of &lt;a href=&quot;https://www.w3.org/TR/compositing-1/#porterduffcompositingoperators&quot; target=&quot;_blank&quot;&gt;Porter-Duff&lt;/a&gt; compositing operators&lt;/p&gt;
+&lt;p&gt;Check out this example of loading an image, using the drawing API to draw a rectangle and blend it over the source images using the &lt;code&gt;source&lt;/code&gt; blending mode. This will generate an image that looks like a frame with the outer edge 10 pixels from the source image.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using (Image&amp;lt;Rgba32&amp;gt; image = Image.Load(&amp;quot;foo.jpg&amp;quot;))
+{
+    var borderSize = 10;
+    image.Mutate(ctx =&amp;gt; ctx
+         .Fill(Rgba32.Transparent,
+           new RectangleF(borderSize, borderSize, image.Width - (borderSize * 2), image.Height - (borderSize * 2)), 
+           new GraphicsOptions(true)
+           {
+               BlenderMode = PixelBlenderMode.Src // Enforces that any part of this shape that has color is punched out of the background
+           }));
+    image.Save(&amp;quot;bar.jpg&amp;quot;); // Automatic encoder selected based on extension.
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h2 id=&quot;so-what&#39;s-next%3F&quot;&gt;So What&#39;s Next? &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-beta-1/#so-what&#39;s-next%3F&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Future work will come at a much faster cadence. We feel like we&#39;ve done most of the difficult work now and will be able to concentrate on performance, bug fixes, and API tweaks.&lt;/p&gt;
+&lt;h3 id=&quot;roadmap&quot;&gt;Roadmap &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-beta-1/#roadmap&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;The latest planned date for a v1.0 Final release is Q1 2018. This lines up with the scheduled release date of &lt;a href=&quot;https://github.com/dotnet/core/blob/master/roadmap.md&quot; target=&quot;_blank&quot;&gt;Net Standard 2.1&lt;/a&gt; We&#39;re lining up with that release as we want to introduce fast API endpoints utilizing the &lt;code&gt;System.Memory&lt;/code&gt; classes. If we are able to release before then we will do.&lt;/p&gt;
+&lt;p&gt;In the interim we will:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Perform optimization of all our image formats introducing SIMD where required&lt;/li&gt;
+&lt;li&gt;Add missing features where we can to our image formats&lt;/li&gt;
+&lt;li&gt;Perform optimization on any manipulations algorithms where required&lt;/li&gt;
+&lt;li&gt;Implement any missing sanitation code&lt;/li&gt;
+&lt;li&gt;Expose a full suite of ColorSpace conversion algorithms&lt;/li&gt;
+&lt;li&gt;Tweak public APIs to ensure they are as usable as possible&lt;/li&gt;
+&lt;li&gt;Apply any bug fixes.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Additionaly we shall create full API documentation for the library as well as and expanded set of sample projects within the Github repository to demonstrate the functionality we offer.&lt;/p&gt;
+&lt;h2 id=&quot;you-can-help&quot;&gt;You Can Help &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-beta-1/#you-can-help&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;ImageSharp is fully open source and built for the community at large. You can help us reach v1.0&lt;/p&gt;
+&lt;p&gt;We are always looking for assistance optimizing our code so if you&#39;ve got performance chops please get in touch.&lt;/p&gt;
+&lt;p&gt;Additionaly we&#39;ve got plenty of &lt;a href=&quot;https://github.com/SixLabors/ImageSharp/issues?q=is%3Aissue+is%3Aopen+label%3Aup-for-grabs&quot; target=&quot;_blank&quot;&gt;&lt;/a&gt; tickets that you can help with and we&#39;d love some help getting documentation together, it doesn&#39;t matter how little or how much you can offer, we really appreciate every bit of assistance.&lt;/p&gt;
+&lt;p&gt;You can also really help us by downloading and testing the libraries. We really want to deliver something that is not only performant and robust, but also extremely useable.&lt;/p&gt;
+&lt;p&gt;Cheers!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;P.S. Follow us on &lt;a href=&quot;http://twitter.com/sixlabors&quot; target=&quot;_blank&quot;&gt;Twitter&lt;/a&gt;!&lt;/strong&gt;&lt;/p&gt;
+</content>
+	</entry>
+	
+	<entry>
+		<title>A Taste of Things to Come.</title>
+		<link href="https://sixlabors.com/posts/a-taste-of-things-to-come/"/>
+		<updated>2017-06-21T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/a-taste-of-things-to-come/</id>
+		<content type="html">&lt;p&gt;&lt;img src=&quot;https://sixlabors.com/img/professor-farnsworth-good-news.jpg&quot; alt=&quot;Professor Farnsworth spreading the good news&quot; class=&quot;img-fluid&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;I&#39;m really happy to be able to publish this blogpost&lt;/strong&gt;; it&#39;s been something I&#39;ve wanted to announce for a few weeks now.&lt;/p&gt;
+&lt;p&gt;As many of you know, since .NET Core went open source, I&#39;ve been building a library called ImageSharp. (cross platform 2D graphics library, all that jazz). What started as a crazy idea, like the proverbial acorn, has blossomed into something much bigger and better...&lt;/p&gt;
+&lt;h2 id=&quot;introducing-six-labors&quot;&gt;&lt;a href=&quot;https://github.com/SixLabors&quot; target=&quot;_blank&quot;&gt;Introducing Six Labors&lt;/a&gt; &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/a-taste-of-things-to-come/#introducing-six-labors&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Six Labors is an organisation concentrating the combined talents of &lt;a href=&quot;https://twitter.com/tocsoft&quot; target=&quot;_blank&quot;&gt;Scott Williams&lt;/a&gt;, &lt;a href=&quot;https://twitter.com/antonfrv&quot; target=&quot;_blank&quot;&gt;Anton Firsov&lt;/a&gt;, &lt;a href=&quot;https://twitter.com/James_M_South&quot; target=&quot;_blank&quot;&gt;James Jackson-South (Me)&lt;/a&gt; and &lt;a href=&quot;https://twitter.com/MagickNET&quot; target=&quot;_blank&quot;&gt;Dirk Lemstra&lt;/a&gt; to bring into the world a suite of awesome, Open Source, .NET tools.&lt;/p&gt;
+&lt;p&gt;We think it&#39;s a fantastic way for us to ensure our work flourishes and helps us spread the workload a little.&lt;/p&gt;
+&lt;p&gt;Working with these chaps on ImageSharp has been an incredible experience for me and has allowed us to build something that really is world class. They each bring something special to the project and have taught me personally a huge amount about both programming and managing open source projects.&lt;/p&gt;
+&lt;p&gt;Making our collaboration official seemed like a no-brainer. We hope you agree.&lt;/p&gt;
+&lt;p&gt;As of today we have 3 main projects. You can find them all on &lt;a href=&quot;https://github.com/SixLabors&quot; target=&quot;_blank&quot;&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;imagesharp&quot;&gt;&lt;a href=&quot;https://sixlabors.com/products/imagesharp&quot;&gt;ImageSharp&lt;/a&gt; &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/a-taste-of-things-to-come/#imagesharp&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;ImageSharp is a fully featured, fully managed, cross-platform, 2D graphics API designed to allow the processing of images without the use of System.Drawing.&lt;/p&gt;
+&lt;p&gt;Built against .NET Standard 1.1 ImageSharp can be used in device, cloud, and embedded/IoT scenarios.&lt;/p&gt;
+&lt;h3 id=&quot;shapes&quot;&gt;&lt;a href=&quot;https://github.com/SixLabors/Shapes&quot; target=&quot;_blank&quot;&gt;Shapes&lt;/a&gt; &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/a-taste-of-things-to-come/#shapes&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Shapes is a 2D polygon manipulation and interrogation library written in c# and targets .NET Standard 1.1  making it entirely cross-platform and will run on everything from android phone, to windows desktops, to Linux servers and everything in between.&lt;/p&gt;
+&lt;p&gt;Shapes is currently still in alpha but is being used by &lt;a href=&quot;https://sixlabors.com/products/imagesharp&quot;&gt;ImageSharp&lt;/a&gt;  for its line and vector drawing code.&lt;/p&gt;
+&lt;h3 id=&quot;fonts&quot;&gt;&lt;a href=&quot;https://sixlabors.com/products/fonts&quot;&gt;Fonts&lt;/a&gt; &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/a-taste-of-things-to-come/#fonts&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Fonts is an true type/woff compatible font loading library written in c# and targets  .NET Standard 1.1 making it entirely cross-platform. This means it will run on everything from Android phone, to Windows desktops, to Linux servers and everything in between.&lt;/p&gt;
+&lt;p&gt;Fonts provides text measuring, layout, and abstracted rendering systems. You just need to plugin your own rasterizer (like &lt;a href=&quot;https://sixlabors.com/products/imagesharp&quot;&gt;ImageSharp&lt;/a&gt;).&lt;/p&gt;
+&lt;h2 id=&quot;so-what&#39;s-next...&quot;&gt;So What&#39;s Next... &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/a-taste-of-things-to-come/#so-what&#39;s-next...&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Well... Actually I lied earlier. We&#39;ve still got to move ImageSharp into the organisation repo (We need to close a couple of PR&#39;s first) Once, we&#39;ve done that and a little cleanup we&#39;re going to push ImageSharp to Nuget along with the rest of our projects so you can download and experiment with it.&lt;/p&gt;
+&lt;p&gt;Eventually we&#39;re going to introduce support contracts for our libraries so you can save time on your projects with direct access to us.  (Think developer questions, architectural guidance, feature requests).&lt;/p&gt;
+&lt;p&gt;This site will become the go-to place for news, documentation for all our libraries so please bookmark and share this site and comment on our blogposts. We&#39;re building high quality software here that we want you to benefit from!&lt;/p&gt;
+&lt;p&gt;Cheers!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;P.S. Follow us on &lt;a href=&quot;http://twitter.com/sixlabors&quot; target=&quot;_blank&quot;&gt;Twitter&lt;/a&gt;!&lt;/strong&gt;&lt;/p&gt;
+</content>
+	</entry>
+</feed>

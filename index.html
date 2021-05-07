@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Six Labors</title>
+    <meta name="description" content="Six Labors products and information.">
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"/>
+    <link 
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
+      crossorigin="anonymous"/>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.7.2/build/styles/default.min.css"/>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/highlightjs-themes@1.0.0/monokai_sublime.min.css"/>
+    <link rel="stylesheet" href="/css/style.css">
+    
+    
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Six Labors">
+    <link rel="alternate" href="/feed/feed.json" type="application/json" title="Six Labors">
+  </head>
+  <body>
+    <header class="navbar navbar-expand-md sl-navbar">
+      <nav class="container-xxl flex-wrap flex-md-nowrap">
+        <a class="navbar-brand" href="/">
+          <img
+            src="/css/img/sixlabors.text.svg"
+            alt="Six Labors"
+            class="sl-brand"/>
+          <span class="visually-hidden">Six Labors</span>
+        </a>
+        <button
+          class="navbar-toggler collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#slNavbar"
+          aria-controls="slNavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            class="bi"
+            fill="currentColor"
+            viewBox="0 0 16 16">
+            <path
+              fill-rule="evenodd"
+              d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+            ></path>
+          </svg>
+        </button>
+        <div class="navbar-collapse collapse" id="slNavbar">
+          <ul class="navbar-nav flex-row flex-wrap sl-navbar-nav pt-2 py-md-0">
+              <li class="nav-item col-6 col-md-auto" aria-current="page">
+                <a 
+                  class="nav-link p-2" 
+                  href="/"
+                  >Home</a>
+              </li>
+              <li class="nav-item col-6 col-md-auto" >
+                <a 
+                  class="nav-link p-2" 
+                  href="/products/"
+                  >Products</a>
+              </li>
+              <li class="nav-item col-6 col-md-auto" >
+                <a 
+                  class="nav-link p-2" 
+                  href="/pricing/"
+                  >Pricing</a>
+              </li>
+              <li class="nav-item col-6 col-md-auto" >
+                <a 
+                  class="nav-link p-2" 
+                  href="https://docs.sixlabors.com"
+                   target="_blank" rel="noopener">Documentation</a>
+              </li>
+              <li class="nav-item col-6 col-md-auto" >
+                <a 
+                  class="nav-link p-2" 
+                  href="/posts/"
+                  >Blog</a>
+              </li>
+          </ul>
+
+          <hr class="d-md-none text-secondary"/>
+
+          <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+            <li class="nav-item col-6 col-md-auto">
+              <a
+                class="nav-link p-2"
+                href="https://github.com/sixlabors"
+                target="_blank"
+                rel="noopener">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  class="navbar-nav-svg d-inline-block align-text-top"
+                  viewBox="0 0 512 499.36"
+                  role="img">
+                  <title>GitHub</title>
+                  <path
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                    d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z"
+                  ></path>
+                </svg>
+                <span class="d-md-none ms-2">GitHub</span>
+              </a>
+            </li>
+            <li class="nav-item col-6 col-md-auto">
+              <a
+                class="nav-link p-2"
+                href="https://twitter.com/sixlabors"
+                target="_blank"
+                rel="noopener"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  class="navbar-nav-svg d-inline-block align-text-top"
+                  viewBox="0 0 512 416.32"
+                  role="img">
+                  <title>Twitter</title>
+                  <path
+                    fill="currentColor"
+                    d="M160.83 416.32c193.2 0 298.92-160.22 298.92-298.92 0-4.51 0-9-.2-13.52A214 214 0 0 0 512 49.38a212.93 212.93 0 0 1-60.44 16.6 105.7 105.7 0 0 0 46.3-58.19 209 209 0 0 1-66.79 25.37 105.09 105.09 0 0 0-181.73 71.91 116.12 116.12 0 0 0 2.66 24c-87.28-4.3-164.73-46.3-216.56-109.82A105.48 105.48 0 0 0 68 159.6a106.27 106.27 0 0 1-47.53-13.11v1.43a105.28 105.28 0 0 0 84.21 103.06 105.67 105.67 0 0 1-47.33 1.84 105.06 105.06 0 0 0 98.14 72.94A210.72 210.72 0 0 1 25 370.84a202.17 202.17 0 0 1-25-1.43 298.85 298.85 0 0 0 160.83 46.92"
+                  ></path>
+                </svg>
+                <span class="d-md-none ms-2">Twitter</span>
+              </a>
+            </li>
+            <li class="nav-item col-6 col-md-auto">
+              <a
+                class="nav-link p-2"
+                href="https://opencollective.com/sixlabors"
+                target="_blank"
+                rel="noopener">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                  class="navbar-nav-svg d-inline-block align-text-top"
+                  viewBox="0 0 40 41"
+                  role="img">
+                  <title>Open Collective</title>
+                  <path
+                    fill-opacity=".4"
+                    d="M32.8 21c0 2.4-.8 4.9-2 6.9l5.1 5.1c2.5-3.4 4.1-7.6 4.1-12 0-4.6-1.6-8.8-4-12.2L30.7 14c1.2 2 2 4.3 2 7z"
+                  ></path>
+                  <path
+                    d="M20 33.7a12.8 12.8 0 0 1 0-25.6c2.6 0 5 .7 7 2.1L32 5a20 20 0 1 0 .1 31.9l-5-5.2a13 13 0 0 1-7 2z"
+                  ></path>
+                </svg>
+                <span class="d-md-none ms-2">Open Collective</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main class="tmpl-home">
+      
+
+
+
+  <div class="masthead">
+    <div class="container">
+      <h1 class="mb-3">
+        Rapidly build cross-platform graphics applications with .NET
+      </h1>
+      <p class="lead mb-4">
+        At Six Labors we build modern, cross-platform, incredibly powerful yet beautifully simple graphics libraries designed to make image processing a breeze.
+      </p>
+      
+        <div class="d-flex flex-column flex-md-row">
+          <a href="https://docs.sixlabors.com"
+             class="btn btn-lg btn-primary mb-3 me-md-3"
+              target="_blank" rel="noopener"}>
+          Get started</a>
+        </div>
+      
+    </div>
+  </div>
+
+      <!-- Delete this message -->
+      
+      <!-- Stop deleting -->
+
+      
+<section>
+  <div class="container">
+    <h2 class="display-5 mb-4">Our Products</h2>
+    
+    <div class="row">
+  
+    <div class="col">
+      <div class="card product">
+        <img
+          src="/css/img/fonts.svg"
+          class="card-img-top"
+          alt="Fonts"/>
+        <div class="card-body">
+          <h5 class="card-title">Fonts</h5>
+          <p class="card-text">TrueType/Woff Loader and Renderer.</p>
+          <a href="/products/fonts/" class="btn btn-primary">Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div class="col">
+      <div class="card product">
+        <img
+          src="/css/img/imagesharp.drawing.svg"
+          class="card-img-top"
+          alt="ImageSharp.Drawing"/>
+        <div class="card-body">
+          <h5 class="card-title">ImageSharp.Drawing</h5>
+          <p class="card-text">2D polygon Manipulation and Drawing.</p>
+          <a href="/products/imagesharp-drawing/" class="btn btn-primary">Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div class="col">
+      <div class="card product">
+        <img
+          src="/css/img/imagesharp.web.svg"
+          class="card-img-top"
+          alt="ImageSharp.Web"/>
+        <div class="card-body">
+          <h5 class="card-title">ImageSharp.Web</h5>
+          <p class="card-text">ASP.NET Core Image Manipulation Middleware.</p>
+          <a href="/products/imagesharp-web/" class="btn btn-primary">Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div class="col">
+      <div class="card product">
+        <img
+          src="/css/img/imagesharp.svg"
+          class="card-img-top"
+          alt="ImageSharp"/>
+        <div class="card-body">
+          <h5 class="card-title">ImageSharp</h5>
+          <p class="card-text">Complete 2D Graphics.</p>
+          <a href="/products/imagesharp/" class="btn btn-primary">Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+</div>
+  </div>
+</section>
+<section>
+    <div class="container">
+        <h2 class="display-5 mb-4">Trusted by visionary teams</h2>
+        <div class="clients">
+            <div class="row">
+                <div class="col">
+                    <img class="img-fluid" alt="octopus deploy" src="/img/clients/octopus-deploy.svg">
+                </div>
+                <div class="col">
+                    <img class="img-fluid" alt="seismic" src="/img/clients/seismic.svg">
+                </div>
+                <div class="col">
+                    <img class="img-fluid" alt="pluralis" src="/img/clients/pluralis.png">
+                </div>
+                <div class="col">
+                    <img class="img-fluid" alt="condeco" src="/img/clients/condeco.svg">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <img class="img-fluid" alt="stormideas" src="/img/clients/storm-ideas.svg">
+                </div>
+                <div class="col">
+                    <img class="img-fluid" alt="peakinbox" src="/img/clients/peakinbox.svg">
+                </div>
+                <div class="col">
+                    <img class="img-fluid" alt="esmart systems" src="/img/clients/esmart.svg">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    </main>
+
+    <footer class="sl-footer p-3 p-md-5 mt-5 bg-light text-center text-sm-start">
+      <div class="container">
+        <ul class="sl-footer-links ps-0 mb-3">
+          <li class="d-inline-block">
+            <a href="https://github.com/sixlabors">GitHub</a>
+          </li>
+          <li class="d-inline-block ms-3">
+            <a href="https://twitter.com/sixlabors">Twitter</a>
+          </li>
+        </ul>
+        <p class="mb-0">Copyright Six Labors &copy;</p>
+        <hr/>
+        <img
+            src="/css/img/sixlabors.text.svg"
+            alt="Six Labors"
+            class="sl-brand"/>
+        <p>Proud members of the <a href="https://dotnetfoundation.org/" target="_blank" rel="noopener">.NET Foundation</a>.</p>
+      </div>
+    </footer>
+
+    <!-- Current page: / -->
+    <script 
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" 
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.7.2/build/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/dist/highlightjs-line-numbers.min.js"></script>
+    <script>
+      hljs.highlightAll();
+      hljs.initLineNumbersOnLoad({singleLine: true});
+    </script>
+  </body>
+</html>
