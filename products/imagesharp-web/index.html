@@ -241,9 +241,50 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
       </div>
       <div class="col order-md-first">
         <div class="frame">
-          <pre><code class="language-bash">{PATH_TO_YOUR_IMAGE}?width=300
+          <pre><code class="language-bash">// Resize
+{PATH_TO_YOUR_IMAGE}?width=300
 {PATH_TO_YOUR_IMAGE}?width=300&height=120&rxy=30,30
-{PATH_TO_YOUR_IMAGE}?width=50&height=50&rsampler=nearest&rmode=stretch</code></pre>
+{PATH_TO_YOUR_IMAGE}?width=50&height=50&rsampler=nearest&rmode=stretch
+
+// Format
+{PATH_TO_YOUR_IMAGE}?format=jpg
+{PATH_TO_YOUR_IMAGE}?format=gif
+{PATH_TO_YOUR_IMAGE}?format=png
+{PATH_TO_YOUR_IMAGE}?format=bmp
+{PATH_TO_YOUR_IMAGE}?format=tga</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h3 class="display-5">Designed for any environment</h3>
+        <p>
+          Our dependency injection based architecture allows you to easily swap out components to suit your business needs.
+        </p>
+      </div>
+      <div class="col">
+        <div class="frame">
+          <pre><code class="language-bash">PM > SixLabors.ImageSharp.Web.Providers.Azure</code></pre>
+        </div>
+        <div class="frame">
+          <pre><code class="language-c#">public void ConfigureServices(IServiceCollection services)
+{
+    services.AddImageSharp()
+            .Configure&lt;AzureBlobStorageCacheOptions&gt;(options =>
+            {
+                options.ConnectionString = {AZURE_CONNECTION_STRING};
+                options.ContainerName = {AZURE_CONTAINER_NAME};
+
+                // Optionally create the cache container on startup if not already created.
+                AzureBlobStorageCache.CreateIfNotExists(options, PublicAccessType.None);
+            })
+            .SetCache<AzureBlobStorageImageCache>();
+}
+          </code></pre>
         </div>
       </div>
     </div>
@@ -263,10 +304,12 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         </ul>
         <p class="mb-0">Copyright Six Labors &copy;</p>
         <hr/>
-        <img
+        <p>
+          <img
             src="/css/img/sixlabors.text.svg"
             alt="Six Labors"
             class="sl-brand"/>
+        </p>
         <p>Proud members of the <a href="https://dotnetfoundation.org/" target="_blank" rel="noopener">.NET Foundation</a>.</p>
       </div>
     </footer>
