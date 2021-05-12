@@ -370,6 +370,109 @@ using (Image&amp;lt;Rgba32&amp;gt; image = Image.Load&amp;lt;Rgba32&amp;gt;(&amp
 	</entry>
 	
 	<entry>
+		<title>Beta-Six Labors.</title>
+		<link href="https://sixlabors.com/posts/beta-six-labors/"/>
+		<updated>2019-01-26T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/beta-six-labors/</id>
+		<content type="html">&lt;p&gt;&lt;img src=&quot;https://sixlabors.com/img/beta6labors.jpg&quot; alt=&quot;Beta-Six Labors, brought to you by Dad Jokes Inc.&quot; class=&quot;img-fluid&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Beta-Six... Geddit.... Yeah, don&#39;t worry, I&#39;m not going to give up my day job just yet.... Anyway...&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&quot;imagesharp-beta-6-is-available-on-nuget&quot;&gt;ImageSharp beta 6 is available on &lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp/1.0.0-beta0006&quot; target=&quot;_blank&quot;&gt;Nuget&lt;/a&gt; &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-six-labors/#imagesharp-beta-6-is-available-on-nuget&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;It&#39;s been a long time coming, (beta-6 months, I&#39;m not sorry), but definitely well worth the wait. It&#39;s by far and away our finest release and very, very close to release candidate quality. There&#39;s been thousands of hours of development against the library to build you a best-in-class solution.&lt;/p&gt;
+&lt;h2 id=&quot;so-what&#39;s-new%3F&quot;&gt;So What&#39;s New? &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-six-labors/#so-what&#39;s-new%3F&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;What isn&#39;t! There&#39;s been a lot of improvements to since beta 5.&lt;/p&gt;
+&lt;h3 id=&quot;performance&quot;&gt;Performance &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-six-labors/#performance&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;From a performance persective a lot has happened under the hood to improve the snappiness of the library. We have:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Significantly sped-up our resizer by ~2.5x. On .NET Core 2.1  &lt;a href=&quot;https://github.com/SixLabors/ImageSharp/blob/068b2d3d1ce4ee98546d0be15c79043f46a2ee95/tests/ImageSharp.Benchmarks/Samplers/Resize.cs#L112&quot; target=&quot;_blank&quot;&gt;we now downscale images faster than System.Drawing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Reduced the amount of memory used during resizing by 30%. (Anton has a further cunning plan there for the release candidate)&lt;/li&gt;
+&lt;li&gt;Optimized the pixel conversion pipeline to ensure that all common pixel formats &lt;code&gt;Rgba32&lt;/code&gt;, &lt;code&gt;Rgb24&lt;/code&gt;, &lt;code&gt;Bgr32&lt;/code&gt;, &lt;code&gt;Bgr24&lt;/code&gt;, &lt;code&gt;Argb32&lt;/code&gt;, &lt;code&gt;Gray8&lt;/code&gt;, &lt;code&gt;Gray16&lt;/code&gt;  use the fastest possible path. This means that these additional formats are all first class citizens giving you maximum flexibility.&lt;/li&gt;
+&lt;li&gt;Further optimized our formats to give you faster decoding/encoding (notably jpeg decoding and gif encoding)&lt;/li&gt;
+&lt;li&gt;Maximized our use of &lt;code&gt;Span&amp;lt;T&amp;gt;&lt;/code&gt; and friends throughout the codebase to reduce unpooled allocations to near-zero.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There&#39;s more we can do once the System.Runtime.Intrinsics APIs are released but I can confidently say we are more than  a match for other libraries on platforms where SIMD is supported.&lt;/p&gt;
+&lt;h3 id=&quot;features&quot;&gt;Features &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-six-labors/#features&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;We&#39;ve also added a lot of new functionality to the library.&lt;/p&gt;
+&lt;p&gt;There&#39;s a new colorspace conversion API which can convert between &lt;a href=&quot;https://github.com/SixLabors/ImageSharp/tree/2849fd9c1dc19a7338235f6c33f4970e5a12dee3/src/ImageSharp/ColorSpaces&quot; target=&quot;_blank&quot;&gt;14 different colorspaces&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-c#&quot;&gt;var converter = new ColorSpaceConverter();
+var hsv = new Hsv(360, 1, 1);
+var rgb converter.ToRgb(hsv);  // Red 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;We&#39;ve added new API&#39;s for handling format specific metadata. This gives you the power to alter individual frames in a really simple manner. We actually uses these APIs internally to track meta when loading and saving an image to ensure the default encoding properties match the input.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code&gt;// Load and minipulate the metadata for an animated gif frame
+using(var image = Image.Load(&amp;quot;input.gif&amp;quot;)){
+    
+    var metaData = image.Frames[0].MetaData;
+    GifFrameMetaData gifMeta = metaData.GetFormatMetaData(GifFormat.Instance);
+    gifMeta.FrameDelay = 42;
+    gifMeta.ColorTableLength = 128;
+    gifMeta.DisposalMethod = GifDisposalMethod.RestoreToBackground;
+
+    image.Save(output.gif)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;We&#39;ve added two new pixel formats - &lt;code&gt;Gray8&lt;/code&gt;, and &lt;code&gt;Gray16&lt;/code&gt; which work well with the extended support we&#39;ve added for png encoding. We plan on adding grayscale encoding to jpeg for the release candidate also.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;.DrawImage()&lt;/code&gt; API now allows you to mix and match pixels formats.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-c#&quot;&gt;image&amp;lt;Rgba&amp;gt;.Mutate(x =&amp;gt; x.DrawImage( Image&amp;lt;Argb&amp;gt;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;We&#39;ve added two new fluent builder APIs for building affine and projective transforms. These builders automatically calculated the resultant canvas for you and rescale it accordingly to fit your new image.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-c#&quot;&gt;// Compose a rotation plus skew transform
+var affineBuilder = new AffineTransformBuilder();
+affineBuilder.AppendRotationDegrees(36F)
+             .AppendSkewDegrees(15F, 10F);
+
+image.Mutate(x =&amp;gt; x.Transform(affineBuilder));
+
+// You can also inspect the raw matrix.
+Matrix3x2 = affineBuilder.BuildMatrix(image.Size());
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;We&#39;ve also fleshed out support for handling different subtypes within image formats. Png now supports all configurations and Bmp can decode all known good Bmp configurations.&lt;/p&gt;
+&lt;h3 id=&quot;bug-fixes&quot;&gt;Bug Fixes &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-six-labors/#bug-fixes&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;There&#39;s new  fixes added to this release (though we had relatively few reported issues from beta 5) and we&#39;ve dramatically increased the number of unit tests (8280+) to ensure we don&#39;t introduce any new ones as we optimize further.&lt;/p&gt;
+&lt;p&gt;That&#39;s only a brief highlight of changes. The full changelog is &lt;a href=&quot;https://github.com/SixLabors/ImageSharp/releases/tag/v1.0.0-beta6&quot; target=&quot;_blank&quot;&gt;available here&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;special-thanks-to-regular-contributors&quot;&gt;Special thanks to regular contributors &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-six-labors/#special-thanks-to-regular-contributors&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Jason Nelson (&lt;a href=&quot;https://github.com/iamcarbon&quot; target=&quot;_blank&quot;&gt;@iamcarbon&lt;/a&gt;) - Code sanity, optimizations&lt;/li&gt;
+&lt;li&gt;Peter Wendorff &lt;a href=&quot;https://github.com/jongleur1983&quot; target=&quot;_blank&quot;&gt;@jongleur1983&lt;/a&gt; - Code sanity, optimizations&lt;/li&gt;
+&lt;li&gt;Vicente Penades (&lt;a href=&quot;https://github.com/vpenades&quot; target=&quot;_blank&quot;&gt;@vpenades&lt;/a&gt;) - Separating Color Blending from Alpha Composition&lt;/li&gt;
+&lt;li&gt;Brian Popow (&lt;a href=&quot;https://github.com/brianpopow&quot; target=&quot;_blank&quot;&gt;@brianpopow&lt;/a&gt;) - Better BMP support&lt;/li&gt;
+&lt;li&gt;Dan Manning (&lt;a href=&quot;https://github.com/dmanning23&quot; target=&quot;_blank&quot;&gt;@dmanning23&lt;/a&gt;) - AOT seeding for Xamarin iOS&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/devedse&quot; target=&quot;_blank&quot;&gt;@devedse&lt;/a&gt; - Png metadata&lt;/li&gt;
+&lt;li&gt;Stephan Vedder (&lt;a href=&quot;https://github.com/feliwir&quot; target=&quot;_blank&quot;&gt;@feliwir&lt;/a&gt;) - 12 bit Jpeg support&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;the-release-candidate-is-coming!&quot;&gt;The Release Candidate Is Coming! &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-six-labors/#the-release-candidate-is-coming!&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;There won&#39;t be a six month wait until the next release. We&#39;re very happy with the code quality of this beta and will be working hard to ship a release candidate before the end of &lt;strong&gt;Q1 2019&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;In the interim we&#39;ll focusing on further improving  memory usage and performance. I&#39;m personally going to make a commited  effort to add comprehensive documentation to cover common scenarios in addition to our &lt;a href=&quot;https://docs.sixlabors.com/api/index.html&quot; target=&quot;_blank&quot;&gt;API documentation&lt;/a&gt;. I invite anyone will and able to help out.&lt;/p&gt;
+&lt;h3 id=&quot;licensing-plans&quot;&gt;Licensing plans &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/beta-six-labors/#licensing-plans&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;ImageSharp and co are the culmination of over three years developmental effort made up of evenings and weekends. At SixLabors we strongly believe that we have developed a selection of products that are incredibly useful for the developer and business communities at large and as such should supported by those communities.&lt;/p&gt;
+&lt;p&gt;Donations don&#39;t pay the bills so we are embarking on a journey to license and sell a selection of our libraries.&lt;/p&gt;
+&lt;p&gt;As such, Beta 6 will be the last release we provide under Apache License. Upon releasing RC1 we will switch to a dual licensing model similar to the one &lt;a href=&quot;https://github.com/ServiceStack/ServiceStack/blob/master/license.txt&quot; target=&quot;_blank&quot;&gt;provided by ServiceStack&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We are still working on the details, so nothing is for sure but what you can expect is something like this:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ImageSharp&lt;/strong&gt;, &lt;strong&gt;ImageSharp.Drawing&lt;/strong&gt;, and &lt;strong&gt;&lt;a href=&quot;http://imagesharp.web/&quot; target=&quot;_blank&quot;&gt;ImageSharp.Web&lt;/a&gt;&lt;/strong&gt; will all be dual licensed under a &lt;strong&gt;AGPLv3/Commercial license&lt;/strong&gt;. The AGPLv3 license will come with exceptions which allow bundling the code alongside all well known open source licenses (Apache 2.0, MIT etc). Any projects seen as direct competition (Imaging SDKs) will not be able to utilize that exception.&lt;/p&gt;
+&lt;p&gt;The commercial license will apply to anyone that chooses not to open source any code which is derived from our APIs which is a direct violation of AGPLv3. Purchasing a commercial license will give the developer the right to bundle ImageSharp with their closed source codebase.&lt;/p&gt;
+&lt;p&gt;Currently we are planning to offer the following commercial license models:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;A subscription license, per developer, per year with unlimited usage. This would be renewable for a maximum of 3 years before you automatically receive a perpetual license for unlimited developers and usage.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A one time payment to receive an perpetual license for unlimited developers and usage.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;We will offer free commercial licenses for not-for-profit organizations and cheap licenses for indie developers.&lt;/p&gt;
+&lt;p&gt;We&#39;re gonna be cheap, almost painfully so, in order to hopefully not drive away users.&lt;/p&gt;
+&lt;p&gt;If you have any questions (eg. more details about pricing plans), please contact us on our &lt;a href=&quot;https://gitter.im/ImageSharp/General&quot; target=&quot;_blank&quot;&gt;gitter channel&lt;/a&gt;.&lt;/p&gt;
+</content>
+	</entry>
+	
+	<entry>
 		<title>Fantastic Beta Four</title>
 		<link href="https://sixlabors.com/posts/fantastic-beta-four/"/>
 		<updated>2018-05-26T00:00:00Z</updated>
