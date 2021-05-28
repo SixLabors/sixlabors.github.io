@@ -5,12 +5,44 @@
 	
 	<link href="https://sixlabors.com/feed/feed.xml" rel="self"/>
 	<link href="https://sixlabors.com/"/>
-	<updated>2020-09-18T00:00:00Z</updated>
+	<updated>2021-05-28T00:00:00Z</updated>
 	<id>https://sixlabors.com/</id>
 	<author>
 		<name>Your Name Here</name>
 		<email>youremailaddress@example.com</email>
 	</author>
+	
+	<entry>
+		<title>The benefits of simplified pricing</title>
+		<link href="https://sixlabors.com/posts/the-benefits-of-simplified-pricing/"/>
+		<updated>2021-05-28T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/the-benefits-of-simplified-pricing/</id>
+		<content type="html">&lt;div class=&quot;ratio ratio-16x9&quot;&gt;
+&lt;iframe src=&quot;https://www.youtube.com/embed/ZhIsAZO5gl0&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;em&gt;K.I.S.S.... Geddit?&lt;/em&gt; 😀&lt;/p&gt;
+&lt;p&gt;It&#39;s hard enough to build open source products for which customers want to buy support, but when your pricing structure acts as another hurdle holding potential customers back, you know you’ve got a problem.&lt;/p&gt;
+&lt;p&gt;When we launched the first &lt;a href=&quot;https://sixlabors.com/posts/announcing-imagesharp-10-release-candidate-1/&quot;&gt;release candidate for ImageSharp a year ago&lt;/a&gt;, we also launched a new license designed to give commercial users peace of mind. With that license we provided a collection of pricing options that covered five separate tiers and could be mixed and matched to what we thought would suit our customers needs. However, we quickly discovered that these pricing options were a fast moving train to complexity-ville and we found ourselves in a position where customers were frequently asking us questions before they could even understand how much a &lt;a href=&quot;https://sixlabors.com/pricing/license/&quot;&gt;Six Labors License with Commercial Support&lt;/a&gt; would cost them.&lt;/p&gt;
+&lt;h2 id=&quot;why-simplify-pricing%3F&quot;&gt;Why simplify pricing? &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/the-benefits-of-simplified-pricing/#why-simplify-pricing%3F&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;br /&gt;
+&lt;p&gt;&lt;img src=&quot;https://sixlabors.com/img/sixlabors-pricing.png&quot; alt=&quot;Six Labors pricing page&quot; class=&quot;img-fluid&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Our old pricing page wasn&#39;t ugly – in fact, we are really quite proud of the visual design of this section of the site but the number and complexity of licensing options was overwhelming. We knew we had to improve things to make it easier for our customers to make the right decision and be confident that they are getting the best value for money.&lt;/p&gt;
+&lt;p&gt;Simplifying our pricing strategy was the way to go.&lt;/p&gt;
+&lt;h2 id=&quot;so-what-has-changed%3F&quot;&gt;So what has changed? &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/the-benefits-of-simplified-pricing/#so-what-has-changed%3F&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;First off, what is staying the same? Our license and support promise is still the same. We will continue to provide excellent support with our fantastically permissive license. Our existing products will always remain open source and we&#39;ll always continue to do our best for the community and our customers.&lt;/p&gt;
+&lt;p&gt;To do that we&#39;ve reduced the number of options and the ability to mix and match purchases. We didn&#39;t realise the additional overheads mixing and matching was bringing to our clients purchasing departments and as a result nobody was using those options.&lt;/p&gt;
+&lt;p&gt;We&#39;ve introduced 3 simple licensing tiers:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Independent Developer&lt;/strong&gt; - Exactly as described, for independent developers who want to take advantage of our excellent support while keeping costs to an absolute minimum.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Boutique Agency&lt;/strong&gt; - For smaller digital agencies and software houses. These licenses are transferable meaning that they are not tied to individual developers but by head count. We understand that staff come and go and want to ensure that licensing maintenance overheads are kept to an absolute minimum.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Enterprise&lt;/strong&gt; - With no upper limit to the number of developers covered this option is perfect for larger companies with teams of developers.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;our-commitment&quot;&gt;Our Commitment &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/the-benefits-of-simplified-pricing/#our-commitment&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;We&#39;ll continue to talk to our customers and work with them to ensure their satisfaction. As we grow we want to bring you all along with us on our journey to develop the best graphics software in the .NET ecosystem. We&#39;ve got some really great stuff in the pipeline for our products and we&#39;re very excited to be able to share it with you all soon!&lt;/p&gt;
+&lt;p&gt;In the meantime &lt;a href=&quot;https://sixlabors.com/pricing/&quot;&gt;Check out our new pricing page&lt;/a&gt;.&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>Announcing ImageSharp.Web 1.0.0</title>
