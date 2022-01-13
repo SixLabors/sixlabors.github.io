@@ -203,13 +203,13 @@
 <p>ImageSharp is a new, fully featured, fully managed, cross-platform, 2D graphics library. Designed to simplify image processing, ImageSharp brings you an incredibly powerful yet beautifully simple API.</p>
 <p>ImageSharp is designed from the ground up to be flexible and extensible. The library provides API endpoints for common image processing operations and the building blocks to allow for the development of additional operations.</p>
 <p>Built against .NET Standard 1.3, ImageSharp can be used in device, cloud, and embedded/IoT scenarios.</p>
-<h4 id="what's-new-since-rc3">What's new since RC3 <a class="direct-link" href="#what's-new-since-rc3">#</a></h4>
+<h4 id="what's-new-since-rc3" tabindex="-1">What's new since RC3 <a class="direct-link" href="#what's-new-since-rc3">#</a></h4>
 <p>The biggest change that may affect early adopters of our new async API-s is the introduction of cancellation on those.<br>
 Code utilizing overloads of <code>Image.LoadAsync()</code>, <code>image.SaveAsync()</code> has to be recompiled against the new package.</p>
 <p>Read the <a href="https://github.com/SixLabors/ImageSharp/releases/tag/v1.0.0" target="_blank">release notes</a> for detailed release information.</p>
-<h2 id="getting-started">Getting Started <a class="direct-link" href="#getting-started">#</a></h2>
+<h2 id="getting-started" tabindex="-1">Getting Started <a class="direct-link" href="#getting-started">#</a></h2>
 <p>We've designed the ImageSharp API to be simple to use and extend with some awesome built-in functionality.</p>
-<h4 id="loading-and-saving-images">Loading and Saving Images <a class="direct-link" href="#loading-and-saving-images">#</a></h4>
+<h4 id="loading-and-saving-images" tabindex="-1">Loading and Saving Images <a class="direct-link" href="#loading-and-saving-images">#</a></h4>
 <p>ImageSharp provides several options for loading and saving images to cover different scenarios. The library automatically detects the source image format upon load and it is possible to dictate which image format to save an image pixel data to.</p>
 <div class="frame">
 <pre><code class="language-c#">using SixLabors.ImageSharp;
@@ -231,7 +231,7 @@ using (Image image = Image.Load(&quot;foo.jpg&quot;))
 } // Dispose - releasing memory into a memory pool ready for the next image you wish to process.
 </code></pre>
 </div>
-<h4 id="inititalizing-new-images">Inititalizing New Images <a class="direct-link" href="#inititalizing-new-images">#</a></h4>
+<h4 id="inititalizing-new-images" tabindex="-1">Inititalizing New Images <a class="direct-link" href="#inititalizing-new-images">#</a></h4>
 <p>Creating a new image is simple too.</p>
 <div class="frame">
 <pre><code class="language-c#">using SixLabors.ImageSharp;
@@ -250,7 +250,7 @@ using(var image = new Image&lt;Rgba32&gt;(width, height))
 </code></pre>
 </div>
 <p>There are more examples and full API docs to help you get started at <a href="https://docs.sixlabors.com" target="_blank">https://docs.sixlabors.com</a>; the documentation you see there is just a start. You can follow our progress at <a href="https://github.com/SixLabors/docs" target="_blank">docs</a> on GitHub.</p>
-<h2 id="the-imagesharp-journey">The ImageSharp Journey <a class="direct-link" href="#the-imagesharp-journey">#</a></h2>
+<h2 id="the-imagesharp-journey" tabindex="-1">The ImageSharp Journey <a class="direct-link" href="#the-imagesharp-journey">#</a></h2>
 <p>Around five years ago When .NET Core 1.0 was still in development there was a lot of negative feedback in the Microsoft .NET issue trackers regarding the lack of the System.Drawing namespace in the proposed framework.</p>
 <p>ImageSharp was started as a result of listening to that feedback with the dream of collaboratively building a fully featured, fully managed, cross-platform, 2D graphics API for the next generation of .NET applications.</p>
 <p>Today those namespaces have been added to the framework but with caviets. We still believe that ImageSharp is the smarter choice for the future, Microsoft agree...</p>
@@ -259,14 +259,14 @@ using(var image = new Image&lt;Rgba32&gt;(width, height))
 </blockquote>
 <p>We’d like to express our gratitude for everyone that has tried ImageSharp and has given us feedback. We know that thousands of you have been using the pre-1.0 product. Thanks! We’ve received a lot of feedback about design choices, user experience, performance, communication and other topics. We’ve tried our best to apply all of that feedback. The release is much better for it. We couldn’t have done it without you!</p>
 <p>If you haven't used ImageSharp before or haven’t used it in a while, now is a great moment to try it. You can enjoy the productivity and power of ImageSharp with no constraints, on any OS, with any tool and for any application. All of that fully open source, developed with the community.</p>
-<h2 id="the-future">The Future <a class="direct-link" href="#the-future">#</a></h2>
+<h2 id="the-future" tabindex="-1">The Future <a class="direct-link" href="#the-future">#</a></h2>
 <p>Today ImageSharp and accompanying projects are released under the permissive <a href="http://www.apache.org/licenses/LICENSE-2.0.html" target="_blank">Apache 2.0 license</a>. They are managed by Six Labors -  A company set up with the dream of ensuring the sustainable future of the projects. We're a member of the .NET Foundation and are working with them to improve the .NET Open Source ecosystem for both maintainers of projects and the companies that use them.</p>
 <p>That future, however, can only be ensured with the help and support of the .NET community either by <strong><a href="/pricing/">purchasing a Commercial Support License</a></strong> or by submitting code and documentation patches to the various <a href="https://github.com/SixLabors" target="_blank">Six Labors repositories</a>.</p>
 <p><strong>Without your support ImageSharp and co will go the way of other pioneering .NET projects like <a href="https://github.com/NancyFx/Nancy/issues/3010" target="_blank">NancyFX</a> and fade away into history.</strong></p>
 <p>But of course you'll help out... Why?</p>
 <p><img src="/img/heroes-thor.jpg" alt="Thor daying 'Because that's what heroes do'." class="img-fluid"></p>
 <p>From a roadmap perspective we'll continue to bring usability and performance enhancements to ImageSharp but the immediate focus will shift to bringing <a href="https://github.com/SixLabors/ImageSharp.Drawing" target="_blank">SixLabors.ImageSharp.Drawing</a>, <a href="https://github.com/SixLabors/ImageSharp.Web" target="_blank">SixLabors.ImageSharp.Web</a> and <a href="https://github.com/SixLabors/Fonts" target="_blank">SixLabors.Fonts</a> development up to a production ready standard. Any and all assistance there would be greatly appreciated.</p>
-<h2 id="closing">Closing <a class="direct-link" href="#closing">#</a></h2>
+<h2 id="closing" tabindex="-1">Closing <a class="direct-link" href="#closing">#</a></h2>
 <p>Thanks again for all the feedback and usage. It’s been a pleasure to build ImagSharp so far and to see so many people try it out; we really appreciate it. Please continue exploring the product and learning what it’s capable of.</p>
 
             <hr>

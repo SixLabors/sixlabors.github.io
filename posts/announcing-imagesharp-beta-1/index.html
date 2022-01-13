@@ -209,7 +209,7 @@
 <p><strong>We've built the better part of a full managed 2D Graphics API that is truly cross-platform.</strong></p>
 <p><strong>Let that sink in for a moment... Amazing!</strong></p>
 <p>Let's have a quick look at what we've delivered so far.</p>
-<h2 id="the-current-state-of-play">The Current State of Play <a class="direct-link" href="#the-current-state-of-play">#</a></h2>
+<h2 id="the-current-state-of-play" tabindex="-1">The Current State of Play <a class="direct-link" href="#the-current-state-of-play">#</a></h2>
 <p>ImageSharp is split into three major libraries:</p>
 <ul>
 <li><strong><a href="https://www.nuget.org/packages/SixLabors.ImageSharp/" target="_blank">ImageSharp</a></strong> - Color and image primitives, formats, filters, transforms and other standard algorithms</li>
@@ -217,7 +217,7 @@
 <li><strong><a href="https://www.nuget.org/packages/SixLabors.ImageSharp.Web/" target="_blank">ImageSharp.Web</a></strong> - Extensible middleware for <a href="http://ASP.NET" target="_blank">ASP.NET</a> Core projects that allows processing and caching of images</li>
 </ul>
 <p>Without the constraints of <code>System.Drawing</code> We have been able to develop an API that is much more flexible, easier to code against, and much, much less prone to memory leaks when consuming.</p>
-<h3 id="the-imagesharp-api">The ImageSharp API <a class="direct-link" href="#the-imagesharp-api">#</a></h3>
+<h3 id="the-imagesharp-api" tabindex="-1">The ImageSharp API <a class="direct-link" href="#the-imagesharp-api">#</a></h3>
 <p>The API centers around a single generic image class. <code>Image&lt;TPixel&gt;</code> where <code>TPixel</code> can be one of <a href="https://github.com/SixLabors/ImageSharp/tree/master/src/ImageSharp/PixelFormats" target="_blank">many supported pixel formats</a>. The generic nature of this design allows excellent flexibility when working with the different formats with each method format-agnostic.</p>
 <p>You want <code>Bgr24</code>? Use <code>Image&lt;Bgr24&gt;</code>! <code>Alpha8</code>? Use <code>Image&lt;Alpha8&gt;</code>, nice and easy!</p>
 <p>Many common operations have been added to our API and we've designed it to allow these to be performed simply but with great  flexibility .</p>
@@ -234,7 +234,7 @@ using (Image&lt;Rgba32&gt; image = Image.Load(&quot;foo.jpg&quot;))
 }
 </code></pre>
 </div>
-<h3 id="processing-images-with-mutate%2Fclone-and-extension-methods">Processing Images with Mutate/Clone and Extension Methods <a class="direct-link" href="#processing-images-with-mutate%2Fclone-and-extension-methods">#</a></h3>
+<h3 id="processing-images-with-mutate%2Fclone-and-extension-methods" tabindex="-1">Processing Images with Mutate/Clone and Extension Methods <a class="direct-link" href="#processing-images-with-mutate%2Fclone-and-extension-methods">#</a></h3>
 <p>We've got the API pretty much locked down but there's a fair amount of cheese moving from the previous alphas. (We apologise for that and salute early testers - You Rock!) The greatest of these changes is moving all our fluent image processing methods to two main operations: <code>Mutate</code> and <code>Clone</code>:</p>
 <ol>
 <li><code>Mutate</code> applies a chain of operations on the original image, changing it's state:</li>
@@ -273,7 +273,7 @@ mipmap1.Mutate(ctx =&gt; ctx.Resize(image.Width / 2, image.Height / 2));
 <p>With extension methods operating on <code>IImageProcessingContext&lt;T&gt;</code> we are able to use the same fluent methods with both Mutate and Clone semantics. There's a veritable smörgåsbord of methods to choose from, each designed to handle a full range of use cases.</p>
 <p>This all means that there is much less noise around the main <code>Image&lt;T&gt;</code> class now  and we think that's much better.</p>
 <p>The API has also been designed to provide you the tools to allow you to implement your own algorithms and integrate the library into your own <a href="https://github.com/mellinoe/veldrid" target="_blank">applications</a>.</p>
-<h3 id="direct-access-to-image-pixels">Direct Access to Image Pixels <a class="direct-link" href="#direct-access-to-image-pixels">#</a></h3>
+<h3 id="direct-access-to-image-pixels" tabindex="-1">Direct Access to Image Pixels <a class="direct-link" href="#direct-access-to-image-pixels">#</a></h3>
 <p>During the alpha we introduced fast pixel manipulation API's utilizing <a href="https://github.com/adamsitnik/adamsitnik.github.io/blob/master/_posts/2017-07-13-Span.md" target="_blank"><code>Span&lt;T&gt;</code>, the new low level memory manipulation tool</a>, via  <code>image.GetRowSpan(rowIdx)</code> and <code>image.Pixels</code>. However, we faced several issues from exposing these methods publicly, the most difficult to overcome being that <a href="https://www.nuget.org/packages/System.Memory/" target="_blank">System.Memory</a> will be in preview state until the 2.1 release of the .NET Standard.</p>
 <p>As such, we decided to internalize all the functions exposing <code>Span&lt;T&gt;</code> for now though we still have API's to directly access pixel data for most common use-cases:</p>
 <ul>
@@ -281,7 +281,7 @@ mipmap1.Mutate(ctx =&gt; ctx.Resize(image.Width / 2, image.Height / 2));
 <li>You can manipulate individual pixels by using indexers on <code>Image&lt;T&gt;</code> and <code>ImageFrame&lt;T&gt;</code>. This is slower than writing Spans of rows, but still much faster than <code>System.Drawing</code>'s <code>GetPixel</code>/<code>SetPixel</code>!</li>
 </ul>
 <p>We plan to reintroduce the <code>Span&lt;T&gt;</code> methods as soon as the first official release of <code>System.Memory</code> lands, providing a modern API for advanced users with low-level pixel manipulation needs.</p>
-<h3 id="image-formats">Image Formats <a class="direct-link" href="#image-formats">#</a></h3>
+<h3 id="image-formats" tabindex="-1">Image Formats <a class="direct-link" href="#image-formats">#</a></h3>
 <p>Out of the box we support decoding and encoding of bmp, png, gif, and jpeg formats with tiff well underway. We've provided increased functionality for several formats (animation, quantization, compression) and extensible endpoints for implementing your own image formats.</p>
 <p><strong>For beta-1 we managed to solve all the most difficult issues affecting our Jpeg decoder:</strong></p>
 <ul>
@@ -292,7 +292,7 @@ mipmap1.Mutate(ctx =&gt; ctx.Resize(image.Width / 2, image.Height / 2));
 <li>We achieved the previous points without performance drops! Although parallel processing is disabled in Jpeg decoder for now, single-core  performance has been improved since alpha releases thanks to several SIMD optimizations. We think that the lack of parallelism should not be an issue for server users, because throughput of high-load image processing services depends mostly on single core performance. However, multi-core Jpeg processing might be important for desktop/mobile users, so we plan to re-add it in future releases.</li>
 </ul>
 <p>We've also implemented support for EXIF and ICC metadata.</p>
-<h3 id="drawing">Drawing <a class="direct-link" href="#drawing">#</a></h3>
+<h3 id="drawing" tabindex="-1">Drawing <a class="direct-link" href="#drawing">#</a></h3>
 <p>We support a full suite of shape, path and image drawing algorithms from complex polygons, simple straight lines, to image blending. All of which support the full range of <a href="https://www.w3.org/TR/compositing-1/#porterduffcompositingoperators" target="_blank">Porter-Duff</a> compositing operators</p>
 <p>Check out this example of loading an image, using the drawing API to draw a rectangle and blend it over the source images using the <code>source</code> blending mode. This will generate an image that looks like a frame with the outer edge 10 pixels from the source image.</p>
 <div class="frame">
@@ -310,9 +310,9 @@ mipmap1.Mutate(ctx =&gt; ctx.Resize(image.Width / 2, image.Height / 2));
 }
 </code></pre>
 </div>
-<h2 id="so-what's-next%3F">So What's Next? <a class="direct-link" href="#so-what's-next%3F">#</a></h2>
+<h2 id="so-what's-next%3F" tabindex="-1">So What's Next? <a class="direct-link" href="#so-what's-next%3F">#</a></h2>
 <p>Future work will come at a much faster cadence. We feel like we've done most of the difficult work now and will be able to concentrate on performance, bug fixes, and API tweaks.</p>
-<h3 id="roadmap">Roadmap <a class="direct-link" href="#roadmap">#</a></h3>
+<h3 id="roadmap" tabindex="-1">Roadmap <a class="direct-link" href="#roadmap">#</a></h3>
 <p>The latest planned date for a v1.0 Final release is Q1 2018. This lines up with the scheduled release date of <a href="https://github.com/dotnet/core/blob/master/roadmap.md" target="_blank">Net Standard 2.1</a> We're lining up with that release as we want to introduce fast API endpoints utilizing the <code>System.Memory</code> classes. If we are able to release before then we will do.</p>
 <p>In the interim we will:</p>
 <ul>
@@ -325,7 +325,7 @@ mipmap1.Mutate(ctx =&gt; ctx.Resize(image.Width / 2, image.Height / 2));
 <li>Apply any bug fixes.</li>
 </ul>
 <p>Additionaly we shall create full API documentation for the library as well as and expanded set of sample projects within the Github repository to demonstrate the functionality we offer.</p>
-<h2 id="you-can-help">You Can Help <a class="direct-link" href="#you-can-help">#</a></h2>
+<h2 id="you-can-help" tabindex="-1">You Can Help <a class="direct-link" href="#you-can-help">#</a></h2>
 <p>ImageSharp is fully open source and built for the community at large. You can help us reach v1.0</p>
 <p>We are always looking for assistance optimizing our code so if you've got performance chops please get in touch.</p>
 <p>Additionaly we've got plenty of <a href="https://github.com/SixLabors/ImageSharp/issues?q=is%3Aissue+is%3Aopen+label%3Aup-for-grabs" target="_blank"></a> tickets that you can help with and we'd love some help getting documentation together, it doesn't matter how little or how much you can offer, we really appreciate every bit of assistance.</p>

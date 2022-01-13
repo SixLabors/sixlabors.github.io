@@ -200,11 +200,11 @@
 
           <p><img src="/img/beta6labors.jpg" alt="Beta-Six Labors, brought to you by Dad Jokes Inc." class="img-fluid"></p>
 <p><strong>Beta-Six... Geddit.... Yeah, don't worry, I'm not going to give up my day job just yet.... Anyway...</strong></p>
-<h1 id="imagesharp-beta-6-is-available-on-nuget">ImageSharp beta 6 is available on <a href="https://www.nuget.org/packages/SixLabors.ImageSharp/1.0.0-beta0006" target="_blank">Nuget</a> <a class="direct-link" href="#imagesharp-beta-6-is-available-on-nuget">#</a></h1>
+<h1 id="imagesharp-beta-6-is-available-on-nuget" tabindex="-1">ImageSharp beta 6 is available on <a href="https://www.nuget.org/packages/SixLabors.ImageSharp/1.0.0-beta0006" target="_blank">Nuget</a> <a class="direct-link" href="#imagesharp-beta-6-is-available-on-nuget">#</a></h1>
 <p>It's been a long time coming, (beta-6 months, I'm not sorry), but definitely well worth the wait. It's by far and away our finest release and very, very close to release candidate quality. There's been thousands of hours of development against the library to build you a best-in-class solution.</p>
-<h2 id="so-what's-new%3F">So What's New? <a class="direct-link" href="#so-what's-new%3F">#</a></h2>
+<h2 id="so-what's-new%3F" tabindex="-1">So What's New? <a class="direct-link" href="#so-what's-new%3F">#</a></h2>
 <p>What isn't! There's been a lot of improvements to since beta 5.</p>
-<h3 id="performance">Performance <a class="direct-link" href="#performance">#</a></h3>
+<h3 id="performance" tabindex="-1">Performance <a class="direct-link" href="#performance">#</a></h3>
 <p>From a performance persective a lot has happened under the hood to improve the snappiness of the library. We have:</p>
 <ul>
 <li>Significantly sped-up our resizer by ~2.5x. On .NET Core 2.1  <a href="https://github.com/SixLabors/ImageSharp/blob/068b2d3d1ce4ee98546d0be15c79043f46a2ee95/tests/ImageSharp.Benchmarks/Samplers/Resize.cs#L112" target="_blank">we now downscale images faster than System.Drawing</a></li>
@@ -214,7 +214,7 @@
 <li>Maximized our use of <code>Span&lt;T&gt;</code> and friends throughout the codebase to reduce unpooled allocations to near-zero.</li>
 </ul>
 <p>There's more we can do once the System.Runtime.Intrinsics APIs are released but I can confidently say we are more than  a match for other libraries on platforms where SIMD is supported.</p>
-<h3 id="features">Features <a class="direct-link" href="#features">#</a></h3>
+<h3 id="features" tabindex="-1">Features <a class="direct-link" href="#features">#</a></h3>
 <p>We've also added a lot of new functionality to the library.</p>
 <p>There's a new colorspace conversion API which can convert between <a href="https://github.com/SixLabors/ImageSharp/tree/2849fd9c1dc19a7338235f6c33f4970e5a12dee3/src/ImageSharp/ColorSpaces" target="_blank">14 different colorspaces</a>.</p>
 <div class="frame">
@@ -258,10 +258,10 @@ Matrix3x2 = affineBuilder.BuildMatrix(image.Size());
 </code></pre>
 </div>
 <p>We've also fleshed out support for handling different subtypes within image formats. Png now supports all configurations and Bmp can decode all known good Bmp configurations.</p>
-<h3 id="bug-fixes">Bug Fixes <a class="direct-link" href="#bug-fixes">#</a></h3>
+<h3 id="bug-fixes" tabindex="-1">Bug Fixes <a class="direct-link" href="#bug-fixes">#</a></h3>
 <p>There's new  fixes added to this release (though we had relatively few reported issues from beta 5) and we've dramatically increased the number of unit tests (8280+) to ensure we don't introduce any new ones as we optimize further.</p>
 <p>That's only a brief highlight of changes. The full changelog is <a href="https://github.com/SixLabors/ImageSharp/releases/tag/v1.0.0-beta6" target="_blank">available here</a>.</p>
-<h3 id="special-thanks-to-regular-contributors">Special thanks to regular contributors <a class="direct-link" href="#special-thanks-to-regular-contributors">#</a></h3>
+<h3 id="special-thanks-to-regular-contributors" tabindex="-1">Special thanks to regular contributors <a class="direct-link" href="#special-thanks-to-regular-contributors">#</a></h3>
 <ul>
 <li>Jason Nelson (<a href="https://github.com/iamcarbon" target="_blank">@iamcarbon</a>) - Code sanity, optimizations</li>
 <li>Peter Wendorff <a href="https://github.com/jongleur1983" target="_blank">@jongleur1983</a> - Code sanity, optimizations</li>
@@ -271,10 +271,10 @@ Matrix3x2 = affineBuilder.BuildMatrix(image.Size());
 <li><a href="https://github.com/devedse" target="_blank">@devedse</a> - Png metadata</li>
 <li>Stephan Vedder (<a href="https://github.com/feliwir" target="_blank">@feliwir</a>) - 12 bit Jpeg support</li>
 </ul>
-<h2 id="the-release-candidate-is-coming!">The Release Candidate Is Coming! <a class="direct-link" href="#the-release-candidate-is-coming!">#</a></h2>
+<h2 id="the-release-candidate-is-coming!" tabindex="-1">The Release Candidate Is Coming! <a class="direct-link" href="#the-release-candidate-is-coming!">#</a></h2>
 <p>There won't be a six month wait until the next release. We're very happy with the code quality of this beta and will be working hard to ship a release candidate before the end of <strong>Q1 2019</strong>.</p>
 <p>In the interim we'll focusing on further improving  memory usage and performance. I'm personally going to make a commited  effort to add comprehensive documentation to cover common scenarios in addition to our <a href="https://docs.sixlabors.com/api/index.html" target="_blank">API documentation</a>. I invite anyone will and able to help out.</p>
-<h3 id="licensing-plans">Licensing plans <a class="direct-link" href="#licensing-plans">#</a></h3>
+<h3 id="licensing-plans" tabindex="-1">Licensing plans <a class="direct-link" href="#licensing-plans">#</a></h3>
 <p>ImageSharp and co are the culmination of over three years developmental effort made up of evenings and weekends. At SixLabors we strongly believe that we have developed a selection of products that are incredibly useful for the developer and business communities at large and as such should supported by those communities.</p>
 <p>Donations don't pay the bills so we are embarking on a journey to license and sell a selection of our libraries.</p>
 <p>As such, Beta 6 will be the last release we provide under Apache License. Upon releasing RC1 we will switch to a dual licensing model similar to the one <a href="https://github.com/ServiceStack/ServiceStack/blob/master/license.txt" target="_blank">provided by ServiceStack</a>.</p>
