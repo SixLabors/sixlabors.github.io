@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Six Labors : ImageSharp joins the .NET foundation.</title>
-    <meta name="description" content="ImageSharp + DotNet Foundation = strong!">
+    <title>Six Labors : Announcing ImageSharp 2.0.0</title>
+    <meta name="description" content="ImageSharp 2 - Harder, Better, Faster, Stronger!">
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
       rel="stylesheet"
@@ -181,12 +181,12 @@
       <div class="masthead">
   <div class="container">
     <h1 class="mb-3">
-      ImageSharp joins the .NET foundation.
+      Announcing ImageSharp 2.0.0
     </h1>
     <p class="lead mb-4">
-      ImageSharp + DotNet Foundation = strong!
+      ImageSharp 2 - Harder, Better, Faster, Stronger!
     </p>
-    <div><a href="/tags/announcements/" class="post-tag btn btn-primary shadow">Announcements</a><a href="/tags/imagesharp/" class="post-tag btn btn-primary shadow">ImageSharp</a>
+    <div><a href="/tags/releases/" class="post-tag btn btn-primary shadow">Releases</a><a href="/tags/imagesharp/" class="post-tag btn btn-primary shadow">ImageSharp</a>
     </div>
   </div>
 </div>
@@ -196,26 +196,89 @@
     <div class= row>
       <div class="col-md-8">
         <article>
-          <time datetime="2019-05-03">03 May 2019</time>
+          <time datetime="2022-02-07">07 Feb 2022</time>
 
-          <p><img src="/img/dotnetfoundation-imagesharp.png" alt="ImageSharp + DotNet Foundation = strong!" class="img-fluid"></p>
-<h1 id="getting-strong-now...*" tabindex="-1">Getting Strong Now...* <a class="direct-link" href="#getting-strong-now...*">#</a></h1>
-<p>Today we’re really happy and excited to share that ImageSharp is joining the .NET foundation!</p>
-<p>This is a big deal to us but what does this mean for the future of ImageSharp?</p>
-<p>Great things! It’ll still be maintained and governed by the same hardworking band of crack coding commandos as before, but with the support and guidance from a vast array of experts across various fields from within the .NET Foundation.</p>
-<p>It's a match made in heaven, the sheer breadth of experiance available to us from within the Foundation can only benefit our project, and we make them look cool 😜</p>
-<p>Read more about ImageSharp joining on the .NET foundation <a href="https://dotnetfoundation.org/blog" target="_blank">blog</a>.</p>
-<h2 id="about-the-.net-foundation" tabindex="-1">About the .NET Foundation <a class="direct-link" href="#about-the-.net-foundation">#</a></h2>
-<p>The .NET Foundation is an independent organization created to foster innovation, which we believe starts with open development and collaboration. It's also a forum for community and commercial developers to broaden and strengthen the future of the .NET ecosystem.</p>
-<p>Learn more about the .NET foundation at <a href="https://dotnetfoundation.org" target="_blank">dotnetfoundation.org</a></p>
-<p>*You now have the Rocky theme stuck in your head. You're welcome...</p>
+          <div class="ratio ratio-16x9">
+<iframe src="https://www.youtube.com/embed/gAjR4_CbPpQ" allow="autoplay; encrypted-media;" allowfullscreen></iframe>
+</div>
+<p>We are very excited to announce the release of ImageSharp 2.0.0 final. You can <a href="https://www.nuget.org/packages/SixLabors.ImageSharp/2.0.0" target="_blank">download it today</a>.</p>
+<p>We've been putting this release together for a while but it's been well worth the wait. This is a MASSIVE release with some fantastic improvements.</p>
+<h2 id="what's-new-since-v1" tabindex="-1">What's new since V1 <a class="direct-link" href="#what's-new-since-v1">#</a></h2>
+<p>So many things. Too many to list!</p>
+<ul>
+<li>WebP support - People have been after this for a while! We provide comprehensive support for decoding and encoding WebP images.</li>
+<li>Tiff support - Comprehensive support for decoding and encoding Tiff images.</li>
+<li>Pbm support - Comprehensive support for decoding and encoding Pbm images.</li>
+<li>XMP metadata support.</li>
+<li>A complete overhaul of how we manage memory pooling with a new faster and much more efficient unmanaged memory allocator.</li>
+<li>Massive performance improvements for our Jpeg and Png formats.</li>
+<li>Massive performance improvements for our quantization algorithms.</li>
+<li>Various bug fixes and enhancements</li>
+</ul>
+<h4 id="breaking-changes" tabindex="-1">Breaking Changes <a class="direct-link" href="#breaking-changes">#</a></h4>
+<ul>
+<li>Png and Jpeg now decode to pixels formats representative of the encoded format when using the non-generic API. This was done to improve memory usage and remove some surprises for users.</li>
+<li>We've changed the way that underlying spans are accessed in high performance scenarios. This was done to improve memory safety.</li>
+<li>We've dropped the old NetStandard 1.3 target. This targeted frameworks not supported by Microsoft and was adding overhead to development.</li>
+</ul>
+<p>Read the <a href="https://github.com/SixLabors/ImageSharp/releases/tag/v2.0.0" target="_blank">release notes</a> for detailed release information.</p>
+<p>API documentation is available in our <a href="https://docs.sixlabors.com/" target="_blank">Docs site</a>.</p>
+<h2 id="performance" tabindex="-1">Performance <a class="direct-link" href="#performance">#</a></h2>
+<p>We've come a VERY long way since people started measuring our performance <a href="https://devblogs.microsoft.com/dotnet/net-core-image-processing/" target="_blank">back in 2017</a>. Back then we were about 3.5x slower than System.Drawing.</p>
+<p>Now... Well it's a very different picture.</p>
+<p>Here's the same benchmarks using ImageSharp V2. They're running on a four year old Surface Book 2 called Mjölnir with 16.0 GB of RAM.</p>
+<div class="frame">
+<pre><code class="language-bash">BenchmarkDotNet=v0.13.1.1693-nightly, OS=Windows 11 (10.0.22000.434/21H2)
+Intel Core i7-8650U CPU 1.90GHz (Kaby Lake R), 1 CPU, 8 logical and 4 physical cores
+.NET SDK=6.0.101
+  [Host]   : .NET 6.0.1 (6.0.121.56705), X64 RyuJIT
+  ShortRun : .NET 6.0.1 (6.0.121.56705), X64 RyuJIT
+
+Job=ShortRun  Arguments=/p:DebugType=portable  IterationCount=5
+LaunchCount=1  WarmupCount=5
+
+|                                Method |      Mean |     Error |   StdDev | Ratio | Allocated native memory | Native memory leak |     Gen 0 |     Gen 1 |     Gen 2 | Allocated | Alloc Ratio |
+|-------------------------------------- |----------:|----------:|---------:|------:|------------------------:|-------------------:|----------:|----------:|----------:|----------:|------------:|
+|   'System.Drawing Load, Resize, Save' | 494.34 ms | 20.543 ms | 3.179 ms |  1.00 |               11,376 KB |             738 KB |         - |         - |         - |  12.65 KB |        1.00 |
+|       'ImageSharp Load, Resize, Save' | 164.93 ms |  4.293 ms | 1.115 ms |  0.33 |                   10 KB |                  - |         - |         - |         - | 1493.8 KB |      118.10 |
+|      'ImageMagick Load, Resize, Save' | 521.40 ms |  3.979 ms | 0.616 ms |  1.05 |               61,408 KB |                  - |         - |         - |         - |  54.55 KB |        4.31 |
+|        'ImageFree Load, Resize, Save' | 338.20 ms |  2.969 ms | 0.771 ms |  0.68 |               49,137 KB |              58 KB | 6000.0000 | 6000.0000 | 6000.0000 |  94.82 KB |        7.50 |
+|      'MagicScaler Load, Resize, Save' |  85.87 ms |  0.621 ms | 0.096 ms |  0.17 |                3,088 KB |             178 KB |         - |         - |         - | 149.58 KB |       11.83 |
+| 'SkiaSharp Canvas Load, Resize, Save' | 303.41 ms |  3.607 ms | 0.937 ms |  0.61 |               69,710 KB |           1,662 KB |         - |         - |         - | 101.73 KB |        8.04 |
+| 'SkiaSharp Bitmap Load, Resize, Save' | 303.46 ms |  3.602 ms | 0.935 ms |  0.61 |               70,424 KB |             949 KB |         - |         - |         - |  87.66 KB |        6.93 |
+|          'NetVips Load, Resize, Save' | 167.79 ms | 18.510 ms | 4.807 ms |  0.34 |               28,786 KB |               0 KB |         - |         - |         - |  49.62 KB |        3.92 |
+
+// * Legends *
+  Mean                    : Arithmetic mean of all measurements
+  Error                   : Half of 99.9% confidence interval
+  StdDev                  : Standard deviation of all measurements
+  Ratio                   : Mean of the ratio distribution ([Current]/[Baseline])
+  Allocated native memory : Allocated native memory per single operation
+  Native memory leak      : Native memory leak size in byte.
+  Gen 0                   : GC Generation 0 collects per 1000 operations
+  Gen 1                   : GC Generation 1 collects per 1000 operations
+  Gen 2                   : GC Generation 2 collects per 1000 operations
+  Allocated               : Allocated memory per single operation (managed only, inclusive, 1KB = 1024B)
+  Alloc Ratio             : Allocated memory ratio distribution ([Current]/[Baseline])
+  1 ms                    : 1 Millisecond (0.001 sec)
+</code></pre>
+</div>
+<p>We're now 3x faster than System.Drawing 🚀. We're actually now the fastest cross platform library in the benchmark!</p>
+<p>This is the result of years of improvements to the library, measuring and optimizing bottlenecks to our processes. As we look forward we shall continue to optimize our code taking advantage of new .NET APIs and language improvements.</p>
+<h2 id="the-future" tabindex="-1">The Future <a class="direct-link" href="#the-future">#</a></h2>
+<p>We'll be publishing new releases over the next few days of all our libraries that depend on ImageSharp. That means a new major version <a href="https://github.com/SixLabors/ImageSharp.Web" target="_blank">SixLabors.ImageSharp.Web</a> and new betas of <a href="https://github.com/SixLabors/ImageSharp.Drawing" target="_blank">SixLabors.ImageSharp.Drawing</a> and <a href="https://github.com/SixLabors/Fonts" target="_blank">SixLabors.Fonts</a>. We'll be focussing very heavily on the latter two libraries to bring them up to Release Candidate status.</p>
+<p>Following that we'll start looking towards V3 where the focus will be on adopting the latest .NET runtimes and bringing high performance on as many platforms as possible.</p>
+<p>ImageSharp V2 is released under dual licenses:</p>
+<ul>
+<li><a href="/pricing/">Six Labors License</a> A permissive license that bring additional enterprise level support.</li>
+<li><a href="http://www.apache.org/licenses/LICENSE-2.0.html" target="_blank">Apache 2.0 license</a> AS-IS.</li>
+</ul>
+<h2 id="closing" tabindex="-1">Closing <a class="direct-link" href="#closing">#</a></h2>
+<p>Thanks again for all the feedback and usage. It's been a pleasure to build ImageSharp so far and to see so many people try it out; we really appreciate it. Please continue exploring the product and learning what it’s capable of.</p>
 
             <hr>
             <ul>
-                <li>Next: <a href="/posts/beta-7/">Beta 7.</a>
-                </li>
-              
-                <li>Previous: <a href="/posts/beta-six-labors/">Beta-Six Labors.</a>
+                <li>Previous: <a href="/posts/the-benefits-of-simplified-pricing/">The benefits of simplified pricing</a>
                 </li>
               
             </ul>
@@ -343,7 +406,7 @@
       </div>
     </footer>
 
-    <!-- Current page: /posts/imagesharp-joins-the-net-foundation/ -->
+    <!-- Current page: /posts/announcing-imagesharp-200/ -->
     <script 
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" 
       integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
