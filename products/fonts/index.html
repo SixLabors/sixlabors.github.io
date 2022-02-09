@@ -238,29 +238,28 @@
           Our Fonts API is unparalleled for it's ease of use; designed
           from the ground up to give you the tools you need with the minimum of effort.
 
-          Easily create custom font collections and we'll provide you with all the metrics required to render them.
+          Easily create custom font collections and we'll provide you with all the metrics and tooling required to render them.
         </p>
       </div>
       <div class="col order-md-first">
         <div class="frame">
           <pre><code class="language-c#">using SixLabors.Fonts;
 
-FontCollection collection = new FontCollection();
-collection.Install(&quot;path/to/font.ttf&quot;);
-collection.Install(&quot;path/to/font2.ttf&quot;);
-collection.Install(&quot;path/to/emojiFont.ttf&quot;);
-collection.InstallCollection(&quot;path/to/font.ttc&quot;);
+FontCollection collection = new();
+collection.Add(&quot;path/to/font.ttf&quot;);
+collection.Add(&quot;path/to/font2.ttf&quot;);
+collection.Add(&quot;path/to/emojiFont.ttf&quot;);
+collection.AddCollection(&quot;path/to/font.ttc&quot;);
 
 if(collection.TryFind(&quot;Font Name&quot;, out FontFamily family))
 if(collection.TryFind(&quot;Emoji Font Name&quot;, out FontFamily emojiFamily))
 {
-    Font font = family.Create(12, FontStyle.Italic);
-    RendererOptions options = new RendererOptions(font, dpi: 72)
+    Font font = family.CreateFont(12, FontStyle.Italic);
+    TextOptions options = new(font)
     {
-        ApplyKerning  = true,
         FallbackFontFamilies  = new []
         {
-            // will be used if a particular code point doesn&#39;t exist in
+            // Will be used if a particular code point doesn&#39;t exist in
             // the font passed into the constructor. (e.g. emoji)
             emojiFamily
         }
