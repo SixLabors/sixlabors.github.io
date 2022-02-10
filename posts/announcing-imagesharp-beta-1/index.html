@@ -218,12 +218,12 @@
 </ul>
 <p>Without the constraints of <code>System.Drawing</code> We have been able to develop an API that is much more flexible, easier to code against, and much, much less prone to memory leaks when consuming.</p>
 <h3 id="the-imagesharp-api" tabindex="-1">The ImageSharp API <a class="direct-link" href="#the-imagesharp-api">#</a></h3>
-<p>The API centers around a single generic image class. <code>Image&lt;TPixel&gt;</code> where <code>TPixel</code> can be one of <a href="https://github.com/SixLabors/ImageSharp/tree/master/src/ImageSharp/PixelFormats" target="_blank">many supported pixel formats</a>. The generic nature of this design allows excellent flexibility when working with the different formats with each method format-agnostic.</p>
+<p>The API centers around a single generic image class. <code>Image&lt;TPixel&gt;</code> where <code>TPixel</code> can be one of <a href="https://github.com/SixLabors/ImageSharp/tree/main/src/ImageSharp/PixelFormats" target="_blank">many supported pixel formats</a>. The generic nature of this design allows excellent flexibility when working with the different formats with each method format-agnostic.</p>
 <p>You want <code>Bgr24</code>? Use <code>Image&lt;Bgr24&gt;</code>! <code>Alpha8</code>? Use <code>Image&lt;Alpha8&gt;</code>, nice and easy!</p>
 <p>Many common operations have been added to our API and we've designed it to allow these to be performed simply but with great  flexibility .</p>
 <p>Check out this example resizing and transforming the colors of a jpeg:</p>
 <div class="frame">
-<pre><code class="language-csharp">// Image.Load(string path) is a shortcut for our default type. 
+<pre><code class="language-csharp">// Image.Load(string path) is a shortcut for our default type.
 // Other pixel formats use Image.Load&lt;TPixel&gt;(string path)) or one of the many other available overloads.
 using (Image&lt;Rgba32&gt; image = Image.Load(&quot;foo.jpg&quot;))
 {
@@ -301,7 +301,7 @@ mipmap1.Mutate(ctx =&gt; ctx.Resize(image.Width / 2, image.Height / 2));
     var borderSize = 10;
     image.Mutate(ctx =&gt; ctx
          .Fill(Rgba32.Transparent,
-           new RectangleF(borderSize, borderSize, image.Width - (borderSize * 2), image.Height - (borderSize * 2)), 
+           new RectangleF(borderSize, borderSize, image.Width - (borderSize * 2), image.Height - (borderSize * 2)),
            new GraphicsOptions(true)
            {
                BlenderMode = PixelBlenderMode.Src // Enforces that any part of this shape that has color is punched out of the background
