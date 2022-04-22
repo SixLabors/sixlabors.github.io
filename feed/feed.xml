@@ -5,12 +5,78 @@
 	
 	<link href="https://sixlabors.com/feed/feed.xml" rel="self"/>
 	<link href="https://sixlabors.com/"/>
-	<updated>2022-02-07T00:00:00Z</updated>
+	<updated>2022-04-22T00:00:00Z</updated>
 	<id>https://sixlabors.com/</id>
 	<author>
 		<name>Your Name Here</name>
 		<email>youremailaddress@example.com</email>
 	</author>
+	
+	<entry>
+		<title>Announcing ImageSharp.Web 2.0.0</title>
+		<link href="https://sixlabors.com/posts/announcing-imagesharp-web-200/"/>
+		<updated>2022-04-22T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/announcing-imagesharp-web-200/</id>
+		<content type="html">&lt;div class=&quot;ratio ratio-16x9&quot;&gt;
+&lt;iframe src=&quot;https://www.youtube.com/embed/bWcASV2sey0&quot; allow=&quot;autoplay; encrypted-media;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;p&gt;We are very excited to announce the release of ImageSharp.Web 2.0.0 final. You can &lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp.Web/2.0.0&quot; target=&quot;_blank&quot;&gt;download it today&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We&#39;ve been putting this release together for a while but it&#39;s been well worth the wait. This is a MASSIVE release with some fantastic improvements.&lt;/p&gt;
+&lt;h2 id=&quot;what&#39;s-new-since-v1&quot; tabindex=&quot;-1&quot;&gt;What&#39;s new since V1 &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-web-200/#what&#39;s-new-since-v1&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Some major features!&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;WebP support - People have been after this for a while! We provide comprehensive support for decoding and encoding WebP images.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://sixlabors.com/posts/announcing-imagesharp-web-200/#exif-orientation-support&quot;&gt;EXIF orientation support&lt;/a&gt; - Automatic handling of the different orientation options to ensure processing always operates on the expected dimensions.&lt;/li&gt;
+&lt;li&gt;Amazon S3 support - Comprehensive support for providing and caching images with Amazon S3.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://sixlabors.com/posts/announcing-imagesharp-web-200/#hmac-processing-protection&quot;&gt;HMAC processing protection&lt;/a&gt; - Image requests can now be protected by Hash-based Message Authentication Codes to prevent DDOS attacks.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;breaking-changes&quot; tabindex=&quot;-1&quot;&gt;Breaking Changes &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-web-200/#breaking-changes&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;We&#39;ve replaced generic dictionary for commands with specialized collection type throughout the public API.&lt;/li&gt;
+&lt;li&gt;We&#39;ve add a &lt;code&gt;CacheFolderDepth&lt;/code&gt; option to create shorter cached file names. We&#39;ve included a V1 Legacy implementation to avoid breaking caching for existing users.&lt;/li&gt;
+&lt;li&gt;We&#39;ve decoupled the default &lt;code&gt;PhysicalFileSystemProvider&lt;/code&gt; from &lt;code&gt;WebRootFileProvider&lt;/code&gt; and introduced a new &lt;code&gt;WebRootImageProvider&lt;/code&gt; to allow duplicating legacy behavior.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Read the &lt;a href=&quot;https://github.com/SixLabors/ImageSharp.Web/releases/tag/v2.0.0&quot; target=&quot;_blank&quot;&gt;release notes&lt;/a&gt; for detailed release information.&lt;/p&gt;
+&lt;p&gt;API documentation is available in our &lt;a href=&quot;https://docs.sixlabors.com/&quot; target=&quot;_blank&quot;&gt;Docs site&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;exif-orientation-support&quot; tabindex=&quot;-1&quot;&gt;EXIF Orientation Support &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-web-200/#exif-orientation-support&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Browsers now implement &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/web/css/image-orientation&quot; target=&quot;_blank&quot;&gt;&#39;image-orientation: from-image&#39;&lt;/a&gt; by default. This makes orientation handling&lt;br /&gt;
+confusing for users who expect images to be resized in accordance to what they observe rather than pure(and correct) methods.&lt;/p&gt;
+&lt;p&gt;To accommodate this ImageSharp.Web parses the dimensions to use based upon decoded EXIF orientation values. This means that the image is processed in accordance with expectations no matter what orientation the input uses as you can see in the example image below.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sixlabors.com/img/exif-handling.png&quot; alt=&quot;EXIF Orientation Support&quot; class=&quot;img-fluid&quot; /&gt;&lt;/p&gt;
+&lt;h2 id=&quot;hmac-processing-protection&quot; tabindex=&quot;-1&quot;&gt;HMAC Processing Protection &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-web-200/#hmac-processing-protection&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;In cryptography, an HMAC (sometimes expanded as either keyed-hash message authentication code or hash-based message authentication code) is a specific type of message authentication code (MAC) involving a cryptographic hash function and a secret cryptographic key. As with any MAC, it may be used to simultaneously verify both the data integrity and authenticity of a message.&lt;/p&gt;
+&lt;p&gt;HMAC can provide authentication using a shared secret instead of using digital signatures with asymmetric cryptography. It trades off the need for a complex public key infrastructure by delegating the key exchange to the communicating parties, who are responsible for establishing and using a trusted channel to agree on the key prior to communication.&lt;/p&gt;
+&lt;p&gt;Any cryptographic hash function, such as SHA-2 or SHA-3, may be used in the calculation of an HMAC; the resulting MAC algorithm is termed HMAC-X, where X is the hash function used (e.g. HMAC-SHA256 or HMAC-SHA3-512). The cryptographic strength of the HMAC depends upon the cryptographic strength of the underlying hash function, the size of its hash output, and the size and quality of the key.&lt;/p&gt;
+&lt;p&gt;HMAC does not encrypt the message. Instead, the message (encrypted or not) must be sent alongside the HMAC hash. Parties with the secret key will hash the message again themselves, and if it is authentic, the received and computed hashes will match.&lt;/p&gt;
+&lt;p&gt;With ImageSharp.Web it is possible to configure an action to generate an HMAC by setting the &lt;code&gt;ImageSharpMiddlewareOptions.HMACSecretKey&lt;/code&gt; property to any byte array value. This triggers checks in the middleware to look for and compare a HMAC hash of the request URL with the hash that is passed alongside the commands.&lt;/p&gt;
+&lt;p&gt;By default ImageSharp.Web will use a HMAC-SHA256 algorithm.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-c#&quot;&gt;private Func&amp;lt;ImageCommandContext, byte[], Task&amp;lt;string&amp;gt;&amp;gt; onComputeHMACAsync = (context, secret) =&amp;gt;
+{
+    string uri = CaseHandlingUriBuilder.BuildRelative(
+            CaseHandlingUriBuilder.CaseHandling.LowerInvariant,
+            context.Context.Request.PathBase,
+            context.Context.Request.Path,
+            QueryString.Create(context.Commands));
+
+    return Task.FromResult(HMACUtilities.ComputeHMACSHA256(uri, secret));
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Users can replicate that key using the same &lt;code&gt;CaseHandlingUriBuilder&lt;/code&gt; and &lt;code&gt;HMACUtilities&lt;/code&gt; APIs to generate the HMAC hash on the client. The hash must be passed via a command using the &lt;code&gt;HMACUtilities.TokenCommand&lt;/code&gt; constant.&lt;/p&gt;
+&lt;p&gt;Any invalid matches are rejected at the very start of the processing pipeline with a 400 HttpResponse code.&lt;/p&gt;
+&lt;h2 id=&quot;the-future&quot; tabindex=&quot;-1&quot;&gt;The Future &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-web-200/#the-future&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;We&#39;ll be publishing new releases over the next few days of all our libraries that depend on ImageSharp. That means a new major version &lt;a href=&quot;https://github.com/SixLabors/ImageSharp.Web&quot; target=&quot;_blank&quot;&gt;SixLabors.ImageSharp.Web&lt;/a&gt; and new betas of &lt;a href=&quot;https://github.com/SixLabors/ImageSharp.Drawing&quot; target=&quot;_blank&quot;&gt;SixLabors.ImageSharp.Drawing&lt;/a&gt; and &lt;a href=&quot;https://github.com/SixLabors/Fonts&quot; target=&quot;_blank&quot;&gt;SixLabors.Fonts&lt;/a&gt;. We&#39;ll be focussing very heavily on the latter two libraries to bring them up to Release Candidate status.&lt;/p&gt;
+&lt;p&gt;Following that we&#39;ll start looking towards V3 where the focus will be on adopting the latest .NET runtimes and bringing high performance on as many platforms as possible.&lt;/p&gt;
+&lt;p&gt;ImageSharp.Web V2 is released under dual licenses:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://sixlabors.com/pricing/&quot;&gt;Six Labors License&lt;/a&gt; A permissive license that bring additional enterprise level support.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot; target=&quot;_blank&quot;&gt;Apache 2.0 license&lt;/a&gt; AS-IS.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;closing&quot; tabindex=&quot;-1&quot;&gt;Closing &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-web-200/#closing&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Thanks again for all the feedback and usage. It&#39;s been a pleasure to build ImageSharp.Web so far and to see so many people try it out; we really appreciate it. Please continue exploring the product and learning what it’s capable of.&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>Announcing ImageSharp 2.0.0</title>
@@ -137,10 +203,10 @@ LaunchCount=1  WarmupCount=5
 		<content type="html">&lt;div class=&quot;ratio ratio-16x9&quot;&gt;
 &lt;iframe src=&quot;https://www.youtube.com/embed/UWLIgjB9gGw&quot; allow=&quot;autoplay; encrypted-media;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
 &lt;/div&gt;
-&lt;h2 id=&quot;imagesharp.web-is-1.0.0!&quot; tabindex=&quot;-1&quot;&gt;&lt;a href=&quot;http://imagesharp.web/&quot; target=&quot;_blank&quot;&gt;ImageSharp.Web&lt;/a&gt; is 1.0.0! &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharpweb-100/#imagesharp.web-is-1.0.0!&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;We are very excited to announce the release of &lt;a href=&quot;http://imagesharp.web/&quot; target=&quot;_blank&quot;&gt;ImageSharp.Web&lt;/a&gt; 1.0.0 final. &lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp.Web/1.0.0&quot; target=&quot;_blank&quot;&gt;You can download it today&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/SixLabors/ImageSharp.Web&quot; target=&quot;_blank&quot;&gt;ImageSharp.Web&lt;/a&gt; is a high performance &lt;a href=&quot;http://asp.net/&quot; target=&quot;_blank&quot;&gt;ASP.NET&lt;/a&gt; Core Middleware built on top of &lt;a href=&quot;https://github.com/SixLabors/ImageSharp&quot; target=&quot;_blank&quot;&gt;ImageSharp&lt;/a&gt; that allows the processing and caching of image requests via a simple API.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://imagesharp.web/&quot; target=&quot;_blank&quot;&gt;ImageSharp.Web&lt;/a&gt; is designed from the ground up to be flexible and extensible. The library provides API endpoints for common image processing operations and the building blocks to allow for the development of additional extensions to add image sources, caching mechanisms or even your own processing API.&lt;/p&gt;
+&lt;h2 id=&quot;imagesharp.web-is-1.0.0!&quot; tabindex=&quot;-1&quot;&gt;ImageSharp.Web is 1.0.0! &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharpweb-100/#imagesharp.web-is-1.0.0!&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;We are very excited to announce the release of ImageSharp.Web 1.0.0 final. &lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp.Web/1.0.0&quot; target=&quot;_blank&quot;&gt;You can download it today&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/SixLabors/ImageSharp.Web&quot; target=&quot;_blank&quot;&gt;ImageSharp.Web&lt;/a&gt; is a high performance ASP.NET Core Middleware built on top of &lt;a href=&quot;https://github.com/SixLabors/ImageSharp&quot; target=&quot;_blank&quot;&gt;ImageSharp&lt;/a&gt; that allows the processing and caching of image requests via a simple API.&lt;/p&gt;
+&lt;p&gt;ImageSharp.Web is designed from the ground up to be flexible and extensible. The library provides API endpoints for common image processing operations and the building blocks to allow for the development of additional extensions to add image sources, caching mechanisms or even your own processing API.&lt;/p&gt;
 &lt;h4 id=&quot;what&#39;s-new-since-the-rc&quot; tabindex=&quot;-1&quot;&gt;What&#39;s New Since the RC &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharpweb-100/#what&#39;s-new-since-the-rc&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;We&#39;ve added culture aware command processing, fine grained cache timing configuration options, the ability to set the quality of jpeg&#39;s and a new &lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp.Web.Providers.Azure/1.0.0&quot; target=&quot;_blank&quot;&gt;Azure Blob Storage provider and cache&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Oh and we made it fast... Real fast!&lt;/p&gt;
@@ -150,7 +216,7 @@ LaunchCount=1  WarmupCount=5
 &lt;/blockquote&gt;
 &lt;p&gt;You can see the full &lt;a href=&quot;https://github.com/SixLabors/ImageSharp.Web/releases/tag/v1.0.0&quot; target=&quot;_blank&quot;&gt;Release Notes&lt;/a&gt; in the repository.&lt;/p&gt;
 &lt;h3 id=&quot;licensing.&quot; tabindex=&quot;-1&quot;&gt;Licensing. &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharpweb-100/#licensing.&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&quot;http://imagesharp.web/&quot; target=&quot;_blank&quot;&gt;ImageSharp.Web&lt;/a&gt; and accompanying projects are released under the permissive &lt;a href=&quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot; target=&quot;_blank&quot;&gt;Apache 2.0&lt;/a&gt; license. This means that the library is open source and free to use but is released AS-IS with no support for issues or feature requests.&lt;/p&gt;
+&lt;p&gt;ImageSharp.Web and accompanying projects are released under the permissive &lt;a href=&quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot; target=&quot;_blank&quot;&gt;Apache 2.0&lt;/a&gt; license. This means that the library is open source and free to use but is released AS-IS with no support for issues or feature requests.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;If you require support you should purchase a &lt;a href=&quot;https://sixlabors.com/pricing/&quot;&gt;Support License&lt;/a&gt; otherwise you will need to submit pull requests against the repository. &lt;/strong&gt;&lt;/p&gt;
 &lt;h3 id=&quot;getting-started&quot; tabindex=&quot;-1&quot;&gt;Getting Started &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharpweb-100/#getting-started&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
 &lt;h4 id=&quot;installation&quot; tabindex=&quot;-1&quot;&gt;Installation &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharpweb-100/#installation&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
@@ -191,7 +257,7 @@ services.AddImageSharp()
 &lt;p&gt;Full Configuration API options are available &lt;a href=&quot;https://docs.sixlabors.com/api/ImageSharp.Web/SixLabors.ImageSharp.Web.DependencyInjection.ImageSharpBuilderExtensions.html&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;h4 id=&quot;processing-images&quot; tabindex=&quot;-1&quot;&gt;Processing Images &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharpweb-100/#processing-images&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
 &lt;blockquote&gt;
-&lt;p&gt;The &lt;a href=&quot;http://imagesharp.web/&quot; target=&quot;_blank&quot;&gt;ImageSharp.Web&lt;/a&gt; processing API is imperative. This means that the order in which you supply the individual processing operations is the order in which they are are compiled and applied. This allows the API to be very flexible, allowing you to combine processes in any order.&lt;/p&gt;
+&lt;p&gt;The ImageSharp.Web processing API is imperative. This means that the order in which you supply the individual processing operations is the order in which they are are compiled and applied. This allows the API to be very flexible, allowing you to combine processes in any order.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;&lt;em&gt;It is possible to configure your own processing command pipeline by implementing and registering your own version of the IRequestParser interface.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;The following processors are built into the middleware. In addition extension points are available to register you own command processors. All processing output is cached for future requests in a high performance intelligent cache which detects changes in source material. This storage mechanism for the cache can be replaced by any implementation you choose.&lt;/p&gt;
@@ -236,9 +302,9 @@ services.AddImageSharp()
 &lt;/div&gt;
 &lt;p&gt;As you can see it&#39;s extremely powerful yet simple to use. You can find full Processing API options in our &lt;a href=&quot;https://docs.sixlabors.com/articles/imagesharp.web/processingcommands.html&quot; target=&quot;_blank&quot;&gt;documentation&lt;/a&gt;.&lt;/p&gt;
 &lt;h3 id=&quot;the-future&quot; tabindex=&quot;-1&quot;&gt;The Future &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharpweb-100/#the-future&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
-&lt;p&gt;From a roadmap perspective we&#39;ll continue to bring usability and performance enhancements to &lt;a href=&quot;http://imagesharp.web/&quot; target=&quot;_blank&quot;&gt;ImageSharp.Web&lt;/a&gt; but the immediate focus will shift to bringing SixLabors.ImageSharp.Drawing, and SixLabors.Fonts development up to a production ready standard. Any and all assistance there would be greatly appreciated.&lt;/p&gt;
+&lt;p&gt;From a roadmap perspective we&#39;ll continue to bring usability and performance enhancements to ImageSharp.Web but the immediate focus will shift to bringing SixLabors.ImageSharp.Drawing, and SixLabors.Fonts development up to a production ready standard. Any and all assistance there would be greatly appreciated.&lt;/p&gt;
 &lt;h3 id=&quot;closing&quot; tabindex=&quot;-1&quot;&gt;Closing &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharpweb-100/#closing&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
-&lt;p&gt;Thanks again for all the feedback and usage. It’s been a pleasure to build &lt;a href=&quot;http://imagsharp.web/&quot; target=&quot;_blank&quot;&gt;ImagSharp.Web&lt;/a&gt; so far and to see so many people try it out; we really appreciate it. Please continue exploring the product and learning what it’s capable of.&lt;/p&gt;
+&lt;p&gt;Thanks again for all the feedback and usage. It’s been a pleasure to build ImagSharp.Web so far and to see so many people try it out; we really appreciate it. Please continue exploring the product and learning what it’s capable of.&lt;/p&gt;
 </content>
 	</entry>
 	
@@ -337,7 +403,7 @@ using(var image = new Image&amp;lt;Rgba32&amp;gt;(width, height))
 Please visit &lt;a href=&quot;https://sixlabors.com/pricing&quot; target=&quot;_blank&quot;&gt;https://sixlabors.com/pricing&lt;/a&gt; for details.&lt;/li&gt;
 &lt;li&gt;Open Source projects who have taken a dependency on ImageSharp prior to adoption of the AGPL v3 license are permitted to use ImageSharp (including all future versions) under the previous &lt;a href=&quot;https://opensource.org/licenses/Apache-2.0&quot; target=&quot;_blank&quot;&gt;Apache 2.0 License&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Going forward the license changes will also apply for &lt;a href=&quot;http://imagesharp.web/&quot; target=&quot;_blank&quot;&gt;ImageSharp.Web&lt;/a&gt; 1.0 RC1, ImageSharp.Drawing 1.0-Beta8, and Fonts 1.0-Beta10.&lt;/p&gt;
+&lt;p&gt;Going forward the license changes will also apply for ImageSharp.Web 1.0 RC1, ImageSharp.Drawing 1.0-Beta8, and Fonts 1.0-Beta10.&lt;/p&gt;
 &lt;h2 id=&quot;documentation&quot; tabindex=&quot;-1&quot;&gt;Documentation &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-10-release-candidate-1/#documentation&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Full API documentation for all the Six Labors libraries is available at &lt;a href=&quot;https://docs.sixlabors.com/&quot; target=&quot;_blank&quot;&gt;https://docs.sixlabors.com&lt;/a&gt; alongside conceptual documentation and links to runnable sample applications. We will continue to add to this documentation to provide&lt;/p&gt;
 &lt;h2 id=&quot;go-live&quot; tabindex=&quot;-1&quot;&gt;Go Live &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-10-release-candidate-1/#go-live&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
@@ -572,7 +638,7 @@ Matrix3x2 = affineBuilder.BuildMatrix(image.Size());
 &lt;p&gt;Donations don&#39;t pay the bills so we are embarking on a journey to license and sell a selection of our libraries.&lt;/p&gt;
 &lt;p&gt;As such, Beta 6 will be the last release we provide under Apache License. Upon releasing RC1 we will switch to a dual licensing model similar to the one &lt;a href=&quot;https://github.com/ServiceStack/ServiceStack/blob/master/license.txt&quot; target=&quot;_blank&quot;&gt;provided by ServiceStack&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;We are still working on the details, so nothing is for sure but what you can expect is something like this:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;ImageSharp&lt;/strong&gt;, &lt;strong&gt;ImageSharp.Drawing&lt;/strong&gt;, and &lt;strong&gt;&lt;a href=&quot;http://imagesharp.web/&quot; target=&quot;_blank&quot;&gt;ImageSharp.Web&lt;/a&gt;&lt;/strong&gt; will all be dual licensed under a &lt;strong&gt;AGPLv3/Commercial license&lt;/strong&gt;. The AGPLv3 license will come with exceptions which allow bundling the code alongside all well known open source licenses (Apache 2.0, MIT etc). Any projects seen as direct competition (Imaging SDKs) will not be able to utilize that exception.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ImageSharp&lt;/strong&gt;, &lt;strong&gt;ImageSharp.Drawing&lt;/strong&gt;, and &lt;strong&gt;ImageSharp.Web&lt;/strong&gt; will all be dual licensed under a &lt;strong&gt;AGPLv3/Commercial license&lt;/strong&gt;. The AGPLv3 license will come with exceptions which allow bundling the code alongside all well known open source licenses (Apache 2.0, MIT etc). Any projects seen as direct competition (Imaging SDKs) will not be able to utilize that exception.&lt;/p&gt;
 &lt;p&gt;The commercial license will apply to anyone that chooses not to open source any code which is derived from our APIs which is a direct violation of AGPLv3. Purchasing a commercial license will give the developer the right to bundle ImageSharp with their closed source codebase.&lt;/p&gt;
 &lt;p&gt;Currently we are planning to offer the following commercial license models:&lt;/p&gt;
 &lt;ol&gt;
@@ -789,7 +855,7 @@ image.Mutate(x =&amp;gt; x.Skew(-20F, 10F));
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp/&quot; target=&quot;_blank&quot;&gt;ImageSharp&lt;/a&gt;&lt;/strong&gt; - Color and image primitives, formats, filters, transforms and other standard algorithms&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp.Drawing/&quot; target=&quot;_blank&quot;&gt;ImageSharp.Drawing&lt;/a&gt;&lt;/strong&gt; - Image, shape, and line drawing primitives and algorithms&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp.Web/&quot; target=&quot;_blank&quot;&gt;ImageSharp.Web&lt;/a&gt;&lt;/strong&gt; - Extensible middleware for &lt;a href=&quot;http://asp.net/&quot; target=&quot;_blank&quot;&gt;ASP.NET&lt;/a&gt; Core projects that allows processing and caching of images&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp.Web/&quot; target=&quot;_blank&quot;&gt;ImageSharp.Web&lt;/a&gt;&lt;/strong&gt; - Extensible middleware for ASP.NET Core projects that allows processing and caching of images&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Without the constraints of &lt;code&gt;System.Drawing&lt;/code&gt; We have been able to develop an API that is much more flexible, easier to code against, and much, much less prone to memory leaks when consuming.&lt;/p&gt;
 &lt;h3 id=&quot;the-imagesharp-api&quot; tabindex=&quot;-1&quot;&gt;The ImageSharp API &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-beta-1/#the-imagesharp-api&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;

@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Six Labors : ImageSharp joins the .NET foundation.</title>
-    <meta name="description" content="ImageSharp + DotNet Foundation = strong!">
+    <title>Six Labors : Announcing ImageSharp.Web 2.0.0</title>
+    <meta name="description" content="ImageSharp.Web 2 - SMarter and More Secure!">
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
       rel="stylesheet"
@@ -181,12 +181,12 @@
       <div class="masthead">
   <div class="container">
     <h1 class="mb-3">
-      ImageSharp joins the .NET foundation.
+      Announcing ImageSharp.Web 2.0.0
     </h1>
     <p class="lead mb-4">
-      ImageSharp + DotNet Foundation = strong!
+      ImageSharp.Web 2 - SMarter and More Secure!
     </p>
-    <div><a href="/tags/announcements/" class="post-tag btn btn-primary shadow">Announcements</a><a href="/tags/imagesharp/" class="post-tag btn btn-primary shadow">ImageSharp</a>
+    <div><a href="/tags/releases/" class="post-tag btn btn-primary shadow">Releases</a><a href="/tags/imagesharp.web/" class="post-tag btn btn-primary shadow">ImageSharp.Web</a>
     </div>
   </div>
 </div>
@@ -196,26 +196,70 @@
     <div class= row>
       <div class="col-md-8">
         <article>
-          <time datetime="2019-05-03">03 May 2019</time>
+          <time datetime="2022-04-22">22 Apr 2022</time>
 
-          <p><img src="/img/dotnetfoundation-imagesharp.png" alt="ImageSharp + DotNet Foundation = strong!" class="img-fluid"></p>
-<h1 id="getting-strong-now...*" tabindex="-1">Getting Strong Now...* <a class="direct-link" href="#getting-strong-now...*">#</a></h1>
-<p>Today we’re really happy and excited to share that ImageSharp is joining the .NET foundation!</p>
-<p>This is a big deal to us but what does this mean for the future of ImageSharp?</p>
-<p>Great things! It’ll still be maintained and governed by the same hardworking band of crack coding commandos as before, but with the support and guidance from a vast array of experts across various fields from within the .NET Foundation.</p>
-<p>It's a match made in heaven, the sheer breadth of experiance available to us from within the Foundation can only benefit our project, and we make them look cool 😜</p>
-<p>Read more about ImageSharp joining on the .NET foundation <a href="https://dotnetfoundation.org/blog" target="_blank">blog</a>.</p>
-<h2 id="about-the-.net-foundation" tabindex="-1">About the .NET Foundation <a class="direct-link" href="#about-the-.net-foundation">#</a></h2>
-<p>The .NET Foundation is an independent organization created to foster innovation, which we believe starts with open development and collaboration. It's also a forum for community and commercial developers to broaden and strengthen the future of the .NET ecosystem.</p>
-<p>Learn more about the .NET foundation at <a href="https://dotnetfoundation.org" target="_blank">dotnetfoundation.org</a></p>
-<p>*You now have the Rocky theme stuck in your head. You're welcome...</p>
+          <div class="ratio ratio-16x9">
+<iframe src="https://www.youtube.com/embed/bWcASV2sey0" allow="autoplay; encrypted-media;" allowfullscreen></iframe>
+</div>
+<p>We are very excited to announce the release of ImageSharp.Web 2.0.0 final. You can <a href="https://www.nuget.org/packages/SixLabors.ImageSharp.Web/2.0.0" target="_blank">download it today</a>.</p>
+<p>We've been putting this release together for a while but it's been well worth the wait. This is a MASSIVE release with some fantastic improvements.</p>
+<h2 id="what's-new-since-v1" tabindex="-1">What's new since V1 <a class="direct-link" href="#what's-new-since-v1">#</a></h2>
+<p>Some major features!</p>
+<ul>
+<li>WebP support - People have been after this for a while! We provide comprehensive support for decoding and encoding WebP images.</li>
+<li><a href="#exif-orientation-support">EXIF orientation support</a> - Automatic handling of the different orientation options to ensure processing always operates on the expected dimensions.</li>
+<li>Amazon S3 support - Comprehensive support for providing and caching images with Amazon S3.</li>
+<li><a href="#hmac-processing-protection">HMAC processing protection</a> - Image requests can now be protected by Hash-based Message Authentication Codes to prevent DDOS attacks.</li>
+</ul>
+<h4 id="breaking-changes" tabindex="-1">Breaking Changes <a class="direct-link" href="#breaking-changes">#</a></h4>
+<ul>
+<li>We've replaced generic dictionary for commands with specialized collection type throughout the public API.</li>
+<li>We've add a <code>CacheFolderDepth</code> option to create shorter cached file names. We've included a V1 Legacy implementation to avoid breaking caching for existing users.</li>
+<li>We've decoupled the default <code>PhysicalFileSystemProvider</code> from <code>WebRootFileProvider</code> and introduced a new <code>WebRootImageProvider</code> to allow duplicating legacy behavior.</li>
+</ul>
+<p>Read the <a href="https://github.com/SixLabors/ImageSharp.Web/releases/tag/v2.0.0" target="_blank">release notes</a> for detailed release information.</p>
+<p>API documentation is available in our <a href="https://docs.sixlabors.com/" target="_blank">Docs site</a>.</p>
+<h2 id="exif-orientation-support" tabindex="-1">EXIF Orientation Support <a class="direct-link" href="#exif-orientation-support">#</a></h2>
+<p>Browsers now implement <a href="https://developer.mozilla.org/en-US/docs/web/css/image-orientation" target="_blank">'image-orientation: from-image'</a> by default. This makes orientation handling<br>
+confusing for users who expect images to be resized in accordance to what they observe rather than pure(and correct) methods.</p>
+<p>To accommodate this ImageSharp.Web parses the dimensions to use based upon decoded EXIF orientation values. This means that the image is processed in accordance with expectations no matter what orientation the input uses as you can see in the example image below.</p>
+<p><img src="/img/exif-handling.png" alt="EXIF Orientation Support" class="img-fluid"></p>
+<h2 id="hmac-processing-protection" tabindex="-1">HMAC Processing Protection <a class="direct-link" href="#hmac-processing-protection">#</a></h2>
+<p>In cryptography, an HMAC (sometimes expanded as either keyed-hash message authentication code or hash-based message authentication code) is a specific type of message authentication code (MAC) involving a cryptographic hash function and a secret cryptographic key. As with any MAC, it may be used to simultaneously verify both the data integrity and authenticity of a message.</p>
+<p>HMAC can provide authentication using a shared secret instead of using digital signatures with asymmetric cryptography. It trades off the need for a complex public key infrastructure by delegating the key exchange to the communicating parties, who are responsible for establishing and using a trusted channel to agree on the key prior to communication.</p>
+<p>Any cryptographic hash function, such as SHA-2 or SHA-3, may be used in the calculation of an HMAC; the resulting MAC algorithm is termed HMAC-X, where X is the hash function used (e.g. HMAC-SHA256 or HMAC-SHA3-512). The cryptographic strength of the HMAC depends upon the cryptographic strength of the underlying hash function, the size of its hash output, and the size and quality of the key.</p>
+<p>HMAC does not encrypt the message. Instead, the message (encrypted or not) must be sent alongside the HMAC hash. Parties with the secret key will hash the message again themselves, and if it is authentic, the received and computed hashes will match.</p>
+<p>With ImageSharp.Web it is possible to configure an action to generate an HMAC by setting the <code>ImageSharpMiddlewareOptions.HMACSecretKey</code> property to any byte array value. This triggers checks in the middleware to look for and compare a HMAC hash of the request URL with the hash that is passed alongside the commands.</p>
+<p>By default ImageSharp.Web will use a HMAC-SHA256 algorithm.</p>
+<div class="frame">
+<pre><code class="language-c#">private Func&lt;ImageCommandContext, byte[], Task&lt;string&gt;&gt; onComputeHMACAsync = (context, secret) =&gt;
+{
+    string uri = CaseHandlingUriBuilder.BuildRelative(
+            CaseHandlingUriBuilder.CaseHandling.LowerInvariant,
+            context.Context.Request.PathBase,
+            context.Context.Request.Path,
+            QueryString.Create(context.Commands));
+
+    return Task.FromResult(HMACUtilities.ComputeHMACSHA256(uri, secret));
+};
+</code></pre>
+</div>
+<p>Users can replicate that key using the same <code>CaseHandlingUriBuilder</code> and <code>HMACUtilities</code> APIs to generate the HMAC hash on the client. The hash must be passed via a command using the <code>HMACUtilities.TokenCommand</code> constant.</p>
+<p>Any invalid matches are rejected at the very start of the processing pipeline with a 400 HttpResponse code.</p>
+<h2 id="the-future" tabindex="-1">The Future <a class="direct-link" href="#the-future">#</a></h2>
+<p>We'll be publishing new releases over the next few days of all our libraries that depend on ImageSharp. That means a new major version <a href="https://github.com/SixLabors/ImageSharp.Web" target="_blank">SixLabors.ImageSharp.Web</a> and new betas of <a href="https://github.com/SixLabors/ImageSharp.Drawing" target="_blank">SixLabors.ImageSharp.Drawing</a> and <a href="https://github.com/SixLabors/Fonts" target="_blank">SixLabors.Fonts</a>. We'll be focussing very heavily on the latter two libraries to bring them up to Release Candidate status.</p>
+<p>Following that we'll start looking towards V3 where the focus will be on adopting the latest .NET runtimes and bringing high performance on as many platforms as possible.</p>
+<p>ImageSharp.Web V2 is released under dual licenses:</p>
+<ul>
+<li><a href="/pricing/">Six Labors License</a> A permissive license that bring additional enterprise level support.</li>
+<li><a href="http://www.apache.org/licenses/LICENSE-2.0.html" target="_blank">Apache 2.0 license</a> AS-IS.</li>
+</ul>
+<h2 id="closing" tabindex="-1">Closing <a class="direct-link" href="#closing">#</a></h2>
+<p>Thanks again for all the feedback and usage. It's been a pleasure to build ImageSharp.Web so far and to see so many people try it out; we really appreciate it. Please continue exploring the product and learning what it’s capable of.</p>
 
             <hr>
             <ul>
-                <li>Next: <a href="/posts/beta-7/">Beta 7.</a>
-                </li>
-              
-                <li>Previous: <a href="/posts/beta-six-labors/">Beta-Six Labors.</a>
+                <li>Previous: <a href="/posts/announcing-imagesharp-200/">Announcing ImageSharp 2.0.0</a>
                 </li>
               
             </ul>
@@ -343,7 +387,7 @@
       </div>
     </footer>
 
-    <!-- Current page: /posts/imagesharp-joins-the-net-foundation/ -->
+    <!-- Current page: /posts/announcing-imagesharp-web-200/ -->
     <script 
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" 
       integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"

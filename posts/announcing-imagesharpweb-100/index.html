@@ -201,10 +201,10 @@
           <div class="ratio ratio-16x9">
 <iframe src="https://www.youtube.com/embed/UWLIgjB9gGw" allow="autoplay; encrypted-media;" allowfullscreen></iframe>
 </div>
-<h2 id="imagesharp.web-is-1.0.0!" tabindex="-1"><a href="http://ImageSharp.Web" target="_blank">ImageSharp.Web</a> is 1.0.0! <a class="direct-link" href="#imagesharp.web-is-1.0.0!">#</a></h2>
-<p>We are very excited to announce the release of <a href="http://ImageSharp.Web" target="_blank">ImageSharp.Web</a> 1.0.0 final. <a href="https://www.nuget.org/packages/SixLabors.ImageSharp.Web/1.0.0" target="_blank">You can download it today</a>.</p>
-<p><a href="https://github.com/SixLabors/ImageSharp.Web" target="_blank">ImageSharp.Web</a> is a high performance <a href="http://ASP.NET" target="_blank">ASP.NET</a> Core Middleware built on top of <a href="https://github.com/SixLabors/ImageSharp" target="_blank">ImageSharp</a> that allows the processing and caching of image requests via a simple API.</p>
-<p><a href="http://ImageSharp.Web" target="_blank">ImageSharp.Web</a> is designed from the ground up to be flexible and extensible. The library provides API endpoints for common image processing operations and the building blocks to allow for the development of additional extensions to add image sources, caching mechanisms or even your own processing API.</p>
+<h2 id="imagesharp.web-is-1.0.0!" tabindex="-1">ImageSharp.Web is 1.0.0! <a class="direct-link" href="#imagesharp.web-is-1.0.0!">#</a></h2>
+<p>We are very excited to announce the release of ImageSharp.Web 1.0.0 final. <a href="https://www.nuget.org/packages/SixLabors.ImageSharp.Web/1.0.0" target="_blank">You can download it today</a>.</p>
+<p><a href="https://github.com/SixLabors/ImageSharp.Web" target="_blank">ImageSharp.Web</a> is a high performance ASP.NET Core Middleware built on top of <a href="https://github.com/SixLabors/ImageSharp" target="_blank">ImageSharp</a> that allows the processing and caching of image requests via a simple API.</p>
+<p>ImageSharp.Web is designed from the ground up to be flexible and extensible. The library provides API endpoints for common image processing operations and the building blocks to allow for the development of additional extensions to add image sources, caching mechanisms or even your own processing API.</p>
 <h4 id="what's-new-since-the-rc" tabindex="-1">What's New Since the RC <a class="direct-link" href="#what's-new-since-the-rc">#</a></h4>
 <p>We've added culture aware command processing, fine grained cache timing configuration options, the ability to set the quality of jpeg's and a new <a href="https://www.nuget.org/packages/SixLabors.ImageSharp.Web.Providers.Azure/1.0.0" target="_blank">Azure Blob Storage provider and cache</a>.</p>
 <p>Oh and we made it fast... Real fast!</p>
@@ -214,7 +214,7 @@
 </blockquote>
 <p>You can see the full <a href="https://github.com/SixLabors/ImageSharp.Web/releases/tag/v1.0.0" target="_blank">Release Notes</a> in the repository.</p>
 <h3 id="licensing." tabindex="-1">Licensing. <a class="direct-link" href="#licensing.">#</a></h3>
-<p><a href="http://ImageSharp.Web" target="_blank">ImageSharp.Web</a> and accompanying projects are released under the permissive <a href="http://www.apache.org/licenses/LICENSE-2.0.html" target="_blank">Apache 2.0</a> license. This means that the library is open source and free to use but is released AS-IS with no support for issues or feature requests.</p>
+<p>ImageSharp.Web and accompanying projects are released under the permissive <a href="http://www.apache.org/licenses/LICENSE-2.0.html" target="_blank">Apache 2.0</a> license. This means that the library is open source and free to use but is released AS-IS with no support for issues or feature requests.</p>
 <p><strong>If you require support you should purchase a <a href="/pricing/">Support License</a> otherwise you will need to submit pull requests against the repository. </strong></p>
 <h3 id="getting-started" tabindex="-1">Getting Started <a class="direct-link" href="#getting-started">#</a></h3>
 <h4 id="installation" tabindex="-1">Installation <a class="direct-link" href="#installation">#</a></h4>
@@ -255,7 +255,7 @@ services.AddImageSharp()
 <p>Full Configuration API options are available <a href="https://docs.sixlabors.com/api/ImageSharp.Web/SixLabors.ImageSharp.Web.DependencyInjection.ImageSharpBuilderExtensions.html" target="_blank">here</a>.</p>
 <h4 id="processing-images" tabindex="-1">Processing Images <a class="direct-link" href="#processing-images">#</a></h4>
 <blockquote>
-<p>The <a href="http://ImageSharp.Web" target="_blank">ImageSharp.Web</a> processing API is imperative. This means that the order in which you supply the individual processing operations is the order in which they are are compiled and applied. This allows the API to be very flexible, allowing you to combine processes in any order.</p>
+<p>The ImageSharp.Web processing API is imperative. This means that the order in which you supply the individual processing operations is the order in which they are are compiled and applied. This allows the API to be very flexible, allowing you to combine processes in any order.</p>
 </blockquote>
 <p><em>It is possible to configure your own processing command pipeline by implementing and registering your own version of the IRequestParser interface.</em></p>
 <p>The following processors are built into the middleware. In addition extension points are available to register you own command processors. All processing output is cached for future requests in a high performance intelligent cache which detects changes in source material. This storage mechanism for the cache can be replaced by any implementation you choose.</p>
@@ -300,9 +300,9 @@ services.AddImageSharp()
 </div>
 <p>As you can see it's extremely powerful yet simple to use. You can find full Processing API options in our <a href="https://docs.sixlabors.com/articles/imagesharp.web/processingcommands.html" target="_blank">documentation</a>.</p>
 <h3 id="the-future" tabindex="-1">The Future <a class="direct-link" href="#the-future">#</a></h3>
-<p>From a roadmap perspective we'll continue to bring usability and performance enhancements to <a href="http://ImageSharp.Web" target="_blank">ImageSharp.Web</a> but the immediate focus will shift to bringing SixLabors.ImageSharp.Drawing, and SixLabors.Fonts development up to a production ready standard. Any and all assistance there would be greatly appreciated.</p>
+<p>From a roadmap perspective we'll continue to bring usability and performance enhancements to ImageSharp.Web but the immediate focus will shift to bringing SixLabors.ImageSharp.Drawing, and SixLabors.Fonts development up to a production ready standard. Any and all assistance there would be greatly appreciated.</p>
 <h3 id="closing" tabindex="-1">Closing <a class="direct-link" href="#closing">#</a></h3>
-<p>Thanks again for all the feedback and usage. It’s been a pleasure to build <a href="http://ImagSharp.Web" target="_blank">ImagSharp.Web</a> so far and to see so many people try it out; we really appreciate it. Please continue exploring the product and learning what it’s capable of.</p>
+<p>Thanks again for all the feedback and usage. It’s been a pleasure to build ImagSharp.Web so far and to see so many people try it out; we really appreciate it. Please continue exploring the product and learning what it’s capable of.</p>
 
             <hr>
             <ul>
@@ -369,6 +369,13 @@ services.AddImageSharp()
           <ul class="postlist">
             
               <li class="postlist-item">
+                <a href="/posts/announcing-imagesharp-web-200/" class="postlist-link">
+                  Announcing ImageSharp.Web 2.0.0
+                  
+                </a>
+              </li>
+            
+              <li class="postlist-item">
                 <a href="/posts/announcing-imagesharp-200/" class="postlist-link">
                   Announcing ImageSharp 2.0.0
                   
@@ -392,13 +399,6 @@ services.AddImageSharp()
               <li class="postlist-item">
                 <a href="/posts/announcing-imagesharp-100/" class="postlist-link">
                   Announcing ImageSharp 1.0.0
-                  
-                </a>
-              </li>
-            
-              <li class="postlist-item">
-                <a href="/posts/announcing-imagesharp-10-release-candidate-1/" class="postlist-link">
-                  Announcing ImageSharp 1.0 Release Candidate 1
                   
                 </a>
               </li>
