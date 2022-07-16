@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Six Labors : Beta 3 Is A Magic Number</title>
-    <meta name="description" content="Today were very happy to announce ImageSharp Beta 3.">
+    <title>Six Labors : License Changes for Six Labors Products</title>
+    <meta name="description" content="Protecting the future of Six Labors">
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
       rel="stylesheet"
@@ -181,12 +181,12 @@
       <div class="masthead">
   <div class="container">
     <h1 class="mb-3">
-      Beta 3 Is A Magic Number
+      License Changes for Six Labors Products
     </h1>
     <p class="lead mb-4">
-      Today were very happy to announce ImageSharp Beta 3.
+      Protecting the future of Six Labors
     </p>
-    <div><a href="/tags/imagesharp/" class="post-tag btn btn-primary shadow">ImageSharp</a><a href="/tags/releases/" class="post-tag btn btn-primary shadow">Releases</a>
+    <div><a href="/tags/licensing/" class="post-tag btn btn-primary shadow">Licensing</a>
     </div>
   </div>
 </div>
@@ -196,152 +196,106 @@
     <div class= row>
       <div class="col-md-8">
         <article>
-          <time datetime="2018-03-28">28 Mar 2018</time>
+          <time datetime="2022-07-16">16 Jul 2022</time>
 
-          <div class="ratio ratio-16x9">
-<iframe src="https://www.youtube.com/embed/aU4pyiB-kq0?rel=0" allow="autoplay; encrypted-media" allowfullscreen>
-</iframe>
-</div>
-<p>It's been four months since our last beta and we've been very, very busy. Since our last release we have.</p>
+          <h2 id="what-is-happening%3F" tabindex="-1">What is Happening? <a class="direct-link" href="#what-is-happening%3F">#</a></h2>
+<p>The Six Labors libraries occupy a domain of software development that is considered very complex. As such, huge effort is required to research, develop, and maintain the libraries which is unsustainable for a very small team of developers working in their spare time.</p>
+<p>Previous attempts (<em>sponsorship, support license</em>) to provide a sustainable income to ensure the continued development of the Six Labors libraries have not proven successful, yielding less than a few  months of developer income over a period of several years.</p>
+<p>To ensure the continuation of the Six Labors libraries we are planning to introduce license changes for the following versions:</p>
 <ul>
-<li>Created API documentation and additional articles to help developers work with the library.</li>
-<li>Introduced a full memory management API that allows fine grained control of how ImageSharp manages large buffers.
-<ul>
-<li>For the default pooling memory management implementation we managed to halve the memory footprint of the library without significant loss in speed.</li>
+<li>ImageSharp v3.0.0</li>
+<li>ImageSharp.Web v3.0.0</li>
+<li>ImageSharp.Drawing v2.0.0</li>
+<li>Fonts v2.0.0</li>
 </ul>
+<p>The Six Labors Split License has been explicitly designed to allow business as usual for Open Source or Source available consumers, however, if your your annual gross revenue is greater than or equal to 1M USD and you are consuming any of the libraries  for use in Closed Source software as a &quot;Direct Package Dependency&quot; as defined in the license then you must purchase a <a href="/pricing/">Six Labors Commercial Use License</a>.</p>
+<p>Please note. We are currently working with the .NET Foundation board on next steps towards providing a continuance of the previous Open Source license for Foundation projects as a collaborative process.</p>
+<h2 id="the-license" tabindex="-1">The License <a class="direct-link" href="#the-license">#</a></h2>
+<div class="frame">
+<pre><code class="language-plaintext">Six Labors Split License
+Version 1.0, June 2022
+Copyright (c) Six Labors
+
+TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+1. Definitions.
+
+   &quot;You&quot; (or &quot;Your&quot;) shall mean an individual or Legal Entity exercising permissions granted by this License.
+
+   &quot;Source&quot; form shall mean the preferred form for making modifications, including but not limited to software source
+    code, documentation source, and configuration files.
+
+   &quot;Object&quot; form shall mean any form resulting from mechanical transformation or translation of a Source form, including
+    but not limited to compiled object code, generated documentation, and conversions to other media types.
+
+   &quot;Work&quot; (or &quot;Works&quot;) shall mean any Six Labors software made available under the License, as indicated by a
+   copyright notice that is included in or attached to the work.
+
+   &quot;Direct Package Dependency&quot; shall mean any Work in Source or Object form that is installed directly by You.
+
+   &quot;Transitive Package Dependency&quot; shall mean any Work in Object form that is installed indirectly by a third party
+    dependency unrelated to Six Labors.
+
+2. License
+
+   Works in Source or Object form are split licensed and may be licensed under the Apache License, Version 2.0 or a
+   Six Labors Commercial Use License.
+
+   Licenses are granted based upon You meeting the qualified criteria as stated. Once granted,
+   You must reference the granted license only in all documentation.
+
+   Works in Source or Object form are licensed to You under the Apache License, Version 2.0 if.
+
+   - You are consuming the Work in for use in software licensed under an Open Source or Source Available license.
+   - You are consuming the Work as a Transitive Package Dependency.
+   - You are consuming the Work as a Direct Package Dependency in the capacity of a For-profit company/individual with
+     less than 1M USD annual gross revenue.
+   - You are consuming the Work as a Direct Package Dependency in the capacity of a Non-profit organization
+     or Registered Charity.
+
+   For all other scenarios, Works in Source or Object form are licensed to You under the Six Labors Commercial License
+   which may be purchased by visiting https://sixlabors.com/pricing/.
+
+</code></pre>
+</div>
+<h2 id="questions-and-answers" tabindex="-1">Questions And Answers <a class="direct-link" href="#questions-and-answers">#</a></h2>
+<ul>
+<li>
+<p>Q. What does that mean for existing commercial license holders?</p>
 </li>
-<li>Made codecs easier to use. The performance of the Jpeg decoder is doubled since the first beta!</li>
-<li>Introduced a new metadata-only decoding API <a href="https://github.com/SixLabors/ImageSharp/pull/292#issuecomment-358265674" target="_blank">with the help of the community</a>.</li>
-<li>Introduced new affine transform methods that allow the composition of affine transforms.</li>
-<li>Refactored all filters (Hue, Brightness, Saturation etc) to match the behaviour described in the W3C specification.</li>
-<li>Introduced static instances of reusable algorithms for use as method parameters.</li>
-<li>Refactored the namespaces to logical groups based on functionality.</li>
-<li>Fixed the resampling processes to correctly blend semi-transparent output.</li>
-<li>Many other performance improvements and bug fixes.</li>
+<li>
+<p>A. Your existing commercial license will be honoured until the individual license date. If applicable, you will be required to renew after that date to continue to use Six Labors libraries or products.</p>
+</li>
+<li>
+<p>Q. What do I need to do as an Open Source or Source Available consumer following these changes?</p>
+</li>
+<li>
+<p>A. Absolutely nothing. No changes are required in any form. The license will continue to be granted to you under the Apache License 2.0. You and any consumers of your work continue to enjoy exactly the same freedom as before.</p>
+</li>
+<li>
+<p>Q. What does this mean to me as a Non-profit organization or Registered Charity?</p>
+</li>
+<li>
+<p>A. The license will continue to be granted to you under the Apache License 2.0. You and any consumers of your work continue to enjoy exactly the same freedom as before.</p>
+</li>
+<li>
+<p>Q. What does this mean to me as an independent software developer or small business?</p>
+</li>
+<li>
+<p>A. If your annual gross revenue is less than 1M USD then the license will continue to be granted to you under the Apache License 2.0. You and any consumers of your work continue to enjoy exactly the same freedom as before.</p>
+</li>
+<li>
+<p>Q. What does this mean to me as a larger business or enterprise?</p>
+</li>
+<li>
+<p>A. If your your annual gross revenue is greater than or equal to 1M USD and you are consuming any of the libraries for use in Closed Source software as a &quot;Direct Package Dependency&quot; as defined in the license then you must purchase a Six Labors Commercial Use License. If you have consumed the library as &quot;Transitive Package Dependency&quot; you are subject to the terms of that third party providing the software.</p>
+</li>
 </ul>
-<p>I'll talk about some of the bigger changes below. While you're reading that, download the updated package from <a href="https://www.nuget.org/packages/SixLabors.ImageSharp/" target="_blank">Nuget</a>.</p>
-<h2 id="documentation." tabindex="-1">Documentation. <a class="direct-link" href="#documentation.">#</a></h2>
-<p>Our new documentation, built with DocFX, is hosted at <a href="https://sixlabors.github.io/docs/" target="_blank">https://sixlabors.github.io/docs/</a>. There you will find complete API documentation for all the SixLabors libraries plus additional articles describing the where's and what-how's of ImageProcessing.</p>
-<p>Please bear in mind that this documentation is a work-in-progress, being very labor intensive to write. All pages offer edit links so please help out if you spot any errors!</p>
-<h2 id="memory-management" tabindex="-1">Memory Management <a class="direct-link" href="#memory-management">#</a></h2>
-<p>By default, ImageSharp uses ArrayPools for performance reasons, however, this behavior is fully configurable.<br>
-All large buffers within the API are managed by the <code>MemoryManager</code> implementation associated to <code>Configuration</code> classes <code>MemoryManager</code> property. We default to using <code>ArrayPoolMemoryManager</code> in order to utilize the benefits of array pooling.</p>
-<p>This means:</p>
-<ul>
-<li>Less pressure on the GC (Garbage Collector), because buffers are being reused most of the time.</li>
-<li>Reduced LOH (Large Object Heap) fragmentation.</li>
-<li>When working with unclean buffers is acceptable, we can spare on array cleaning behavior also.</li>
-</ul>
-<p>Pooling helps us to reduce CPU work and increase throughput by the cost of a larger memory footprint.</p>
-<h3 id="working-in-memory-constrained-environments" tabindex="-1">Working in Memory Constrained Environments <a class="direct-link" href="#working-in-memory-constrained-environments">#</a></h3>
-<p>Sometimes having larger memory footprint is not an option. Let's mention a few cases:</p>
-<ul>
-<li>When horizontal scaling is achieved by having multiple memory constrained containers in a cloud environment.</li>
-<li>Mobile applications.</li>
-</ul>
-<p>Before scaling down pooling behavior because of unwanted <code>OutOfMemoryException</code>'s in a cloud or desktop environment, make sure that you are running your service in a 64 bit process.</p>
-<p>There are several pre-defined factory methods to create an <code>ArrayPoolMemoryManager</code> instance for memory constrained environments. For example <code>ArrayPoolMemoryManager.CreateWithModeratePooling</code> might be suitable in most constrained situations:</p>
-<div class="frame">
-<pre><code class="language-c#">Configuration.Default.MemoryManager = ArrayPoolMemoryManager.CreateWithModeratePooling();
-</code></pre>
-</div>
-<p>Of course, you may also configure a <code>MemoryManager</code> on your own <code>Configuration</code> instance.</p>
-<h2 id="filters" tabindex="-1">Filters <a class="direct-link" href="#filters">#</a></h2>
-<p>Filters were originally part of the SVG specification. However, when their usefulness became evident, W3C started working on adding some common filter effects to CSS as well.</p>
-<p>In beta 3 we've added filter methods by means of the <code>Matrix4x4</code> struct found in <code>System.Numerics.Vectors</code>.</p>
-<p>These methods match the behaviour of many CSS filters. You can use them to blur, brighten or saturate images among other things. They can be used alone or in combination with other filters.</p>
-<p>One big advantage with using the filter matrix is that composite filters can be obtained by matrix multiplication; the order of multiplication determining the transformed output.</p>
-<div class="frame">
-<pre><code class="language-c#">using (var image = Image.Load(&quot;in.png&quot;))
-{
-    Matrix4x4 brightness = KnownFilterMatrices.CreateBrightnessFilter(0.9F);
-    Matrix4x4 hue = KnownFilterMatrices.CreateHueFilter(180F);
-    Matrix4x4 saturation = KnownFilterMatrices.CreateSaturateFilter(1.5F);
-    Matrix4x4 m = brightness * hue * saturation;
-
-    image.Mutate(i =&gt; i.Filter(m));
-
-    image.Save(&quot;out.png&quot;);
-}
-</code></pre>
-</div>
-<p>In addition to the composable filters we have added convenience methods for each individual filter. For example:</p>
-<div class="frame">
-<pre><code class="language-c#">image.Mutate(x =&gt; x.Grayscale(GrayscaleMode.Bt709));
-
-image.Mutate(x =&gt; x.Hue(-180F));
-
-image.Mutate(x =&gt; x.Brightness(0.9F));
-
-</code></pre>
-</div>
-<p>Additional methods can be found in the API documentation.</p>
-<h2 id="affine-transforms" tabindex="-1">Affine Transforms <a class="direct-link" href="#affine-transforms">#</a></h2>
-<p>In geometry, an affine transformation is a function between affine spaces which preserves points, straight lines and planes. Also, sets of parallel lines remain parallel after an affine transformation. An affine transformation does not necessarily preserve angles between lines or distances between points, though it does preserve ratios of distances between points lying on a straight line.</p>
-<p>Translation, scaling, rotation, and skewing are all classified as affine transforms.</p>
-<p>In beta 3 we've added affine transformation methods by means of the <code>Matrix3x2</code> struct found in <code>System.Numerics.Vectors</code>.</p>
-<p>As with filters the big advantage with using the transform matrix is that composite transforms can be obtained by matrix multiplication; the order of multiplication determining the transformed output.</p>
-<div class="frame">
-<pre><code class="language-c#">using (var image = Image.Load(&quot;in.png&quot;))
-{
-    Matrix3x2 rotate = Matrix3x2Extensions.CreateRotationDegrees(45F);
-    var translate = Matrix3x2.CreateTranslation(5, 10);
-    var scale = Matrix3x2.CreateScale(.5F, .5F);
-    Matrix3x2 m = rotate * scale * translate;
-
-    image.Mutate(i =&gt; i.Transform(m, KnownResamplers.Bicubic));
-
-    image.Save(&quot;out.png&quot;);
-}
-</code></pre>
-</div>
-<p>In addition to the freeform transforms we have added convenience methods for <code>Rotate</code> and <code>Skew</code> with multiple overloads, that maintain the center point of the transformed image and automatically adjust the output image dimensions to fit.</p>
-<div class="frame">
-<pre><code class="language-c#">image.Mutate(x =&gt; x.Rotate(45F));
-
-image.Mutate(x =&gt; x.Skew(-20F, 10F));
-</code></pre>
-</div>
-<p>All our transform methods have multiple overloads and accept the same <code>IResampler</code> implementation as <code>Resize</code> to determine the resampling filter to assign during processing.</p>
-<h2 id="metadata-only-decoding" tabindex="-1">Metadata-only decoding <a class="direct-link" href="#metadata-only-decoding">#</a></h2>
-<p>Our new feature is very similar to <code>magick identify</code> from <a href="https://www.imagemagick.org/script/identify.php" target="_blank">ImageMagick</a>. To enable work with metadata-only results the types <a href="https://sixlabors.github.io/docs/api/ImageSharp/SixLabors.ImageSharp.IImageInfo.html" target="_blank"><code>IImageInfo</code></a> and <a href="https://sixlabors.github.io/docs/api/ImageSharp/SixLabors.ImageSharp.Formats.PixelTypeInfo.html" target="_blank"><code>PixelTypeInfo</code></a> have been itroduced:</p>
-<div class="frame">
-<pre><code class="language-C#">using (Stream stream = OpenMyStream())
-{
-    IImageInfo info = Image.Identify(stream);
-    Console.WriteLine(&quot;bits/pixel: &quot;  + info.PixelType.BitsPerPixel);
-}
-</code></pre>
-</div>
-<h2 id="roadmap" tabindex="-1">RoadMap <a class="direct-link" href="#roadmap">#</a></h2>
-<p>All things going to plan this should be the last beta. We're very pleased with the shape and robustness of the API and we are not planning on making any more large-scale changes. We shall be concentrating now on bug fixes and performance improvements.</p>
-<p>We will however be considering:</p>
-<ul>
-<li>Projective non-affine transforms (Tilt, Warp)</li>
-<li>Non-Rgb-based <code>TPixel</code> implementations (Cmyk, CieLab etc)</li>
-<li>Adding a full suite of colorspace conversion algorithms</li>
-</ul>
-<h2 id="you-can-help" tabindex="-1">You Can Help <a class="direct-link" href="#you-can-help">#</a></h2>
-<p>ImageSharp is fully open source and built for the community at large. You can help us reach v1.0</p>
-<p>We had some fantastic help over the last four months from several community members, I'd like to shout out to, in no particular order:</p>
-<ul>
-<li><a href="https://github.com/xakep139" target="_blank">Nikita Balabaev</a> and <a href="https://github.com/denisivan0v" target="_blank">Denis Ivanov</a> for building the MetaData API</li>
-<li><a href="https://github.com/rytmis" target="_blank">Lauri Kotilainen</a> for assisting in the build of the new Memory Management API</li>
-<li><a href="https://github.com/vpenades" target="_blank">Vicente Penades</a> for pushing us to produce correct resampling output and providing the best test images imaginable.</li>
-<li><a href="https://github.com/iamcarbon" target="_blank">Jason Nelson</a> for continued support and some brilliant optimization refactorings.</li>
-</ul>
-<p>If I've missed you out here (I deeply apologise if I have) please has a good growl at at me in our <a href="https://gitter.im/ImageSharp/General" target="_blank">Gitter Channel</a> and I'll add you to the list.</p>
-<p>We are always looking for assistance optimizing our code so if you've got performance chops please get in touch.</p>
-<p>Additionally we've got plenty of tickets that you can help with and we'd love some help checking our spelling and grammar in the documentation, it doesn't matter how little or how much you can offer, we really appreciate every bit of assistance.</p>
-<p>You can also really help us by downloading and testing the libraries. We really want to deliver something that is not only performant and robust, but also extremely usable.</p>
-<p>Enjoy!</p>
+<p>You can purchase a <a href="/pricing/">Six Labors Commercial Use License</a> here.</p>
 
             <hr>
             <ul>
-                <li>Next: <a href="/posts/fantastic-beta-four/">Fantastic Beta Four</a>
-                </li>
-              
-                <li>Previous: <a href="/posts/announcing-imagesharp-beta-1/">Announcing ImageSharp Beta 1</a>
+                <li>Previous: <a href="/posts/announcing-imagesharp-web-200/">Announcing ImageSharp.Web 2.0.0</a>
                 </li>
               
             </ul>
@@ -469,7 +423,7 @@ image.Mutate(x =&gt; x.Skew(-20F, 10F));
       </div>
     </footer>
 
-    <!-- Current page: /posts/beta-3-is-a-magic-number/ -->
+    <!-- Current page: /posts/license-changes/ -->
     <script 
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" 
       integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"

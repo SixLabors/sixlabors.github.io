@@ -5,12 +5,114 @@
 	
 	<link href="https://sixlabors.com/feed/feed.xml" rel="self"/>
 	<link href="https://sixlabors.com/"/>
-	<updated>2022-04-22T00:00:00Z</updated>
+	<updated>2022-07-16T00:00:00Z</updated>
 	<id>https://sixlabors.com/</id>
 	<author>
 		<name>Your Name Here</name>
 		<email>youremailaddress@example.com</email>
 	</author>
+	
+	<entry>
+		<title>License Changes for Six Labors Products</title>
+		<link href="https://sixlabors.com/posts/license-changes/"/>
+		<updated>2022-07-16T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/license-changes/</id>
+		<content type="html">&lt;h2 id=&quot;what-is-happening%3F&quot; tabindex=&quot;-1&quot;&gt;What is Happening? &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/license-changes/#what-is-happening%3F&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The Six Labors libraries occupy a domain of software development that is considered very complex. As such, huge effort is required to research, develop, and maintain the libraries which is unsustainable for a very small team of developers working in their spare time.&lt;/p&gt;
+&lt;p&gt;Previous attempts (&lt;em&gt;sponsorship, support license&lt;/em&gt;) to provide a sustainable income to ensure the continued development of the Six Labors libraries have not proven successful, yielding less than a few  months of developer income over a period of several years.&lt;/p&gt;
+&lt;p&gt;To ensure the continuation of the Six Labors libraries we are planning to introduce license changes for the following versions:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ImageSharp v3.0.0&lt;/li&gt;
+&lt;li&gt;ImageSharp.Web v3.0.0&lt;/li&gt;
+&lt;li&gt;ImageSharp.Drawing v2.0.0&lt;/li&gt;
+&lt;li&gt;Fonts v2.0.0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The Six Labors Split License has been explicitly designed to allow business as usual for Open Source or Source available consumers, however, if your your annual gross revenue is greater than or equal to 1M USD and you are consuming any of the libraries  for use in Closed Source software as a &amp;quot;Direct Package Dependency&amp;quot; as defined in the license then you must purchase a &lt;a href=&quot;https://sixlabors.com/pricing/&quot;&gt;Six Labors Commercial Use License&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Please note. We are currently working with the .NET Foundation board on next steps towards providing a continuance of the previous Open Source license for Foundation projects as a collaborative process.&lt;/p&gt;
+&lt;h2 id=&quot;the-license&quot; tabindex=&quot;-1&quot;&gt;The License &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/license-changes/#the-license&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-plaintext&quot;&gt;Six Labors Split License
+Version 1.0, June 2022
+Copyright (c) Six Labors
+
+TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+1. Definitions.
+
+   &amp;quot;You&amp;quot; (or &amp;quot;Your&amp;quot;) shall mean an individual or Legal Entity exercising permissions granted by this License.
+
+   &amp;quot;Source&amp;quot; form shall mean the preferred form for making modifications, including but not limited to software source
+    code, documentation source, and configuration files.
+
+   &amp;quot;Object&amp;quot; form shall mean any form resulting from mechanical transformation or translation of a Source form, including
+    but not limited to compiled object code, generated documentation, and conversions to other media types.
+
+   &amp;quot;Work&amp;quot; (or &amp;quot;Works&amp;quot;) shall mean any Six Labors software made available under the License, as indicated by a
+   copyright notice that is included in or attached to the work.
+
+   &amp;quot;Direct Package Dependency&amp;quot; shall mean any Work in Source or Object form that is installed directly by You.
+
+   &amp;quot;Transitive Package Dependency&amp;quot; shall mean any Work in Object form that is installed indirectly by a third party
+    dependency unrelated to Six Labors.
+
+2. License
+
+   Works in Source or Object form are split licensed and may be licensed under the Apache License, Version 2.0 or a
+   Six Labors Commercial Use License.
+
+   Licenses are granted based upon You meeting the qualified criteria as stated. Once granted,
+   You must reference the granted license only in all documentation.
+
+   Works in Source or Object form are licensed to You under the Apache License, Version 2.0 if.
+
+   - You are consuming the Work in for use in software licensed under an Open Source or Source Available license.
+   - You are consuming the Work as a Transitive Package Dependency.
+   - You are consuming the Work as a Direct Package Dependency in the capacity of a For-profit company/individual with
+     less than 1M USD annual gross revenue.
+   - You are consuming the Work as a Direct Package Dependency in the capacity of a Non-profit organization
+     or Registered Charity.
+
+   For all other scenarios, Works in Source or Object form are licensed to You under the Six Labors Commercial License
+   which may be purchased by visiting https://sixlabors.com/pricing/.
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h2 id=&quot;questions-and-answers&quot; tabindex=&quot;-1&quot;&gt;Questions And Answers &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/license-changes/#questions-and-answers&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Q. What does that mean for existing commercial license holders?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A. Your existing commercial license will be honoured until the individual license date. If applicable, you will be required to renew after that date to continue to use Six Labors libraries or products.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Q. What do I need to do as an Open Source or Source Available consumer following these changes?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A. Absolutely nothing. No changes are required in any form. The license will continue to be granted to you under the Apache License 2.0. You and any consumers of your work continue to enjoy exactly the same freedom as before.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Q. What does this mean to me as a Non-profit organization or Registered Charity?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A. The license will continue to be granted to you under the Apache License 2.0. You and any consumers of your work continue to enjoy exactly the same freedom as before.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Q. What does this mean to me as an independent software developer or small business?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A. If your annual gross revenue is less than 1M USD then the license will continue to be granted to you under the Apache License 2.0. You and any consumers of your work continue to enjoy exactly the same freedom as before.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Q. What does this mean to me as a larger business or enterprise?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A. If your your annual gross revenue is greater than or equal to 1M USD and you are consuming any of the libraries for use in Closed Source software as a &amp;quot;Direct Package Dependency&amp;quot; as defined in the license then you must purchase a Six Labors Commercial Use License. If you have consumed the library as &amp;quot;Transitive Package Dependency&amp;quot; you are subject to the terms of that third party providing the software.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You can purchase a &lt;a href=&quot;https://sixlabors.com/pricing/&quot;&gt;Six Labors Commercial Use License&lt;/a&gt; here.&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>Announcing ImageSharp.Web 2.0.0</title>

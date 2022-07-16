@@ -73,6 +73,7 @@ a {
   .masthead h1 {
     font-size: 4.5rem;
   }
+
   .masthead .lead {
     font-size: 1.5rem;
   }
@@ -104,12 +105,16 @@ section {
   margin-bottom: 2rem;
 }
 
-.product .card-body .btn {
+.product:not(.license) .card-body .btn {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   margin: 0 auto;
+}
+
+.license .card-body .btn-primary {
+  min-width: 180px;
 }
 
 @media (min-width: 1200px) {
@@ -239,6 +244,7 @@ pre code {
 }
 
 @media (min-width: 1200px) {
+
   .frame::before,
   .frame::after {
     left: -0.5rem;
@@ -262,12 +268,12 @@ pre code {
   }
 }
 
-.tick-list > li {
+.tick-list>li {
   list-style-type: none;
   position: relative;
 }
 
-.tick-list > li:before {
+.tick-list>li:before {
   position: absolute;
   top: 0.2rem;
   left: -1.5rem;
@@ -312,7 +318,7 @@ article time {
   font-size: 0.75rem;
 }
 
-.post-tag + .post-tag,
+.post-tag+.post-tag,
 .post-list .post-tag {
   margin-left: 0.75rem;
 }
@@ -336,10 +342,11 @@ a[href].direct-link,
 a[href].direct-link:visited {
   color: transparent;
 }
+
 a[href].direct-link:focus,
 a[href].direct-link:focus:visited,
-:hover > a[href].direct-link,
-:hover > a[href].direct-link:visited {
+:hover>a[href].direct-link,
+:hover>a[href].direct-link:visited {
   color: #ccc;
 }
 
