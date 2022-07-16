@@ -27,7 +27,7 @@
 &lt;li&gt;ImageSharp.Drawing v2.0.0&lt;/li&gt;
 &lt;li&gt;Fonts v2.0.0&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;The Six Labors Split License has been explicitly designed to allow business as usual for Open Source or Source available consumers, however, if your your annual gross revenue is greater than or equal to 1M USD and you are consuming any of the libraries  for use in Closed Source software as a &amp;quot;Direct Package Dependency&amp;quot; as defined in the license then you must purchase a &lt;a href=&quot;https://sixlabors.com/pricing/&quot;&gt;Six Labors Commercial Use License&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The Six Labors Split License has been explicitly designed to allow business as usual for Open Source or Source available consumers, however, if your annual gross revenue is greater than or equal to 1M USD and you are consuming any of the libraries  for use in Closed Source software as a &amp;quot;Direct Package Dependency&amp;quot; as defined in the license then you must purchase a &lt;a href=&quot;https://sixlabors.com/pricing/&quot;&gt;Six Labors Commercial Use License&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Please note. We are currently working with the .NET Foundation board on next steps towards providing a continuance of the previous Open Source license for Foundation projects as a collaborative process.&lt;/p&gt;
 &lt;h2 id=&quot;the-license&quot; tabindex=&quot;-1&quot;&gt;The License &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/license-changes/#the-license&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;div class=&quot;frame&quot;&gt;
@@ -107,7 +107,7 @@ TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 &lt;p&gt;Q. What does this mean to me as a larger business or enterprise?&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;A. If your your annual gross revenue is greater than or equal to 1M USD and you are consuming any of the libraries for use in Closed Source software as a &amp;quot;Direct Package Dependency&amp;quot; as defined in the license then you must purchase a Six Labors Commercial Use License. If you have consumed the library as &amp;quot;Transitive Package Dependency&amp;quot; you are subject to the terms of that third party providing the software.&lt;/p&gt;
+&lt;p&gt;A. If your annual gross revenue is greater than or equal to 1M USD and you are consuming any of the libraries for use in Closed Source software as a &amp;quot;Direct Package Dependency&amp;quot; as defined in the license then you must purchase a Six Labors Commercial Use License. If you have consumed the library as &amp;quot;Transitive Package Dependency&amp;quot; you are subject to the terms of that third party providing the software.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;You can purchase a &lt;a href=&quot;https://sixlabors.com/pricing/&quot;&gt;Six Labors Commercial Use License&lt;/a&gt; here.&lt;/p&gt;
