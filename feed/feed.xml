@@ -5,12 +5,65 @@
 	
 	<link href="https://sixlabors.com/feed/feed.xml" rel="self"/>
 	<link href="https://sixlabors.com/"/>
-	<updated>2022-07-16T00:00:00Z</updated>
+	<updated>2022-10-24T00:00:00Z</updated>
 	<id>https://sixlabors.com/</id>
 	<author>
 		<name>Your Name Here</name>
 		<email>youremailaddress@example.com</email>
 	</author>
+	
+	<entry>
+		<title>ImageSharp leaves the .NET foundation.</title>
+		<link href="https://sixlabors.com/posts/imagesharp-leaves-net-foundation/"/>
+		<updated>2022-10-24T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/imagesharp-leaves-net-foundation/</id>
+		<content type="html">&lt;h2 id=&quot;what-is-happening%3F&quot; tabindex=&quot;-1&quot;&gt;What is Happening? &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/imagesharp-leaves-net-foundation/#what-is-happening%3F&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Back in July this year we published an &lt;a href=&quot;https://sixlabors.com/posts/license-changes/&quot;&gt;article&lt;/a&gt; describing the license changes we were implementing for our suite of products.&lt;/p&gt;
+&lt;p&gt;At that time we were in negotiations with the .NET Foundation in order to allow us to remain as members despite now not having an OSI approved license.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Please note. We are currently working with the .NET Foundation board on next steps towards providing a continuance of the previous Open Source license for Foundation projects as a collaborative process.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Unfortunately those negotiations have failed and we have no option but to leave the .NET Foundation.&lt;/p&gt;
+&lt;p&gt;You can read their statement &lt;a href=&quot;https://dotnetfoundation.org/blog/2022/10/20/imagesharpupdate&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We&#39;re obviously disappointed that the situation resolved itself in this manner but we understand that the .NET Foundation has a very difficult job to do in an ever changing landscape.&lt;br /&gt;
+We look forward to opportunities to collaborate with them in the future and would explicitly like to call out and thank &lt;a href=&quot;https://twitter.com/runfaster2000&quot; target=&quot;_blank&quot;&gt;Rich Lander&lt;/a&gt; for his incredibly helpful and generous efforts to facilitate the negotiations.&lt;/p&gt;
+&lt;p&gt;In order to alleviate any confusion we&#39;ve republished, in short form, information about how our license changes affect you as a consumer.&lt;/p&gt;
+&lt;h2 id=&quot;questions-and-answers&quot; tabindex=&quot;-1&quot;&gt;Questions And Answers &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/imagesharp-leaves-net-foundation/#questions-and-answers&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Q. What does that mean for existing commercial license holders?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A. Your existing commercial license will be honoured until the individual license date. If applicable, you will be required to renew after that date to continue to use Six Labors libraries or products.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Q. What do I need to do as an Open Source or Source Available consumer following these changes?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A. Absolutely nothing. No changes are required in any form. The license will continue to be granted to you under the Apache License 2.0. You and any consumers of your work continue to enjoy exactly the same freedom as before.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Q. What does this mean to me as a Non-profit organization or Registered Charity?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A. The license will continue to be granted to you under the Apache License 2.0. You and any consumers of your work continue to enjoy exactly the same freedom as before.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Q. What does this mean to me as an independent software developer or small business?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A. If your annual gross revenue is less than 1M USD then the license will continue to be granted to you under the Apache License 2.0. You and any consumers of your work continue to enjoy exactly the same freedom as before.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Q. What does this mean to me as a larger business or enterprise?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A. If your annual gross revenue is greater than or equal to 1M USD and you are consuming any of the libraries for use in Closed Source software as a &amp;quot;Direct Package Dependency&amp;quot; as defined in the license then you must purchase a Six Labors Commercial Use License. If you have consumed the library as &amp;quot;Transitive Package Dependency&amp;quot; you are subject to the terms of that third party providing the software.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You can purchase a &lt;a href=&quot;https://sixlabors.com/pricing/&quot;&gt;Six Labors Commercial Use License&lt;/a&gt; here.&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>License Changes for Six Labors Products</title>
