@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Six Labors : Fantastic Beta Four</title>
-    <meta name="description" content="Today were very happy to announce ImageSharp Beta 4.">
+    <title>Six Labors : Announcing ImageSharp 3.0.0</title>
+    <meta name="description" content="ImageSharp 3 - An elegant weapon for a more civilized age">
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
       rel="stylesheet"
@@ -181,12 +181,12 @@
       <div class="masthead">
   <div class="container">
     <h1 class="mb-3">
-      Fantastic Beta Four
+      Announcing ImageSharp 3.0.0
     </h1>
     <p class="lead mb-4">
-      Today were very happy to announce ImageSharp Beta 4.
+      ImageSharp 3 - An elegant weapon for a more civilized age
     </p>
-    <div><a href="/tags/imagesharp/" class="post-tag btn btn-primary shadow">ImageSharp</a><a href="/tags/releases/" class="post-tag btn btn-primary shadow">Releases</a>
+    <div><a href="/tags/releases/" class="post-tag btn btn-primary shadow">Releases</a><a href="/tags/imagesharp/" class="post-tag btn btn-primary shadow">ImageSharp</a>
     </div>
   </div>
 </div>
@@ -196,41 +196,78 @@
     <div class= row>
       <div class="col-md-8">
         <article>
-          <time datetime="2018-05-26">26 May 2018</time>
+          <time datetime="2023-03-01">01 Mar 2023</time>
 
-          <p><img src="/img/444444.jpeg" alt="Fantastic Four with ImageSharp logos" class="img-fluid"></p>
-<h2 id="imagesharp-beta-4-is-available-on-nuget" tabindex="-1">ImageSharp beta 4 <a href="https://www.nuget.org/packages/SixLabors.ImageSharp/1.0.0-beta0004" target="_blank">is available on NuGet</a> <a class="direct-link" href="#imagesharp-beta-4-is-available-on-nuget">#</a></h2>
-<p>This time the majority of the contributions were made by the community around the project, and we feel really happy about this!</p>
-<h2 id="improvements-since-the-last-beta" tabindex="-1">Improvements since the last beta <a class="direct-link" href="#improvements-since-the-last-beta">#</a></h2>
+          <div class="ratio ratio-16x9">
+<iframe src="https://www.youtube.com/embed/vQA5aLctA0I" allow="autoplay; encrypted-media;" allowfullscreen></iframe>
+</div>
+<p>We are very excited to announce the release of ImageSharp 3.0.0 final. You can <a href="https://www.nuget.org/packages/SixLabors.ImageSharp/3.0.0" target="_blank">download it today</a>.</p>
+<p>This release is the culmination of nearly 9 months of work and marks a major shift in the development of ImageSharp.</p>
+<p>With V3 we've changed the target framework to support the latest .NET 6 LTS.</p>
+<p>By removing support for legacy frameworks we've been able to delete a lot of old code that was preventing us from providing much needed improvements throughout the library. As a result we've been able to simplify many of our internal and public APIs and deliver incredible performance improvements in several areas.</p>
+<p>Going forward each major version will only support the current .NET LTS.</p>
+<p>Don't worry! The V2 package is not going anywhere so if you cannot update your target framework we've still got you covered.</p>
+<p>V3 will also be the first version to use the new <a href="https://raw.githubusercontent.com/SixLabors/ImageSharp/main/LICENSE" target="_blank">Six Labors Split License</a>.</p>
+<h2 id="what's-new-since-v2." tabindex="-1">What's new since V2. <a class="direct-link" href="#what's-new-since-v2.">#</a></h2>
+<p>As ever we've been very busy!</p>
 <ul>
-<li>Full support for .NET Core 2.1: we got rid of the annoying <a href="https://github.com/SixLabors/ImageSharp/issues/563" target="_blank">MissingMethodException's</a></li>
-<li>Fixed a <a href="https://github.com/SixLabors/ImageSharp/issues/496" target="_blank">bug</a> related to drawing large and complex shapes (eg. pages of text)</li>
-<li><a href="https://github.com/SixLabors/ImageSharp/pull/542" target="_blank">Gradient brushes</a></li>
-<li><a href="https://github.com/SixLabors/ImageSharp/pull/546" target="_blank">Projective non-affine transforms (tilt, perspective)</a></li>
-<li>Improved the robustness of our Jpeg decoder:
+<li>Introduced new <a href="https://docs.sixlabors.com/api/ImageSharp/SixLabors.ImageSharp.Formats.ImageDecoder.html" target="_blank">ImageDecoder</a> and <a href="https://docs.sixlabors.com/api/ImageSharp/SixLabors.ImageSharp.Formats.ImageEncoder.html" target="_blank">ImageEncoder</a> base types that make custom implementations an order of mgnitude easier.</li>
+<li>Introduced border wrapping modes for all convolution operations - This allow tiling of output operations.</li>
+<li>Introduced a new Median Blur processor.</li>
+<li>Added support for decoding Jpeg's with arithmetic encoding.</li>
+<li>Added support for <a href="http://jpegclub.org/djpeg/" target="_blank">Fast IDCT Scaling</a> to the jpeg decoder (<em>more on that below</em>).</li>
+<li>We now preserve the ICC Profile when working with Webp, Bmp, and Png images.</li>
+<li>Expanded support for Tiff to cover many additional encoding formats.</li>
+<li>Fixed issues with our Gif format that resulted in malformed multi-frame gifs.</li>
+<li>Fixed issues with our WebP format which resulted in larger than expected files when encoding lossy output with alpha data.</li>
+<li>Much much more....</li>
+</ul>
+<p>Please read the <a href="https://github.com/SixLabors/ImageSharp/releases/tag/v3.0.0" target="_blank">release notes</a> for detailed release information.</p>
+<h3 id="breaking-changes" tabindex="-1">Breaking Changes <a class="direct-link" href="#breaking-changes">#</a></h3>
+<p>We try to avoid breaking changes when we can but this release contains a few major ones that we really needed to make to ensure the future success of the library.</p>
 <ul>
-<li>A large part of the implementation <a href="https://github.com/SixLabors/ImageSharp/pull/571" target="_blank">has been replaced</a>, allowing to parse a wider range of incorrectly encoded images</li>
-<li><a href="https://github.com/SixLabors/ImageSharp/pull/588" target="_blank">Better ICC reader</a></li>
+<li>We've introduce support for <a href="https://learn.microsoft.com/en-us/dotnet/csharp/nullable-references" target="_blank">Nullable Reference Types</a> across all our APIs which will change the method signatures in several places.</li>
+<li>We've completely overhauled and simplified our general decoding API and have introduced new shared options for all our decoders that allow controlling the decoding operation (<em>more on that below</em>).</li>
 </ul>
-</li>
-<li>Basic <code>System.Memory</code> API integration: <a href="https://sixlabors.github.io/docs/api/ImageSharp/SixLabors.ImageSharp.Image.html#SixLabors_ImageSharp_Image_LoadPixelData__1_SixLabors_ImageSharp_Configuration_ReadOnlySpan___0__System_Int32_System_Int32_" target="_blank">Image.LoadPixelData()</a> and <a href="https://sixlabors.github.io/docs/api/ImageSharp/SixLabors.ImageSharp.ImageExtensions.html#SixLabors_ImageSharp_ImageExtensions_SavePixelData__1_SixLabors_ImageSharp_ImageFrame___0__Span___0__" target="_blank">SavePixelData()</a> are now <a href="https://github.com/SixLabors/ImageSharp/pull/567" target="_blank">able to consume spans</a></li>
-<li><a href="https://github.com/SixLabors/ImageSharp/pull/552/files" target="_blank">Improved</a> <code>.Fill(color)</code> performance and added <a href="https://sixlabors.github.io/docs/api/ImageSharp/SixLabors.ImageSharp.Image-1.html#SixLabors_ImageSharp_Image_1__ctor_SixLabors_ImageSharp_Configuration_System_Int32_System_Int32__0_" target="_blank">a constructor</a> initializing images with a default fill color</li>
-</ul>
-<h2 id="special-thanks" tabindex="-1">Special thanks <a class="direct-link" href="#special-thanks">#</a></h2>
-<ul>
-<li><a href="https://github.com/woutware" target="_blank">@woutware</a> for his optimization and bugfix work on Drawing topics</li>
-<li><a href="https://github.com/JBildstein" target="_blank">@JBildstein</a> for the ICC improvements</li>
-<li><a href="https://github.com/jongleur1983" target="_blank">@jongleur1983</a> for his mind blowing gradient brushes</li>
-<li><a href="https://github.com/iamcarbon" target="_blank">@iamcarbon</a> for adding .NET Core 2.1 support, API and code quality improvements</li>
-<li><a href="https://github.com/brianpopow" target="_blank">@brianpopow</a> for investigating and <a href="https://github.com/SixLabors/ImageSharp/pull/591" target="_blank">fixing</a> hardly reproducible issues related to JIT code generation bugs</li>
-</ul>
+<h4 id="decoderoptions---the-weapon-of-a-jedi-knight" tabindex="-1">DecoderOptions - The Weapon of a Jedi Knight <a class="direct-link" href="#decoderoptions---the-weapon-of-a-jedi-knight">#</a></h4>
+<p>The newly introduced <a href="https://docs.sixlabors.com/api/ImageSharp/SixLabors.ImageSharp.Formats.DecoderOptions.html" target="_blank"><code>DecoderOptions</code></a> provide developers a powerful way to instruct our load APIs in a normalized fashion. These options are accessible to all our decoders and allow us to do some very cool things.</p>
+<p>For example, the following code allows us to return the decoded image comprised of a single frame at the requested maximum size in each direction. For jpeg this is especially useful as it allows us to take advantage of super fast IDCT scaling operations within the format that give us an impressive performance boost and uses less memory in the process.</p>
+<p>The image is saved using the same image format using information added to the metadata following the decoding operation.</p>
+<div class="frame">
+<pre><code class="language-c#">DecoderOptions options = new()
+{
+    MaxFrames = 1,
+    TargetSize = new(150, 150)
+};
+
+using var image = Image.Load(options, inputStream);
+image.Save(outputStream, image.Metadata.DecodedImageFormat);
+</code></pre>
+</div>
+<p>Pretty neat eh?</p>
+<p>In addition to the general decoding API we offer additional specialized decoding options <a href="https://docs.sixlabors.com/api/ImageSharp/SixLabors.ImageSharp.Formats.ISpecializedDecoderOptions.html" target="_blank"><code>ISpecializedDecoderOptions</code></a> that can be accessed directly against <a href="https://docs.sixlabors.com/api/ImageSharp/SixLabors.ImageSharp.Formats.ISpecializedImageDecoder-1.html" target="_blank"><code>ISpecializedDecoder&lt;T&gt;</code></a> instances which provide further options for decoding.</p>
+<p>A perfect balance of simplicity and power!</p>
+<h2 id="performance" tabindex="-1">Performance <a class="direct-link" href="#performance">#</a></h2>
+<p>Performance has always been a feature of ImageSharp and we're always looking for ways to squeeze out improvements across the entire library in each release. This release is no different with many improvements across several areas.</p>
+<p>One of the areas that has long been a point of interest and a known performance issue has been our handling of alpha compositing.</p>
+<p>From <a href="https://en.wikipedia.org/wiki/Alpha_compositing" target="_blank">Wikipedia</a></p>
+<blockquote>
+<p>In computer graphics, alpha compositing or alpha blending is the process of combining one image with a background to create the appearance of partial or full transparency. It is often useful to render picture elements (pixels) in separate passes or layers and then combine the resulting 2D images into a single, final image called the composite. Compositing is used extensively in film when combining computer-rendered image elements with live footage. Alpha blending is also used in 2D computer graphics to put rasterized foreground elements over a background.</p>
+</blockquote>
+<p>Alpha compositing is the backbone for any blending operation. This covers the simple act of overlaying an image to all complex drawing operations (<em>think lines, curves, brushes, pens, text</em>). In V2 this was a bottleneck for all those operations and greatly hindered our ability to ship an additional drawing package.</p>
+<p><strong>In V3 we've blown things out of the water and improved performance by a whopping 14.4x!</strong></p>
+<p>This was achieved by conducting a complete overhaul of the existing <code>Vector4</code> implementation (<em>6.1x faster than the previous implementation</em>) and introducing a new <a href="https://en.wikipedia.org/wiki/Advanced_Vector_Extensions" target="_blank">AVX2</a> pipeline which brings improvement to 14.4x.</p>
+<p>This change will allow us to complete the ImageSharp.Drawing library safe in the knowledge that we can bring excellent performance to the table.</p>
+<p>In addition to those changes we've introduced a 2x speedup for all operations involving our <a href="https://docs.sixlabors.com/api/ImageSharp/SixLabors.ImageSharp.ColorMatrix.html" target="_blank"><code>ColorMatrix</code></a> type. This brings great improvement across all our filtering methods including adjustments for brightness and contrast.</p>
+<h2 id="the-future" tabindex="-1">The Future <a class="direct-link" href="#the-future">#</a></h2>
+<p>We'll be publishing new releases over the next few days of all our libraries that depend on ImageSharp. That means a new major version <a href="https://github.com/SixLabors/ImageSharp.Web" target="_blank">SixLabors.ImageSharp.Web</a>.</p>
+<p>We'll also concentrate on shipping V1 versions of <a href="https://github.com/SixLabors/ImageSharp.Drawing" target="_blank">SixLabors.ImageSharp.Drawing</a> and <a href="https://github.com/SixLabors/Fonts" target="_blank">SixLabors.Fonts</a> targeting a release date in the first half of this year.</p>
+<h2 id="closing" tabindex="-1">Closing <a class="direct-link" href="#closing">#</a></h2>
+<p>Thanks again for all the feedback and usage. It's been a pleasure to build ImageSharp so far and to see so many people try it out; we really appreciate it. Please continue exploring the product and learning what it's capable of.</p>
 
             <hr>
             <ul>
-                <li>Next: <a href="/posts/beta-six-labors/">Beta-Six Labors.</a>
-                </li>
-              
-                <li>Previous: <a href="/posts/beta-3-is-a-magic-number/">Beta 3 Is A Magic Number</a>
+                <li>Previous: <a href="/posts/imagesharp-leaves-net-foundation/">ImageSharp leaves the .NET foundation.</a>
                 </li>
               
             </ul>
@@ -358,7 +395,7 @@
       </div>
     </footer>
 
-    <!-- Current page: /posts/fantastic-beta-four/ -->
+    <!-- Current page: /posts/announcing-imagesharp-300/ -->
     <script 
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" 
       integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
