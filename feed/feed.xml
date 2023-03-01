@@ -30,14 +30,14 @@
 &lt;h2 id=&quot;what&#39;s-new-since-v2.&quot; tabindex=&quot;-1&quot;&gt;What&#39;s new since V2. &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-300/#what&#39;s-new-since-v2.&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;As ever we&#39;ve been very busy!&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Introduced new &lt;a href=&quot;https://docs.sixlabors.com/api/ImageSharp/SixLabors.ImageSharp.Formats.ImageDecoder.html&quot; target=&quot;_blank&quot;&gt;ImageDecoder&lt;/a&gt; and &lt;a href=&quot;https://docs.sixlabors.com/api/ImageSharp/SixLabors.ImageSharp.Formats.ImageEncoder.html&quot; target=&quot;_blank&quot;&gt;ImageEncoder&lt;/a&gt; base types that make custom implementations an order of mgnitude easier.&lt;/li&gt;
-&lt;li&gt;Introduced border wrapping modes for all convolution operations - This allow tiling of output operations.&lt;/li&gt;
+&lt;li&gt;Introduced new &lt;a href=&quot;https://docs.sixlabors.com/api/ImageSharp/SixLabors.ImageSharp.Formats.ImageDecoder.html&quot; target=&quot;_blank&quot;&gt;ImageDecoder&lt;/a&gt; and &lt;a href=&quot;https://docs.sixlabors.com/api/ImageSharp/SixLabors.ImageSharp.Formats.ImageEncoder.html&quot; target=&quot;_blank&quot;&gt;ImageEncoder&lt;/a&gt; base types that make custom implementations an order of magnitude easier.&lt;/li&gt;
+&lt;li&gt;Introduced border wrapping modes for all convolution operations - This allows tiling of output operations.&lt;/li&gt;
 &lt;li&gt;Introduced a new Median Blur processor.&lt;/li&gt;
-&lt;li&gt;Added support for decoding Jpeg&#39;s with arithmetic encoding.&lt;/li&gt;
+&lt;li&gt;Added support for decoding Jpegs with arithmetic encoding.&lt;/li&gt;
 &lt;li&gt;Added support for &lt;a href=&quot;http://jpegclub.org/djpeg/&quot; target=&quot;_blank&quot;&gt;Fast IDCT Scaling&lt;/a&gt; to the jpeg decoder (&lt;em&gt;more on that below&lt;/em&gt;).&lt;/li&gt;
 &lt;li&gt;We now preserve the ICC Profile when working with Webp, Bmp, and Png images.&lt;/li&gt;
 &lt;li&gt;Expanded support for Tiff to cover many additional encoding formats.&lt;/li&gt;
-&lt;li&gt;Fixed issues with our Gif format that resulted in malformed multi-frame gifs.&lt;/li&gt;
+&lt;li&gt;Fixed issues with our Gif format that resulted in malformed multi-frame Gifs.&lt;/li&gt;
 &lt;li&gt;Fixed issues with our WebP format which resulted in larger than expected files when encoding lossy output with alpha data.&lt;/li&gt;
 &lt;li&gt;Much much more....&lt;/li&gt;
 &lt;/ul&gt;
