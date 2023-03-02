@@ -257,28 +257,30 @@ image.Save(outputStream, image.Metadata.DecodedImageFormat);
 Job=ShortRun  Arguments=/p:DebugType=portable  IterationCount=5
 LaunchCount=1  WarmupCount=5
 
-|                              Method |      Mean |    Error |   StdDev | Ratio |      Gen0 |      Gen1 |      Gen2 |  Allocated | Alloc Ratio |
-|------------------------------------ |----------:|---------:|---------:|------:|----------:|----------:|----------:|-----------:|------------:|
-| 'System.Drawing Load, Resize, Save' | 365.35 ms | 4.435 ms | 1.152 ms |  1.00 |         - |         - |         - |   13.42 KB |        1.00 |
-|     'ImageSharp Load, Resize, Save' | 117.09 ms | 2.115 ms | 0.327 ms |  0.32 |         - |         - |         - | 1319.65 KB |       98.32 |
-|  'ImageSharp TD Load, Resize, Save' |  75.35 ms | 0.380 ms | 0.059 ms |  0.21 |         - |         - |         - |  575.86 KB |       42.90 |
-|    'ImageMagick Load, Resize, Save' | 394.49 ms | 4.292 ms | 0.664 ms |  1.08 |         - |         - |         - |   55.37 KB |        4.13 |
-|      'ImageFree Load, Resize, Save' | 238.73 ms | 2.360 ms | 0.613 ms |  0.65 | 6000.0000 | 6000.0000 | 6000.0000 |   94.66 KB |        7.05 |
-|    'MagicScaler Load, Resize, Save' |  65.85 ms | 8.072 ms | 2.096 ms |  0.18 |         - |         - |         - |    45.4 KB |        3.38 |
-|      'SkiaSharp Load, Resize, Save' | 137.09 ms | 5.856 ms | 0.906 ms |  0.38 |         - |         - |         - |   86.93 KB |        6.48 |
-|        'NetVips Load, Resize, Save' | 145.03 ms | 8.394 ms | 1.299 ms |  0.40 |         - |         - |         - |  122.45 KB |        9.12 |
+|                              Method |      Mean |     Error |   StdDev | Ratio | Allocated native memory | Native memory leak |      Gen0 |      Gen1 |      Gen2 |  Allocated | Alloc Ratio |
+|------------------------------------ |----------:|----------:|---------:|------:|------------------------:|-------------------:|----------:|----------:|----------:|-----------:|------------:|
+| 'System.Drawing Load, Resize, Save' | 366.86 ms | 11.545 ms | 2.998 ms |  1.00 |               11,378 KB |             738 KB |         - |         - |         - |   13.42 KB |        1.00 |
+|     'ImageSharp Load, Resize, Save' | 117.77 ms |  2.567 ms | 0.667 ms |  0.32 |                    9 KB |                  - |         - |         - |         - | 1319.65 KB |       98.32 |
+|  'ImageSharp TD Load, Resize, Save' |  76.26 ms |  4.433 ms | 0.686 ms |  0.21 |                    9 KB |                  - |         - |         - |         - |  575.86 KB |       42.90 |
+|    'ImageMagick Load, Resize, Save' | 393.91 ms |  8.088 ms | 2.101 ms |  1.07 |               61,712 KB |                  - |         - |         - |         - |   55.37 KB |        4.13 |
+|      'ImageFree Load, Resize, Save' | 238.85 ms |  3.362 ms | 0.873 ms |  0.65 |               49,138 KB |                  - | 6000.0000 | 6000.0000 | 6000.0000 |   94.66 KB |        7.05 |
+|    'MagicScaler Load, Resize, Save' |  64.26 ms |  1.008 ms | 0.262 ms |  0.18 |                3,067 KB |                  - |         - |         - |         - |    45.4 KB |        3.38 |
+|      'SkiaSharp Load, Resize, Save' | 134.46 ms |  2.292 ms | 0.595 ms |  0.37 |               70,426 KB |             266 KB |         - |         - |         - |   86.93 KB |        6.48 |
+|        'NetVips Load, Resize, Save' | 145.53 ms |  5.268 ms | 1.368 ms |  0.40 |               28,072 KB |               0 KB |         - |         - |         - |  122.45 KB |        9.12 |
 
 // * Legends *
-  Mean        : Arithmetic mean of all measurements
-  Error       : Half of 99.9% confidence interval
-  StdDev      : Standard deviation of all measurements
-  Ratio       : Mean of the ratio distribution ([Current]/[Baseline])
-  Gen0        : GC Generation 0 collects per 1000 operations
-  Gen1        : GC Generation 1 collects per 1000 operations
-  Gen2        : GC Generation 2 collects per 1000 operations
-  Allocated   : Allocated memory per single operation (managed only, inclusive, 1KB = 1024B)
-  Alloc Ratio : Allocated memory ratio distribution ([Current]/[Baseline])
-  1 ms        : 1 Millisecond (0.001 sec)
+  Mean                    : Arithmetic mean of all measurements
+  Error                   : Half of 99.9% confidence interval
+  StdDev                  : Standard deviation of all measurements
+  Ratio                   : Mean of the ratio distribution ([Current]/[Baseline])
+  Allocated native memory : Allocated native memory per single operation
+  Native memory leak      : Native memory leak size in byte.
+  Gen0                    : GC Generation 0 collects per 1000 operations
+  Gen1                    : GC Generation 1 collects per 1000 operations
+  Gen2                    : GC Generation 2 collects per 1000 operations
+  Allocated               : Allocated memory per single operation (managed only, inclusive, 1KB = 1024B)
+  Alloc Ratio             : Allocated memory ratio distribution ([Current]/[Baseline])
+  1 ms                    : 1 Millisecond (0.001 sec)
 </code></pre>
 </div>
 <p><code>ImageSharp TD Load, Resize, Save</code> is the line of interest here.</p>
