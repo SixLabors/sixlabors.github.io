@@ -63,7 +63,45 @@ using var image = Image.Load(options, inputStream);
 image.Save(outputStream, image.Metadata.DecodedImageFormat);
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;p&gt;Pretty neat eh?&lt;/p&gt;
+&lt;p&gt;To demonstrate how much of a performance improvement this offers. Here&#39;s a run of that old classic benchmark from &lt;a href=&quot;https://devblogs.microsoft.com/dotnet/net-core-image-processing/&quot; target=&quot;_blank&quot;&gt;back in 2017&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I&#39;m running this on my Surface Laptop Studio called Stormbreaker with 32 GB of RAM.&lt;/p&gt;
+&lt;p&gt;&lt;small&gt;&lt;em&gt;Note. I couldn&#39;t get the native memory profiler to work so the benchmark is missing the total allocated memory for most of the other libraries. You can see the &lt;a href=&quot;https://sixlabors.com/posts/announcing-imagesharp-200/#performance&quot;&gt;benchmarks from V2&lt;/a&gt; which capture that data&lt;/em&gt;&lt;/small&gt;&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;BenchmarkDotNet=v0.13.5, OS=Windows 11 (10.0.22621.1265/22H2/2022Update/SunValley2)
+11th Gen Intel Core i7-11370H 3.30GHz, 1 CPU, 8 logical and 4 physical cores
+.NET SDK=7.0.200
+  [Host]   : .NET 7.0.3 (7.0.323.6910), X64 RyuJIT AVX2
+  ShortRun : .NET 7.0.3 (7.0.323.6910), X64 RyuJIT AVX2
+
+Job=ShortRun  Arguments=/p:DebugType=portable  IterationCount=5
+LaunchCount=1  WarmupCount=5
+
+|                              Method |      Mean |    Error |   StdDev | Ratio |      Gen0 |      Gen1 |      Gen2 |  Allocated | Alloc Ratio |
+|------------------------------------ |----------:|---------:|---------:|------:|----------:|----------:|----------:|-----------:|------------:|
+| &#39;System.Drawing Load, Resize, Save&#39; | 365.35 ms | 4.435 ms | 1.152 ms |  1.00 |         - |         - |         - |   13.42 KB |        1.00 |
+|     &#39;ImageSharp Load, Resize, Save&#39; | 117.09 ms | 2.115 ms | 0.327 ms |  0.32 |         - |         - |         - | 1319.65 KB |       98.32 |
+|  &#39;ImageSharp TD Load, Resize, Save&#39; |  75.35 ms | 0.380 ms | 0.059 ms |  0.21 |         - |         - |         - |  575.86 KB |       42.90 |
+|    &#39;ImageMagick Load, Resize, Save&#39; | 394.49 ms | 4.292 ms | 0.664 ms |  1.08 |         - |         - |         - |   55.37 KB |        4.13 |
+|      &#39;ImageFree Load, Resize, Save&#39; | 238.73 ms | 2.360 ms | 0.613 ms |  0.65 | 6000.0000 | 6000.0000 | 6000.0000 |   94.66 KB |        7.05 |
+|    &#39;MagicScaler Load, Resize, Save&#39; |  65.85 ms | 8.072 ms | 2.096 ms |  0.18 |         - |         - |         - |    45.4 KB |        3.38 |
+|      &#39;SkiaSharp Load, Resize, Save&#39; | 137.09 ms | 5.856 ms | 0.906 ms |  0.38 |         - |         - |         - |   86.93 KB |        6.48 |
+|        &#39;NetVips Load, Resize, Save&#39; | 145.03 ms | 8.394 ms | 1.299 ms |  0.40 |         - |         - |         - |  122.45 KB |        9.12 |
+
+// * Legends *
+  Mean        : Arithmetic mean of all measurements
+  Error       : Half of 99.9% confidence interval
+  StdDev      : Standard deviation of all measurements
+  Ratio       : Mean of the ratio distribution ([Current]/[Baseline])
+  Gen0        : GC Generation 0 collects per 1000 operations
+  Gen1        : GC Generation 1 collects per 1000 operations
+  Gen2        : GC Generation 2 collects per 1000 operations
+  Allocated   : Allocated memory per single operation (managed only, inclusive, 1KB = 1024B)
+  Alloc Ratio : Allocated memory ratio distribution ([Current]/[Baseline])
+  1 ms        : 1 Millisecond (0.001 sec)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;ImageSharp TD Load, Resize, Save&lt;/code&gt; is the line of interest here.&lt;/p&gt;
+&lt;p&gt;Pretty neat eh? &lt;strong&gt;ImageSharp can give you some pretty serious performance gains for that scenario&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;In addition to the general decoding API we offer additional specialized decoding options &lt;a href=&quot;https://docs.sixlabors.com/api/ImageSharp/SixLabors.ImageSharp.Formats.ISpecializedDecoderOptions.html&quot; target=&quot;_blank&quot;&gt;&lt;code&gt;ISpecializedDecoderOptions&lt;/code&gt;&lt;/a&gt; that can be accessed directly against &lt;a href=&quot;https://docs.sixlabors.com/api/ImageSharp/SixLabors.ImageSharp.Formats.ISpecializedImageDecoder-1.html&quot; target=&quot;_blank&quot;&gt;&lt;code&gt;ISpecializedDecoder&amp;lt;T&amp;gt;&lt;/code&gt;&lt;/a&gt; instances which provide further options for decoding.&lt;/p&gt;
 &lt;p&gt;A perfect balance of simplicity and power!&lt;/p&gt;
 &lt;h2 id=&quot;performance&quot; tabindex=&quot;-1&quot;&gt;Performance &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-300/#performance&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
