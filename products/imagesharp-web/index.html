@@ -279,7 +279,7 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
                 // Optionally create the cache container on startup if not already created.
                 AzureBlobStorageCache.CreateIfNotExists(options, PublicAccessType.None);
             })
-            .SetCache<AzureBlobStorageImageCache>();
+            .SetCache&lt;AzureBlobStorageImageCache&gt;();
 }
           </code></pre>
         </div>
