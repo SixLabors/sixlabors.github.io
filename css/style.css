@@ -1,5 +1,5 @@
 body {
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 h1,
@@ -22,14 +22,14 @@ a {
 }
 
 .sl-navbar a {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-transform: uppercase;
   color: inherit;
 }
 
 .sl-navbar a:hover,
 .sl-navbar a:focus,
-[aria-current="page"] a {
+[aria-current='page'] a {
   color: #e30183;
 }
 
@@ -84,6 +84,10 @@ section {
   margin-bottom: 3rem;
 }
 
+section.alt {
+  padding-top: 3rem;
+}
+
 .cart {
   margin-top: 3rem;
   margin-bottom: 3rem;
@@ -113,7 +117,7 @@ section {
   margin: 0 auto;
 }
 
-.license .card-body .btn-wrap{
+.license .card-body .btn-wrap {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -145,6 +149,24 @@ section {
   margin-bottom: 2rem;
 }
 
+.platforms {
+  text-align: center;
+}
+
+.platforms img {
+  min-width: 80px;
+  max-width: 80px;
+  margin: 2rem 0;
+}
+
+@media (min-width: 1200px) {
+  .platforms img {
+    min-width: 0;
+    max-width: 100%;
+    max-height: 72px;
+  }
+}
+
 pre {
   border-radius: 0.75rem;
   position: relative;
@@ -155,7 +177,7 @@ pre {
 pre::before,
 pre::after,
 pre code::before {
-  content: "";
+  content: '';
   position: absolute;
   z-index: 1;
   pointer-events: none;
@@ -181,7 +203,7 @@ pre code::before {
 }
 
 pre code::after {
-  content: "";
+  content: '';
   position: absolute;
   z-index: 1;
   pointer-events: none;
@@ -223,7 +245,7 @@ pre code {
 
 .frame::before,
 .frame::after {
-  content: "";
+  content: '';
   position: absolute;
   z-index: 0;
   top: 0;
@@ -252,7 +274,6 @@ pre code {
 }
 
 @media (min-width: 1200px) {
-
   .frame::before,
   .frame::after {
     left: -0.5rem;
@@ -276,16 +297,16 @@ pre code {
   }
 }
 
-.tick-list>li {
+.tick-list > li {
   list-style-type: none;
   position: relative;
 }
 
-.tick-list>li:before {
+.tick-list > li:before {
   position: absolute;
   top: 0.2rem;
   left: -1.5rem;
-  content: "";
+  content: '';
   background: #4ade80 url(img/tick.svg) center center no-repeat;
   border-radius: 50%;
   border-style: none;
@@ -326,7 +347,7 @@ article time {
   font-size: 0.75rem;
 }
 
-.post-tag+.post-tag,
+.post-tag + .post-tag,
 .post-list .post-tag {
   margin-left: 0.75rem;
 }
@@ -353,8 +374,8 @@ a[href].direct-link:visited {
 
 a[href].direct-link:focus,
 a[href].direct-link:focus:visited,
-:hover>a[href].direct-link,
-:hover>a[href].direct-link:visited {
+:hover > a[href].direct-link,
+:hover > a[href].direct-link:visited {
   color: #ccc;
 }
 
@@ -371,7 +392,7 @@ figcaption {
 }
 
 figcaption::before {
-  content: "— ";
+  content: '— ';
 }
 
 .ratio {
