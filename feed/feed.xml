@@ -75,7 +75,7 @@ once you start typing.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;/sixlabors.imagesharp.web.png?width=300&amp;amp;height=200&amp;amp;rmode=Pad&amp;amp;rcolor=32CD32FF&amp;amp;hmac=21f93e41021df0d3f88b5e2a8753bb273f292598e1511df67ec7cfb63f0b2994
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;p&gt;As you can see this massively simplifies command generation. This functionality is also available to customers generating custom commands. We&#39;ve made the ImageTagHelper type unsealed so that you can inherit the type and bring your own custom commands.&lt;/p&gt;
+&lt;p&gt;As you can see this massively simplifies command generation. An added bonus is that this functionality is also available to customers generating custom commands; we&#39;ve made the ImageTagHelper type unsealed so that you can inherit the type and bring your own.&lt;/p&gt;
 &lt;p&gt;You can see the collection of supported properties an option in the API &lt;a href=&quot;https://docs.sixlabors.com/api/ImageSharp.Web/SixLabors.ImageSharp.Web.TagHelpers.ImageTagHelper.html&quot; target=&quot;_blank&quot;&gt;documentation&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&quot;the-future&quot; tabindex=&quot;-1&quot;&gt;The Future &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-web-300/#the-future&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;We&#39;re currently entirely focused on &lt;a href=&quot;https://github.com/SixLabors/ImageSharp.Drawing&quot; target=&quot;_blank&quot;&gt;SixLabors.ImageSharp.Drawing&lt;/a&gt; and &lt;a href=&quot;https://github.com/SixLabors/Fonts&quot; target=&quot;_blank&quot;&gt;SixLabors.Fonts&lt;/a&gt; now to bring them up to Release Candidate status.&lt;/p&gt;
