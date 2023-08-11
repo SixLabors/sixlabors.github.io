@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Six Labors : Announcing ImageSharp 1.0 Release Candidate 1</title>
-    <meta name="description" content="Today were very happy to announce ImageSharp 1.0 Release Candidate 1.">
+    <title>Six Labors : Announcing Fonts 1.0.0</title>
+    <meta name="description" content="Fonts v1 - We control the horizontal and the vertical">
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
       rel="stylesheet"
@@ -181,12 +181,12 @@
       <div class="masthead">
   <div class="container">
     <h1 class="mb-3">
-      Announcing ImageSharp 1.0 Release Candidate 1
+      Announcing Fonts 1.0.0
     </h1>
     <p class="lead mb-4">
-      Today were very happy to announce ImageSharp 1.0 Release Candidate 1.
+      Fonts v1 - We control the horizontal and the vertical
     </p>
-    <div><a href="/tags/imagesharp/" class="post-tag btn btn-primary shadow">ImageSharp</a><a href="/tags/releases/" class="post-tag btn btn-primary shadow">Releases</a>
+    <div><a href="/tags/releases/" class="post-tag btn btn-primary shadow">Releases</a><a href="/tags/imagesharp/" class="post-tag btn btn-primary shadow">ImageSharp</a>
     </div>
   </div>
 </div>
@@ -196,34 +196,123 @@
     <div class= row>
       <div class="col-md-8">
         <article>
-          <time datetime="2020-05-01">01 May 2020</time>
+          <time datetime="2023-08-11">11 Aug 2023</time>
 
-          <p><img src="/img/fireworks.jpg" alt="Fireworks in a night sky" class="img-fluid"></p>
-<p>Today, we’re announcing ImageSharp 1.0 Release Candidate 1. With this release, along with the usual performance improvements and bug fixes we’ve focused on polishing ImageSharp 1.0 for a final release. We are now getting very, very close.</p>
-<p><a href="https://www.nuget.org/packages/SixLabors.ImageSharp/" target="_blank">Download ImageSharp 1.0 RC1</a> on Windows, macOS, and Linux, available now.</p>
-<p>This is a momentous day for us. ImageSharp has been in development now for 4 1/2 years and we're proud to deliver what we believe to be a comprehensive, well performing, solution with a great modern API.</p>
-<h2 id="license" tabindex="-1">License <a class="direct-link" href="#license">#</a></h2>
-<p>As announced in <a href="https://sixlabors.com/blog/beta-six-labors/#licensing-plans" target="_blank">January 2019</a> the Release Candidate comes with a new license. We've worked hard to try to strike the correct balance between supporting the open source community and protecting the future of the project. We believe we have now found that balance.</p>
+          <div class="ratio ratio-16x9">
+<iframe src="https://www.youtube.com/embed/8CtjhWhw2I8" allow="autoplay; encrypted-media;" allowfullscreen></iframe>
+</div>
+<p>We are very excited to announce the release of SixLabors.Fonts 1.0.0 final. You can <a href="https://www.nuget.org/packages/SixLabors.Fonts/1.0.0" target="_blank">download it today</a>.</p>
+<p><strong>SixLabors.Fonts</strong> is a cross-platform font loading and text layout library for .NET. It's designed to be fast, lightweight, and easy to use. It supports TrueType, OpenType, and WOFF fonts on Windows, Linux, and macOS. It's also the font engine behind <a href="https://github.com/SixLabors/ImageSharp.Drawing" target="_blank">SixLabors.ImageSharp.Drawing</a>.</p>
+<p>This release is a monumental work, the culmination of 6 years of effort and we're really proud of what we have achieved.</p>
+<p>SixLaborsFonts supports a wide range of font features including:</p>
 <ul>
-<li>ImageSharp is licensed under the <a href="https://www.gnu.org/licenses/agpl-3.0" target="_blank">GNU Affero General Public License v3</a></li>
-<li>An alternative Commercial License can be purchased for Closed Source projects and applications.<br>
-Please visit <a href="https://sixlabors.com/pricing" target="_blank">https://sixlabors.com/pricing</a> for details.</li>
-<li>Open Source projects who have taken a dependency on ImageSharp prior to adoption of the AGPL v3 license are permitted to use ImageSharp (including all future versions) under the previous <a href="https://opensource.org/licenses/Apache-2.0" target="_blank">Apache 2.0 License</a>.</li>
+<li>Kerning</li>
+<li>Ligatures</li>
+<li>Complex shaping</li>
+<li>Bidirectional text</li>
+<li>Font and glyph metrics</li>
 </ul>
-<p>Going forward the license changes will also apply for ImageSharp.Web 1.0 RC1, ImageSharp.Drawing 1.0-Beta8, and Fonts 1.0-Beta10.</p>
-<h2 id="documentation" tabindex="-1">Documentation <a class="direct-link" href="#documentation">#</a></h2>
-<p>Full API documentation for all the Six Labors libraries is available at <a href="https://docs.sixlabors.com" target="_blank">https://docs.sixlabors.com</a> alongside conceptual documentation and links to runnable sample applications. We will continue to add to this documentation to provide</p>
-<h2 id="go-live" tabindex="-1">Go Live <a class="direct-link" href="#go-live">#</a></h2>
-<p>ImageSharp 1.0 Release Candidate 11 is supported by Six Labors and can be used in production. We strongly recommend that you test your app running on the RC1 before deploying into production. If you find an issue with ImageSharp, please file a <a href="https://github.com/SixLabors/ImageSharp/issues/new/choose" target="_blank">GitHub issue</a>.</p>
-<h2 id="1.0" tabindex="-1">1.0 <a class="direct-link" href="#1.0">#</a></h2>
-<p>We hope to release the final 1.0 version within the next few months. The API is be considered stable and work will be focused on performance improvements and bug fixes with no additional feature planned.</p>
+<p>It also supports a wide range of text layout features including:</p>
+<ul>
+<li>Text wrapping</li>
+<li>Text alignment</li>
+<li>Text justification</li>
+<li>Vertical text (including mixed layout)</li>
+<li>Measuring individual glyphs and text.</li>
+<li>Rich text formatting (underline, overline, strikethrough, superscript, subscript, etc)</li>
+</ul>
+<p>Not only that it provides APIs that allow:</p>
+<ul>
+<li>Enumeration of codepoints within a string.</li>
+<li>Provision of details about each codepoint.</li>
+<li>Enumeration of graphemes within a string.</li>
+<li>Enumeration of line breaks within a string.</li>
+</ul>
+<p><strong>SixLabors.Fonts</strong> provides an API that is easy to use and understand. It's designed to be familiar to anyone who has used the System.Drawing and SkiaSharp .NET drawing APIs but with far greater flexibility. It can be used to render text to any .NET drawing surface by providing a simple interface <a href="https://docs.sixlabors.com/api/Fonts/SixLabors.Fonts.IGlyphRenderer.html" target="_blank">IGlyphRenderer</a>.</p>
+<p>This is an extraordinarily powerful library, brimming with rock solid features and as we promised back<br> in <a href="https://sixlabors.com/posts/license-changes/" target="_blank">July 2022</a> we're making sure that all v1.x releases are Open Source and free to use.</p>
+<p>v1.x is licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0.html" target="_blank">Apache 2.0</a> license.</p>
+<h2 id="examples" tabindex="-1">Examples <a class="direct-link" href="#examples">#</a></h2>
+<p>Measuring text is easy: In the following example we measure the advance, size, and bounds of the text &quot;Hello World!&quot; using the Open Sans font.</p>
+<div class="frame">
+<pre><code class="language-c#">FontFamily family = new FontCollection().Add(TestFonts.OpenSansFile);
+family.TryGetMetrics(FontStyle.Regular, out FontMetrics metrics);
+
+TextOptions options = new(family.CreateFont(metrics.UnitsPerEm))
+{
+    LineSpacing = 1.5F
+};
+
+const string text = &quot;Hello World!&quot;;
+FontRectangle advance = TextMeasurer.MeasureAdvance(text, options);
+FontRectangle size = TextMeasurer.MeasureSize(text, options);
+FontRectangle bounds = TextMeasurer.MeasureBounds(text, options);
+</code></pre>
+</div>
+<p>You can even measure those properties for individual glyphs:</p>
+<div class="frame">
+<pre><code class="language-c#">FontFamily family = new FontCollection().Add(TestFonts.OpenSansFile);
+family.TryGetMetrics(FontStyle.Regular, out FontMetrics metrics);
+
+TextOptions options = new(family.CreateFont(metrics.UnitsPerEm))
+{
+    LineSpacing = 1.5F
+};
+
+const string text = &quot;Hello World!&quot;;
+
+TextMeasurer.TryMeasureCharacterAdvances(text, options, out ReadOnlySpan&lt;GlyphBounds&gt; advances);
+TextMeasurer.TryMeasureCharacterSizes(text, options, out ReadOnlySpan&lt;GlyphBounds&gt; sizes);
+TextMeasurer.TryMeasureCharacterBounds(text, options, out ReadOnlySpan&lt;GlyphBounds&gt; bounds);
+</code></pre>
+</div>
+<p>Want to know whether a code point indicates a mandatory break? No problem!<br>
+This xUnit test demonstrates how to use the <a href="https://docs.sixlabors.com/api/Fonts/SixLabors.Fonts.Unicode.CodePoint.html" target="_blank">CodePoint</a> type to determine whether a code point is a mandatory line break</p>
+<div class="frame">
+<pre><code class="language-c#">[Fact]
+public void CodePointIsMandatoryBreak()
+{
+    static bool IsLineBreakClassBreak(uint value)
+    {
+        // See https://www.unicode.org/standard/reports/tr13/tr13-5.html
+        switch (value)
+        {
+            case 0x000A: // LINE FEED (LF)
+            case 0x000B: // LINE TABULATION (VT)
+            case 0x000C: // FORM FEED (FF)
+            case 0x000D: // CARRIAGE RETURN (CR)
+            case 0x0085: // NEXT LINE (NEL)
+            case 0x2028: // LINE SEPARATOR (LS)
+            case 0x2029: // PARAGRAPH SEPARATOR (PS)
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    for (uint i = 0; i &lt;= 0x10FFFFu; i++)
+    {
+        Assert.Equal(CodePoint.IsNewLine(new CodePoint(i)), IsLineBreakClassBreak(i));
+    }
+}
+
+</code></pre>
+</div>
+<p>Please explore the API <a href="https://docs.sixlabors.com/api/Fonts/SixLabors.Fonts.html" target="_blank">documentation</a>. There's a lot to discover and we'll continue to update the supplementary documentation to provide further examples.</p>
+<p>Before we sign off here's a preview of some of the cool things we've been able to do with ImageSharp.Drawing and Fonts:</p>
+<p><strong>Rich Text</strong></p>
+<p><img src="/img/DrawRichText_Solid500x200_(0,0,0,255)_RichText-F(32).png" alt="Rich text" class="img-fluid"></p>
+<p><strong>Emoji font rendering</strong></p>
+<p><img src="/img/EmojiFontRendering_Rgba32_Solid1276x336_(255,255,255,255)_ColorFontsEnabled-True.png" alt="Emoji font rendering" class="img-fluid"></p>
+<p><strong>Complex shaping of Rich Arabic text</strong></p>
+<p><img src="/img/DrawRichTextArabic_Solid500x300_(0,0,0,255)_RichText-Arabic-F(40).png" alt="Complex shaping of Arabic text" class="img-fluid"></p>
+<h2 id="the-future" tabindex="-1">The Future <a class="direct-link" href="#the-future">#</a></h2>
+<p>We'll be publishing new releases over the next few weeks of all our libraries that depend on <strong>SixLabors.Fonts</strong>. That means the first major version of <a href="https://github.com/SixLabors/ImageSharp.Drawing" target="_blank">SixLabors.ImageSharp.Drawing</a>.</p>
+<h2 id="closing" tabindex="-1">Closing <a class="direct-link" href="#closing">#</a></h2>
+<p>Thanks again for all the feedback and usage. It's been a pleasure to build <strong>SixLabors.Fonts</strong> so far and to see so many people try it out; we really appreciate it. Please continue exploring the product and learning what it's capable of.</p>
 
             <hr>
             <ul>
-                <li>Next: <a href="/posts/announcing-imagesharp-100/">Announcing ImageSharp 1.0.0</a>
-                </li>
-              
-                <li>Previous: <a href="/posts/beta-7/">Beta 7.</a>
+                <li>Previous: <a href="/posts/announcing-imagesharp-web-300/">Announcing ImageSharp.Web 3.0.0</a>
                 </li>
               
             </ul>
@@ -351,7 +440,7 @@ Please visit <a href="https://sixlabors.com/pricing" target="_blank">https://six
       </div>
     </footer>
 
-    <!-- Current page: /posts/announcing-imagesharp-10-release-candidate-1/ -->
+    <!-- Current page: /posts/announcing-fonts-100/ -->
     <script 
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" 
       integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
