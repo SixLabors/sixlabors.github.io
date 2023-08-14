@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Six Labors : ImageSharp joins the .NET foundation.</title>
-    <meta name="description" content="ImageSharp + DotNet Foundation = strong!">
+    <title>Six Labors : Announcing ImageSharp.Drawing 1.0.0</title>
+    <meta name="description" content="ImageSharp.Drawing v1 - Drawing the Future, One Pixel at a Time">
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
       rel="stylesheet"
@@ -181,12 +181,12 @@
       <div class="masthead">
   <div class="container">
     <h1 class="mb-3">
-      ImageSharp joins the .NET foundation.
+      Announcing ImageSharp.Drawing 1.0.0
     </h1>
     <p class="lead mb-4">
-      ImageSharp + DotNet Foundation = strong!
+      ImageSharp.Drawing v1 - Drawing the Future, One Pixel at a Time
     </p>
-    <div><a href="/tags/announcements/" class="post-tag btn btn-primary shadow">Announcements</a><a href="/tags/imagesharp/" class="post-tag btn btn-primary shadow">ImageSharp</a>
+    <div><a href="/tags/releases/" class="post-tag btn btn-primary shadow">Releases</a><a href="/tags/imagesharp/" class="post-tag btn btn-primary shadow">ImageSharp</a><a href="/tags/drawing/" class="post-tag btn btn-primary shadow">Drawing</a><a href="/tags/fonts/" class="post-tag btn btn-primary shadow">Fonts</a>
     </div>
   </div>
 </div>
@@ -196,26 +196,47 @@
     <div class= row>
       <div class="col-md-8">
         <article>
-          <time datetime="2019-05-03">03 May 2019</time>
+          <time datetime="2023-08-14">14 Aug 2023</time>
 
-          <p><img src="/img/dotnetfoundation-imagesharp.png" alt="ImageSharp + DotNet Foundation = strong!" class="img-fluid"></p>
-<h1 id="getting-strong-now...*" tabindex="-1">Getting Strong Now...* <a class="direct-link" href="#getting-strong-now...*">#</a></h1>
-<p>Today we’re really happy and excited to share that ImageSharp is joining the .NET foundation!</p>
-<p>This is a big deal to us but what does this mean for the future of ImageSharp?</p>
-<p>Great things! It’ll still be maintained and governed by the same hardworking band of crack coding commandos as before, but with the support and guidance from a vast array of experts across various fields from within the .NET Foundation.</p>
-<p>It's a match made in heaven, the sheer breadth of experiance available to us from within the Foundation can only benefit our project, and we make them look cool 😜</p>
-<p>Read more about ImageSharp joining on the .NET foundation <a href="https://dotnetfoundation.org/blog" target="_blank">blog</a>.</p>
-<h2 id="about-the-.net-foundation" tabindex="-1">About the .NET Foundation <a class="direct-link" href="#about-the-.net-foundation">#</a></h2>
-<p>The .NET Foundation is an independent organization created to foster innovation, which we believe starts with open development and collaboration. It's also a forum for community and commercial developers to broaden and strengthen the future of the .NET ecosystem.</p>
-<p>Learn more about the .NET foundation at <a href="https://dotnetfoundation.org" target="_blank">dotnetfoundation.org</a></p>
-<p>*You now have the Rocky theme stuck in your head. You're welcome...</p>
+          <div class="ratio ratio-16x9">
+<iframe src="https://www.youtube.com/embed/lLWEXRAnQd0" allow="autoplay; encrypted-media;" allowfullscreen></iframe>
+</div>
+<p>We are very excited to announce the release of <strong>SixLabors.ImageSharp.Drawing</strong> 1.0.0 final. You can <a href="https://www.nuget.org/packages/SixLabors.ImageSharp.Drawing/1.0.0" target="_blank">download it today</a>.</p>
+<p>This release is a monumental work, the culmination of nearly 7 years of effort and we're really proud of what we have achieved.</p>
+<p><strong>SixLabors.ImageSharp.Drawing</strong> is a companion library to ImageSharp. While ImageSharp provides core functionality for manipulating images in .NET without the need for System.Drawing, <strong>SixLabors.ImageSharp.Drawing</strong> extends this capability by adding advanced drawing features.</p>
+<p>Here are some key aspects and functionalities you can expect from <strong>SixLabors.ImageSharp.Drawing</strong>:</p>
+<ul>
+<li>Rich Text Rendering: Together with the SixLabors.Fonts library, <strong>SixLabors.ImageSharp.Drawing</strong> allows you to render text onto your images with support for different font styles and alignments.</li>
+<li>Path Drawing: You can draw complex shapes and paths with this library. This includes lines, curves, and polygons. You can also fill these paths with solid colors, gradients, or patterns.</li>
+<li>Shapes: Beyond paths, you can easily draw primitive shapes like circles, ellipses, rectangles, and more.</li>
+<li>Advanced Fill Patterns: ImageSharp.Drawing provides support for various fill patterns, including solid colors, gradients (linear, radial), and even image patterns.</li>
+<li>Anti-Aliasing: To ensure that your drawn shapes and lines look smooth, the library supports anti-aliasing.</li>
+<li>Extensions: The library offers various extensions to the core ImageSharp types, making it seamless to integrate drawing operations into your image processing pipeline.</li>
+<li>Interoperability with ImageSharp: <strong>SixLabors.ImageSharp.Drawing</strong> is designed to work smoothly with ImageSharp. This means you can chain operations, like loading an image, resizing it, drawing some shapes, and then saving it, in a very fluent and intuitive manner.</li>
+<li>Performance: Just like ImageSharp, <strong>SixLabors.ImageSharp.Drawing</strong> is designed with performance in mind. It's a fully managed solution which means you don't need to rely on native libraries to get good performance.</li>
+</ul>
+<p>If you're looking to perform drawing operations in a .NET environment, especially in platforms where System.Drawing is not recommended or available (like in containerized applications), ImageSharp and <strong>SixLabors.ImageSharp.Drawing</strong> offer a powerful and modern alternative.</p>
+<p>As we promised back in <a href="https://sixlabors.com/posts/license-changes/" target="_blank">July 2022</a> we're making sure that all v1.x releases are Open Source and free to use. v1.x is licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0.html" target="_blank">Apache 2.0</a> license.</p>
+<p>However, please be aware that the v1.x releases are compatible with ImageSharp v2.x releases only.</p>
+<h2 id="examples" tabindex="-1">Examples <a class="direct-link" href="#examples">#</a></h2>
+<p>We won't go into coding examples here as we have a <a href="https://docs.sixlabors.com/articles/imagesharp-drawing.html" target="_blank">dedicated documentation site</a> for that. Instead, we'll show you some of the cool things you can do with <strong>SixLabors.ImageSharp.Drawing</strong>.</p>
+<p><strong>Drawing text along a path</strong></p>
+<p><img src="/img/CanDrawTextAlongPath.png" alt="Draw text along a path" class="img-fluid"></p>
+<p><strong>Filling a polygon with a pattern brush</strong></p>
+<p><img src="/img/FillPolygon_Pattern_Rgba32.png" alt="Filling a polygon with a pattern brush" class="img-fluid"></p>
+<p><strong>Parsing and rendering SVG instructions</strong></p>
+<p><img src="/img/RenderSvgPath_Rgba32_Blank500x400_type-bumpy.png" alt="SVG rendering" class="img-fluid"></p>
+<p><strong>Drawing rich text with a rainbow underscore</strong></p>
+<p><img src="/img/DrawRichTextRainbow_Solid500x200_(0,0,0,255)_RichText-Rainbow-F(32).png" alt="Drawing rich text with rainbow underscore" class="img-fluid"></p>
+<p>Please explore the API <a href="https://docs.sixlabors.com/api/ImageSharp.Drawing/SixLabors.ImageSharp.Drawing.html" target="_blank">documentation</a>. There's a lot to discover and we'll continue to update the supplementary documentation to provide further examples.</p>
+<h2 id="the-future" tabindex="-1">The Future <a class="direct-link" href="#the-future">#</a></h2>
+<p>We'll be publishing a v2 release over the next few weeks that will be compatible with ImageSharp v3.x. This release will be available under the <a href="/pricing/">Six Labors Split License</a> We'll be sharing more details about this release soon.</p>
+<h2 id="closing" tabindex="-1">Closing <a class="direct-link" href="#closing">#</a></h2>
+<p>Thanks again for all the feedback and usage. It's been a pleasure to build <strong>SixLabors.ImageSharp.Drawing</strong> so far and to see so many people try it out; we really appreciate it. Please continue exploring the product and learning what it's capable of.</p>
 
             <hr>
             <ul>
-                <li>Next: <a href="/posts/beta-7/">Beta 7.</a>
-                </li>
-              
-                <li>Previous: <a href="/posts/beta-six-labors/">Beta-Six Labors.</a>
+                <li>Previous: <a href="/posts/announcing-fonts-100/">Announcing Fonts 1.0.0</a>
                 </li>
               
             </ul>
@@ -348,7 +369,7 @@
       </div>
     </footer>
 
-    <!-- Current page: /posts/imagesharp-joins-the-net-foundation/ -->
+    <!-- Current page: /posts/announcing-imagesharp-drawing-100/ -->
     <script 
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" 
       integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"

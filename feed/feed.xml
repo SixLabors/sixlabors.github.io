@@ -5,12 +5,55 @@
 	
 	<link href="https://sixlabors.com/feed/feed.xml" rel="self"/>
 	<link href="https://sixlabors.com/"/>
-	<updated>2023-08-11T00:00:00Z</updated>
+	<updated>2023-08-14T00:00:00Z</updated>
 	<id>https://sixlabors.com/</id>
 	<author>
 		<name>Your Name Here</name>
 		<email>youremailaddress@example.com</email>
 	</author>
+	
+	<entry>
+		<title>Announcing ImageSharp.Drawing 1.0.0</title>
+		<link href="https://sixlabors.com/posts/announcing-imagesharp-drawing-100/"/>
+		<updated>2023-08-14T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/announcing-imagesharp-drawing-100/</id>
+		<content type="html">&lt;div class=&quot;ratio ratio-16x9&quot;&gt;
+&lt;iframe src=&quot;https://www.youtube.com/embed/lLWEXRAnQd0&quot; allow=&quot;autoplay; encrypted-media;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;p&gt;We are very excited to announce the release of &lt;strong&gt;SixLabors.ImageSharp.Drawing&lt;/strong&gt; 1.0.0 final. You can &lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp.Drawing/1.0.0&quot; target=&quot;_blank&quot;&gt;download it today&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This release is a monumental work, the culmination of nearly 7 years of effort and we&#39;re really proud of what we have achieved.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;SixLabors.ImageSharp.Drawing&lt;/strong&gt; is a companion library to ImageSharp. While ImageSharp provides core functionality for manipulating images in .NET without the need for System.Drawing, &lt;strong&gt;SixLabors.ImageSharp.Drawing&lt;/strong&gt; extends this capability by adding advanced drawing features.&lt;/p&gt;
+&lt;p&gt;Here are some key aspects and functionalities you can expect from &lt;strong&gt;SixLabors.ImageSharp.Drawing&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Rich Text Rendering: Together with the SixLabors.Fonts library, &lt;strong&gt;SixLabors.ImageSharp.Drawing&lt;/strong&gt; allows you to render text onto your images with support for different font styles and alignments.&lt;/li&gt;
+&lt;li&gt;Path Drawing: You can draw complex shapes and paths with this library. This includes lines, curves, and polygons. You can also fill these paths with solid colors, gradients, or patterns.&lt;/li&gt;
+&lt;li&gt;Shapes: Beyond paths, you can easily draw primitive shapes like circles, ellipses, rectangles, and more.&lt;/li&gt;
+&lt;li&gt;Advanced Fill Patterns: ImageSharp.Drawing provides support for various fill patterns, including solid colors, gradients (linear, radial), and even image patterns.&lt;/li&gt;
+&lt;li&gt;Anti-Aliasing: To ensure that your drawn shapes and lines look smooth, the library supports anti-aliasing.&lt;/li&gt;
+&lt;li&gt;Extensions: The library offers various extensions to the core ImageSharp types, making it seamless to integrate drawing operations into your image processing pipeline.&lt;/li&gt;
+&lt;li&gt;Interoperability with ImageSharp: &lt;strong&gt;SixLabors.ImageSharp.Drawing&lt;/strong&gt; is designed to work smoothly with ImageSharp. This means you can chain operations, like loading an image, resizing it, drawing some shapes, and then saving it, in a very fluent and intuitive manner.&lt;/li&gt;
+&lt;li&gt;Performance: Just like ImageSharp, &lt;strong&gt;SixLabors.ImageSharp.Drawing&lt;/strong&gt; is designed with performance in mind. It&#39;s a fully managed solution which means you don&#39;t need to rely on native libraries to get good performance.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If you&#39;re looking to perform drawing operations in a .NET environment, especially in platforms where System.Drawing is not recommended or available (like in containerized applications), ImageSharp and &lt;strong&gt;SixLabors.ImageSharp.Drawing&lt;/strong&gt; offer a powerful and modern alternative.&lt;/p&gt;
+&lt;p&gt;As we promised back in &lt;a href=&quot;https://sixlabors.com/posts/license-changes/&quot; target=&quot;_blank&quot;&gt;July 2022&lt;/a&gt; we&#39;re making sure that all v1.x releases are Open Source and free to use. v1.x is licensed under the &lt;a href=&quot;https://www.apache.org/licenses/LICENSE-2.0.html&quot; target=&quot;_blank&quot;&gt;Apache 2.0&lt;/a&gt; license.&lt;/p&gt;
+&lt;p&gt;However, please be aware that the v1.x releases are compatible with ImageSharp v2.x releases only.&lt;/p&gt;
+&lt;h2 id=&quot;examples&quot; tabindex=&quot;-1&quot;&gt;Examples &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-drawing-100/#examples&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;We won&#39;t go into coding examples here as we have a &lt;a href=&quot;https://docs.sixlabors.com/articles/imagesharp-drawing.html&quot; target=&quot;_blank&quot;&gt;dedicated documentation site&lt;/a&gt; for that. Instead, we&#39;ll show you some of the cool things you can do with &lt;strong&gt;SixLabors.ImageSharp.Drawing&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Drawing text along a path&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sixlabors.com/img/CanDrawTextAlongPath.png&quot; alt=&quot;Draw text along a path&quot; class=&quot;img-fluid&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Filling a polygon with a pattern brush&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sixlabors.com/img/FillPolygon_Pattern_Rgba32.png&quot; alt=&quot;Filling a polygon with a pattern brush&quot; class=&quot;img-fluid&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Parsing and rendering SVG instructions&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sixlabors.com/img/RenderSvgPath_Rgba32_Blank500x400_type-bumpy.png&quot; alt=&quot;SVG rendering&quot; class=&quot;img-fluid&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Drawing rich text with a rainbow underscore&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sixlabors.com/img/DrawRichTextRainbow_Solid500x200_(0,0,0,255)_RichText-Rainbow-F(32).png&quot; alt=&quot;Drawing rich text with rainbow underscore&quot; class=&quot;img-fluid&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Please explore the API &lt;a href=&quot;https://docs.sixlabors.com/api/ImageSharp.Drawing/SixLabors.ImageSharp.Drawing.html&quot; target=&quot;_blank&quot;&gt;documentation&lt;/a&gt;. There&#39;s a lot to discover and we&#39;ll continue to update the supplementary documentation to provide further examples.&lt;/p&gt;
+&lt;h2 id=&quot;the-future&quot; tabindex=&quot;-1&quot;&gt;The Future &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-drawing-100/#the-future&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;We&#39;ll be publishing a v2 release over the next few weeks that will be compatible with ImageSharp v3.x. This release will be available under the &lt;a href=&quot;https://sixlabors.com/pricing/&quot;&gt;Six Labors Split License&lt;/a&gt; We&#39;ll be sharing more details about this release soon.&lt;/p&gt;
+&lt;h2 id=&quot;closing&quot; tabindex=&quot;-1&quot;&gt;Closing &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-drawing-100/#closing&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Thanks again for all the feedback and usage. It&#39;s been a pleasure to build &lt;strong&gt;SixLabors.ImageSharp.Drawing&lt;/strong&gt; so far and to see so many people try it out; we really appreciate it. Please continue exploring the product and learning what it&#39;s capable of.&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>Announcing Fonts 1.0.0</title>
@@ -23,7 +66,7 @@
 &lt;p&gt;We are very excited to announce the release of SixLabors.Fonts 1.0.0 final. You can &lt;a href=&quot;https://www.nuget.org/packages/SixLabors.Fonts/1.0.0&quot; target=&quot;_blank&quot;&gt;download it today&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;SixLabors.Fonts&lt;/strong&gt; is a cross-platform font loading and text layout library for .NET. It&#39;s designed to be fast, lightweight, and easy to use. It supports TrueType, OpenType, and WOFF fonts on Windows, Linux, and macOS. It&#39;s also the font engine behind &lt;a href=&quot;https://github.com/SixLabors/ImageSharp.Drawing&quot; target=&quot;_blank&quot;&gt;SixLabors.ImageSharp.Drawing&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;This release is a monumental work, the culmination of 6 years of effort and we&#39;re really proud of what we have achieved.&lt;/p&gt;
-&lt;p&gt;SixLaborsFonts supports a wide range of font features including:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;SixLabors.Fonts&lt;/strong&gt; supports a wide range of font features including:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Kerning&lt;/li&gt;
 &lt;li&gt;Ligatures&lt;/li&gt;
