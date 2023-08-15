@@ -18,7 +18,7 @@
 		<updated>2023-08-14T00:00:00Z</updated>
 		<id>https://sixlabors.com/posts/announcing-imagesharp-drawing-100/</id>
 		<content type="html">&lt;div class=&quot;ratio ratio-16x9&quot;&gt;
-&lt;iframe src=&quot;https://www.youtube.com/embed/lLWEXRAnQd0&quot; allow=&quot;autoplay; encrypted-media;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;img src=&quot;https://sixlabors.com/img/bob-ross.jpg&quot; alt=&quot;Bob Ross holding a paintbrush&quot; /&gt;
 &lt;/div&gt;
 &lt;p&gt;We are very excited to announce the release of &lt;strong&gt;SixLabors.ImageSharp.Drawing&lt;/strong&gt; 1.0.0 final. You can &lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp.Drawing/1.0.0&quot; target=&quot;_blank&quot;&gt;download it today&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;This release is a monumental work, the culmination of nearly 7 years of effort and we&#39;re really proud of what we have achieved.&lt;/p&gt;
