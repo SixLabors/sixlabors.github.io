@@ -140,13 +140,13 @@ section.alt {
 }
 
 .clients {
-  filter: grayscale(100%) contrast(0) brightness(1.5);
+  /*filter: grayscale(100%) contrast(0) brightness(1.5);*/
   text-align: center;
 }
 
 .clients img {
-  height: 44px;
-  margin-bottom: 2rem;
+  height: 40px;
+  margin: 1rem 0;
 }
 
 .platforms {
