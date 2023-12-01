@@ -5,12 +5,106 @@
 	
 	<link href="https://sixlabors.com/feed/feed.xml" rel="self"/>
 	<link href="https://sixlabors.com/"/>
-	<updated>2023-08-14T00:00:00Z</updated>
+	<updated>2023-12-01T00:00:00Z</updated>
 	<id>https://sixlabors.com/</id>
 	<author>
 		<name>Your Name Here</name>
 		<email>youremailaddress@example.com</email>
 	</author>
+	
+	<entry>
+		<title>Announcing ImageSharp 3.1.0</title>
+		<link href="https://sixlabors.com/posts/announcing-imagesharp-310/"/>
+		<updated>2023-12-01T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/announcing-imagesharp-310/</id>
+		<content type="html">&lt;div class=&quot;ratio ratio-16x9&quot;&gt;
+&lt;iframe src=&quot;https://www.youtube.com/embed/LaTGrV58wec&quot; allow=&quot;autoplay; encrypted-media;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;p&gt;We are very excited to announce the release of ImageSharp 3.1.0. You can &lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp/3.1.0&quot; target=&quot;_blank&quot;&gt;download it today&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;As always, we want to thank everyone who has contributed to this release and the community for all the feedback and support. We couldn&#39;t have done it without you!&lt;/p&gt;
+&lt;h2 id=&quot;what&#39;s-new-since-v3.0.0&quot; tabindex=&quot;-1&quot;&gt;What&#39;s new since V3.0.0 &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-310/#what&#39;s-new-since-v3.0.0&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;This release contains a very large number of improvements and bug fixes. We&#39;ve also added support for a new format and enhanced several more.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;We&#39;ve added support for animated Webp images. This includes both decoding and encoding.&lt;/li&gt;
+&lt;li&gt;We&#39;ve added support for animated Png images. This includes both decoding and encoding.&lt;/li&gt;
+&lt;li&gt;We&#39;ve added the ability to seamlessly convert between animated image formats.&lt;/li&gt;
+&lt;li&gt;We&#39;ve added support for Quite Ok (Qoi) images. This includes both decoding and encoding.&lt;/li&gt;
+&lt;li&gt;We&#39;ve added the ability to read, preserve, and reuse the color palette of a Png image.&lt;/li&gt;
+&lt;li&gt;We&#39;ve added the ability to read, preserve, and reuse the color palette of a Gif image.&lt;/li&gt;
+&lt;li&gt;We&#39;ve added support for reading and writing CICP color profiles in Png.&lt;/li&gt;
+&lt;li&gt;We&#39;ve improved the ability of our Jpeg, Pbm, Png, and Tiff decoders to withstand malicious actors bringing them up to standard with our other decoders.&lt;/li&gt;
+&lt;li&gt;We&#39;ve reduced the allocations of our lossless Webp encoder by 56%.&lt;/li&gt;
+&lt;li&gt;We&#39;ve improved the performance of asynchronous file operations.&lt;/li&gt;
+&lt;li&gt;We&#39;ve introduced SIMD into several bottlenecks to improve performance.&lt;/li&gt;
+&lt;li&gt;Much much more....&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Please read the &lt;a href=&quot;https://github.com/SixLabors/ImageSharp/releases/tag/v3.1.0&quot; target=&quot;_blank&quot;&gt;release notes&lt;/a&gt; for detailed release information.&lt;/p&gt;
+&lt;h3 id=&quot;breaking-changes&quot; tabindex=&quot;-1&quot;&gt;Breaking Changes &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-310/#breaking-changes&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Unfortunately in order to fix some issues we had to introduce some breaking changes (&lt;em&gt;listed below&lt;/em&gt;). We always try to avoid breaking changes but sometimes they are unavoidable. We apologize for any inconvenience this may cause.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;We&#39;ve made API changes to the default &lt;code&gt;Configuration&lt;/code&gt; API to fix an issue that caused the the size of AOT compiled assemblies to increase by 77% over expected output (&lt;em&gt;breaking&lt;/em&gt;).&lt;/li&gt;
+&lt;li&gt;We&#39;ve fixed several issues and greatly enhanced our &lt;code&gt;DrawImage&lt;/code&gt; functionality to support more complex scenarios (&lt;em&gt;breaking&lt;/em&gt;).&lt;/li&gt;
+&lt;li&gt;We&#39;ve reversed the behavior of our automatic namespace includes to prevent namespace collisions (&lt;em&gt;breaking&lt;/em&gt;).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;feature-highlights.&quot; tabindex=&quot;-1&quot;&gt;Feature Highlights. &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-310/#feature-highlights.&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h3 id=&quot;animated-webp%2C-png%2C-and-gif-oh-my!&quot; tabindex=&quot;-1&quot;&gt;&lt;em&gt;Animated Webp, Png, and Gif Oh My!&lt;/em&gt; &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-310/#animated-webp%2C-png%2C-and-gif-oh-my!&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;We&#39;re really excited to showcase this functionality as it embodies the core principles of ImageSharp. We&#39;ve taken a complex operation and made it simple to perform.&lt;/p&gt;
+&lt;p&gt;Animated images are a great way to add some life to your website or application. They can be used to create simple animations or to add some fun to your UI, the different formats though contain different features and limitations and require, at times, complex operations to convert between them. Most people are oblivious to these complexities and just want to get on with the job of creating great content and we want to help them do that.&lt;/p&gt;
+&lt;p&gt;The following code demonstrates how to load an animated Gif image, change the repeat count so that it only runs one time, and save it as an animated Png image. Under the hood this will convert any animation related metadata contained within the image and it&#39;s frames.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-c#&quot;&gt;using Image image = Image.Load(&amp;quot;animated.gif&amp;quot;);
+
+GifMetadata gifMetadata = image.Metadata.GetGifMetadata();
+gifMetadata.RepeatCount = 1;
+
+image.Save(&amp;quot;animated.png&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Isn&#39;t that cool? We think so!&lt;/p&gt;
+&lt;p&gt;But wait, it gets better. During the encoding process we optimize the image to ensure that it is as small as possible.&lt;/p&gt;
+&lt;h4 id=&quot;a-super-quick-primer-in-animated-image-formats&quot; tabindex=&quot;-1&quot;&gt;A &lt;em&gt;Super Quick&lt;/em&gt; Primer in Animated Image Formats &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-310/#a-super-quick-primer-in-animated-image-formats&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;Animated image formats are designed in such a way as to allow the reuse of data between frames. This is achieved by storing the first frame as a full image and then storing the subsequent frames as a series of delta changes that are applied to the first frame to create the final image. This allows the format to store the data for each frame in a very compact way.&lt;/p&gt;
+&lt;p&gt;The downside to this approach is that the optimizations must be lost if the image is loaded for editing. This is because the individual frame data must be coalesced from the delta changes provided by previous frames into a single image before it can be edited so there is enough data to successfully apply the changes (&lt;em&gt;think sampling of neighboring pixels during resize operations&lt;/em&gt;). If the image is then saved following editing without any changes the optimizations are lost and the resultant image can be much, much larger than it needs to be.&lt;/p&gt;
+&lt;h4 id=&quot;the-solution&quot; tabindex=&quot;-1&quot;&gt;The Solution &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-310/#the-solution&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;During the encoding process we look for duplicate pixel data between frames and, depending on metadata contained within the frame, apply optimizations to the image to ensure that the data is only stored once. This can result in significant savings in the final image size. This optimization is SIMD enhanced so runs very quickly.&lt;/p&gt;
+&lt;p&gt;Given a sample animated gif containing a picture of Jake and Finn from Adventure Time we can see the following results. The original image weighs in at 52.3KB&lt;/p&gt;
+&lt;p&gt;&lt;small&gt;&lt;i&gt;Note the image has been re-encoded to only run 3 times to make the page more accessible so you might have to reload the page to see the animation&lt;/i&gt;&lt;/small&gt;&lt;/p&gt;
+&lt;div class=&quot;row text-center mb-3&quot;&gt;
+    &lt;div class=&quot;col-sm-6 col-md-3&quot;&gt;
+        &lt;img width=&quot;100px&quot; src=&quot;https://sixlabors.com/img/giphy.gif&quot; alt=&quot;Jake and Finn from Adventure Time encoded as an animated gif&quot; /&gt;
+        &lt;br /&gt;
+        Gif 45.2KB
+    &lt;/div&gt;
+    &lt;div class=&quot;col-sm-6 col-md-3&quot;&gt;
+        &lt;img width=&quot;100px&quot; src=&quot;https://sixlabors.com/img/giphy.png&quot; alt=&quot;Jake and Finn from Adventure Time encoded as an animated png&quot; /&gt;
+        &lt;br /&gt;
+        Png 33.3KB
+    &lt;/div&gt;
+    &lt;div class=&quot;col-sm-6 col-md-3&quot;&gt;
+        &lt;img width=&quot;100px&quot; src=&quot;https://sixlabors.com/img/giphy.gif&quot; alt=&quot;Jake and Finn from Adventure Time encoded as an animated lossless Webp&quot; /&gt;
+        &lt;br /&gt;
+        Webp Lossless 27KB
+    &lt;/div&gt;
+    &lt;div class=&quot;col-sm-6 col-md-3&quot;&gt;
+        &lt;img width=&quot;100px&quot; src=&quot;https://sixlabors.com/img/giphy.png&quot; alt=&quot;Jake and Finn from Adventure Time encoded as an animated lossy Webp&quot; /&gt;
+        &lt;br /&gt;
+        Webp Lossy 29.8KB
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;As you can see, in this example, because of our optimization process we have been able to introduce improvements over the original across all formats. In most use cases our encoded optimization results provide roughly the same improvement though of course there are exceptions when compared to some highly optimized, handcrafted images. Fortunately, for you ImageSharp provides fine grained control over every pixel and metadata property so you can tweak any image to your hearts content to bring maximum optimization.&lt;/p&gt;
+&lt;h3 id=&quot;qoi---a-new-image-format&quot; tabindex=&quot;-1&quot;&gt;Qoi - A new image format &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-310/#qoi---a-new-image-format&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;The Quite OK Image Format (QOI) is a specification for lossless image compression of 24-bit (8 bits per color RGB) or 32-bit (8 bits per color with 8-bit alpha channel RGBA) color raster (bitmapped) images, invented by Dominic Szablewski and first announced on 24 November 2021.&lt;/p&gt;
+&lt;p&gt;The intended purpose was to create an open source lossless compression method, that was faster and easier to implement than PNG. A third party &lt;a href=&quot;https://www.youtube.com/watch?v=EFUYNoFRHQI&quot; target=&quot;_blank&quot;&gt;YouTube&lt;/a&gt; video explains how PNG and QOI compression are performed. Figures specified in the announcement and the video claim twenty to fifty times faster encoding, and three to four times faster decoding speed compared to PNG, with similar file sizes. The author has donated the specification to the public domain (CC0).&lt;/p&gt;
+&lt;p&gt;For more information please see the &lt;a href=&quot;https://qoiformat.org/&quot; target=&quot;_blank&quot;&gt;Qoi website&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;ImageSharp v3.1.0 adds full support for decoding and encoding Qoi images.&lt;/p&gt;
+&lt;p&gt;Please note that Qoi is a new format and as such is not yet widely supported. We hope that this will change in the future.&lt;/p&gt;
+&lt;h2 id=&quot;the-future&quot; tabindex=&quot;-1&quot;&gt;The Future &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-310/#the-future&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;We&#39;ll be publishing new releases over the next few days of all our libraries that depend on ImageSharp. Afterwards we&#39;ll start working on v4.0.0. This will be the first version to support .NET 8 and we&#39;re super excited to be able to take advantages of the new performance and languages features available to us. We&#39;ll be sharing more details about this release soon.&lt;/p&gt;
+&lt;h2 id=&quot;closing&quot; tabindex=&quot;-1&quot;&gt;Closing &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-310/#closing&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Thanks again for all the feedback and usage. It&#39;s been a pleasure to build ImageSharp so far and to see so many people try it out; we really appreciate it. Please continue exploring the product and learning what it&#39;s capable of.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;ImageSharp V3.1.0 is licensed under the &lt;a href=&quot;https://raw.githubusercontent.com/SixLabors/ImageSharp/main/LICENSE&quot; target=&quot;_blank&quot;&gt;Six Labors Split License&lt;/a&gt;. This means that it is free to use in both non-commercial and certain commercial applications. However, if you are using it in a commercial application and your organization has a gross income of over 1M USD per year you must purchase a commercial license. Please see the &lt;a href=&quot;https://sixlabors.com/pricing/&quot;&gt;Pricing page&lt;/a&gt; for more information.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>Announcing ImageSharp.Drawing 1.0.0</title>

@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Six Labors : Beta 3 Is A Magic Number</title>
-    <meta name="description" content="Today were very happy to announce ImageSharp Beta 3.">
+    <title>Six Labors : Announcing ImageSharp 3.1.0</title>
+    <meta name="description" content="ImageSharp 3.1 - Unparalleled feature set, performance, and stability.">
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
       rel="stylesheet"
@@ -181,12 +181,12 @@
       <div class="masthead">
   <div class="container">
     <h1 class="mb-3">
-      Beta 3 Is A Magic Number
+      Announcing ImageSharp 3.1.0
     </h1>
     <p class="lead mb-4">
-      Today were very happy to announce ImageSharp Beta 3.
+      ImageSharp 3.1 - Unparalleled feature set, performance, and stability.
     </p>
-    <div><a href="/tags/imagesharp/" class="post-tag btn btn-primary shadow">ImageSharp</a><a href="/tags/releases/" class="post-tag btn btn-primary shadow">Releases</a>
+    <div><a href="/tags/releases/" class="post-tag btn btn-primary shadow">Releases</a><a href="/tags/imagesharp/" class="post-tag btn btn-primary shadow">ImageSharp</a>
     </div>
   </div>
 </div>
@@ -196,152 +196,98 @@
     <div class= row>
       <div class="col-md-8">
         <article>
-          <time datetime="2018-03-28">28 Mar 2018</time>
+          <time datetime="2023-12-01">01 Dec 2023</time>
 
           <div class="ratio ratio-16x9">
-<iframe src="https://www.youtube.com/embed/aU4pyiB-kq0?rel=0" allow="autoplay; encrypted-media" allowfullscreen>
-</iframe>
+<iframe src="https://www.youtube.com/embed/LaTGrV58wec" allow="autoplay; encrypted-media;" allowfullscreen></iframe>
 </div>
-<p>It's been four months since our last beta and we've been very, very busy. Since our last release we have.</p>
+<p>We are very excited to announce the release of ImageSharp 3.1.0. You can <a href="https://www.nuget.org/packages/SixLabors.ImageSharp/3.1.0" target="_blank">download it today</a>.</p>
+<p>As always, we want to thank everyone who has contributed to this release and the community for all the feedback and support. We couldn't have done it without you!</p>
+<h2 id="what's-new-since-v3.0.0" tabindex="-1">What's new since V3.0.0 <a class="direct-link" href="#what's-new-since-v3.0.0">#</a></h2>
+<p>This release contains a very large number of improvements and bug fixes. We've also added support for a new format and enhanced several more.</p>
 <ul>
-<li>Created API documentation and additional articles to help developers work with the library.</li>
-<li>Introduced a full memory management API that allows fine grained control of how ImageSharp manages large buffers.
+<li>We've added support for animated Webp images. This includes both decoding and encoding.</li>
+<li>We've added support for animated Png images. This includes both decoding and encoding.</li>
+<li>We've added the ability to seamlessly convert between animated image formats.</li>
+<li>We've added support for Quite Ok (Qoi) images. This includes both decoding and encoding.</li>
+<li>We've added the ability to read, preserve, and reuse the color palette of a Png image.</li>
+<li>We've added the ability to read, preserve, and reuse the color palette of a Gif image.</li>
+<li>We've added support for reading and writing CICP color profiles in Png.</li>
+<li>We've improved the ability of our Jpeg, Pbm, Png, and Tiff decoders to withstand malicious actors bringing them up to standard with our other decoders.</li>
+<li>We've reduced the allocations of our lossless Webp encoder by 56%.</li>
+<li>We've improved the performance of asynchronous file operations.</li>
+<li>We've introduced SIMD into several bottlenecks to improve performance.</li>
+<li>Much much more....</li>
+</ul>
+<p>Please read the <a href="https://github.com/SixLabors/ImageSharp/releases/tag/v3.1.0" target="_blank">release notes</a> for detailed release information.</p>
+<h3 id="breaking-changes" tabindex="-1">Breaking Changes <a class="direct-link" href="#breaking-changes">#</a></h3>
+<p>Unfortunately in order to fix some issues we had to introduce some breaking changes (<em>listed below</em>). We always try to avoid breaking changes but sometimes they are unavoidable. We apologize for any inconvenience this may cause.</p>
 <ul>
-<li>For the default pooling memory management implementation we managed to halve the memory footprint of the library without significant loss in speed.</li>
+<li>We've made API changes to the default <code>Configuration</code> API to fix an issue that caused the the size of AOT compiled assemblies to increase by 77% over expected output (<em>breaking</em>).</li>
+<li>We've fixed several issues and greatly enhanced our <code>DrawImage</code> functionality to support more complex scenarios (<em>breaking</em>).</li>
+<li>We've reversed the behavior of our automatic namespace includes to prevent namespace collisions (<em>breaking</em>).</li>
 </ul>
-</li>
-<li>Made codecs easier to use. The performance of the Jpeg decoder is doubled since the first beta!</li>
-<li>Introduced a new metadata-only decoding API <a href="https://github.com/SixLabors/ImageSharp/pull/292#issuecomment-358265674" target="_blank">with the help of the community</a>.</li>
-<li>Introduced new affine transform methods that allow the composition of affine transforms.</li>
-<li>Refactored all filters (Hue, Brightness, Saturation etc) to match the behaviour described in the W3C specification.</li>
-<li>Introduced static instances of reusable algorithms for use as method parameters.</li>
-<li>Refactored the namespaces to logical groups based on functionality.</li>
-<li>Fixed the resampling processes to correctly blend semi-transparent output.</li>
-<li>Many other performance improvements and bug fixes.</li>
-</ul>
-<p>I'll talk about some of the bigger changes below. While you're reading that, download the updated package from <a href="https://www.nuget.org/packages/SixLabors.ImageSharp/" target="_blank">Nuget</a>.</p>
-<h2 id="documentation." tabindex="-1">Documentation. <a class="direct-link" href="#documentation.">#</a></h2>
-<p>Our new documentation, built with DocFX, is hosted at <a href="https://sixlabors.github.io/docs/" target="_blank">https://sixlabors.github.io/docs/</a>. There you will find complete API documentation for all the SixLabors libraries plus additional articles describing the where's and what-how's of ImageProcessing.</p>
-<p>Please bear in mind that this documentation is a work-in-progress, being very labor intensive to write. All pages offer edit links so please help out if you spot any errors!</p>
-<h2 id="memory-management" tabindex="-1">Memory Management <a class="direct-link" href="#memory-management">#</a></h2>
-<p>By default, ImageSharp uses ArrayPools for performance reasons, however, this behavior is fully configurable.<br>
-All large buffers within the API are managed by the <code>MemoryManager</code> implementation associated to <code>Configuration</code> classes <code>MemoryManager</code> property. We default to using <code>ArrayPoolMemoryManager</code> in order to utilize the benefits of array pooling.</p>
-<p>This means:</p>
-<ul>
-<li>Less pressure on the GC (Garbage Collector), because buffers are being reused most of the time.</li>
-<li>Reduced LOH (Large Object Heap) fragmentation.</li>
-<li>When working with unclean buffers is acceptable, we can spare on array cleaning behavior also.</li>
-</ul>
-<p>Pooling helps us to reduce CPU work and increase throughput by the cost of a larger memory footprint.</p>
-<h3 id="working-in-memory-constrained-environments" tabindex="-1">Working in Memory Constrained Environments <a class="direct-link" href="#working-in-memory-constrained-environments">#</a></h3>
-<p>Sometimes having larger memory footprint is not an option. Let's mention a few cases:</p>
-<ul>
-<li>When horizontal scaling is achieved by having multiple memory constrained containers in a cloud environment.</li>
-<li>Mobile applications.</li>
-</ul>
-<p>Before scaling down pooling behavior because of unwanted <code>OutOfMemoryException</code>'s in a cloud or desktop environment, make sure that you are running your service in a 64 bit process.</p>
-<p>There are several pre-defined factory methods to create an <code>ArrayPoolMemoryManager</code> instance for memory constrained environments. For example <code>ArrayPoolMemoryManager.CreateWithModeratePooling</code> might be suitable in most constrained situations:</p>
+<h2 id="feature-highlights." tabindex="-1">Feature Highlights. <a class="direct-link" href="#feature-highlights.">#</a></h2>
+<h3 id="animated-webp%2C-png%2C-and-gif-oh-my!" tabindex="-1"><em>Animated Webp, Png, and Gif Oh My!</em> <a class="direct-link" href="#animated-webp%2C-png%2C-and-gif-oh-my!">#</a></h3>
+<p>We're really excited to showcase this functionality as it embodies the core principles of ImageSharp. We've taken a complex operation and made it simple to perform.</p>
+<p>Animated images are a great way to add some life to your website or application. They can be used to create simple animations or to add some fun to your UI, the different formats though contain different features and limitations and require, at times, complex operations to convert between them. Most people are oblivious to these complexities and just want to get on with the job of creating great content and we want to help them do that.</p>
+<p>The following code demonstrates how to load an animated Gif image, change the repeat count so that it only runs one time, and save it as an animated Png image. Under the hood this will convert any animation related metadata contained within the image and it's frames.</p>
 <div class="frame">
-<pre><code class="language-c#">Configuration.Default.MemoryManager = ArrayPoolMemoryManager.CreateWithModeratePooling();
+<pre><code class="language-c#">using Image image = Image.Load(&quot;animated.gif&quot;);
+
+GifMetadata gifMetadata = image.Metadata.GetGifMetadata();
+gifMetadata.RepeatCount = 1;
+
+image.Save(&quot;animated.png&quot;);
 </code></pre>
 </div>
-<p>Of course, you may also configure a <code>MemoryManager</code> on your own <code>Configuration</code> instance.</p>
-<h2 id="filters" tabindex="-1">Filters <a class="direct-link" href="#filters">#</a></h2>
-<p>Filters were originally part of the SVG specification. However, when their usefulness became evident, W3C started working on adding some common filter effects to CSS as well.</p>
-<p>In beta 3 we've added filter methods by means of the <code>Matrix4x4</code> struct found in <code>System.Numerics.Vectors</code>.</p>
-<p>These methods match the behaviour of many CSS filters. You can use them to blur, brighten or saturate images among other things. They can be used alone or in combination with other filters.</p>
-<p>One big advantage with using the filter matrix is that composite filters can be obtained by matrix multiplication; the order of multiplication determining the transformed output.</p>
-<div class="frame">
-<pre><code class="language-c#">using (var image = Image.Load(&quot;in.png&quot;))
-{
-    Matrix4x4 brightness = KnownFilterMatrices.CreateBrightnessFilter(0.9F);
-    Matrix4x4 hue = KnownFilterMatrices.CreateHueFilter(180F);
-    Matrix4x4 saturation = KnownFilterMatrices.CreateSaturateFilter(1.5F);
-    Matrix4x4 m = brightness * hue * saturation;
-
-    image.Mutate(i =&gt; i.Filter(m));
-
-    image.Save(&quot;out.png&quot;);
-}
-</code></pre>
+<p>Isn't that cool? We think so!</p>
+<p>But wait, it gets better. During the encoding process we optimize the image to ensure that it is as small as possible.</p>
+<h4 id="a-super-quick-primer-in-animated-image-formats" tabindex="-1">A <em>Super Quick</em> Primer in Animated Image Formats <a class="direct-link" href="#a-super-quick-primer-in-animated-image-formats">#</a></h4>
+<p>Animated image formats are designed in such a way as to allow the reuse of data between frames. This is achieved by storing the first frame as a full image and then storing the subsequent frames as a series of delta changes that are applied to the first frame to create the final image. This allows the format to store the data for each frame in a very compact way.</p>
+<p>The downside to this approach is that the optimizations must be lost if the image is loaded for editing. This is because the individual frame data must be coalesced from the delta changes provided by previous frames into a single image before it can be edited so there is enough data to successfully apply the changes (<em>think sampling of neighboring pixels during resize operations</em>). If the image is then saved following editing without any changes the optimizations are lost and the resultant image can be much, much larger than it needs to be.</p>
+<h4 id="the-solution" tabindex="-1">The Solution <a class="direct-link" href="#the-solution">#</a></h4>
+<p>During the encoding process we look for duplicate pixel data between frames and, depending on metadata contained within the frame, apply optimizations to the image to ensure that the data is only stored once. This can result in significant savings in the final image size. This optimization is SIMD enhanced so runs very quickly.</p>
+<p>Given a sample animated gif containing a picture of Jake and Finn from Adventure Time we can see the following results. The original image weighs in at 52.3KB</p>
+<p><small><i>Note the image has been re-encoded to only run 3 times to make the page more accessible so you might have to reload the page to see the animation</i></small></p>
+<div class="row text-center mb-3">
+    <div class="col-sm-6 col-md-3">
+        <img width="100px" src="/img/giphy.gif" alt="Jake and Finn from Adventure Time encoded as an animated gif" />
+        <br/>
+        Gif 45.2KB
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <img width="100px" src="/img/giphy.png" alt="Jake and Finn from Adventure Time encoded as an animated png" />
+        <br/>
+        Png 33.3KB
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <img width="100px" src="/img/giphy.gif" alt="Jake and Finn from Adventure Time encoded as an animated lossless Webp" />
+        <br/>
+        Webp Lossless 27KB
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <img width="100px" src="/img/giphy.png" alt="Jake and Finn from Adventure Time encoded as an animated lossy Webp" />
+        <br/>
+        Webp Lossy 29.8KB
+    </div>
 </div>
-<p>In addition to the composable filters we have added convenience methods for each individual filter. For example:</p>
-<div class="frame">
-<pre><code class="language-c#">image.Mutate(x =&gt; x.Grayscale(GrayscaleMode.Bt709));
-
-image.Mutate(x =&gt; x.Hue(-180F));
-
-image.Mutate(x =&gt; x.Brightness(0.9F));
-
-</code></pre>
-</div>
-<p>Additional methods can be found in the API documentation.</p>
-<h2 id="affine-transforms" tabindex="-1">Affine Transforms <a class="direct-link" href="#affine-transforms">#</a></h2>
-<p>In geometry, an affine transformation is a function between affine spaces which preserves points, straight lines and planes. Also, sets of parallel lines remain parallel after an affine transformation. An affine transformation does not necessarily preserve angles between lines or distances between points, though it does preserve ratios of distances between points lying on a straight line.</p>
-<p>Translation, scaling, rotation, and skewing are all classified as affine transforms.</p>
-<p>In beta 3 we've added affine transformation methods by means of the <code>Matrix3x2</code> struct found in <code>System.Numerics.Vectors</code>.</p>
-<p>As with filters the big advantage with using the transform matrix is that composite transforms can be obtained by matrix multiplication; the order of multiplication determining the transformed output.</p>
-<div class="frame">
-<pre><code class="language-c#">using (var image = Image.Load(&quot;in.png&quot;))
-{
-    Matrix3x2 rotate = Matrix3x2Extensions.CreateRotationDegrees(45F);
-    var translate = Matrix3x2.CreateTranslation(5, 10);
-    var scale = Matrix3x2.CreateScale(.5F, .5F);
-    Matrix3x2 m = rotate * scale * translate;
-
-    image.Mutate(i =&gt; i.Transform(m, KnownResamplers.Bicubic));
-
-    image.Save(&quot;out.png&quot;);
-}
-</code></pre>
-</div>
-<p>In addition to the freeform transforms we have added convenience methods for <code>Rotate</code> and <code>Skew</code> with multiple overloads, that maintain the center point of the transformed image and automatically adjust the output image dimensions to fit.</p>
-<div class="frame">
-<pre><code class="language-c#">image.Mutate(x =&gt; x.Rotate(45F));
-
-image.Mutate(x =&gt; x.Skew(-20F, 10F));
-</code></pre>
-</div>
-<p>All our transform methods have multiple overloads and accept the same <code>IResampler</code> implementation as <code>Resize</code> to determine the resampling filter to assign during processing.</p>
-<h2 id="metadata-only-decoding" tabindex="-1">Metadata-only decoding <a class="direct-link" href="#metadata-only-decoding">#</a></h2>
-<p>Our new feature is very similar to <code>magick identify</code> from <a href="https://www.imagemagick.org/script/identify.php" target="_blank">ImageMagick</a>. To enable work with metadata-only results the types <a href="https://sixlabors.github.io/docs/api/ImageSharp/SixLabors.ImageSharp.IImageInfo.html" target="_blank"><code>IImageInfo</code></a> and <a href="https://sixlabors.github.io/docs/api/ImageSharp/SixLabors.ImageSharp.Formats.PixelTypeInfo.html" target="_blank"><code>PixelTypeInfo</code></a> have been itroduced:</p>
-<div class="frame">
-<pre><code class="language-C#">using (Stream stream = OpenMyStream())
-{
-    IImageInfo info = Image.Identify(stream);
-    Console.WriteLine(&quot;bits/pixel: &quot;  + info.PixelType.BitsPerPixel);
-}
-</code></pre>
-</div>
-<h2 id="roadmap" tabindex="-1">RoadMap <a class="direct-link" href="#roadmap">#</a></h2>
-<p>All things going to plan this should be the last beta. We're very pleased with the shape and robustness of the API and we are not planning on making any more large-scale changes. We shall be concentrating now on bug fixes and performance improvements.</p>
-<p>We will however be considering:</p>
-<ul>
-<li>Projective non-affine transforms (Tilt, Warp)</li>
-<li>Non-Rgb-based <code>TPixel</code> implementations (Cmyk, CieLab etc)</li>
-<li>Adding a full suite of colorspace conversion algorithms</li>
-</ul>
-<h2 id="you-can-help" tabindex="-1">You Can Help <a class="direct-link" href="#you-can-help">#</a></h2>
-<p>ImageSharp is fully open source and built for the community at large. You can help us reach v1.0</p>
-<p>We had some fantastic help over the last four months from several community members, I'd like to shout out to, in no particular order:</p>
-<ul>
-<li><a href="https://github.com/xakep139" target="_blank">Nikita Balabaev</a> and <a href="https://github.com/denisivan0v" target="_blank">Denis Ivanov</a> for building the MetaData API</li>
-<li><a href="https://github.com/rytmis" target="_blank">Lauri Kotilainen</a> for assisting in the build of the new Memory Management API</li>
-<li><a href="https://github.com/vpenades" target="_blank">Vicente Penades</a> for pushing us to produce correct resampling output and providing the best test images imaginable.</li>
-<li><a href="https://github.com/iamcarbon" target="_blank">Jason Nelson</a> for continued support and some brilliant optimization refactorings.</li>
-</ul>
-<p>If I've missed you out here (I deeply apologise if I have) please has a good growl at at me in our <a href="https://gitter.im/ImageSharp/General" target="_blank">Gitter Channel</a> and I'll add you to the list.</p>
-<p>We are always looking for assistance optimizing our code so if you've got performance chops please get in touch.</p>
-<p>Additionally we've got plenty of tickets that you can help with and we'd love some help checking our spelling and grammar in the documentation, it doesn't matter how little or how much you can offer, we really appreciate every bit of assistance.</p>
-<p>You can also really help us by downloading and testing the libraries. We really want to deliver something that is not only performant and robust, but also extremely usable.</p>
-<p>Enjoy!</p>
+<p>As you can see, in this example, because of our optimization process we have been able to introduce improvements over the original across all formats. In most use cases our encoded optimization results provide roughly the same improvement though of course there are exceptions when compared to some highly optimized, handcrafted images. Fortunately, for you ImageSharp provides fine grained control over every pixel and metadata property so you can tweak any image to your hearts content to bring maximum optimization.</p>
+<h3 id="qoi---a-new-image-format" tabindex="-1">Qoi - A new image format <a class="direct-link" href="#qoi---a-new-image-format">#</a></h3>
+<p>The Quite OK Image Format (QOI) is a specification for lossless image compression of 24-bit (8 bits per color RGB) or 32-bit (8 bits per color with 8-bit alpha channel RGBA) color raster (bitmapped) images, invented by Dominic Szablewski and first announced on 24 November 2021.</p>
+<p>The intended purpose was to create an open source lossless compression method, that was faster and easier to implement than PNG. A third party <a href="https://www.youtube.com/watch?v=EFUYNoFRHQI" target="_blank">YouTube</a> video explains how PNG and QOI compression are performed. Figures specified in the announcement and the video claim twenty to fifty times faster encoding, and three to four times faster decoding speed compared to PNG, with similar file sizes. The author has donated the specification to the public domain (CC0).</p>
+<p>For more information please see the <a href="https://qoiformat.org/" target="_blank">Qoi website</a>.</p>
+<p>ImageSharp v3.1.0 adds full support for decoding and encoding Qoi images.</p>
+<p>Please note that Qoi is a new format and as such is not yet widely supported. We hope that this will change in the future.</p>
+<h2 id="the-future" tabindex="-1">The Future <a class="direct-link" href="#the-future">#</a></h2>
+<p>We'll be publishing new releases over the next few days of all our libraries that depend on ImageSharp. Afterwards we'll start working on v4.0.0. This will be the first version to support .NET 8 and we're super excited to be able to take advantages of the new performance and languages features available to us. We'll be sharing more details about this release soon.</p>
+<h2 id="closing" tabindex="-1">Closing <a class="direct-link" href="#closing">#</a></h2>
+<p>Thanks again for all the feedback and usage. It's been a pleasure to build ImageSharp so far and to see so many people try it out; we really appreciate it. Please continue exploring the product and learning what it's capable of.</p>
+<p><strong><em>ImageSharp V3.1.0 is licensed under the <a href="https://raw.githubusercontent.com/SixLabors/ImageSharp/main/LICENSE" target="_blank">Six Labors Split License</a>. This means that it is free to use in both non-commercial and certain commercial applications. However, if you are using it in a commercial application and your organization has a gross income of over 1M USD per year you must purchase a commercial license. Please see the <a href="/pricing/">Pricing page</a> for more information.</em></strong></p>
 
             <hr>
             <ul>
-                <li>Next: <a href="/posts/fantastic-beta-four/">Fantastic Beta Four</a>
-                </li>
-              
-                <li>Previous: <a href="/posts/announcing-imagesharp-beta-1/">Announcing ImageSharp Beta 1</a>
+                <li>Previous: <a href="/posts/announcing-imagesharp-drawing-100/">Announcing ImageSharp.Drawing 1.0.0</a>
                 </li>
               
             </ul>
@@ -474,7 +420,7 @@ image.Mutate(x =&gt; x.Skew(-20F, 10F));
       </div>
     </footer>
 
-    <!-- Current page: /posts/beta-3-is-a-magic-number/ -->
+    <!-- Current page: /posts/announcing-imagesharp-310/ -->
     <script 
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" 
       integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
