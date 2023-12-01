@@ -206,26 +206,26 @@
 <h2 id="what's-new-since-v3.0.0" tabindex="-1">What's new since V3.0.0 <a class="direct-link" href="#what's-new-since-v3.0.0">#</a></h2>
 <p>This release contains a very large number of improvements and bug fixes. We've also added support for a new format and enhanced several more.</p>
 <ul>
-<li>We've added support for animated Webp images. This includes both decoding and encoding.</li>
-<li>We've added support for animated Png images. This includes both decoding and encoding.</li>
-<li>We've added the ability to seamlessly convert between animated image formats.</li>
-<li>We've added support for Quite Ok (Qoi) images. This includes both decoding and encoding.</li>
-<li>We've added the ability to read, preserve, and reuse the color palette of a Png image.</li>
-<li>We've added the ability to read, preserve, and reuse the color palette of a Gif image.</li>
-<li>We've added support for reading and writing CICP color profiles in Png.</li>
-<li>We've improved the ability of our Jpeg, Pbm, Png, and Tiff decoders to withstand malicious actors bringing them up to standard with our other decoders.</li>
-<li>We've reduced the allocations of our lossless Webp encoder by 56%.</li>
-<li>We've improved the performance of asynchronous file operations.</li>
-<li>We've introduced SIMD into several bottlenecks to improve performance.</li>
+<li>Support for animated Webp images, including both decoding and encoding, is now available.</li>
+<li>Animated Png images are now supported, encompassing both decoding and encoding capabilities.</li>
+<li>The software has been enhanced to allow seamless conversion between animated image formats.</li>
+<li>Quite Ok (Qoi) image support, inclusive of decoding and encoding, has been added.</li>
+<li>Functionality to read, preserve, and reuse the color palette of a Png image is now integrated.</li>
+<li>Similarly, the ability to read, preserve, and reuse the color palette of a Gif image has been incorporated.</li>
+<li>Reading and writing CICP color profiles in Png images is now supported.</li>
+<li>Enhancements have been made to the resilience of Jpeg, Pbm, Png, and Tiff decoders against malicious attacks, aligning them with the standards of other decoders.</li>
+<li>The allocations of the lossless Webp encoder have been reduced by 56%.</li>
+<li>Asynchronous file operations have seen a performance improvement.</li>
+<li>Several bottlenecks now include SIMD integration for enhanced performance.</li>
 <li>Much much more....</li>
 </ul>
 <p>Please read the <a href="https://github.com/SixLabors/ImageSharp/releases/tag/v3.1.0" target="_blank">release notes</a> for detailed release information.</p>
 <h3 id="breaking-changes" tabindex="-1">Breaking Changes <a class="direct-link" href="#breaking-changes">#</a></h3>
 <p>Unfortunately in order to fix some issues we had to introduce some breaking changes (<em>listed below</em>). We always try to avoid breaking changes but sometimes they are unavoidable. We apologize for any inconvenience this may cause.</p>
 <ul>
-<li>We've made API changes to the default <code>Configuration</code> API to fix an issue that caused the the size of AOT compiled assemblies to increase by 77% over expected output (<em>breaking</em>).</li>
-<li>We've fixed several issues and greatly enhanced our <code>DrawImage</code> functionality to support more complex scenarios (<em>breaking</em>).</li>
-<li>We've reversed the behavior of our automatic namespace includes to prevent namespace collisions (<em>breaking</em>).</li>
+<li>API changes have been implemented in the default <code>Configuration</code> API to address a problem that increased the size of AOT compiled assemblies by 77% more than anticipated (<em>breaking</em>).</li>
+<li>The <code>DrawImage</code> functionality has undergone numerous fixes and significant enhancements to support more complex scenarios (<em>breaking</em>).</li>
+<li>To avoid namespace collisions, the approach to automatic namespace includes added for v3.0.0 has been reversed (<em>breaking</em>).</li>
 </ul>
 <h2 id="feature-highlights." tabindex="-1">Feature Highlights. <a class="direct-link" href="#feature-highlights.">#</a></h2>
 <h3 id="animated-webp%2C-png%2C-and-gif-oh-my!" tabindex="-1"><em>Animated Webp, Png, and Gif Oh My!</em> <a class="direct-link" href="#animated-webp%2C-png%2C-and-gif-oh-my!">#</a></h3>
@@ -244,10 +244,10 @@ image.Save(&quot;animated.png&quot;);
 <p>Isn't that cool? We think so!</p>
 <p>But wait, it gets better. During the encoding process we optimize the image to ensure that it is as small as possible.</p>
 <h4 id="a-super-quick-primer-in-animated-image-formats" tabindex="-1">A <em>Super Quick</em> Primer in Animated Image Formats <a class="direct-link" href="#a-super-quick-primer-in-animated-image-formats">#</a></h4>
-<p>Animated image formats are designed in such a way as to allow the reuse of data between frames. This is achieved by storing the first frame as a full image and then storing the subsequent frames as a series of delta changes that are applied to the first frame to create the final image. This allows the format to store the data for each frame in a very compact way.</p>
-<p>The downside to this approach is that the optimizations must be lost if the image is loaded for editing. This is because the individual frame data must be coalesced from the delta changes provided by previous frames into a single image before it can be edited so there is enough data to successfully apply the changes (<em>think sampling of neighboring pixels during resize operations</em>). If the image is then saved following editing without any changes the optimizations are lost and the resultant image can be much, much larger than it needs to be.</p>
+<p>Animated image formats are cleverly designed to reuse data across frames. The first frame is stored as a complete image, while subsequent frames are stored as a series of delta changes. These deltas are applied to the first frame to construct the final image, enabling a compact storage of frame data.</p>
+<p>However, this method comes with a trade-off. When an image is loaded for editing, these optimizations are discarded. The reason is that the data for each frame must be assembled from the deltas of previous frames, creating a single image that contains enough data for successful editing (<em>e.g., sampling of neighboring pixels during resize operations</em>). Consequently, if the image is re-saved after editing, even without alterations, the original optimizations are lost. This can result in the final image being significantly larger than necessary.</p>
 <h4 id="the-solution" tabindex="-1">The Solution <a class="direct-link" href="#the-solution">#</a></h4>
-<p>During the encoding process we look for duplicate pixel data between frames and, depending on metadata contained within the frame, apply optimizations to the image to ensure that the data is only stored once. This can result in significant savings in the final image size. This optimization is SIMD enhanced so runs very quickly.</p>
+<p>In the encoding process, we identify duplicate pixel data across frames. Based on the metadata within each frame, we apply optimizations to ensure that this data is stored only once. This strategy leads to substantial reductions in the final image size. Moreover, these optimizations are enhanced by SIMD (Single Instruction, Multiple Data), ensuring rapid execution.</p>
 <p>Given a sample animated gif containing a picture of Jake and Finn from Adventure Time we can see the following results. The original image weighs in at 52.3KB</p>
 <p><small><i>Note the image has been re-encoded to only run 3 times to make the page more accessible so you might have to reload the page to see the animation</i></small></p>
 <div class="row text-center mb-3">
@@ -272,7 +272,7 @@ image.Save(&quot;animated.png&quot;);
         Webp Lossy 29.8KB
     </div>
 </div>
-<p>As you can see, in this example, because of our optimization process we have been able to introduce improvements over the original across all formats. In most use cases our encoded optimization results provide roughly the same improvement though of course there are exceptions when compared to some highly optimized, handcrafted images. Fortunately, for you ImageSharp provides fine grained control over every pixel and metadata property so you can tweak any image to your hearts content to bring maximum optimization.</p>
+<p>In this example, our optimization process has enabled enhancements over the original in all formats. Typically, our encoded optimizations yield comparable improvements in most use cases. However, there are rare exceptions, especially when compared to some highly optimized, handcrafted images. The good news is that ImageSharp offers detailed control over every pixel and metadata property. This allows you to fine-tune any image to your heart's content, achieving maximum optimization.</p>
 <h3 id="qoi---a-new-image-format" tabindex="-1">Qoi - A new image format <a class="direct-link" href="#qoi---a-new-image-format">#</a></h3>
 <p>The Quite OK Image Format (QOI) is a specification for lossless image compression of 24-bit (8 bits per color RGB) or 32-bit (8 bits per color with 8-bit alpha channel RGBA) color raster (bitmapped) images, invented by Dominic Szablewski and first announced on 24 November 2021.</p>
 <p>The intended purpose was to create an open source lossless compression method, that was faster and easier to implement than PNG. A third party <a href="https://www.youtube.com/watch?v=EFUYNoFRHQI" target="_blank">YouTube</a> video explains how PNG and QOI compression are performed. Figures specified in the announcement and the video claim twenty to fifty times faster encoding, and three to four times faster decoding speed compared to PNG, with similar file sizes. The author has donated the specification to the public domain (CC0).</p>
