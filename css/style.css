@@ -1,5 +1,5 @@
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 h1,
@@ -22,14 +22,14 @@ a {
 }
 
 .sl-navbar a {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   text-transform: uppercase;
   color: inherit;
 }
 
 .sl-navbar a:hover,
 .sl-navbar a:focus,
-[aria-current='page'] a {
+[aria-current="page"] a {
   color: #e30183;
 }
 
@@ -77,6 +77,10 @@ a {
   .masthead .lead {
     font-size: 1.5rem;
   }
+}
+
+.lead strong {
+  font-weight: 700;
 }
 
 section {
@@ -177,7 +181,7 @@ pre {
 pre::before,
 pre::after,
 pre code::before {
-  content: '';
+  content: "";
   position: absolute;
   z-index: 1;
   pointer-events: none;
@@ -203,7 +207,7 @@ pre code::before {
 }
 
 pre code::after {
-  content: '';
+  content: "";
   position: absolute;
   z-index: 1;
   pointer-events: none;
@@ -245,7 +249,7 @@ pre code {
 
 .frame::before,
 .frame::after {
-  content: '';
+  content: "";
   position: absolute;
   z-index: 0;
   top: 0;
@@ -306,7 +310,7 @@ pre code {
   position: absolute;
   top: 0.2rem;
   left: -1.5rem;
-  content: '';
+  content: "";
   background: #4ade80 url(img/tick.svg) center center no-repeat;
   border-radius: 50%;
   border-style: none;
@@ -392,7 +396,7 @@ figcaption {
 }
 
 figcaption::before {
-  content: '— ';
+  content: "— ";
 }
 
 .ratio {
