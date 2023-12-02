@@ -202,13 +202,20 @@
   <div class="container">
     <div class="row">
       <div class="col">
+        <p class="mb-3">
+          <strong>Revolutionize your graphics with ImageSharp.Drawing</strong>, the ideal solution for dynamic design and development. It blends intuitive design with powerful functionality, making it perfect for developers seeking precision and ease. Embrace the art of simplicity with ImageSharp.Drawing
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
         <h3 class="display-5">Install anywhere</h3>
         <p>
           ImageSharp.Drawing carries no native dependencies and can be installed
           anywhere that supports
           <a
             href="https://docs.microsoft.com/en-us/dotnet/standard/net-standard"
-            >.NET Standard 2.0+</a
+            >.NET 6+</a
           >, ImageSharp.Drawing can be used in device, cloud, and embedded/IoT
           scenarios.
         </p>
@@ -225,11 +232,15 @@
   <div class="container">
     <div class="row">
       <div class="col order-md-last">
-        <h3 class="display-5">An API for everyone</h3>
+        <h3 class="display-5">Powerfully Simple:<br/>An API for Everyone</h3>
         <p>
-          ImageSharp.Drawings's API is unparalleled for it's ease of use; designed
-          from the ground up to be flexible and extensible.
-          Easily draw complex shapes with our intuitive commands.
+          Experience the unmatched combination of power and simplicity with ImageSharp.Drawing.
+          Engineered for peak developer experience, its API redefines ease of use, offering unparalleled flexibility
+          and extensibility.
+        </p>
+        <p>
+          Master the art of drawing complex shapes effortlessly with our intuitive command suite.
+          ImageSharp.Drawing is where simplicity meets sophistication, making advanced graphics accessible to all.
         </p>
       </div>
       <div class="col order-md-first">
@@ -239,7 +250,7 @@ using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 
 using Image image = new Image&lt;Rgba32&gt;(100, 100);
-var star = new Star(50, 50, 5, 20, 45);
+Star star = new(50, 50, 5, 20, 45);
 PointF[] points = star.Points.ToArray();
 Color[] colors =
 {
@@ -247,7 +258,7 @@ Color[] colors =
     Color.Red, Color.Yellow, Color.Green, Color.Blue, Color.Purple
 };
 
-var brush = new PathGradientBrush(points, colors, Color.White);
+PathGradientBrush brush = new(points, colors, Color.White);
 
 image.Mutate(x => x.Fill(brush));
 image.Save("star.png");</code></pre>
@@ -256,7 +267,58 @@ image.Save("star.png");</code></pre>
     </div>
   </div>
 </section>
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h3 class="display-5">Revolutionizing Text Graphics</h3>
+        <p>
+          With its cutting-edge text rendering, ImageSharp.Drawing leads the .NET ecosystem.
+          Its mastery of bi-directional (BIDI) text seamlessly integrates diverse scripts, essential for global reach.
+          The library boasts advanced rich text features like underlining, overlining, strikethrough, with custom brushes, elevating
+          text styling to new heights. Its versatility shines with both vertical and horizontal text support, catering to any design need. 
+        </p>
+        <p>
+          This makes it a transformative tool for high-impact visuals, ensuring crisp, clear typography across all platforms and resolutions.
+        <p>
+      </div>
+      <div class="col">
+        <div class="frame">
+          <pre><code class="language-c#">using SixLabors.Fonts;
+using SixLabors.Fonts.Unicode;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Drawing.Processing;
 
+Font font = CreateFont("OpenSans-Regular.ttf", 36);
+Font fallback = CreateFont("NotoSansKR-Regular.otf", 36);
+
+const string text = "한국어 hangugeo";
+RichTextOptions textOptions = new(font)
+{
+    FallbackFontFamilies = new[] { fallback.Family },
+    LayoutMode = LayoutMode.VerticalLeftRight,
+    TextRuns = new[]
+    {
+        new RichTextRun()
+        {
+            Start = 0,
+            End = text.GetGraphemeCount(),
+            TextDecorations = TextDecorations.Underline
+        }
+    }
+};
+
+FontRectangle bounds = TextMeasurer.MeasureSize(text, textOptions);
+using Image&lt;Rgba32&gt; img = new((int)Math.Ceiling(bounds.Width), (int)Math.Ceiling(bounds.Height));
+img.Mutate(x => x.Fill(Color.White).DrawText(textOptions, text, Brushes.Solid(Color.Black)));
+
+img.Save("rich-text.png");</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
     </main>
 
     <footer class="sl-footer p-3 p-md-5 mt-5 bg-light text-center text-sm-start">

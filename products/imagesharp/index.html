@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Six Labors : ImageSharp</title>
-    <meta name="description" content="A modern, fully featured, fully managed, cross-platform, 2D graphics library for.NET.">
+    <meta name="description" content="A modern, fully featured, fully managed, cross-platform, 2D graphics library for .NET.">
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
       rel="stylesheet"
@@ -184,7 +184,7 @@
         ImageSharp
       </h1>
       <p class="lead mb-4">
-        A modern, fully featured, fully managed, cross-platform, 2D graphics library for.NET.
+        A modern, fully featured, fully managed, cross-platform, 2D graphics library for .NET.
       </p>
       
         <div class="d-flex flex-column flex-md-row">
@@ -199,6 +199,13 @@
 
       <section>
   <div class="container">
+    <div class="row">
+      <div class="col">
+        <p class="mb-3">
+          <strong>Boost your projects with ImageSharp, the ultimate image processing tool for the modern .NET development stack</strong>. Its powerful, agile, and user-friendly features accelerate your workflow, ensuring seamless integration and top-notch performance. 
+        </p>
+      </div>
+    </div>
     <div class="row">
       <div class="col">
         <h3 class="display-5">Install anywhere</h3>
@@ -237,7 +244,7 @@
           <pre><code class="language-c#">using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 
-using var image = Image.Load("original.jpg");
+using Image image = Image.Load("original.jpg");
 image.Mutate(x => x.Resize(image.Width / 2, image.Height / 2));
 image.Save("result.jpg");</code></pre>
         </div>
@@ -256,11 +263,11 @@ image.Save("result.jpg");</code></pre>
         </p>
         <ul>
           <li>
-            Complete support for jpeg, bmp, gif, pbm, png, tga, tiff, and webp with more
+            Complete support for jpeg, bmp, gif, pbm, png, tga, tiff, webp, and qoi with more
             formats on the way.
           </li>
           <li>Supports over 25 different pixel formats.</li>
-          <li>Metadata editing support (IPTC EXIF).</li>
+          <li>Metadata editing support (IPTC EXIF, XMP).</li>
           <li>
             Colorspace transforms (RGB/CMYK/Grayscale/CIELab and many
             more).
@@ -277,17 +284,12 @@ image.Save("result.jpg");</code></pre>
           <pre><code class="language-c#">using SixLabors.ImageSharp.Formats.Gif;
 using SixLabors.ImageSharp.Metadata;
 
-const int frameDelay = 42;
-const int colorTableLength = 128;
-const GifDisposalMethod disposalMethod = GifDisposalMethod.RestoreToBackground;
-
-using var image = await Image.LoadAsync("original.gif");
+using Image image = await Image.LoadAsync("original.gif");
 foreach (ImageFrame frame in image.Frames)
 {
   GifFrameMetadata metaData = frame.Metadata.GetGifMetadata();
-  metaData.FrameDelay = frameDelay;
-  metaData.ColorTableLength = colorTableLength;
-  metaData.DisposalMethod = disposalMethod;
+  metaData.FrameDelay = 42;
+  metaData.DisposalMethod = GifDisposalMethod.RestoreToBackground;
 }
 
 await image.SaveAsync("result.gif");</code></pre>
