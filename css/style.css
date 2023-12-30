@@ -97,6 +97,11 @@ section.alt {
   margin-bottom: 3rem;
 }
 
+.cart .nav button {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
 .product {
   border: none;
   text-align: center;
