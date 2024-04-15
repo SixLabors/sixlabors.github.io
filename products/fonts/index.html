@@ -266,8 +266,8 @@ collection.Add(&quot;path/to/font2.ttf&quot;);
 collection.Add(&quot;path/to/emojiFont.ttf&quot;);
 collection.AddCollection(&quot;path/to/font.ttc&quot;);
 
-if(collection.TryFind(&quot;Font Name&quot;, out FontFamily family))
-if(collection.TryFind(&quot;Emoji Font Name&quot;, out FontFamily emojiFamily))
+if(collection.TryGet(&quot;Font Name&quot;, out FontFamily family))
+if(collection.TryGet(&quot;Emoji Font Name&quot;, out FontFamily emojiFamily))
 {
     Font font = family.CreateFont(12, FontStyle.Italic);
     TextOptions options = new(font)
