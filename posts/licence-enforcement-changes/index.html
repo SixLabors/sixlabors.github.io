@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Six Labors : Six Labors</title>
-    <meta name="description" content="Six Labors products and information.">
+    <title>Six Labors : License Enforcement Changes and a New Subscription Tier</title>
+    <meta name="description" content="Build with confidence, license with clarity.">
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
       rel="stylesheet"
@@ -189,53 +189,185 @@
         </div>
       </nav>
     </header>
-    <main role="main">
+    <main class="tmpl-post" role="main">
       
 
 
 
-  <div class="masthead">
-    <div class="container">
-      <h1 class="mb-3">
-        Six Labors Commercial Use License
-      </h1>
-      <p class="lead mb-4">
-        <a href="/pricing/license.txt" target="_blank" download>Version 2.0, June 2022</a>
-      </p>
-      
-        <div class="d-flex flex-column flex-md-row">
-          <a href="/pricing/"
-             class="btn btn-lg btn-primary shadow mb-3 me-md-3"
-             }>
-          Buy now</a>
-        </div>
-      
+      <div class="masthead">
+  <div class="container">
+    <h1 class="mb-3">
+      License Enforcement Changes and a New Subscription Tier
+    </h1>
+    <p class="lead mb-4">
+      Build with confidence, license with clarity.
+    </p>
+    <div><a href="/tags/licensing/" class="post-tag btn btn-primary shadow">Licensing</a>
     </div>
   </div>
-
-      <section>
-<div class="container">
-<p class="lead">Six Labors hereby grants you a non-exclusive license to the Six Labors Software Libraries for .NET ("the Software").</p>
-<h3 id="do-no-harm" tabindex="-1">Do No Harm <a class="direct-link" href="#do-no-harm">#</a></h3>
-<p>By downloading or using the Software, the Licensee agrees not to utilize the software in a manner which is disparaging to Six Labors, and not to rent, lease or otherwise transfer rights to the Software.</p>
-<h3 id="license-permissions" tabindex="-1">License Permissions <a class="direct-link" href="#license-permissions">#</a></h3>
-<ul>
-<li>Grants the use of the Software by a specified number of developers to create and deploy closed-source software for unlimited end user organizations (&quot;The Organization&quot;) in multiple locations. This license covers unlimited applications or projects. The Software may be deployed upon any number of machines for the end-use of The Organization. This license also intrinsically covers for development, staging and production servers for each project.</li>
-<li>Grants the right to distribute the Software (without royalty) as part of packaged commercial products.</li>
-</ul>
-<h3 id="license-fees" tabindex="-1">License Fees <a class="direct-link" href="#license-fees">#</a></h3>
-<ul>
-<li>A. If you wish to use the Software in a production environment, you may download and use the Software for one year upon payment of the appropriate license fee as indicated on the pricing page in accordance with the terms and conditions of this Agreement.</li>
-<li>B. If you wish to use the Software in a non-production environment, you may download and access the source and/or binaries at no charge solely for testing and evaluation purposes and in accordance with all license limitations and restrictions set forth in this Agreement.</li>
-</ul>
-<h3 id="ownership" tabindex="-1">Ownership <a class="direct-link" href="#ownership">#</a></h3>
-<p>Six Labors shall at all times retain ownership of the Six Labors Software Libraries and all subsequent copies.</p>
-<h3 id="copyright" tabindex="-1">Copyright <a class="direct-link" href="#copyright">#</a></h3>
-<p>Title, ownership rights, and intellectual property rights in and to the Software shall remain with Six Labors. The Software is protected by the international copyright laws. Title, ownership rights, and intellectual property rights in and to the content accessed through the Software is the property of the applicable content owner and may be protected by applicable copyright or other law. This License gives you no rights to such content.</p>
-<h3 id="limitation-of-liability" tabindex="-1">Limitation Of Liability <a class="direct-link" href="#limitation-of-liability">#</a></h3>
-<p>THIS SOFTWARE IS PROVIDED &quot;AS IS,&quot; WITHOUT A WARRANTY OF ANY KIND. ALL EXPRESS OR IMPLIED CONDITIONS, REPRESENTATIONS AND WARRANTIES, INCLUDING ANY IMPLIED WARRANTY OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE OR NON-INFRINGEMENT, ARE HEREBY EXCLUDED. SIX LABORS AND ITS LICENSORS SHALL NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING OR DISTRIBUTING THE SOFTWARE OR ITS DERIVATIVES. IN NO EVENT WILL SIX LABORS OR ITS LICENSORS BE LIABLE FOR ANY LOST REVENUE, PROFIT OR DATA, OR FOR DIRECT, INDIRECT, SPECIAL, CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF THE THEORY OF LIABILITY, ARISING OUT OF THE USE OF OR INABILITY TO USE SOFTWARE, EVEN IF SIX LABORS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</p>
 </div>
+
+<section>
+  <div class="container">
+    <div class= row>
+      <div class="col-md-8">
+        <article>
+          <time datetime="2025-09-04">04 Sep 2025</time>
+
+          <p>Over the past few years Six Labors libraries have become a critical part of many production systems. That adoption has been fantastic to see, but it also means we need to make sure our licensing model is both sustainable and fair. To support that, we are introducing some important updates.</p>
+<h2 id="why-the-change%3F" tabindex="-1">Why the change? <a class="direct-link" href="#why-the-change%3F">#</a></h2>
+<p>Until now, licenses have been enforced purely through legal terms. While most organizations comply, there are always some who rely on the honor system being unenforced. This hurts those who do the right thing and pay for their usage.</p>
+<p>To level the playing field, Six Labors projects will now introduce a <strong>build time license key</strong>. This ensures that only organizations with the correct license can compile projects that directly depend on our libraries.</p>
+<p>This only applies to <strong>direct dependencies</strong>. If you use a third party package that depends on our libraries, you do not need a license. The responsibility is on the immediate consumer.</p>
+<h2 id="what-is-not-changing%3F" tabindex="-1">What is not changing? <a class="direct-link" href="#what-is-not-changing%3F">#</a></h2>
+<ul>
+<li>The license terms remain the same, and there is no intent to change them.</li>
+<li>If you already hold a valid license, your entitlement does not change.</li>
+<li>Usage scope is unchanged. Enforcement applies to direct dependencies only, not transitive installs.</li>
+<li>There is no change to library behavior. The only addition is build validation using a license file.</li>
+</ul>
+<h2 id="what-is-changing%3F" tabindex="-1">What is changing? <a class="direct-link" href="#what-is-changing%3F">#</a></h2>
+<ul>
+<li>Starting with future <strong>major releases</strong>, a <code>sixlabors.lic</code> file will be required to build projects that directly depend on Six Labors libraries.</li>
+<li><strong>Standard licenses</strong> are valid for one year and are delivered automatically when you <a href="/pricing/">purchase a subscription</a>.</li>
+<li><strong>Trial licenses</strong> are valid for 90 days and are delivered automatically when you start an evaluation.</li>
+<li>A sample <code>sixlabors.lic</code> file can be downloaded from this post to allow people to play around with upcoming releases. This sample key is valid for one year, until <strong>2026-09-04</strong>.</li>
+</ul>
+<p>Open Source and source available projects, Non-Profit organizations, registered charities, and for-profit companies with under USD 1M annual gross revenue can <a href="https://licensing.sixlabors.com/" target="_blank">apply for a license</a>.</p>
+<h3 id="download-a-sample-license-file" tabindex="-1">Download a sample license file <a class="direct-link" href="#download-a-sample-license-file">#</a></h3>
+<p>You can download a sample license file here:</p>
+<p><a href="/assets/sixlabors.lic" download>Download <code>sixlabors.lic</code></a></p>
+<p>This file will allow you to experiment with upcoming releases before the enforcement goes live.<br>
+It expires on <strong>2026-09-04</strong>.</p>
+<h2 id="how-to-use-the-license-file" tabindex="-1">How to use the license file <a class="direct-link" href="#how-to-use-the-license-file">#</a></h2>
+<p>By default, the <code>sixlabors.lic</code> file must be placed in the same folder as your project file.<br>
+If you want to share a single license file across multiple projects, you can set its location using the <code>$(SixLaborsLicenseFile)</code> property in your project file or a shared props file.</p>
+<p>This gives you the flexibility to either keep the file local to each project or manage it centrally.</p>
+<div class="frame">
+<pre><code class="language-xml">&lt;PropertyGroup&gt;
+  &lt;!-- Point to a shared license file for all projects --&gt;
+  &lt;SixLaborsLicenseFile&gt;PATH_TO_YOUR\sixlabors.lic&lt;/SixLaborsLicenseFile&gt;
+&lt;/PropertyGroup&gt;
+</code></pre>
+</div>
+<h2 id="new-subscription-tier%3A-agency" tabindex="-1">New subscription tier: Agency <a class="direct-link" href="#new-subscription-tier%3A-agency">#</a></h2>
+<p>We are also introducing a new subscription tier to better fit medium sized teams.</p>
+<p>The former <strong>Boutique Agency</strong> tier is now simply called <strong>Boutique</strong>. We’ve also introduced a new <strong>Agency</strong> tier for organizations with 11–20 developers. If you previously held a Boutique Agency license, you’re now in the Boutique tier with no change to your entitlement.</p>
+<p>This new tier gives growing teams an affordable path before stepping up to Enterprise licensing.</p>
+<h2 id="closing-thoughts" tabindex="-1">Closing thoughts <a class="direct-link" href="#closing-thoughts">#</a></h2>
+<p>Our aim with these changes is to make sure the rules are applied consistently, and that the investment you make in licensing is matched by the confidence that everyone else is held to the same standard.</p>
+<p>Thank you to every team and individual who continues to support our work. Six Labors exists because of you.</p>
+
+            <hr>
+            <ul>
+                <li>Previous: <a href="/posts/announcing-imagesharp-310/">Announcing ImageSharp 3.1.0</a>
+                </li>
+              
+            </ul>
+        </article>
+      </div>
+      <div class="col-md-3 offset-md-1">
+        <aside>
+          <h3>Tags</h3>
+          <ul>
+            
+              
+              <li>
+                <a href="/tags/imagesharp/" class="post-tag btn btn-primary shadow">ImageSharp</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/fonts/" class="post-tag btn btn-primary shadow">Fonts</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/shapes/" class="post-tag btn btn-primary shadow">Shapes</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/releases/" class="post-tag btn btn-primary shadow">Releases</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/drawing/" class="post-tag btn btn-primary shadow">Drawing</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/imagesharp.web/" class="post-tag btn btn-primary shadow">ImageSharp.Web</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/announcements/" class="post-tag btn btn-primary shadow">Announcements</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/licensing/" class="post-tag btn btn-primary shadow">Licensing</a>
+              </li>
+            
+          </ul>
+
+        </aside>
+
+        <aside>
+          
+          <h3>Recent  Posts
+          </h3>
+
+          
+          
+          <ul class="postlist">
+            
+              <li class="postlist-item">
+                <a href="/posts/licence-enforcement-changes/" class="postlist-link">
+                  License Enforcement Changes and a New Subscription Tier
+                  
+                </a>
+              </li>
+            
+              <li class="postlist-item">
+                <a href="/posts/announcing-imagesharp-310/" class="postlist-link">
+                  Announcing ImageSharp 3.1.0
+                  
+                </a>
+              </li>
+            
+              <li class="postlist-item">
+                <a href="/posts/announcing-imagesharp-drawing-100/" class="postlist-link">
+                  Announcing ImageSharp.Drawing 1.0.0
+                  
+                </a>
+              </li>
+            
+              <li class="postlist-item">
+                <a href="/posts/announcing-fonts-100/" class="postlist-link">
+                  Announcing Fonts 1.0.0
+                  
+                </a>
+              </li>
+            
+              <li class="postlist-item">
+                <a href="/posts/announcing-imagesharp-web-300/" class="postlist-link">
+                  Announcing ImageSharp.Web 3.0.0
+                  
+                </a>
+              </li>
+            
+          </ul>
+
+          <p>More posts can be found in <a href="/posts/">the archive</a>.</p>
+        </aside>
+      </div>
+    </div>
+  </div>
 </section>
+
 
     </main>
 
@@ -261,7 +393,7 @@
       </div>
     </footer>
 
-    <!-- Current page: /pricing/license/ -->
+    <!-- Current page: /posts/licence-enforcement-changes/ -->
     <script 
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" 
       integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"

@@ -5,12 +5,63 @@
 	
 	<link href="https://sixlabors.com/feed/feed.xml" rel="self"/>
 	<link href="https://sixlabors.com/"/>
-	<updated>2023-12-01T00:00:00Z</updated>
+	<updated>2025-09-04T00:00:00Z</updated>
 	<id>https://sixlabors.com/</id>
 	<author>
 		<name>Your Name Here</name>
 		<email>youremailaddress@example.com</email>
 	</author>
+	
+	<entry>
+		<title>License Enforcement Changes and a New Subscription Tier</title>
+		<link href="https://sixlabors.com/posts/licence-enforcement-changes/"/>
+		<updated>2025-09-04T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/licence-enforcement-changes/</id>
+		<content type="html">&lt;p&gt;Over the past few years Six Labors libraries have become a critical part of many production systems. That adoption has been fantastic to see, but it also means we need to make sure our licensing model is both sustainable and fair. To support that, we are introducing some important updates.&lt;/p&gt;
+&lt;h2 id=&quot;why-the-change%3F&quot; tabindex=&quot;-1&quot;&gt;Why the change? &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/licence-enforcement-changes/#why-the-change%3F&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Until now, licenses have been enforced purely through legal terms. While most organizations comply, there are always some who rely on the honor system being unenforced. This hurts those who do the right thing and pay for their usage.&lt;/p&gt;
+&lt;p&gt;To level the playing field, Six Labors projects will now introduce a &lt;strong&gt;build time license key&lt;/strong&gt;. This ensures that only organizations with the correct license can compile projects that directly depend on our libraries.&lt;/p&gt;
+&lt;p&gt;This only applies to &lt;strong&gt;direct dependencies&lt;/strong&gt;. If you use a third party package that depends on our libraries, you do not need a license. The responsibility is on the immediate consumer.&lt;/p&gt;
+&lt;h2 id=&quot;what-is-not-changing%3F&quot; tabindex=&quot;-1&quot;&gt;What is not changing? &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/licence-enforcement-changes/#what-is-not-changing%3F&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The license terms remain the same, and there is no intent to change them.&lt;/li&gt;
+&lt;li&gt;If you already hold a valid license, your entitlement does not change.&lt;/li&gt;
+&lt;li&gt;Usage scope is unchanged. Enforcement applies to direct dependencies only, not transitive installs.&lt;/li&gt;
+&lt;li&gt;There is no change to library behavior. The only addition is build validation using a license file.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;what-is-changing%3F&quot; tabindex=&quot;-1&quot;&gt;What is changing? &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/licence-enforcement-changes/#what-is-changing%3F&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Starting with future &lt;strong&gt;major releases&lt;/strong&gt;, a &lt;code&gt;sixlabors.lic&lt;/code&gt; file will be required to build projects that directly depend on Six Labors libraries.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Standard licenses&lt;/strong&gt; are valid for one year and are delivered automatically when you &lt;a href=&quot;https://sixlabors.com/pricing/&quot;&gt;purchase a subscription&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Trial licenses&lt;/strong&gt; are valid for 90 days and are delivered automatically when you start an evaluation.&lt;/li&gt;
+&lt;li&gt;A sample &lt;code&gt;sixlabors.lic&lt;/code&gt; file can be downloaded from this post to allow people to play around with upcoming releases. This sample key is valid for one year, until &lt;strong&gt;2026-09-04&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Open Source and source available projects, Non-Profit organizations, registered charities, and for-profit companies with under USD 1M annual gross revenue can &lt;a href=&quot;https://licensing.sixlabors.com/&quot; target=&quot;_blank&quot;&gt;apply for a license&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;download-a-sample-license-file&quot; tabindex=&quot;-1&quot;&gt;Download a sample license file &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/licence-enforcement-changes/#download-a-sample-license-file&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;You can download a sample license file here:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://sixlabors.com/assets/sixlabors.lic&quot; download=&quot;&quot;&gt;Download &lt;code&gt;sixlabors.lic&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This file will allow you to experiment with upcoming releases before the enforcement goes live.&lt;br /&gt;
+It expires on &lt;strong&gt;2026-09-04&lt;/strong&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;how-to-use-the-license-file&quot; tabindex=&quot;-1&quot;&gt;How to use the license file &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/licence-enforcement-changes/#how-to-use-the-license-file&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;By default, the &lt;code&gt;sixlabors.lic&lt;/code&gt; file must be placed in the same folder as your project file.&lt;br /&gt;
+If you want to share a single license file across multiple projects, you can set its location using the &lt;code&gt;$(SixLaborsLicenseFile)&lt;/code&gt; property in your project file or a shared props file.&lt;/p&gt;
+&lt;p&gt;This gives you the flexibility to either keep the file local to each project or manage it centrally.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt;&amp;lt;PropertyGroup&amp;gt;
+  &amp;lt;!-- Point to a shared license file for all projects --&amp;gt;
+  &amp;lt;SixLaborsLicenseFile&amp;gt;PATH_TO_YOUR\sixlabors.lic&amp;lt;/SixLaborsLicenseFile&amp;gt;
+&amp;lt;/PropertyGroup&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h2 id=&quot;new-subscription-tier%3A-agency&quot; tabindex=&quot;-1&quot;&gt;New subscription tier: Agency &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/licence-enforcement-changes/#new-subscription-tier%3A-agency&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;We are also introducing a new subscription tier to better fit medium sized teams.&lt;/p&gt;
+&lt;p&gt;The former &lt;strong&gt;Boutique Agency&lt;/strong&gt; tier is now simply called &lt;strong&gt;Boutique&lt;/strong&gt;. We’ve also introduced a new &lt;strong&gt;Agency&lt;/strong&gt; tier for organizations with 11–20 developers. If you previously held a Boutique Agency license, you’re now in the Boutique tier with no change to your entitlement.&lt;/p&gt;
+&lt;p&gt;This new tier gives growing teams an affordable path before stepping up to Enterprise licensing.&lt;/p&gt;
+&lt;h2 id=&quot;closing-thoughts&quot; tabindex=&quot;-1&quot;&gt;Closing thoughts &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/licence-enforcement-changes/#closing-thoughts&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Our aim with these changes is to make sure the rules are applied consistently, and that the investment you make in licensing is matched by the confidence that everyone else is held to the same standard.&lt;/p&gt;
+&lt;p&gt;Thank you to every team and individual who continues to support our work. Six Labors exists because of you.&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>Announcing ImageSharp 3.1.0</title>

@@ -16,7 +16,7 @@
       crossorigin="anonymous">
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.6.0/build/styles/default.min.css"/>
+      href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/default.min.css"/>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/highlightjs-themes@1.0.0/monokai_sublime.min.css"/>
@@ -197,7 +197,7 @@
   <div class="masthead">
     <div class="container">
       <h1 class="mb-3">
-        Buy a Six Labors Commercial Use License
+        Get Your Six Labors License
       </h1>
       <p class="lead mb-4">
         Our Developer License for all Six Labors products.
@@ -234,39 +234,62 @@
     <div class="cart">
       <ul class="nav nav-tabs nav-fill text-center" id="myTab" role="tablist">
   <li class="nav-item" role="presentation">
-    <button class="nav-link active" id="monthly-tab" data-bs-toggle="tab" data-bs-target="#monthly-tab-pane" type="button" role="tab" aria-controls="monthly-tab-pane" aria-selected="true">Billed Monthly</button>
+    <button class="nav-link active" id="monthly-tab" data-bs-toggle="tab" data-bs-target="#monthly-tab-pane" type="button" role="tab" aria-controls="monthly-tab-pane" aria-selected="true">Monthly</button>
   </li>
   <li class="nav-item" role="presentation">
-    <button class="nav-link" id="annual-tab" data-bs-toggle="tab" data-bs-target="#annual-tab-pane" type="button" role="tab" aria-controls="annual-tab-pane" aria-selected="false">Billed Annually (Save up to 25%)</button>
+    <button class="nav-link" id="annual-tab" data-bs-toggle="tab" data-bs-target="#annual-tab-pane" type="button" role="tab" aria-controls="annual-tab-pane" aria-selected="false">Annually</button>
   </li>
 </ul>
 <div class="tab-content pt-5" id="myTabContent">
-  <div class="tab-pane fade show active" id="monthly-tab-pane" role="tabpanel" aria-labelledby="monthly-tab" tabindex="0">
+  <div class="tab-pane show active" id="monthly-tab-pane" role="tabpanel" aria-labelledby="monthly-tab" tabindex="0">
     <div class="row">
-      
-        <div class="col-xs-12 col-md-6">
+        <div class="col-xs-12 col-md-3">
           <div class="card product license">
-            <img src="/css/img/license-10.svg" class="card-img-top" alt="Boutique Agency"/>
+            <img src="/css/img/community.svg" class="card-img-top" alt=""/>
             <div class="card-body">
-              <h5 class="card-title">Boutique Agency<br>$80 USD per month</h5>
-              <p class="card-text">Up to 10 developers*<br/>Unlimited APIs<br/>Unlimited client applications<br/>Unlimited redistributions</p>
+              <h5 class="card-title">Community<br>Free</h5>
+              <p class="card-text">Unlimited developers<br/>Unlimited APIs<br/>Unlimited client applications<br/>Unlimited redistributions</p>
               <div class="btn-wrap">          
-                <a href="#!" class="btn btn-primary shadow paddle_button" data-items='[{ "priceId" : "pri_01hncjt0dpd1pfm7s50g8919ks", "quantity" : 1 }]'>Buy now</a>
-                <a href="mailto:help@sixlabors.com" class="btn btn-outline-primary shadow ">Contact Us</a>
+                <a href="https://licensing.sixlabors.com" target="_blank" class="btn btn-primary shadow">Apply now</a>
               </div>
             </div>
           </div>
         </div>
       
-        <div class="col-xs-12 col-md-6">
+        <div class="col-xs-12 col-md-3">
           <div class="card product license">
-            <img src="/css/img/license-unlimited.svg" class="card-img-top" alt="Enterprise"/>
+            <img src="/css/img/boutique.svg" class="card-img-top" alt="Boutique"/>
+            <div class="card-body">
+              <h5 class="card-title">Boutique<br>$80 USD per month</h5>
+              <p class="card-text">Up to 10 developers*<br/>Unlimited APIs<br/>Unlimited client applications<br/>Unlimited redistributions</p>
+              <div class="btn-wrap">          
+                <a href="#!" class="btn btn-primary shadow paddle_button" data-items='[{ "priceId" : "pri_01hncjt0dpd1pfm7s50g8919ks", "quantity" : 1 }]'>Buy now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="col-xs-12 col-md-3">
+          <div class="card product license">
+            <img src="/css/img/agency.svg" class="card-img-top" alt="Agency"/>
+            <div class="card-body">
+              <h5 class="card-title">Agency<br>$130 USD per month</h5>
+              <p class="card-text">11 to 20 developers*<br/>Unlimited APIs<br/>Unlimited client applications<br/>Unlimited redistributions</p>
+              <div class="btn-wrap">          
+                <a href="#!" class="btn btn-primary shadow paddle_button" data-items='[{ "priceId" : "pro_01k47nq4bejb4jr97q222v556g", "quantity" : 1 }]'>Buy now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="col-xs-12 col-md-3">
+          <div class="card product license">
+            <img src="/css/img/enterprise.svg" class="card-img-top" alt="Enterprise"/>
             <div class="card-body">
               <h5 class="card-title">Enterprise<br>$520 USD per month</h5>
               <p class="card-text">Unlimited developers<br/>Unlimited APIs<br/>Unlimited client applications<br/>Unlimited redistributions</p>
               <div class="btn-wrap">          
                 <a href="#!" class="btn btn-primary shadow paddle_button" data-items='[{ "priceId" : "pri_01hna39azxtnq6smjfpr91jm7k", "quantity" : 1 }]'>Buy now</a>
-                <a href="mailto:help@sixlabors.com" class="btn btn-outline-primary shadow ">Contact Us</a>
               </div>
             </div>
           </div>
@@ -275,37 +298,59 @@
     </div>
     <div class="mt-5">
       <p>
-        <small>* The limit reflects the number of developers currently employed by the purchasing entity<br/>
-          not individual teams/departments.</small>
+        <small>* The limit reflects the number of developers currently employed by the purchasing entity not individual teams/departments.</small>
       </p>
     </div>
   </div>
-  <div class="tab-pane fade" id="annual-tab-pane" role="tabpanel" aria-labelledby="annual-tab" tabindex="0">
+  <div class="tab-pane" id="annual-tab-pane" role="tabpanel" aria-labelledby="annual-tab" tabindex="0">
     <div class="row">
-      
-        <div class="col-xs-12 col-md-6">
+        <div class="col-xs-12 col-md-3">
           <div class="card product license">
-            <img src="/css/img/license-10.svg" class="card-img-top" alt="Boutique Agency"/>
+            <img src="/css/img/community.svg" class="card-img-top" alt=""/>
             <div class="card-body">
-              <h5 class="card-title">Boutique Agency<br>$799 USD per year</h5>
-              <p class="card-text">Up to 10 developers*<br/>Unlimited APIs<br/>Unlimited client applications<br/>Unlimited redistributions</p>
-              <div class="btn-wrap">
-                <a href="#!" class="btn btn-primary shadow paddle_button" data-items='[{ "priceId" : "pri_01hnck18jy5w936zahdbw6nxe4", "quantity" : 1 }]'>Buy now</a>
-                <a href="mailto:help@sixlabors.com" class="btn btn-outline-primary shadow ">Contact Us</a>
+              <h5 class="card-title">Community<br>Free</h5>
+              <p class="card-text">Unlimited developers<br/>Unlimited APIs<br/>Unlimited client applications<br/>Unlimited redistributions</p>
+              <div class="btn-wrap">          
+                <a href="https://licensing.sixlabors.com" target="_blank" class="btn btn-primary shadow">Apply now</a>
               </div>
             </div>
           </div>
         </div>
       
-        <div class="col-xs-12 col-md-6">
+        <div class="col-xs-12 col-md-3">
           <div class="card product license">
-            <img src="/css/img/license-unlimited.svg" class="card-img-top" alt="Enterprise"/>
+            <img src="/css/img/boutique.svg" class="card-img-top" alt="Boutique"/>
+            <div class="card-body">
+              <h5 class="card-title">Boutique<br>$799 USD per year</h5>
+              <p class="card-text">Up to 10 developers*<br/>Unlimited APIs<br/>Unlimited client applications<br/>Unlimited redistributions</p>
+              <div class="btn-wrap">
+                <a href="#!" class="btn btn-primary shadow paddle_button" data-items='[{ "priceId" : "pri_01hnck18jy5w936zahdbw6nxe4", "quantity" : 1 }]'>Buy now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="col-xs-12 col-md-3">
+          <div class="card product license">
+            <img src="/css/img/agency.svg" class="card-img-top" alt="Agency"/>
+            <div class="card-body">
+              <h5 class="card-title">Agency<br>$1299 USD per year</h5>
+              <p class="card-text">11 to 20 developers*<br/>Unlimited APIs<br/>Unlimited client applications<br/>Unlimited redistributions</p>
+              <div class="btn-wrap">
+                <a href="#!" class="btn btn-primary shadow paddle_button" data-items='[{ "priceId" : "pro_01k47kffz5mhsk1pbwe6emtgg1", "quantity" : 1 }]'>Buy now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="col-xs-12 col-md-3">
+          <div class="card product license">
+            <img src="/css/img/enterprise.svg" class="card-img-top" alt="Enterprise"/>
             <div class="card-body">
               <h5 class="card-title">Enterprise<br>$4999 USD per year</h5>
               <p class="card-text">Unlimited developers<br/>Unlimited APIs<br/>Unlimited client applications<br/>Unlimited redistributions</p>
               <div class="btn-wrap">
                 <a href="#!" class="btn btn-primary shadow paddle_button" data-items='[{ "priceId" : "pri_01hncjz25zmpjy3sht1vv9jn6r", "quantity" : 1 }]'>Buy now</a>
-                <a href="mailto:help@sixlabors.com" class="btn btn-outline-primary shadow ">Contact Us</a>
               </div>
             </div>
           </div>
@@ -314,8 +359,7 @@
     </div>
     <div class="mt-5">
       <p>
-        <small>* The limit reflects the number of developers currently employed by the purchasing entity<br/>
-          not individual teams/departments.</small>
+        <small>* The limit reflects the number of developers currently employed by the purchasing entity not individual teams/departments.</small>
       </p>
     </div>
   </div>
@@ -372,7 +416,7 @@
         </h2>
         <div id="collapse-4" class="accordion-collapse collapse" aria-labelledby="heading-4" data-bs-parent="#pricingFaq">
           <div class="accordion-body">
-          No, your license purchases are automatically added to our records.
+          Yes, a license key is required to build the software. You will receive your license key via email after purchase.
           </div>
         </div>
       </div>
@@ -384,7 +428,7 @@
         </h2>
         <div id="collapse-5" class="accordion-collapse collapse" aria-labelledby="heading-5" data-bs-parent="#pricingFaq">
           <div class="accordion-body">
-          If you are continuing to use Six Labors products you will be in violation of the license agreement.
+          You will no longer be able to build the software. If you are continuing to use Six Labors products you will be in violation of the license agreement.
           </div>
         </div>
       </div>
@@ -458,8 +502,8 @@
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" 
       integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
       crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.6.0/build/highlight.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/dist/highlightjs-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.9.0/dist/highlightjs-line-numbers.min.js"></script>
     <script>
       hljs.highlightAll();
       hljs.initLineNumbersOnLoad({singleLine: true});

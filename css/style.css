@@ -97,8 +97,27 @@ section.alt {
   margin-bottom: 3rem;
 }
 
+.cart .nav-tabs {
+  max-width: 200px;
+  margin: 0 auto;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 1.25rem;
+  padding: 0.25rem;
+}
+
+.cart .nav-link {
+  color: inherit;
+}
+
+.cart .nav-link.active {
+  border: none;
+  background-color: #e30183;
+  color: #fff;
+}
+
 .cart .nav button {
-  font-size: 1.25rem;
+  font-size: 0.75rem;
+  border-radius: 1rem;
   font-weight: 600;
 }
 
@@ -245,6 +264,16 @@ pre code {
 
 .hljs-ln td.hljs-ln-code {
   padding-left: 0.5rem;
+}
+
+.css .hljs-attribute,
+.hljs-aspect .hljs-keyword:first-child,
+.hljs-class .hljs-keyword:first-child,
+.hljs-constant,
+.hljs-function .hljs-keyword,
+.hljs-name,
+.hljs-typename {
+  color: #66d9ef !important;
 }
 
 .frame {
