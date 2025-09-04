@@ -37,6 +37,14 @@
 &lt;li&gt;A sample &lt;code&gt;sixlabors.lic&lt;/code&gt; file can be downloaded from this post to allow people to play around with upcoming releases. This sample key is valid for one year, until &lt;strong&gt;2026-09-04&lt;/strong&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Open Source and source available projects, Non-Profit organizations, registered charities, and for-profit companies with under USD 1M annual gross revenue can &lt;a href=&quot;https://licensing.sixlabors.com/&quot; target=&quot;_blank&quot;&gt;apply for a license&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Specifically the product versions requiring license keys are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ImageSharp v4.0.0&lt;/li&gt;
+&lt;li&gt;ImageSharp.Drawing v3.0.0&lt;/li&gt;
+&lt;li&gt;ImageSharp.Web v4.0.0&lt;/li&gt;
+&lt;li&gt;Fonts v3.0.0&lt;/li&gt;
+&lt;li&gt;PolygonClipper v1.0.0&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&quot;download-a-sample-license-file&quot; tabindex=&quot;-1&quot;&gt;Download a sample license file &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/licence-enforcement-changes/#download-a-sample-license-file&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;You can download a sample license file here:&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://sixlabors.com/assets/sixlabors.lic&quot; download=&quot;&quot;&gt;Download &lt;code&gt;sixlabors.lic&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
