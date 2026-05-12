@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Six Labors : Announcing ImageSharp.Drawing 3.0.0</title>
+    <meta name="description" content="ImageSharp.Drawing 3 - a canvas API, retained scenes, a new CPU renderer, optional WebGPU support, PolygonClipper geometry, painted glyphs, and .NET 8+.">
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"/>
+    <link 
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet" 
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/default.min.css"/>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/highlightjs-themes@1.0.0/monokai_sublime.min.css"/>
+    <link rel="stylesheet" href="/css/style.css">
+    
+    
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Six Labors">
+    <link rel="alternate" href="/feed/feed.json" type="application/json" title="Six Labors">
+    <meta name="msvalidate.01" content="BA6460B0F12FECDF7D03F34A5709833F"/>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92691012-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-92691012-1');
+    </script>
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "6o9zxkbyg4");
+    </script>
+  </head>
+  <body>
+    <header class="navbar navbar-expand-md sl-navbar shadow-sm">
+      <nav class="container-xxl flex-wrap flex-md-nowrap">
+        <a class="navbar-brand" href="/">
+          <img
+            src="/css/img/sixlabors.text.svg"
+            alt="Six Labors"
+            class="sl-brand"/>
+          <span class="visually-hidden">Six Labors</span>
+        </a>
+        <button
+          class="navbar-toggler collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#slNavbar"
+          aria-controls="slNavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            class="bi"
+            fill="currentColor"
+            viewBox="0 0 16 16">
+            <path
+              fill-rule="evenodd"
+              d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+            ></path>
+          </svg>
+        </button>
+        <div class="navbar-collapse collapse" id="slNavbar">
+          <ul class="navbar-nav flex-row flex-wrap sl-navbar-nav pt-2 py-md-0">
+              <li class="nav-item col-6 col-md-auto" >
+                <a 
+                  class="nav-link p-2" 
+                  href="/"
+                  >Home</a>
+              </li>
+              <li class="nav-item col-6 col-md-auto" >
+                <a 
+                  class="nav-link p-2" 
+                  href="/products/"
+                  >Products</a>
+              </li>
+              <li class="nav-item col-6 col-md-auto" >
+                <a 
+                  class="nav-link p-2" 
+                  href="/pricing/"
+                  >Pricing</a>
+              </li>
+              <li class="nav-item col-6 col-md-auto" >
+                <a 
+                  class="nav-link p-2" 
+                  href="https://docs.sixlabors.com"
+                   target="_blank" rel="noopener">Documentation</a>
+              </li>
+              <li class="nav-item col-6 col-md-auto" >
+                <a 
+                  class="nav-link p-2" 
+                  href="/posts/"
+                  >Blog</a>
+              </li>
+          </ul>
+
+          <hr class="d-md-none text-secondary"/>
+
+          <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+            <li class="nav-item col-6 col-md-auto">
+              <a
+                class="nav-link p-2"
+                href="https://github.com/sixlabors"
+                target="_blank"
+                rel="noopener">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  class="navbar-nav-svg d-inline-block align-text-top"
+                  viewBox="0 0 512 499.36"
+                  role="img">
+                  <title>GitHub</title>
+                  <path
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                    d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z"
+                  ></path>
+                </svg>
+                <span class="d-md-none ms-2">GitHub</span>
+              </a>
+            </li>
+            <li class="nav-item col-6 col-md-auto">
+              <a
+                class="nav-link p-2"
+                href="https://x.com/sixlabors"
+                target="_blank"
+                rel="noopener"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  class="navbar-nav-svg d-inline-block align-text-top"
+                  viewBox="0 0 1200 1227"
+                  role="img">
+                  <title>X</title>
+                  <path
+                    fill="currentColor"
+                    d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z"
+                  ></path>
+                </svg>
+                <span class="d-md-none ms-2">X</span>
+              </a>
+            </li>
+            <li class="nav-item col-6 col-md-auto">
+              <a
+                class="nav-link p-2"
+                href="https://opencollective.com/sixlabors"
+                target="_blank"
+                rel="noopener">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                  class="navbar-nav-svg d-inline-block align-text-top"
+                  viewBox="0 0 40 41"
+                  role="img">
+                  <title>Open Collective</title>
+                  <path
+                    fill-opacity=".4"
+                    d="M32.8 21c0 2.4-.8 4.9-2 6.9l5.1 5.1c2.5-3.4 4.1-7.6 4.1-12 0-4.6-1.6-8.8-4-12.2L30.7 14c1.2 2 2 4.3 2 7z"
+                  ></path>
+                  <path
+                    d="M20 33.7a12.8 12.8 0 0 1 0-25.6c2.6 0 5 .7 7 2.1L32 5a20 20 0 1 0 .1 31.9l-5-5.2a13 13 0 0 1-7 2z"
+                  ></path>
+                </svg>
+                <span class="d-md-none ms-2">Open Collective</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main class="tmpl-post" role="main">
+      
+
+
+
+      <div class="masthead">
+  <div class="container">
+    <h1 class="mb-3">
+      Announcing ImageSharp.Drawing 3.0.0
+    </h1>
+    <p class="lead mb-4">
+      ImageSharp.Drawing 3 - a canvas API, retained scenes, a new CPU renderer, optional WebGPU support, PolygonClipper geometry, painted glyphs, and .NET 8+.
+    </p>
+    <div><a href="/tags/releases/" class="post-tag btn btn-primary shadow">Releases</a><a href="/tags/imagesharp.drawing/" class="post-tag btn btn-primary shadow">ImageSharp.Drawing</a><a href="/tags/imagesharp/" class="post-tag btn btn-primary shadow">ImageSharp</a><a href="/tags/fonts/" class="post-tag btn btn-primary shadow">Fonts</a>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class= row>
+      <div class="col-md-8">
+        <article>
+          <time datetime="2026-05-12">12 May 2026</time>
+
+          <div class="ratio ratio-16x9">
+<iframe src="https://www.youtube.com/embed/djV11Xbc914?si=XE4cHl8PCw2k_pU7" allow="autoplay; encrypted-media;" allowfullscreen></iframe>
+</div>
+<p><strong>ImageSharp.Drawing 3.0.0 is out.</strong></p>
+<p>ImageSharp.Drawing 3.0.0 includes a .NET 8+ baseline, a stateful <code>DrawingCanvas</code> API, retained scenes, a rewritten CPU renderer, optional WebGPU rendering, PolygonClipper-based clipping and stroking, painted glyph rendering, hatch and sweep brushes, and text APIs built on Fonts 3.</p>
+<p>This is a breaking, ground-up rewrite. The old extension-method drawing model has been replaced by a canvas model, and the change reaches drawing entry points, paths, shapes, brushes, layers, clipping, text, regions, and backend selection.</p>
+<p>ImageSharp.Drawing is the composition layer of the Six Labors suite. ImageSharp provides the pixel types and image-processing pipeline, Fonts provides text shaping and metrics, and Drawing provides paths, brushes, clipping, layers, glyph rendering, image processors inside regions, and backend replay.</p>
+<p>The release targets applications that need generated or frequently redrawn 2D graphics: charting, diagrams, maps, reports, image generation, overlays, previews, editors, dashboards, and export pipelines.</p>
+<p>V3 is also the first ImageSharp.Drawing release to enforce a <a href="/posts/licence-enforcement-changes/">build-time license key for direct package dependencies</a>. More on that below.</p>
+<p>The library now targets the current suite stack:</p>
+<ul>
+<li>.NET 8+</li>
+<li>ImageSharp 4</li>
+<li>Fonts 3</li>
+<li>PolygonClipper</li>
+</ul>
+<h2 id="what's-new-since-v2" tabindex="-1">What's new since V2 <a class="direct-link" href="#what's-new-since-v2">#</a></h2>
+<p>The main changes are:</p>
+<ul>
+<li>A new canvas-first drawing model built around <code>DrawingCanvas</code> and <code>Paint(...)</code></li>
+<li>A deferred command timeline with <code>CreateScene()</code> / <code>RenderScene(...)</code> for retained, replayable backend scenes</li>
+<li>A rewritten CPU backend organized around a row-oriented retained execution plan</li>
+<li>A new <code>SixLabors.ImageSharp.Drawing.WebGPU</code> package for GPU-backed windows, render targets, and external surfaces</li>
+<li>Geometry using PolygonClipper for clipping and stroking</li>
+<li>Painted glyph rendering, glyph drawing, and a single-pass <code>MeasureText(...)</code> API returning a <code>TextMetrics</code> value</li>
+<li>The new <code>SweepGradientBrush</code>, hatch pattern brushes, and reworked handling for solid, pattern, image, linear, radial, elliptic, path, and recolor brushes</li>
+<li><code>RoundedRectanglePolygon</code> plus <code>PathBuilder.AddRoundedRectangle(...)</code> helpers</li>
+<li>SVG path parser hardening for malformed arc flags, incomplete operand groups, non-finite values, and truncated commands</li>
+<li>Image processing operations constrained to clip bounds when using clipped processors</li>
+<li>API changes for shapes, paths, transforms, layers, and regions</li>
+</ul>
+<h2 id="a-canvas-first-api" tabindex="-1">A canvas-first API <a class="direct-link" href="#a-canvas-first-api">#</a></h2>
+<p>The central API change in V3 is the move to a canvas model.</p>
+<p>Previous versions exposed drawing as ImageSharp processing extension methods. That model did not have a place for canvas state, layers, clipping, drawing regions, backend selection, or GPU-native targets.</p>
+<p>V3 introduces <code>DrawingCanvas</code> and the <code>Paint(...)</code> entry point. The pixel-typed implementation lives underneath as an internal detail, so callers work against one canvas-facing surface across CPU and GPU targets.</p>
+<p>The API is built around explicit canvas state, ordered commands, layers, clips, regions, and backend-neutral scene replay.</p>
+<div class="frame">
+<pre><code class="language-csharp">using SixLabors.Fonts;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing;
+using SixLabors.ImageSharp.Drawing.Processing;
+using SixLabors.ImageSharp.PixelFormats;
+using Color = SixLabors.ImageSharp.Color;
+
+using Image&lt;Rgba32&gt; image = new(1200, 630);
+Font font = SystemFonts.CreateFont(&quot;Arial&quot;, 72);
+
+image.Mutate(x =&gt; x.Paint(canvas =&gt;
+{
+    canvas.Fill(Brushes.Solid(Color.FromRgb(18, 24, 38)));
+
+    canvas.SaveLayer(new GraphicsOptions { BlendPercentage = 0.85F });
+    canvas.Fill(Brushes.Solid(Color.CornflowerBlue), new EllipsePolygon(900, 120, 220, 220));
+    canvas.Restore();
+
+    canvas.Draw(Pens.Solid(Color.HotPink, 14F), new StarPolygon(new PointF(280, 315), 5, 90, 190, 0));
+    canvas.DrawText(
+        new RichTextOptions(font) { Origin = new PointF(80, 110) },
+        &quot;ImageSharp.Drawing 3&quot;,
+        Brushes.Solid(Color.White),
+        pen: null);
+}));
+</code></pre>
+</div>
+<p>The canvas API includes:</p>
+<ul>
+<li><code>Save()</code> / <code>Restore()</code> / <code>RestoreTo(saveCount)</code> for state management</li>
+<li><code>SaveLayer(...)</code> for isolated compositing, with optional bounds</li>
+<li><code>CreateRegion(...)</code> for sub-canvas workflows that share the parent target</li>
+<li><code>DrawImage(...)</code> as part of the same canvas system</li>
+<li><code>Apply(path, ...)</code> to run any ImageSharp processor, from <code>GaussianBlur</code> to <code>Pixelate</code> to <code>Brightness</code>, inside a canvas region</li>
+<li><code>CreateScene()</code> and <code>RenderScene(scene)</code> to capture and replay prepared draw work as a retained backend scene</li>
+</ul>
+<p>Underneath, the canvas records draw calls into a deferred timeline. State changes, layer markers, apply barriers, flush boundaries, and inserted retained scenes all sit on that timeline in submission order. The target is written when the canvas is disposed, or when the surrounding <code>Paint(...)</code> block completes. That lets the same public API drive CPU rendering, GPU dispatch, sub-region drawing, and replay of pre-built scenes.</p>
+<h2 id="one-timeline%2C-one-scene-contract%2C-multiple-backends" tabindex="-1">One timeline, one scene contract, multiple backends <a class="direct-link" href="#one-timeline%2C-one-scene-contract%2C-multiple-backends">#</a></h2>
+<p>The canvas API is the point where commands, state, scenes, and backends meet.</p>
+<p><code>DrawingCanvas</code> records drawing intent into a timeline. Raw calls are accumulated, then prepared into a <code>DrawingCommandBatch</code>: source paths get transformed into final geometry, strokes are expanded to fill paths, clip paths are baked in, and dashed strokes are materialized. Every backend receives the same prepared batch.</p>
+<p>From there, the contract is small. Backends implement three methods on <code>IDrawingBackend</code>: <code>CreateScene(...)</code> turns a prepared command batch into a retained <code>DrawingBackendScene</code>, <code>RenderScene&lt;TPixel&gt;(...)</code> writes a scene into a typed target frame, and <code>ReadRegion&lt;TPixel&gt;(...)</code> copies a region back for apply barriers. One command batch produces one backend scene. Scene creation is untyped and target-free; only render and readback bind to a concrete <code>TPixel</code>.</p>
+<p>That contract supports different execution strategies:</p>
+<ul>
+<li>CPU rasterization into an <code>Image&lt;TPixel&gt;</code> through <code>DefaultDrawingBackend</code></li>
+<li>drawing into a sub-region of another frame through <code>canvas.CreateRegion(...)</code></li>
+<li>drawing into a GPU-native surface through <code>WebGPUDrawingBackend</code></li>
+<li>future backends that prefer semantic geometry over direct pixel writes</li>
+</ul>
+<p>By concentrating preparation in one place and keeping the scene contract small, ImageSharp.Drawing keeps one public programming model while allowing different backend execution models.</p>
+<h2 id="retained-scenes-are-first-class" tabindex="-1">Retained scenes are first class <a class="direct-link" href="#retained-scenes-are-first-class">#</a></h2>
+<p>Any prepared draw work can become a reusable <code>DrawingBackendScene</code>. Build one with <code>canvas.CreateScene()</code>, hold onto it, then drop it into a later canvas timeline with <code>canvas.RenderScene(scene)</code>. The retained scene skips command preparation on every replay and dispatches straight into the backend.</p>
+<p>Retained scenes support workloads the old extension API could not express directly:</p>
+<ul>
+<li>map and chart panning, where the basemap is rebuilt rarely and redrawn often</li>
+<li>scrolling text and decorations whose geometry is shaped once</li>
+<li>editor previews and overlays where most of the scene is stable from frame to frame</li>
+<li>WebGPU presents where every frame should reuse the same GPU encoded payload</li>
+</ul>
+<p>Both backends honor the contract. <code>DefaultDrawingBackendScene</code> carries a CPU execution plan with retained row planning, prepared geometry, and reusable scratch sizes. <code>WebGPUDrawingBackendScene</code> carries an encoded GPU scene plus reusable scheduling and resource arenas, so subsequent renders skip both preparation and arena allocation. The same <code>RenderScene(scene)</code> call on the canvas works for either.</p>
+<h2 id="a-rewritten-cpu-renderer" tabindex="-1">A rewritten CPU renderer <a class="direct-link" href="#a-rewritten-cpu-renderer">#</a></h2>
+<p>V3 ships a new CPU rendering core.</p>
+<p>The backend executes rows, not commands. One prepared command batch is filtered to visible work, each path is asked for its scale-baked <code>LinearGeometry</code> once (cached on the <code>IPath</code>), row membership is built while preserving submission order, and per-row execution items are materialized up front. From that point the row pass runs in parallel with reusable worker-local scratch, and the rasterizer scan-converts into coverage only where needed. The hot loop never re-walks raw contours.</p>
+<p>Responsibilities split the same way: the rasterizer decides coverage, <code>BrushRenderer&lt;TPixel&gt;</code> decides color, and the row handler binds the two and writes destination pixels. Brush renderers are memoized once per visible item before the row pass starts, so brush state never travels with mutable scratch through parallel workers.</p>
+<p>The rasterizer at the core was originally inspired by <a href="https://gasiulis.name/parallel-rasterization-on-cpu/" target="_blank">Blaze</a>. V3 adds retained scene execution, inlined stroking, and prepared geometry flowing through batching, layering, and row-local raster work. That reduces hot-path geometry rediscovery, improves locality when writing destination pixels, and preserves draw order inside parallel execution.</p>
+<p>The old system exposed <code>AntialiasSubpixelDepth</code> with a default of 16 subpixel steps per pixel. V3 moves to a fixed-point area-and-cover rasterizer with 24.8 precision and 256 subpixel steps. <code>AntialiasSubpixelDepth</code> is replaced by <code>AntialiasThreshold</code>, which controls the coverage cutoff used when aliased output is derived from the coverage model.</p>
+<p>That architecture feeds directly into compositing-heavy layouts, repeated text and glyph rendering, complex fills and gradients, layered graphics, and path-heavy scenes such as maps.</p>
+<h2 id="performance" tabindex="-1">Performance <a class="direct-link" href="#performance">#</a></h2>
+<p>The <strong>FillParis</strong> benchmark is a 1096x1060 streetmap of Paris containing 50K fill paths. Numbers below are from BenchmarkDotNet on our test machine (Windows, .NET 8, x64) running the same scene against each backend:</p>
+<table class="table">
+<thead>
+<tr>
+<th>Method</th>
+<th style="text-align:right">Mean</th>
+<th style="text-align:right">Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SkiaSharp (baseline)</td>
+<td style="text-align:right">103.165 ms</td>
+<td style="text-align:right">1.00</td>
+</tr>
+<tr>
+<td>System.Drawing</td>
+<td style="text-align:right">143.026 ms</td>
+<td style="text-align:right">1.39</td>
+</tr>
+<tr>
+<td>ImageSharp CPU</td>
+<td style="text-align:right">48.544 ms</td>
+<td style="text-align:right">0.47</td>
+</tr>
+<tr>
+<td>ImageSharp CPU, retained scene</td>
+<td style="text-align:right">17.879 ms</td>
+<td style="text-align:right">0.17</td>
+</tr>
+<tr>
+<td>ImageSharp WebGPU</td>
+<td style="text-align:right">24.841 ms</td>
+<td style="text-align:right">0.24</td>
+</tr>
+<tr>
+<td>ImageSharp WebGPU, retained scene</td>
+<td style="text-align:right">5.476 ms</td>
+<td style="text-align:right">0.05</td>
+</tr>
+</tbody>
+</table>
+<p>Absolute numbers will move on different CPUs, GPUs, drivers, and runtimes. On this workload, the CPU backend is roughly 2.1x faster than SkiaSharp and 2.9x faster than System.Drawing, the retained CPU path reaches 5.8x, and the retained WebGPU path lands at ~19x faster than SkiaSharp and ~26x faster than System.Drawing.</p>
+<p><img src="/img/paris-imagesharp-cropped.png" alt="FillParis benchmark output rendered by ImageSharp.Drawing" class="img-fluid"></p>
+<p><em>A cropped section of the FillParis benchmark output. The full scene fills 50K paths across a detailed streetmap of Paris with color, layering, and geometric density throughout.</em></p>
+<p>Those results come from a path-heavy scene with dense layering and geometric detail.</p>
+<p>The measured difference comes from how the new pipeline scales, not from a single micro-optimization.</p>
+<p>In V2, each draw call was an independent image processor. Each one rasterized, composited, and tore down in isolation, and per-call state had to be passed through each invocation. Fifty thousand fills meant fifty thousand setup costs. V3 queues commands on the canvas, prepares them once into a <code>DrawingCommandBatch</code>, and flushes them through a shared scene model. The CPU rasterizer is a tiled fixed-point scanline that integrates area and coverage analytically per cell rather than sampling discrete subpixel rows.</p>
+<p>The retained-scene rows show the effect of reusing prepared work. The non-retained CPU path still rebuilds the row execution plan for each render; the retained CPU path reuses it and skips planning entirely. The WebGPU path goes further: the encoded GPU scene, scheduling arenas, and resource arenas are all reused across renders. That is what produces the 5.8x and 18.8x rows.</p>
+<p>Compositing also uses new ImageSharp APIs.</p>
+<p>The newer <code>PixelBlender&lt;TPixel&gt;</code> APIs in ImageSharp allow bulk row composition to reuse caller-provided working buffers, and they add constant-color blend paths. Porter-Duff blend modes are vectorized up to <code>Vector512&lt;float&gt;</code>, with dispatch widening from <code>Vector4</code> to <code>Vector256&lt;float&gt;</code> to <code>Vector512&lt;float&gt;</code> based on CPU support. Drawing V3 uses those APIs during brush application and layer composition. The CPU backend keeps worker-local scratch alive for the duration of row execution instead of renting temporary vector buffers for each blend. Solid brushes can blend a single source color directly without first materializing a full overlay row.</p>
+<p>Brush rendering shares no mutable scratch through the parallel pipeline. The backend memoizes brush renderers up front, then each worker executes them with its own <code>BrushWorkspace&lt;TPixel&gt;</code> and raster scratch. The hot path avoids per-row buffer churn and thread contention around brush state.</p>
+<p>The performance changes come from:</p>
+<ul>
+<li>batching commands instead of rasterizing every call in isolation</li>
+<li>preparing and retaining geometry once instead of rediscovering it in the hot path</li>
+<li>inlining stroking and transforms into the rendering pipeline so they are part of rasterization rather than an expensive pre-pass</li>
+<li>reusing worker-local blend scratch and bulk pixel blending paths so composition avoids repeated temporary-buffer costs</li>
+<li>keeping brush renderers reusable under parallel execution with per-worker state instead of shared mutable scratch</li>
+<li>adding a staged WebGPU path for native targets and heavy scenes</li>
+<li>exposing retained scenes so callers can amortize preparation cost across many redraws</li>
+</ul>
+<h2 id="webgpu" tabindex="-1">WebGPU <a class="direct-link" href="#webgpu">#</a></h2>
+<p>V3 also introduces a new package: <strong><code>SixLabors.ImageSharp.Drawing.WebGPU</code></strong>.</p>
+<p>The new WebGPU backend renders ImageSharp.Drawing content into GPU-native targets through the same canvas model. The public surface starts from the target being rendered into:</p>
+<ul>
+<li><code>WebGPUWindow</code> for native windows that ImageSharp.Drawing owns and drives the render loop on</li>
+<li><code>WebGPURenderTarget</code> for offscreen GPU-backed rendering and readback into an <code>Image&lt;TPixel&gt;</code></li>
+<li><code>WebGPUExternalSurface</code> for attaching to a native window or surface owned by a host UI framework, with <code>WebGPUSurfaceHost</code> factories for Win32, X11, Wayland, Cocoa, UIKit, Android, GLFW, SDL, and other native targets</li>
+<li><code>WebGPUEnvironment</code> for explicit support probes (<code>ProbeAvailability()</code>, <code>ProbeComputePipelineSupport()</code>) and uncaptured-error reporting before any of the targets are constructed</li>
+</ul>
+<p>Under the hood, the staged GPU rasterizer is based on ideas and implementation techniques from <a href="https://github.com/linebender/vello" target="_blank">Vello</a>. The ImageSharp.Drawing implementation adds dynamic scratch-memory growth, chunked oversized-scene execution to keep large flushes within binding limits, and inlined stroking so stroke-heavy scenes skip a separate preprocessing pipeline. Explicit canvas layers stay in the shared composition stream until the scene encoder lowers them into <code>BeginClip</code>/<code>EndClip</code> records that the fine shader interprets directly, so layers do not need a second composition subsystem.</p>
+<p>Editors, diagramming tools, map and chart viewers, dashboards, creative tools, live previews, and other composition-heavy desktop experiences can target GPU-native windows and surfaces through the same <code>DrawingCanvas</code> model used for offline rendering. Pair any of the WebGPU targets with <code>canvas.CreateScene()</code> and the encoded GPU scene is reused on each present, with retained scratch and arena allocations carried across renders.</p>
+<p>A minimal WebGPU window looks like this:</p>
+<div class="frame">
+<pre><code class="language-csharp">using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing;
+using SixLabors.ImageSharp.Drawing.Processing;
+using SixLabors.ImageSharp.Drawing.Processing.Backends;
+using Color = SixLabors.ImageSharp.Color;
+
+using WebGPUWindow window = new(new WebGPUWindowOptions
+{
+    Title = &quot;ImageSharp.Drawing WebGPU Demo&quot;,
+    Size = new Size(800, 600),
+    Format = WebGPUTextureFormat.Bgra8Unorm,
+    PresentMode = WebGPUPresentMode.Fifo,
+});
+
+window.Run(canvas =&gt;
+{
+    canvas.Fill(Brushes.Solid(Color.Black));
+    canvas.Fill(Brushes.Solid(Color.CornflowerBlue), new EllipsePolygon(200, 150, 80));
+});
+</code></pre>
+</div>
+<p>For offline rendering, <code>WebGPURenderTarget</code> exposes the same canvas through <code>target.CreateCanvas()</code> and supports readback into an <code>Image&lt;TPixel&gt;</code>. For host-owned UI surfaces, <code>WebGPUExternalSurface</code> attaches the backend to an existing native handle and lets the host application drive the frame loop.</p>
+<h2 id="geometry%2C-brushes%2C-and-layers" tabindex="-1">Geometry, brushes, and layers <a class="direct-link" href="#geometry%2C-brushes%2C-and-layers">#</a></h2>
+<p>V3 changes geometry, brush, and layer handling.</p>
+<p>The library uses SixLabors.PolygonClipper for clipping and stroke generation:</p>
+<ul>
+<li>boolean clipping (intersection, union, difference, xor)</li>
+<li>outline generation</li>
+<li>dashed strokes</li>
+<li>configurable joins and caps</li>
+<li>clipping against other paths</li>
+<li>handling self-intersecting or degenerate input more robustly</li>
+</ul>
+<p>This shows up in the public API:</p>
+<ul>
+<li>explicit <code>BooleanOperation</code> on <code>ShapeOptions</code> and <code>IPath.Clip(...)</code></li>
+<li><code>IPath.GenerateOutline(...)</code> extensions for producing stroked geometry, with optional dash patterns</li>
+<li><code>StrokeOptions</code> exposing <code>LineJoin</code>, <code>LineCap</code>, <code>MiterLimit</code>, and <code>ArcDetailScale</code></li>
+<li><code>IntersectionRule</code> controlling fill rule semantics</li>
+</ul>
+<p>The rewrite also updates the core shape surface, including <code>Path</code>, <code>PathCollection</code>, <code>Polygon</code>, <code>ComplexPolygon</code>, <code>RectanglePolygon</code>, <code>RoundedRectanglePolygon</code>, <code>RegularPolygon</code>, <code>StarPolygon</code>, <code>PiePolygon</code>, <code>EllipsePolygon</code>, <code>ArcLineSegment</code>, <code>CubicBezierLineSegment</code>, and <code>LinearLineSegment</code>. Paths also expose a cached <code>LinearGeometry</code> per scale, so the CPU rasterizer does not re-flatten curves for the same path on repeated renders.</p>
+<p>Brush handling has been reworked across <code>SolidBrush</code>, <code>PatternBrush</code>, hatch pattern brushes, <code>ImageBrush&lt;TPixel&gt;</code>, <code>LinearGradientBrush</code>, <code>RadialGradientBrush</code>, <code>EllipticGradientBrush</code>, <code>PathGradientBrush</code>, and <code>RecolorBrush</code>. The new <code>SweepGradientBrush</code> supports sweep gradients needed by painted glyphs. Brush intent is carried through canvas preparation, batching, and parallel execution without sharing mutable scratch.</p>
+<p><code>SaveLayer(...)</code> provides isolated compositing with optional bounds in local coordinates. On the CPU backend layer boundaries become temporary backing buffers during scene execution; on the WebGPU backend they become inline <code>BeginClip</code>/<code>EndClip</code> records the fine shader handles directly.</p>
+<p>Clipped image processing is also constrained to the clip bounds, so operations run through <code>Apply(...)</code> affect only pixels inside the clipped region.</p>
+<h2 id="text-rendering" tabindex="-1">Text rendering <a class="direct-link" href="#text-rendering">#</a></h2>
+<p>Fonts is ImageSharp.Drawing's text engine. V3 gives the canvas text APIs built on the Fonts 3 rewrite.</p>
+<p>The canvas exposes three text primitives:</p>
+<ul>
+<li><code>DrawText(...)</code> for rich text rendering</li>
+<li><code>DrawGlyphs(...)</code> for already-shaped glyph geometry</li>
+<li><code>MeasureText(...)</code> returning a <code>TextMetrics</code> value with logical advance, ink bounds, renderable bounds, normalized size, per-character entries, and per-line metrics from a single shaping pass</li>
+</ul>
+<p><code>DrawText(...)</code> pairs rich text layout through <code>RichTextOptions</code> with rendering of monochrome glyphs and painted glyph formats such as COLRv1, SVG, and emoji. Layer compositing follows the font's paint ordering, so color fonts render through the same canvas API used for plain text.</p>
+<p><code>MeasureText(...)</code> uses the same shaping and layout path as rendering. It returns the logical layout metrics, rendered ink bounds, per-character measurements, per-line metrics, hit-testing data, caret positions, and selection bounds needed by editor-style interactions.</p>
+<p>For text that needs to be measured, wrapped, or drawn repeatedly, Drawing can use the Fonts 3 <code>TextBlock</code> APIs. <code>TextBlock</code> shapes text once and can produce line layouts at different widths, which is what you need for rich text editors, multi-column layout, and samples where text flows around shapes or custom regions.</p>
+<p><img src="/img/imagesharp-drawing-text-metrics.png" alt="ImageSharp.Drawing text metrics visualization" class="img-fluid"></p>
+<p><em>ImageSharp.Drawing V3 exposes both logical layout metrics and rendered ink bounds, down to per-character measurements.</em></p>
+<p>For scenarios where you already have shaped glyph geometry and want a flat monochrome render, <code>DrawGlyphs(...)</code> is a cheaper alternative. It takes a single brush and pen, and uses a coverage heuristic to keep one dominant background-like layer as outline-only so layered glyphs like emoji still read sensibly.</p>
+<h2 id="migration" tabindex="-1">Migration <a class="direct-link" href="#migration">#</a></h2>
+<p>Treat V3 as a migration, not a point upgrade.</p>
+<p>The changes to plan for are:</p>
+<ul>
+<li>V3 targets .NET 8+</li>
+<li>the canvas API replaces the older extension-heavy drawing model</li>
+<li>the package stack moves forward with ImageSharp 4, Fonts 3, and PolygonClipper</li>
+<li>shapes, paths, brushes, layers, and related APIs have been renamed or relocated to fit the new model</li>
+</ul>
+<p>The public surface now centers on the canvas model.</p>
+<p>V3 is also the first ImageSharp.Drawing release to enforce a <a href="/posts/licence-enforcement-changes/">build-time license key for direct package dependencies</a>. If you are taking a direct package dependency on ImageSharp.Drawing in a commercial setting, make sure you review that change as part of your upgrade.</p>
+<p>If you are upgrading from V2, plan for source changes across the drawing API rather than isolated call-site fixes.</p>
+<h2 id="closing" tabindex="-1">Closing <a class="direct-link" href="#closing">#</a></h2>
+<p>ImageSharp.Drawing 3 moves the library to .NET 8+, replaces the extension-heavy API with <code>DrawingCanvas</code>, adds retained scenes, rewrites CPU rendering, adds WebGPU targets, moves clipping and stroking onto PolygonClipper, adds hatch and sweep brushes, supports painted glyph rendering, and updates text measurement APIs.</p>
+<p>Explore the docs, try the new APIs, and let us know what you build with it.</p>
+<p><strong><em>ImageSharp.Drawing V3.0.0 is licensed under the <a href="https://raw.githubusercontent.com/SixLabors/ImageSharp.Drawing/main/LICENSE" target="_blank">Six Labors Split License</a>. This means that it is free to use in both non-commercial and certain commercial applications. However, if you are using it in a commercial application and your organization has annual gross revenue exceeding 1M USD per year, you must purchase a commercial license. Please see the <a href="/pricing/">Pricing page</a> for more information.</em></strong></p>
+
+            <hr>
+            <ul>
+                <li>Next: <a href="/posts/announcing-imagesharp-web-400/">Announcing ImageSharp.Web 4.0.0</a>
+                </li>
+              
+                <li>Previous: <a href="/posts/announcing-imagesharp-400/">Announcing ImageSharp 4.0.0</a>
+                </li>
+              
+            </ul>
+        </article>
+      </div>
+      <div class="col-md-3 offset-md-1">
+        <aside>
+          <h3>Tags</h3>
+          <ul>
+            
+              
+              <li>
+                <a href="/tags/imagesharp/" class="post-tag btn btn-primary shadow">ImageSharp</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/fonts/" class="post-tag btn btn-primary shadow">Fonts</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/shapes/" class="post-tag btn btn-primary shadow">Shapes</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/releases/" class="post-tag btn btn-primary shadow">Releases</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/imagesharp.drawing/" class="post-tag btn btn-primary shadow">ImageSharp.Drawing</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/drawing/" class="post-tag btn btn-primary shadow">Drawing</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/imagesharp.web/" class="post-tag btn btn-primary shadow">ImageSharp.Web</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/polygonclipper/" class="post-tag btn btn-primary shadow">PolygonClipper</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/announcements/" class="post-tag btn btn-primary shadow">Announcements</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/licensing/" class="post-tag btn btn-primary shadow">Licensing</a>
+              </li>
+            
+          </ul>
+
+        </aside>
+
+        <aside>
+          
+          <h3>Recent  Posts
+          </h3>
+
+          
+          
+          <ul class="postlist">
+            
+              <li class="postlist-item">
+                <a href="/posts/announcing-polygonclipper-100/" class="postlist-link">
+                  Announcing PolygonClipper 1.0.0
+                  
+                </a>
+              </li>
+            
+              <li class="postlist-item">
+                <a href="/posts/announcing-imagesharp-web-400/" class="postlist-link">
+                  Announcing ImageSharp.Web 4.0.0
+                  
+                </a>
+              </li>
+            
+              <li class="postlist-item">
+                <a href="/posts/announcing-imagesharp-drawing-300/" class="postlist-link">
+                  Announcing ImageSharp.Drawing 3.0.0
+                  
+                </a>
+              </li>
+            
+              <li class="postlist-item">
+                <a href="/posts/announcing-imagesharp-400/" class="postlist-link">
+                  Announcing ImageSharp 4.0.0
+                  
+                </a>
+              </li>
+            
+              <li class="postlist-item">
+                <a href="/posts/announcing-fonts-300/" class="postlist-link">
+                  Announcing Fonts 3.0.0
+                  
+                </a>
+              </li>
+            
+          </ul>
+
+          <p>More posts can be found in <a href="/posts/">the archive</a>.</p>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    </main>
+
+    <footer class="sl-footer p-3 p-md-5 mt-5 bg-light text-center text-sm-start">
+      <div class="container">
+        <ul class="sl-footer-links ps-0 mb-3">
+          <li class="d-inline-block">
+            <a href="https://github.com/sixlabors" target="_blank" rel="noopener" aria-label="GitHub">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="36"
+                height="36"
+                class="navbar-nav-svg d-inline-block align-text-top"
+                fill="currentColor"
+                viewBox="0 0 512 499.36"
+                role="img">
+                <title>GitHub</title>
+                <path
+                  fill-rule="evenodd"
+                  d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z"
+                ></path>
+              </svg>
+            </a>
+          </li>
+          <li class="d-inline-block ms-3">
+            <a href="https://x.com/sixlabors" target="_blank" rel="noopener" aria-label="X">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="36"
+                height="36"
+                class="navbar-nav-svg d-inline-block align-text-top"
+                fill="currentColor"
+                viewBox="0 0 1200 1227"
+                role="img">
+                <title>X</title>
+                <path
+                  d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z"
+                ></path>
+              </svg>
+            </a>
+          </li>
+          <li class="d-inline-block ms-3">
+            <a href="https://opencollective.com/sixlabors" target="_blank" rel="noopener" aria-label="Open Collective">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="36"
+                height="36"
+                fill="currentColor"
+                fill-rule="evenodd"
+                class="navbar-nav-svg d-inline-block align-text-top"
+                viewBox="0 0 40 41"
+                role="img">
+                <title>Open Collective</title>
+                <path
+                  fill-opacity=".4"
+                  d="M32.8 21c0 2.4-.8 4.9-2 6.9l5.1 5.1c2.5-3.4 4.1-7.6 4.1-12 0-4.6-1.6-8.8-4-12.2L30.7 14c1.2 2 2 4.3 2 7z"
+                ></path>
+                <path
+                  d="M20 33.7a12.8 12.8 0 0 1 0-25.6c2.6 0 5 .7 7 2.1L32 5a20 20 0 1 0 .1 31.9l-5-5.2a13 13 0 0 1-7 2z"
+                ></path>
+              </svg>
+            </a>
+          </li>
+        </ul>
+        <p class="mb-0">Copyright Six Labors &copy;</p>
+        <hr/>
+        <p>
+          <img
+            src="/css/img/sixlabors.text.svg"
+            alt="Six Labors"
+            class="sl-brand"/>
+        </p>
+        <p>Six Labors acknowledges the traditional owners and custodians of country throughout Australia and acknowledges their continuing connection to land, waters and community. We pay our respects to the people, the cultures and the elders past, present and emerging.</p>
+      </div>
+    </footer>
+
+    <!-- Current page: /posts/announcing-imagesharp-drawing-300/ -->
+    <script 
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" 
+      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.9.0/dist/highlightjs-line-numbers.min.js"></script>
+    <script>
+      hljs.highlightAll();
+      hljs.initLineNumbersOnLoad({singleLine: true});
+    </script>
+  </body>
+</html>

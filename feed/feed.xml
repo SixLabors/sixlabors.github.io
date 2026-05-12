@@ -5,12 +5,862 @@
 	
 	<link href="https://sixlabors.com/feed/feed.xml" rel="self"/>
 	<link href="https://sixlabors.com/"/>
-	<updated>2025-09-04T00:00:00Z</updated>
+	<updated>2026-05-12T00:00:00Z</updated>
 	<id>https://sixlabors.com/</id>
 	<author>
 		<name>Your Name Here</name>
 		<email>youremailaddress@example.com</email>
 	</author>
+	
+	<entry>
+		<title>Announcing PolygonClipper 1.0.0</title>
+		<link href="https://sixlabors.com/posts/announcing-polygonclipper-100/"/>
+		<updated>2026-05-12T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/announcing-polygonclipper-100/</id>
+		<content type="html">&lt;div class=&quot;ratio ratio-16x9&quot;&gt;
+&lt;iframe src=&quot;https://www.youtube.com/embed/XRGRsYg_fro?si=KmfPDxW-XpnDu_WE&quot; allow=&quot;autoplay; encrypted-media;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;PolygonClipper 1.0.0 is out.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;PolygonClipper is a new Six Labors geometry library for polygon boolean operations, self-intersection cleanup, and stroke-outline generation in .NET 8+. It exists because ImageSharp.Drawing needed a dedicated geometry engine for non-convex shapes, holes, multiple contours, overlapping edges, self-intersections, and imported vector input.&lt;/p&gt;
+&lt;p&gt;The public API is small: build &lt;code&gt;Vertex&lt;/code&gt;, &lt;code&gt;Contour&lt;/code&gt;, and &lt;code&gt;Polygon&lt;/code&gt; values, then call &lt;code&gt;PolygonClipper&lt;/code&gt; or &lt;code&gt;PolygonStroker&lt;/code&gt;. The implementation uses double-precision coordinates, sweep-line boolean operations, an explicit normalization path, and reusable internal buffers behind the static entry points.&lt;/p&gt;
+&lt;p&gt;PolygonClipper is the geometry engine used by ImageSharp.Drawing 3 for boolean path work and stroke geometry generation. It now ships as a standalone package for applications that need that layer directly.&lt;/p&gt;
+&lt;p&gt;As with the other current Six Labors libraries, PolygonClipper 1.0 enforces a &lt;a href=&quot;https://sixlabors.com/posts/licence-enforcement-changes/&quot;&gt;build-time license key for direct package dependencies&lt;/a&gt;. More on that below.&lt;/p&gt;
+&lt;h2 id=&quot;what&#39;s-in-polygonclipper-1&quot; tabindex=&quot;-1&quot;&gt;What&#39;s in PolygonClipper 1 &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#what&#39;s-in-polygonclipper-1&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Polygon boolean operations for &lt;code&gt;Intersection&lt;/code&gt;, &lt;code&gt;Union&lt;/code&gt;, &lt;code&gt;Difference&lt;/code&gt;, and &lt;code&gt;Xor&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;A separate normalization pipeline for resolving self-intersections and overlaps into canonical positive-winding output&lt;/li&gt;
+&lt;li&gt;Stroke-outline generation through &lt;code&gt;PolygonStroker&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Support for non-convex polygons, holes, multiple disjoint regions, overlapping edges, and vertical segments&lt;/li&gt;
+&lt;li&gt;Double-precision geometry without coordinate quantization&lt;/li&gt;
+&lt;li&gt;An API built around &lt;code&gt;Vertex&lt;/code&gt;, &lt;code&gt;Contour&lt;/code&gt;, &lt;code&gt;Polygon&lt;/code&gt;, &lt;code&gt;PolygonClipper&lt;/code&gt;, and &lt;code&gt;PolygonStroker&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Internal pooling and reusable instances behind the recommended static entry points&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;2d-geometry-workloads&quot; tabindex=&quot;-1&quot;&gt;2D geometry workloads &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#2d-geometry-workloads&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Polygon clipping has few options available to .NET developers. Existing libraries often come with trade-offs: coordinate quantization, native dependencies, complex APIs, or limited scope.&lt;/p&gt;
+&lt;p&gt;PolygonClipper is designed for geometry workloads that include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;non-convex shapes&lt;/li&gt;
+&lt;li&gt;nested contours and holes&lt;/li&gt;
+&lt;li&gt;multiple islands in one result&lt;/li&gt;
+&lt;li&gt;overlapping edges&lt;/li&gt;
+&lt;li&gt;self-intersections&lt;/li&gt;
+&lt;li&gt;stroke outlines with joins, caps, and miter rules&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;.NET applications doing map work, diagramming, CAD-adjacent processing, export pipelines, hit regions, tool-path preparation, vector cleanup, or generated graphics can use PolygonClipper directly.&lt;/p&gt;
+&lt;p&gt;The API stays small:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Vertex&lt;/code&gt; is one 2D point&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Contour&lt;/code&gt; is one ring of vertices&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Polygon&lt;/code&gt; is a collection of contours&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;From there, most applications either combine regions with &lt;code&gt;PolygonClipper&lt;/code&gt; or generate filled outline geometry with &lt;code&gt;PolygonStroker&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;a-quick-primer-on-clipping&quot; tabindex=&quot;-1&quot;&gt;A quick primer on clipping &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#a-quick-primer-on-clipping&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;At a high level, clipping means taking two input regions, usually called the &lt;code&gt;subject&lt;/code&gt; and the &lt;code&gt;clip&lt;/code&gt;, and combining them according to one of four rules:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Union&lt;/code&gt; keeps anything covered by either shape&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Intersection&lt;/code&gt; keeps only the shared overlap&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Difference&lt;/code&gt; subtracts the clip shape from the subject shape&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Xor&lt;/code&gt; keeps the non-overlapping parts and removes the shared middle&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;Difference&lt;/code&gt; is the one operation where argument order matters most. &lt;code&gt;Difference(a, b)&lt;/code&gt; is not the same as &lt;code&gt;Difference(b, a)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;These images are a good way to visualize the four results using a star and a circle:&lt;/p&gt;
+&lt;div class=&quot;row text-center mb-3&quot;&gt;
+    &lt;div class=&quot;col-sm-6 col-md-3&quot;&gt;
+        &lt;img class=&quot;img-fluid&quot; src=&quot;https://sixlabors.com/img/polygonclipper-union.png&quot; alt=&quot;Polygon union of a star and circle&quot; /&gt;
+        &lt;p&gt;&lt;code&gt;Union&lt;/code&gt;&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;col-sm-6 col-md-3&quot;&gt;
+        &lt;img class=&quot;img-fluid&quot; src=&quot;https://sixlabors.com/img/polygonclipper-intersection.png&quot; alt=&quot;Polygon intersection of a star and circle&quot; /&gt;
+        &lt;p&gt;&lt;code&gt;Intersection&lt;/code&gt;&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;col-sm-6 col-md-3&quot;&gt;
+        &lt;img class=&quot;img-fluid&quot; src=&quot;https://sixlabors.com/img/polygonclipper-difference.png&quot; alt=&quot;Polygon difference of a star and circle&quot; /&gt;
+        &lt;p&gt;&lt;code&gt;Difference&lt;/code&gt;&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;col-sm-6 col-md-3&quot;&gt;
+        &lt;img class=&quot;img-fluid&quot; src=&quot;https://sixlabors.com/img/polygonclipper-xor.png&quot; alt=&quot;Polygon exclusive-or of a star and circle&quot; /&gt;
+        &lt;p&gt;&lt;code&gt;Xor&lt;/code&gt;&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;The library applies those operations to inputs more complex than a star and circle: overlapping edges, holes, self-intersections, and multiple contours.&lt;/p&gt;
+&lt;h2 id=&quot;mart%C3%ADnez-2013-for-the-boolean-core&quot; tabindex=&quot;-1&quot;&gt;Martínez 2013 for the boolean core &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#mart%C3%ADnez-2013-for-the-boolean-core&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The boolean-operation core is built on the Martínez 2013 algorithm, specifically a Martínez-Rueda-style sweep-line pipeline for polygon clipping. The paper we used as a key reference is &lt;a href=&quot;https://github.com/SixLabors/PolygonClipper/blob/f52404c2ee42f2daf996c67012eab3d1223aee55/reference/10.1016%40j.advengsoft.2013.04.004.pdf&quot; target=&quot;_blank&quot;&gt;A Simple Algorithm for Boolean Operations on Polygons&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;That algorithm gives PolygonClipper a deterministic sweep-line boolean engine for complex input. It processes polygons with holes, multiple contours, and self-intersecting geometry, preserves contour hierarchy in the result, and handles overlapping or vertical segment relationships.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using SixLabors.PolygonClipper;
+
+Polygon result = PolygonClipper.Union(subject, clip);
+Polygon overlap = PolygonClipper.Intersection(subject, clip);
+Polygon remaining = PolygonClipper.Difference(subject, clip);
+Polygon exclusive = PolygonClipper.Xor(subject, clip);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Most users should stick to those static entry points. They route work through internal thread-local reusable instances, so callers get a small static API while the implementation reuses scratch storage under load.&lt;/p&gt;
+&lt;h2 id=&quot;double-precision-coordinates&quot; tabindex=&quot;-1&quot;&gt;Double-precision coordinates &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#double-precision-coordinates&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;PolygonClipper works directly in double-precision geometry. There is no integer-grid conversion step and no quantization error. Your coordinates go in, the algorithm runs, and the result comes back in the same coordinate space. That matters in any pipeline where geometry arrives from transforms, imports, mixed scales, or floating-point layout.&lt;/p&gt;
+&lt;h2 id=&quot;normalization-is-a-first-class-capability&quot; tabindex=&quot;-1&quot;&gt;Normalization is a first-class capability &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#normalization-is-a-first-class-capability&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Boolean operations combine two inputs. Normalization solves a different problem: cleaning up one polygon so it becomes a canonical positive-winding result.&lt;/p&gt;
+&lt;p&gt;When your contour data self-intersects, overlaps itself, or needs to be prepared for a downstream renderer or exporter that expects positive-winding output, &lt;code&gt;PolygonClipper.Normalize(...)&lt;/code&gt; gives you a dedicated path for that job.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using SixLabors.PolygonClipper;
+
+Polygon clean = PolygonClipper.Normalize(input);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Under the hood, normalization is a separate pipeline from the Martínez boolean engine. In PolygonClipper it follows a Vatti/Clipper2-inspired cleanup path focused on resolving self-intersections and overlaps into positive-winding output.&lt;/p&gt;
+&lt;p&gt;Keeping normalization separate from boolean operations lets callers decide when to pay for input cleanup before export, rendering, or further processing.&lt;/p&gt;
+&lt;h2 id=&quot;stroking-is-built-in%2C-not-bolted-on&quot; tabindex=&quot;-1&quot;&gt;Stroking is built in, not bolted on &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#stroking-is-built-in%2C-not-bolted-on&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;PolygonClipper also includes a dedicated stroker.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;PolygonStroker&lt;/code&gt; takes path-like input and emits the filled polygon geometry that the stroke covers. That gives renderers, exporters, and geometry pipelines filled polygons rather than centerlines.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using SixLabors.PolygonClipper;
+
+StrokeOptions options = new()
+{
+    LineJoin = LineJoin.Round,
+    LineCap = LineCap.Round,
+    MiterLimit = 4,
+    ArcDetailScale = 1,
+    NormalizeOutput = true
+};
+
+Polygon outline = PolygonStroker.Stroke(source, 12, options);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Stroke options control:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;outer joins&lt;/li&gt;
+&lt;li&gt;end caps&lt;/li&gt;
+&lt;li&gt;miter limits&lt;/li&gt;
+&lt;li&gt;arc detail&lt;/li&gt;
+&lt;li&gt;whether the emitted result should be normalized before returning&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;NormalizeOutput&lt;/code&gt; is explicit because callers do not always need normalized stroke output. When it is disabled, callers should rasterize with a non-zero winding fill rule.&lt;/p&gt;
+&lt;h2 id=&quot;api-and-implementation&quot; tabindex=&quot;-1&quot;&gt;API and implementation &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#api-and-implementation&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;You build &lt;code&gt;Contour&lt;/code&gt; and &lt;code&gt;Polygon&lt;/code&gt; values, call the static operations, and inspect the returned contours and hierarchy:&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using SixLabors.PolygonClipper;
+
+static Contour Rectangle(double x, double y, double width, double height)
+{
+    Contour contour = new(4);
+    contour.Add(new Vertex(x, y));
+    contour.Add(new Vertex(x + width, y));
+    contour.Add(new Vertex(x + width, y + height));
+    contour.Add(new Vertex(x, y + height));
+    return contour;
+}
+
+Polygon subject = new();
+subject.Add(Rectangle(0, 0, 80, 60));
+
+Polygon clip = new();
+clip.Add(Rectangle(40, 20, 80, 60));
+
+Polygon result = PolygonClipper.Intersection(subject, clip);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;The recommended entry points use thread-local reusable instances. Scratch buffers are reused. Large buffers are dropped instead of being retained forever. The stroker pools work by option set to reduce repeated setup for the same stroke configuration.&lt;/p&gt;
+&lt;h2 id=&quot;already-proven-in-the-six-labors-stack&quot; tabindex=&quot;-1&quot;&gt;Already proven in the Six Labors stack &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#already-proven-in-the-six-labors-stack&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;ImageSharp.Drawing 3 uses PolygonClipper internally for boolean path work and stroke geometry generation. That integration shaped the API and the performance work.&lt;/p&gt;
+&lt;p&gt;The standalone package exists for applications that need polygon operations without the higher-level drawing system.&lt;/p&gt;
+&lt;h2 id=&quot;breaking-and-operational-notes&quot; tabindex=&quot;-1&quot;&gt;Breaking and operational notes &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#breaking-and-operational-notes&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;This is a new library, so there is no previous stable major version to migrate from. The baseline target is .NET 8+.&lt;/p&gt;
+&lt;p&gt;There are two operational points to note:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;PolygonClipper 1.0 uses the Six Labors Split License&lt;/li&gt;
+&lt;li&gt;direct package dependencies must provide a &lt;code&gt;sixlabors.lic&lt;/code&gt; file at build time&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;As with the other current Six Labors libraries, that enforcement applies to direct dependencies only. If you qualify for community licensing, you can apply via &lt;a href=&quot;https://licensing.sixlabors.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;licensing.sixlabors.com&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;closing&quot; tabindex=&quot;-1&quot;&gt;Closing &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#closing&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;PolygonClipper 1.0 gives .NET developers a focused geometry library for polygon boolean operations, self-intersection cleanup, and stroke-outline generation. It uses double-precision input, keeps the public API small, and supplies the geometry layer used by ImageSharp.Drawing 3.&lt;/p&gt;
+&lt;p&gt;Explore the docs, try the package, and let us know what you build with it.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;PolygonClipper 1.0.0 is licensed under the &lt;a href=&quot;https://raw.githubusercontent.com/SixLabors/PolygonClipper/main/LICENSE&quot; target=&quot;_blank&quot;&gt;Six Labors Split License&lt;/a&gt;. This means that it is free to use in both non-commercial and certain commercial applications. However, if you are using it in a commercial application and your organization has annual gross revenue exceeding 1M USD per year, you must purchase a commercial license. Please see the &lt;a href=&quot;https://sixlabors.com/pricing/&quot;&gt;Pricing page&lt;/a&gt; for more information.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+</content>
+	</entry>
+	
+	<entry>
+		<title>Announcing ImageSharp.Web 4.0.0</title>
+		<link href="https://sixlabors.com/posts/announcing-imagesharp-web-400/"/>
+		<updated>2026-05-12T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/announcing-imagesharp-web-400/</id>
+		<content type="html">&lt;div class=&quot;ratio ratio-16x9&quot;&gt;
+&lt;iframe src=&quot;https://www.youtube.com/embed/6dBt3mJtgJc?si=gpQRcsXJpcw2_xAU&quot; allow=&quot;autoplay; encrypted-media;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;ImageSharp.Web 4.0.0 is out.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;ImageSharp.Web 4.0.0 moves the middleware to .NET 8+, adopts ImageSharp 4 as its processing engine, and updates the default behavior used for processed web images: EXIF orientation handling, ICC profile conversion, and encoder settings for JPEG, PNG, and WebP.&lt;/p&gt;
+&lt;p&gt;The public API stays familiar, but the defaults are not identical to V3. Requests with image-processing commands now get an &lt;code&gt;autoorient=true&lt;/code&gt; command inserted when they do not already contain an &lt;code&gt;autoorient&lt;/code&gt; command. Default decoder options use &lt;code&gt;ColorProfileHandling.Convert&lt;/code&gt; when the middleware is using its default ImageSharp configuration, and the default encoders are configured for web delivery.&lt;/p&gt;
+&lt;p&gt;ImageSharp.Web is the delivery layer of the Six Labors suite. It sits between ASP.NET Core requests, image providers, caches, command parsing, ImageSharp processing, and encoded output.&lt;/p&gt;
+&lt;p&gt;V4 is also the first ImageSharp.Web release to enforce a &lt;a href=&quot;https://sixlabors.com/posts/licence-enforcement-changes/&quot;&gt;build-time license key for direct package dependencies&lt;/a&gt;. More on that below.&lt;/p&gt;
+&lt;h2 id=&quot;what&#39;s-new-since-v3&quot; tabindex=&quot;-1&quot;&gt;What&#39;s new since V3 &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-web-400/#what&#39;s-new-since-v3&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;A .NET 8+ baseline for the middleware&lt;/li&gt;
+&lt;li&gt;ImageSharp 4 as the processing engine&lt;/li&gt;
+&lt;li&gt;Default &lt;code&gt;autoorient=true&lt;/code&gt; insertion for command URLs that do not explicitly opt out&lt;/li&gt;
+&lt;li&gt;Default ICC profile normalization through &lt;code&gt;ColorProfileHandling.Convert&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Web-oriented default encoders for JPEG, PNG, and WebP&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;quality&lt;/code&gt; command handling that preserves more options from the configured JPEG and WebP encoders&lt;/li&gt;
+&lt;li&gt;Updated default behavior for applications that rely on the built-in configuration, command parsing callback, or decoder options callback&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;.net-8%2B-and-imagesharp-4&quot; tabindex=&quot;-1&quot;&gt;.NET 8+ and ImageSharp 4 &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-web-400/#.net-8%2B-and-imagesharp-4&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;ImageSharp.Web 4 now targets .NET 8+ and builds on top of ImageSharp 4.&lt;/p&gt;
+&lt;p&gt;That gives the middleware the same imaging core used by the rest of the current suite, including the color-management, codec, encoder, and metadata behavior that arrived in ImageSharp 4.&lt;/p&gt;
+&lt;h2 id=&quot;auto-orient-for-command-urls&quot; tabindex=&quot;-1&quot;&gt;Auto-orient for command URLs &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-web-400/#auto-orient-for-command-urls&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;One practical change in V4 is that ImageSharp.Web now inserts &lt;code&gt;autoorient=true&lt;/code&gt; when the command collection is not empty and the request does not already contain an &lt;code&gt;autoorient&lt;/code&gt; command.&lt;/p&gt;
+&lt;p&gt;That is implemented through the default &lt;code&gt;OnParseCommandsAsync&lt;/code&gt; callback. The callback leaves raw URLs alone, preserves an explicit &lt;code&gt;autoorient=true&lt;/code&gt; or &lt;code&gt;autoorient=false&lt;/code&gt;, and only inserts the command when other image-processing commands are already present.&lt;/p&gt;
+&lt;p&gt;The reason is format and browser behavior. Relying on encoded EXIF orientation alone does not produce consistent results across formats and browsers. WebP in particular has been a long-running source of confusion here, as documented in &lt;a href=&quot;https://zpl.fi/exif-orientation-in-different-formats/&quot; target=&quot;_blank&quot;&gt;Exif Orientation in Different Formats&lt;/a&gt;. For processed images, V4 normalizes orientation in the pixels unless the caller opts out.&lt;/p&gt;
+&lt;p&gt;That means command URLs like these now include auto-orientation by default:&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;/images/photo.jpg?width=400
+/images/photo.jpg?width=400&amp;amp;height=250&amp;amp;rmode=crop
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;A raw URL such as &lt;code&gt;/images/photo.jpg&lt;/code&gt; does not get an &lt;code&gt;autoorient=true&lt;/code&gt; command inserted by this callback. If the request already has processing commands, the middleware inserts auto-orient before later processors run.&lt;/p&gt;
+&lt;p&gt;If you replace &lt;code&gt;OnParseCommandsAsync&lt;/code&gt;, you also replace that built-in behavior unless you preserve the existing delegate.&lt;/p&gt;
+&lt;h2 id=&quot;default-icc-normalization&quot; tabindex=&quot;-1&quot;&gt;Default ICC normalization &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-web-400/#default-icc-normalization&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;V4 also changes how the middleware handles color.&lt;/p&gt;
+&lt;p&gt;When you keep the default middleware configuration and do not return custom &lt;code&gt;DecoderOptions&lt;/code&gt; from &lt;code&gt;OnBeforeLoadAsync&lt;/code&gt;, ImageSharp.Web 4 now decodes with &lt;code&gt;ColorProfileHandling.Convert&lt;/code&gt;. That means embedded ICC profiles are normalized into a predictable working space for web-oriented re-encoding.&lt;/p&gt;
+&lt;p&gt;Source images do not always arrive in the color model that makes sense for the web. JPEGs can carry CMYK or other non-sRGB profile data, while the destination format may be something like WebP with a more constrained color model. Decode-time normalization gives the middleware a predictable working space before it resizes, reformats, and re-encodes the result.&lt;/p&gt;
+&lt;p&gt;In some of our tests, that change produced output up to roughly &lt;strong&gt;8x&lt;/strong&gt; smaller from the same request URL.&lt;/p&gt;
+&lt;p&gt;If you replace &lt;code&gt;options.Configuration&lt;/code&gt;, the middleware&#39;s fallback decoder behavior changes to &lt;code&gt;ColorProfileHandling.Compact&lt;/code&gt; unless you return explicit &lt;code&gt;DecoderOptions&lt;/code&gt; yourself.&lt;/p&gt;
+&lt;p&gt;Upgrade guidance:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;keep the default configuration if you want the new web-oriented color behavior automatically&lt;/li&gt;
+&lt;li&gt;if you customize the base configuration, also return explicit decoder options so you preserve &lt;code&gt;ColorProfileHandling.Convert&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;encoder-defaults&quot; tabindex=&quot;-1&quot;&gt;Encoder defaults &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-web-400/#encoder-defaults&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The middleware configuration installs encoder defaults for web delivery:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;JPEG uses quality &lt;code&gt;75&lt;/code&gt;, progressive output, interleaving, and &lt;code&gt;YCbCrRatio420&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;PNG uses &lt;code&gt;BestCompression&lt;/code&gt; and adaptive filtering&lt;/li&gt;
+&lt;li&gt;WebP uses quality &lt;code&gt;75&lt;/code&gt; with &lt;code&gt;BestQuality&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;They apply whether the output format comes from the source image or from the &lt;code&gt;format&lt;/code&gt; command.&lt;/p&gt;
+&lt;p&gt;For JPEG, quality &lt;code&gt;75&lt;/code&gt; balances visible quality and transfer size for normal web photography. Progressive encoding with interleaved scans improves perceived loading because browsers can show a coarse full-color preview from the first scan, and progressive output is often smaller than baseline JPEG. &lt;code&gt;YCbCrRatio420&lt;/code&gt; uses chroma subsampling to reduce color data while preserving luma detail.&lt;/p&gt;
+&lt;p&gt;For PNG, &lt;code&gt;BestCompression&lt;/code&gt; and adaptive filtering favor smaller payloads for screenshots, illustrations, UI assets, and other graphics where PNG is still the right output format. Adaptive filtering lets the encoder choose the filter strategy row by row instead of treating the whole image the same way. That spends more CPU during the initial encode, but ImageSharp.Web is a cache-backed middleware: pay once, cache the result, and serve later requests from storage.&lt;/p&gt;
+&lt;p&gt;For WebP, quality &lt;code&gt;75&lt;/code&gt; sets the default quality level, while &lt;code&gt;BestQuality&lt;/code&gt; tells the encoder to spend more effort during compression. When the first request pays the heavier encode cost and later requests are served from cache, the result is often smaller output and more predictable bandwidth cost over time.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;quality&lt;/code&gt; command now preserves more settings from the configured encoder. For JPEG, custom quality output keeps reference settings such as progressive output, progressive scans, restart interval, interleaving, color type, and metadata behavior. For WebP, it preserves settings such as method, alpha compression, entropy passes, spatial noise shaping, filter strength, transparent color mode, near-lossless settings, and metadata behavior.&lt;/p&gt;
+&lt;h2 id=&quot;modular-when-you-need-it&quot; tabindex=&quot;-1&quot;&gt;Modular when you need it &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-web-400/#modular-when-you-need-it&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The middleware is configurable.&lt;/p&gt;
+&lt;p&gt;You can replace parsers, caches, providers, processors, cache keys, hashes, converters, callbacks, and the underlying ImageSharp configuration. In V4, those extension points can also replace the new defaults, so custom setups should decide which defaults to preserve.&lt;/p&gt;
+&lt;p&gt;If you want custom encoder registrations but still want the new ICC-conversion behavior, keep the existing configuration as your base and return explicit decoder options:&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.Web;
+
+builder.Services.AddImageSharp(options =&amp;gt;
+{
+    Configuration configuration = options.Configuration.Clone();
+
+    configuration.ImageFormatsManager.SetEncoder(JpegFormat.Instance, new JpegEncoder
+    {
+        Quality = 82,
+        Progressive = true,
+        Interleaved = true,
+        ColorType = JpegColorType.YCbCrRatio420
+    });
+
+    options.Configuration = configuration;
+
+    options.OnBeforeLoadAsync = (_, _) =&amp;gt; Task.FromResult&amp;lt;DecoderOptions?&amp;gt;(new()
+    {
+        Configuration = configuration,
+        ColorProfileHandling = ColorProfileHandling.Convert
+    });
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Likewise, if you override &lt;code&gt;OnParseCommandsAsync&lt;/code&gt;, preserve the existing delegate unless you intentionally want to remove the default auto-orientation insertion for command URLs.&lt;/p&gt;
+&lt;h2 id=&quot;breaking-and-operational-notes&quot; tabindex=&quot;-1&quot;&gt;Breaking and operational notes &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-web-400/#breaking-and-operational-notes&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The two main upgrade notes for V4 are straightforward:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;the package now targets .NET 8+&lt;/li&gt;
+&lt;li&gt;direct dependencies must provide a &lt;code&gt;sixlabors.lic&lt;/code&gt; file at build time&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There is also an important behavioral shift to be aware of:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;command URLs are now auto-oriented by default unless you explicitly disable that behavior&lt;/li&gt;
+&lt;li&gt;default decode behavior now normalizes ICC profiles for web-oriented output&lt;/li&gt;
+&lt;li&gt;replacing the middleware configuration or parse callback can remove those defaults if you do not preserve them deliberately&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If you qualify for community licensing, you can apply via &lt;a href=&quot;https://licensing.sixlabors.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;licensing.sixlabors.com&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;closing&quot; tabindex=&quot;-1&quot;&gt;Closing &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-web-400/#closing&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;ImageSharp.Web 4 moves the middleware to .NET 8+, adopts ImageSharp 4, inserts auto-orientation for command URLs, converts ICC profiles by default when using the built-in configuration, updates JPEG, PNG, and WebP encoder defaults, and preserves more encoder settings when the &lt;code&gt;quality&lt;/code&gt; command is used.&lt;/p&gt;
+&lt;p&gt;Explore the docs, try the new defaults, and let us know what you build with it.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;ImageSharp.Web 4.0.0 is licensed under the &lt;a href=&quot;https://raw.githubusercontent.com/SixLabors/ImageSharp.Web/main/LICENSE&quot; target=&quot;_blank&quot;&gt;Six Labors Split License&lt;/a&gt;. This means that it is free to use in both non-commercial and certain commercial applications. However, if you are using it in a commercial application and your organization has annual gross revenue exceeding 1M USD per year, you must purchase a commercial license. Please see the &lt;a href=&quot;https://sixlabors.com/pricing/&quot;&gt;Pricing page&lt;/a&gt; for more information.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+</content>
+	</entry>
+	
+	<entry>
+		<title>Announcing ImageSharp.Drawing 3.0.0</title>
+		<link href="https://sixlabors.com/posts/announcing-imagesharp-drawing-300/"/>
+		<updated>2026-05-12T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/announcing-imagesharp-drawing-300/</id>
+		<content type="html">&lt;div class=&quot;ratio ratio-16x9&quot;&gt;
+&lt;iframe src=&quot;https://www.youtube.com/embed/djV11Xbc914?si=XE4cHl8PCw2k_pU7&quot; allow=&quot;autoplay; encrypted-media;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;ImageSharp.Drawing 3.0.0 is out.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;ImageSharp.Drawing 3.0.0 includes a .NET 8+ baseline, a stateful &lt;code&gt;DrawingCanvas&lt;/code&gt; API, retained scenes, a rewritten CPU renderer, optional WebGPU rendering, PolygonClipper-based clipping and stroking, painted glyph rendering, hatch and sweep brushes, and text APIs built on Fonts 3.&lt;/p&gt;
+&lt;p&gt;This is a breaking, ground-up rewrite. The old extension-method drawing model has been replaced by a canvas model, and the change reaches drawing entry points, paths, shapes, brushes, layers, clipping, text, regions, and backend selection.&lt;/p&gt;
+&lt;p&gt;ImageSharp.Drawing is the composition layer of the Six Labors suite. ImageSharp provides the pixel types and image-processing pipeline, Fonts provides text shaping and metrics, and Drawing provides paths, brushes, clipping, layers, glyph rendering, image processors inside regions, and backend replay.&lt;/p&gt;
+&lt;p&gt;The release targets applications that need generated or frequently redrawn 2D graphics: charting, diagrams, maps, reports, image generation, overlays, previews, editors, dashboards, and export pipelines.&lt;/p&gt;
+&lt;p&gt;V3 is also the first ImageSharp.Drawing release to enforce a &lt;a href=&quot;https://sixlabors.com/posts/licence-enforcement-changes/&quot;&gt;build-time license key for direct package dependencies&lt;/a&gt;. More on that below.&lt;/p&gt;
+&lt;p&gt;The library now targets the current suite stack:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;.NET 8+&lt;/li&gt;
+&lt;li&gt;ImageSharp 4&lt;/li&gt;
+&lt;li&gt;Fonts 3&lt;/li&gt;
+&lt;li&gt;PolygonClipper&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;what&#39;s-new-since-v2&quot; tabindex=&quot;-1&quot;&gt;What&#39;s new since V2 &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-drawing-300/#what&#39;s-new-since-v2&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The main changes are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A new canvas-first drawing model built around &lt;code&gt;DrawingCanvas&lt;/code&gt; and &lt;code&gt;Paint(...)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;A deferred command timeline with &lt;code&gt;CreateScene()&lt;/code&gt; / &lt;code&gt;RenderScene(...)&lt;/code&gt; for retained, replayable backend scenes&lt;/li&gt;
+&lt;li&gt;A rewritten CPU backend organized around a row-oriented retained execution plan&lt;/li&gt;
+&lt;li&gt;A new &lt;code&gt;SixLabors.ImageSharp.Drawing.WebGPU&lt;/code&gt; package for GPU-backed windows, render targets, and external surfaces&lt;/li&gt;
+&lt;li&gt;Geometry using PolygonClipper for clipping and stroking&lt;/li&gt;
+&lt;li&gt;Painted glyph rendering, glyph drawing, and a single-pass &lt;code&gt;MeasureText(...)&lt;/code&gt; API returning a &lt;code&gt;TextMetrics&lt;/code&gt; value&lt;/li&gt;
+&lt;li&gt;The new &lt;code&gt;SweepGradientBrush&lt;/code&gt;, hatch pattern brushes, and reworked handling for solid, pattern, image, linear, radial, elliptic, path, and recolor brushes&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;RoundedRectanglePolygon&lt;/code&gt; plus &lt;code&gt;PathBuilder.AddRoundedRectangle(...)&lt;/code&gt; helpers&lt;/li&gt;
+&lt;li&gt;SVG path parser hardening for malformed arc flags, incomplete operand groups, non-finite values, and truncated commands&lt;/li&gt;
+&lt;li&gt;Image processing operations constrained to clip bounds when using clipped processors&lt;/li&gt;
+&lt;li&gt;API changes for shapes, paths, transforms, layers, and regions&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;a-canvas-first-api&quot; tabindex=&quot;-1&quot;&gt;A canvas-first API &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-drawing-300/#a-canvas-first-api&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The central API change in V3 is the move to a canvas model.&lt;/p&gt;
+&lt;p&gt;Previous versions exposed drawing as ImageSharp processing extension methods. That model did not have a place for canvas state, layers, clipping, drawing regions, backend selection, or GPU-native targets.&lt;/p&gt;
+&lt;p&gt;V3 introduces &lt;code&gt;DrawingCanvas&lt;/code&gt; and the &lt;code&gt;Paint(...)&lt;/code&gt; entry point. The pixel-typed implementation lives underneath as an internal detail, so callers work against one canvas-facing surface across CPU and GPU targets.&lt;/p&gt;
+&lt;p&gt;The API is built around explicit canvas state, ordered commands, layers, clips, regions, and backend-neutral scene replay.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using SixLabors.Fonts;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing;
+using SixLabors.ImageSharp.Drawing.Processing;
+using SixLabors.ImageSharp.PixelFormats;
+using Color = SixLabors.ImageSharp.Color;
+
+using Image&amp;lt;Rgba32&amp;gt; image = new(1200, 630);
+Font font = SystemFonts.CreateFont(&amp;quot;Arial&amp;quot;, 72);
+
+image.Mutate(x =&amp;gt; x.Paint(canvas =&amp;gt;
+{
+    canvas.Fill(Brushes.Solid(Color.FromRgb(18, 24, 38)));
+
+    canvas.SaveLayer(new GraphicsOptions { BlendPercentage = 0.85F });
+    canvas.Fill(Brushes.Solid(Color.CornflowerBlue), new EllipsePolygon(900, 120, 220, 220));
+    canvas.Restore();
+
+    canvas.Draw(Pens.Solid(Color.HotPink, 14F), new StarPolygon(new PointF(280, 315), 5, 90, 190, 0));
+    canvas.DrawText(
+        new RichTextOptions(font) { Origin = new PointF(80, 110) },
+        &amp;quot;ImageSharp.Drawing 3&amp;quot;,
+        Brushes.Solid(Color.White),
+        pen: null);
+}));
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;The canvas API includes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Save()&lt;/code&gt; / &lt;code&gt;Restore()&lt;/code&gt; / &lt;code&gt;RestoreTo(saveCount)&lt;/code&gt; for state management&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SaveLayer(...)&lt;/code&gt; for isolated compositing, with optional bounds&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CreateRegion(...)&lt;/code&gt; for sub-canvas workflows that share the parent target&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DrawImage(...)&lt;/code&gt; as part of the same canvas system&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Apply(path, ...)&lt;/code&gt; to run any ImageSharp processor, from &lt;code&gt;GaussianBlur&lt;/code&gt; to &lt;code&gt;Pixelate&lt;/code&gt; to &lt;code&gt;Brightness&lt;/code&gt;, inside a canvas region&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CreateScene()&lt;/code&gt; and &lt;code&gt;RenderScene(scene)&lt;/code&gt; to capture and replay prepared draw work as a retained backend scene&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Underneath, the canvas records draw calls into a deferred timeline. State changes, layer markers, apply barriers, flush boundaries, and inserted retained scenes all sit on that timeline in submission order. The target is written when the canvas is disposed, or when the surrounding &lt;code&gt;Paint(...)&lt;/code&gt; block completes. That lets the same public API drive CPU rendering, GPU dispatch, sub-region drawing, and replay of pre-built scenes.&lt;/p&gt;
+&lt;h2 id=&quot;one-timeline%2C-one-scene-contract%2C-multiple-backends&quot; tabindex=&quot;-1&quot;&gt;One timeline, one scene contract, multiple backends &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-drawing-300/#one-timeline%2C-one-scene-contract%2C-multiple-backends&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The canvas API is the point where commands, state, scenes, and backends meet.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;DrawingCanvas&lt;/code&gt; records drawing intent into a timeline. Raw calls are accumulated, then prepared into a &lt;code&gt;DrawingCommandBatch&lt;/code&gt;: source paths get transformed into final geometry, strokes are expanded to fill paths, clip paths are baked in, and dashed strokes are materialized. Every backend receives the same prepared batch.&lt;/p&gt;
+&lt;p&gt;From there, the contract is small. Backends implement three methods on &lt;code&gt;IDrawingBackend&lt;/code&gt;: &lt;code&gt;CreateScene(...)&lt;/code&gt; turns a prepared command batch into a retained &lt;code&gt;DrawingBackendScene&lt;/code&gt;, &lt;code&gt;RenderScene&amp;lt;TPixel&amp;gt;(...)&lt;/code&gt; writes a scene into a typed target frame, and &lt;code&gt;ReadRegion&amp;lt;TPixel&amp;gt;(...)&lt;/code&gt; copies a region back for apply barriers. One command batch produces one backend scene. Scene creation is untyped and target-free; only render and readback bind to a concrete &lt;code&gt;TPixel&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;That contract supports different execution strategies:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CPU rasterization into an &lt;code&gt;Image&amp;lt;TPixel&amp;gt;&lt;/code&gt; through &lt;code&gt;DefaultDrawingBackend&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;drawing into a sub-region of another frame through &lt;code&gt;canvas.CreateRegion(...)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;drawing into a GPU-native surface through &lt;code&gt;WebGPUDrawingBackend&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;future backends that prefer semantic geometry over direct pixel writes&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;By concentrating preparation in one place and keeping the scene contract small, ImageSharp.Drawing keeps one public programming model while allowing different backend execution models.&lt;/p&gt;
+&lt;h2 id=&quot;retained-scenes-are-first-class&quot; tabindex=&quot;-1&quot;&gt;Retained scenes are first class &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-drawing-300/#retained-scenes-are-first-class&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Any prepared draw work can become a reusable &lt;code&gt;DrawingBackendScene&lt;/code&gt;. Build one with &lt;code&gt;canvas.CreateScene()&lt;/code&gt;, hold onto it, then drop it into a later canvas timeline with &lt;code&gt;canvas.RenderScene(scene)&lt;/code&gt;. The retained scene skips command preparation on every replay and dispatches straight into the backend.&lt;/p&gt;
+&lt;p&gt;Retained scenes support workloads the old extension API could not express directly:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;map and chart panning, where the basemap is rebuilt rarely and redrawn often&lt;/li&gt;
+&lt;li&gt;scrolling text and decorations whose geometry is shaped once&lt;/li&gt;
+&lt;li&gt;editor previews and overlays where most of the scene is stable from frame to frame&lt;/li&gt;
+&lt;li&gt;WebGPU presents where every frame should reuse the same GPU encoded payload&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Both backends honor the contract. &lt;code&gt;DefaultDrawingBackendScene&lt;/code&gt; carries a CPU execution plan with retained row planning, prepared geometry, and reusable scratch sizes. &lt;code&gt;WebGPUDrawingBackendScene&lt;/code&gt; carries an encoded GPU scene plus reusable scheduling and resource arenas, so subsequent renders skip both preparation and arena allocation. The same &lt;code&gt;RenderScene(scene)&lt;/code&gt; call on the canvas works for either.&lt;/p&gt;
+&lt;h2 id=&quot;a-rewritten-cpu-renderer&quot; tabindex=&quot;-1&quot;&gt;A rewritten CPU renderer &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-drawing-300/#a-rewritten-cpu-renderer&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;V3 ships a new CPU rendering core.&lt;/p&gt;
+&lt;p&gt;The backend executes rows, not commands. One prepared command batch is filtered to visible work, each path is asked for its scale-baked &lt;code&gt;LinearGeometry&lt;/code&gt; once (cached on the &lt;code&gt;IPath&lt;/code&gt;), row membership is built while preserving submission order, and per-row execution items are materialized up front. From that point the row pass runs in parallel with reusable worker-local scratch, and the rasterizer scan-converts into coverage only where needed. The hot loop never re-walks raw contours.&lt;/p&gt;
+&lt;p&gt;Responsibilities split the same way: the rasterizer decides coverage, &lt;code&gt;BrushRenderer&amp;lt;TPixel&amp;gt;&lt;/code&gt; decides color, and the row handler binds the two and writes destination pixels. Brush renderers are memoized once per visible item before the row pass starts, so brush state never travels with mutable scratch through parallel workers.&lt;/p&gt;
+&lt;p&gt;The rasterizer at the core was originally inspired by &lt;a href=&quot;https://gasiulis.name/parallel-rasterization-on-cpu/&quot; target=&quot;_blank&quot;&gt;Blaze&lt;/a&gt;. V3 adds retained scene execution, inlined stroking, and prepared geometry flowing through batching, layering, and row-local raster work. That reduces hot-path geometry rediscovery, improves locality when writing destination pixels, and preserves draw order inside parallel execution.&lt;/p&gt;
+&lt;p&gt;The old system exposed &lt;code&gt;AntialiasSubpixelDepth&lt;/code&gt; with a default of 16 subpixel steps per pixel. V3 moves to a fixed-point area-and-cover rasterizer with 24.8 precision and 256 subpixel steps. &lt;code&gt;AntialiasSubpixelDepth&lt;/code&gt; is replaced by &lt;code&gt;AntialiasThreshold&lt;/code&gt;, which controls the coverage cutoff used when aliased output is derived from the coverage model.&lt;/p&gt;
+&lt;p&gt;That architecture feeds directly into compositing-heavy layouts, repeated text and glyph rendering, complex fills and gradients, layered graphics, and path-heavy scenes such as maps.&lt;/p&gt;
+&lt;h2 id=&quot;performance&quot; tabindex=&quot;-1&quot;&gt;Performance &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-drawing-300/#performance&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The &lt;strong&gt;FillParis&lt;/strong&gt; benchmark is a 1096x1060 streetmap of Paris containing 50K fill paths. Numbers below are from BenchmarkDotNet on our test machine (Windows, .NET 8, x64) running the same scene against each backend:&lt;/p&gt;
+&lt;table class=&quot;table&quot;&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Method&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Mean&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Ratio&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;SkiaSharp (baseline)&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;103.165 ms&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;1.00&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;System.Drawing&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;143.026 ms&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;1.39&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ImageSharp CPU&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;48.544 ms&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.47&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ImageSharp CPU, retained scene&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;17.879 ms&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.17&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ImageSharp WebGPU&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;24.841 ms&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.24&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ImageSharp WebGPU, retained scene&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;5.476 ms&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.05&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Absolute numbers will move on different CPUs, GPUs, drivers, and runtimes. On this workload, the CPU backend is roughly 2.1x faster than SkiaSharp and 2.9x faster than System.Drawing, the retained CPU path reaches 5.8x, and the retained WebGPU path lands at ~19x faster than SkiaSharp and ~26x faster than System.Drawing.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sixlabors.com/img/paris-imagesharp-cropped.png&quot; alt=&quot;FillParis benchmark output rendered by ImageSharp.Drawing&quot; class=&quot;img-fluid&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;A cropped section of the FillParis benchmark output. The full scene fills 50K paths across a detailed streetmap of Paris with color, layering, and geometric density throughout.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Those results come from a path-heavy scene with dense layering and geometric detail.&lt;/p&gt;
+&lt;p&gt;The measured difference comes from how the new pipeline scales, not from a single micro-optimization.&lt;/p&gt;
+&lt;p&gt;In V2, each draw call was an independent image processor. Each one rasterized, composited, and tore down in isolation, and per-call state had to be passed through each invocation. Fifty thousand fills meant fifty thousand setup costs. V3 queues commands on the canvas, prepares them once into a &lt;code&gt;DrawingCommandBatch&lt;/code&gt;, and flushes them through a shared scene model. The CPU rasterizer is a tiled fixed-point scanline that integrates area and coverage analytically per cell rather than sampling discrete subpixel rows.&lt;/p&gt;
+&lt;p&gt;The retained-scene rows show the effect of reusing prepared work. The non-retained CPU path still rebuilds the row execution plan for each render; the retained CPU path reuses it and skips planning entirely. The WebGPU path goes further: the encoded GPU scene, scheduling arenas, and resource arenas are all reused across renders. That is what produces the 5.8x and 18.8x rows.&lt;/p&gt;
+&lt;p&gt;Compositing also uses new ImageSharp APIs.&lt;/p&gt;
+&lt;p&gt;The newer &lt;code&gt;PixelBlender&amp;lt;TPixel&amp;gt;&lt;/code&gt; APIs in ImageSharp allow bulk row composition to reuse caller-provided working buffers, and they add constant-color blend paths. Porter-Duff blend modes are vectorized up to &lt;code&gt;Vector512&amp;lt;float&amp;gt;&lt;/code&gt;, with dispatch widening from &lt;code&gt;Vector4&lt;/code&gt; to &lt;code&gt;Vector256&amp;lt;float&amp;gt;&lt;/code&gt; to &lt;code&gt;Vector512&amp;lt;float&amp;gt;&lt;/code&gt; based on CPU support. Drawing V3 uses those APIs during brush application and layer composition. The CPU backend keeps worker-local scratch alive for the duration of row execution instead of renting temporary vector buffers for each blend. Solid brushes can blend a single source color directly without first materializing a full overlay row.&lt;/p&gt;
+&lt;p&gt;Brush rendering shares no mutable scratch through the parallel pipeline. The backend memoizes brush renderers up front, then each worker executes them with its own &lt;code&gt;BrushWorkspace&amp;lt;TPixel&amp;gt;&lt;/code&gt; and raster scratch. The hot path avoids per-row buffer churn and thread contention around brush state.&lt;/p&gt;
+&lt;p&gt;The performance changes come from:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;batching commands instead of rasterizing every call in isolation&lt;/li&gt;
+&lt;li&gt;preparing and retaining geometry once instead of rediscovering it in the hot path&lt;/li&gt;
+&lt;li&gt;inlining stroking and transforms into the rendering pipeline so they are part of rasterization rather than an expensive pre-pass&lt;/li&gt;
+&lt;li&gt;reusing worker-local blend scratch and bulk pixel blending paths so composition avoids repeated temporary-buffer costs&lt;/li&gt;
+&lt;li&gt;keeping brush renderers reusable under parallel execution with per-worker state instead of shared mutable scratch&lt;/li&gt;
+&lt;li&gt;adding a staged WebGPU path for native targets and heavy scenes&lt;/li&gt;
+&lt;li&gt;exposing retained scenes so callers can amortize preparation cost across many redraws&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;webgpu&quot; tabindex=&quot;-1&quot;&gt;WebGPU &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-drawing-300/#webgpu&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;V3 also introduces a new package: &lt;strong&gt;&lt;code&gt;SixLabors.ImageSharp.Drawing.WebGPU&lt;/code&gt;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;The new WebGPU backend renders ImageSharp.Drawing content into GPU-native targets through the same canvas model. The public surface starts from the target being rendered into:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;WebGPUWindow&lt;/code&gt; for native windows that ImageSharp.Drawing owns and drives the render loop on&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;WebGPURenderTarget&lt;/code&gt; for offscreen GPU-backed rendering and readback into an &lt;code&gt;Image&amp;lt;TPixel&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;WebGPUExternalSurface&lt;/code&gt; for attaching to a native window or surface owned by a host UI framework, with &lt;code&gt;WebGPUSurfaceHost&lt;/code&gt; factories for Win32, X11, Wayland, Cocoa, UIKit, Android, GLFW, SDL, and other native targets&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;WebGPUEnvironment&lt;/code&gt; for explicit support probes (&lt;code&gt;ProbeAvailability()&lt;/code&gt;, &lt;code&gt;ProbeComputePipelineSupport()&lt;/code&gt;) and uncaptured-error reporting before any of the targets are constructed&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Under the hood, the staged GPU rasterizer is based on ideas and implementation techniques from &lt;a href=&quot;https://github.com/linebender/vello&quot; target=&quot;_blank&quot;&gt;Vello&lt;/a&gt;. The ImageSharp.Drawing implementation adds dynamic scratch-memory growth, chunked oversized-scene execution to keep large flushes within binding limits, and inlined stroking so stroke-heavy scenes skip a separate preprocessing pipeline. Explicit canvas layers stay in the shared composition stream until the scene encoder lowers them into &lt;code&gt;BeginClip&lt;/code&gt;/&lt;code&gt;EndClip&lt;/code&gt; records that the fine shader interprets directly, so layers do not need a second composition subsystem.&lt;/p&gt;
+&lt;p&gt;Editors, diagramming tools, map and chart viewers, dashboards, creative tools, live previews, and other composition-heavy desktop experiences can target GPU-native windows and surfaces through the same &lt;code&gt;DrawingCanvas&lt;/code&gt; model used for offline rendering. Pair any of the WebGPU targets with &lt;code&gt;canvas.CreateScene()&lt;/code&gt; and the encoded GPU scene is reused on each present, with retained scratch and arena allocations carried across renders.&lt;/p&gt;
+&lt;p&gt;A minimal WebGPU window looks like this:&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing;
+using SixLabors.ImageSharp.Drawing.Processing;
+using SixLabors.ImageSharp.Drawing.Processing.Backends;
+using Color = SixLabors.ImageSharp.Color;
+
+using WebGPUWindow window = new(new WebGPUWindowOptions
+{
+    Title = &amp;quot;ImageSharp.Drawing WebGPU Demo&amp;quot;,
+    Size = new Size(800, 600),
+    Format = WebGPUTextureFormat.Bgra8Unorm,
+    PresentMode = WebGPUPresentMode.Fifo,
+});
+
+window.Run(canvas =&amp;gt;
+{
+    canvas.Fill(Brushes.Solid(Color.Black));
+    canvas.Fill(Brushes.Solid(Color.CornflowerBlue), new EllipsePolygon(200, 150, 80));
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;For offline rendering, &lt;code&gt;WebGPURenderTarget&lt;/code&gt; exposes the same canvas through &lt;code&gt;target.CreateCanvas()&lt;/code&gt; and supports readback into an &lt;code&gt;Image&amp;lt;TPixel&amp;gt;&lt;/code&gt;. For host-owned UI surfaces, &lt;code&gt;WebGPUExternalSurface&lt;/code&gt; attaches the backend to an existing native handle and lets the host application drive the frame loop.&lt;/p&gt;
+&lt;h2 id=&quot;geometry%2C-brushes%2C-and-layers&quot; tabindex=&quot;-1&quot;&gt;Geometry, brushes, and layers &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-drawing-300/#geometry%2C-brushes%2C-and-layers&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;V3 changes geometry, brush, and layer handling.&lt;/p&gt;
+&lt;p&gt;The library uses SixLabors.PolygonClipper for clipping and stroke generation:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;boolean clipping (intersection, union, difference, xor)&lt;/li&gt;
+&lt;li&gt;outline generation&lt;/li&gt;
+&lt;li&gt;dashed strokes&lt;/li&gt;
+&lt;li&gt;configurable joins and caps&lt;/li&gt;
+&lt;li&gt;clipping against other paths&lt;/li&gt;
+&lt;li&gt;handling self-intersecting or degenerate input more robustly&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This shows up in the public API:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;explicit &lt;code&gt;BooleanOperation&lt;/code&gt; on &lt;code&gt;ShapeOptions&lt;/code&gt; and &lt;code&gt;IPath.Clip(...)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;IPath.GenerateOutline(...)&lt;/code&gt; extensions for producing stroked geometry, with optional dash patterns&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;StrokeOptions&lt;/code&gt; exposing &lt;code&gt;LineJoin&lt;/code&gt;, &lt;code&gt;LineCap&lt;/code&gt;, &lt;code&gt;MiterLimit&lt;/code&gt;, and &lt;code&gt;ArcDetailScale&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;IntersectionRule&lt;/code&gt; controlling fill rule semantics&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The rewrite also updates the core shape surface, including &lt;code&gt;Path&lt;/code&gt;, &lt;code&gt;PathCollection&lt;/code&gt;, &lt;code&gt;Polygon&lt;/code&gt;, &lt;code&gt;ComplexPolygon&lt;/code&gt;, &lt;code&gt;RectanglePolygon&lt;/code&gt;, &lt;code&gt;RoundedRectanglePolygon&lt;/code&gt;, &lt;code&gt;RegularPolygon&lt;/code&gt;, &lt;code&gt;StarPolygon&lt;/code&gt;, &lt;code&gt;PiePolygon&lt;/code&gt;, &lt;code&gt;EllipsePolygon&lt;/code&gt;, &lt;code&gt;ArcLineSegment&lt;/code&gt;, &lt;code&gt;CubicBezierLineSegment&lt;/code&gt;, and &lt;code&gt;LinearLineSegment&lt;/code&gt;. Paths also expose a cached &lt;code&gt;LinearGeometry&lt;/code&gt; per scale, so the CPU rasterizer does not re-flatten curves for the same path on repeated renders.&lt;/p&gt;
+&lt;p&gt;Brush handling has been reworked across &lt;code&gt;SolidBrush&lt;/code&gt;, &lt;code&gt;PatternBrush&lt;/code&gt;, hatch pattern brushes, &lt;code&gt;ImageBrush&amp;lt;TPixel&amp;gt;&lt;/code&gt;, &lt;code&gt;LinearGradientBrush&lt;/code&gt;, &lt;code&gt;RadialGradientBrush&lt;/code&gt;, &lt;code&gt;EllipticGradientBrush&lt;/code&gt;, &lt;code&gt;PathGradientBrush&lt;/code&gt;, and &lt;code&gt;RecolorBrush&lt;/code&gt;. The new &lt;code&gt;SweepGradientBrush&lt;/code&gt; supports sweep gradients needed by painted glyphs. Brush intent is carried through canvas preparation, batching, and parallel execution without sharing mutable scratch.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;SaveLayer(...)&lt;/code&gt; provides isolated compositing with optional bounds in local coordinates. On the CPU backend layer boundaries become temporary backing buffers during scene execution; on the WebGPU backend they become inline &lt;code&gt;BeginClip&lt;/code&gt;/&lt;code&gt;EndClip&lt;/code&gt; records the fine shader handles directly.&lt;/p&gt;
+&lt;p&gt;Clipped image processing is also constrained to the clip bounds, so operations run through &lt;code&gt;Apply(...)&lt;/code&gt; affect only pixels inside the clipped region.&lt;/p&gt;
+&lt;h2 id=&quot;text-rendering&quot; tabindex=&quot;-1&quot;&gt;Text rendering &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-drawing-300/#text-rendering&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Fonts is ImageSharp.Drawing&#39;s text engine. V3 gives the canvas text APIs built on the Fonts 3 rewrite.&lt;/p&gt;
+&lt;p&gt;The canvas exposes three text primitives:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DrawText(...)&lt;/code&gt; for rich text rendering&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DrawGlyphs(...)&lt;/code&gt; for already-shaped glyph geometry&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;MeasureText(...)&lt;/code&gt; returning a &lt;code&gt;TextMetrics&lt;/code&gt; value with logical advance, ink bounds, renderable bounds, normalized size, per-character entries, and per-line metrics from a single shaping pass&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;DrawText(...)&lt;/code&gt; pairs rich text layout through &lt;code&gt;RichTextOptions&lt;/code&gt; with rendering of monochrome glyphs and painted glyph formats such as COLRv1, SVG, and emoji. Layer compositing follows the font&#39;s paint ordering, so color fonts render through the same canvas API used for plain text.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;MeasureText(...)&lt;/code&gt; uses the same shaping and layout path as rendering. It returns the logical layout metrics, rendered ink bounds, per-character measurements, per-line metrics, hit-testing data, caret positions, and selection bounds needed by editor-style interactions.&lt;/p&gt;
+&lt;p&gt;For text that needs to be measured, wrapped, or drawn repeatedly, Drawing can use the Fonts 3 &lt;code&gt;TextBlock&lt;/code&gt; APIs. &lt;code&gt;TextBlock&lt;/code&gt; shapes text once and can produce line layouts at different widths, which is what you need for rich text editors, multi-column layout, and samples where text flows around shapes or custom regions.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sixlabors.com/img/imagesharp-drawing-text-metrics.png&quot; alt=&quot;ImageSharp.Drawing text metrics visualization&quot; class=&quot;img-fluid&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;ImageSharp.Drawing V3 exposes both logical layout metrics and rendered ink bounds, down to per-character measurements.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;For scenarios where you already have shaped glyph geometry and want a flat monochrome render, &lt;code&gt;DrawGlyphs(...)&lt;/code&gt; is a cheaper alternative. It takes a single brush and pen, and uses a coverage heuristic to keep one dominant background-like layer as outline-only so layered glyphs like emoji still read sensibly.&lt;/p&gt;
+&lt;h2 id=&quot;migration&quot; tabindex=&quot;-1&quot;&gt;Migration &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-drawing-300/#migration&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Treat V3 as a migration, not a point upgrade.&lt;/p&gt;
+&lt;p&gt;The changes to plan for are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;V3 targets .NET 8+&lt;/li&gt;
+&lt;li&gt;the canvas API replaces the older extension-heavy drawing model&lt;/li&gt;
+&lt;li&gt;the package stack moves forward with ImageSharp 4, Fonts 3, and PolygonClipper&lt;/li&gt;
+&lt;li&gt;shapes, paths, brushes, layers, and related APIs have been renamed or relocated to fit the new model&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The public surface now centers on the canvas model.&lt;/p&gt;
+&lt;p&gt;V3 is also the first ImageSharp.Drawing release to enforce a &lt;a href=&quot;https://sixlabors.com/posts/licence-enforcement-changes/&quot;&gt;build-time license key for direct package dependencies&lt;/a&gt;. If you are taking a direct package dependency on ImageSharp.Drawing in a commercial setting, make sure you review that change as part of your upgrade.&lt;/p&gt;
+&lt;p&gt;If you are upgrading from V2, plan for source changes across the drawing API rather than isolated call-site fixes.&lt;/p&gt;
+&lt;h2 id=&quot;closing&quot; tabindex=&quot;-1&quot;&gt;Closing &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-drawing-300/#closing&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;ImageSharp.Drawing 3 moves the library to .NET 8+, replaces the extension-heavy API with &lt;code&gt;DrawingCanvas&lt;/code&gt;, adds retained scenes, rewrites CPU rendering, adds WebGPU targets, moves clipping and stroking onto PolygonClipper, adds hatch and sweep brushes, supports painted glyph rendering, and updates text measurement APIs.&lt;/p&gt;
+&lt;p&gt;Explore the docs, try the new APIs, and let us know what you build with it.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;ImageSharp.Drawing V3.0.0 is licensed under the &lt;a href=&quot;https://raw.githubusercontent.com/SixLabors/ImageSharp.Drawing/main/LICENSE&quot; target=&quot;_blank&quot;&gt;Six Labors Split License&lt;/a&gt;. This means that it is free to use in both non-commercial and certain commercial applications. However, if you are using it in a commercial application and your organization has annual gross revenue exceeding 1M USD per year, you must purchase a commercial license. Please see the &lt;a href=&quot;https://sixlabors.com/pricing/&quot;&gt;Pricing page&lt;/a&gt; for more information.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+</content>
+	</entry>
+	
+	<entry>
+		<title>Announcing ImageSharp 4.0.0</title>
+		<link href="https://sixlabors.com/posts/announcing-imagesharp-400/"/>
+		<updated>2026-05-12T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/announcing-imagesharp-400/</id>
+		<content type="html">&lt;div class=&quot;ratio ratio-16x9&quot;&gt;
+&lt;iframe src=&quot;https://www.youtube.com/embed/OJWJE0x7T4Q?si=K9ik1Wwq0uPlskMZ&quot; allow=&quot;autoplay; encrypted-media;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;ImageSharp 4.0.0 is out.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;ImageSharp 4.0.0 includes a .NET 8+ baseline, SIMD and hot-path performance work, decode-time color conversion, expanded metadata and inspection APIs, new format capabilities, and correctness fixes across the formats people use in production every day.&lt;/p&gt;
+&lt;p&gt;ImageSharp is the foundation of the Six Labors suite, the only graphics stack in any ecosystem designed top to bottom, by one team, in pure .NET.&lt;/p&gt;
+&lt;p&gt;V4 is also the first ImageSharp release to enforce a &lt;a href=&quot;https://sixlabors.com/posts/licence-enforcement-changes/&quot;&gt;build-time license key for direct package dependencies&lt;/a&gt;. More on that below.&lt;/p&gt;
+&lt;h2 id=&quot;what&#39;s-new-since-v3&quot; tabindex=&quot;-1&quot;&gt;What&#39;s new since V3 &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-400/#what&#39;s-new-since-v3&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The main changes since V3 are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A .NET 8+ baseline that lets ImageSharp use current runtime APIs directly.&lt;/li&gt;
+&lt;li&gt;SIMD work across pixel operations, JPEG conversion, compositing, and generated blender paths, including new &lt;code&gt;Vector512&lt;/code&gt; support.&lt;/li&gt;
+&lt;li&gt;Faster hot paths in resize, Porter-Duff compositing, image drawing, streaming, encoder internals, and memory access APIs.&lt;/li&gt;
+&lt;li&gt;Color management updates, with ICC conversion during decode, CICP metadata support, and explicit control over whether embedded profiles are preserved or converted.&lt;/li&gt;
+&lt;li&gt;Inspection, planning, and advanced integration APIs, including &lt;code&gt;ImageInfo.GetPixelMemorySize()&lt;/code&gt;, &lt;code&gt;MemoryAllocatorOptions.AccumulativeAllocationLimitMegabytes&lt;/code&gt;, &lt;code&gt;IImageFrameVisitor&lt;/code&gt;, buffer subregion helpers, and expanded encoded pixel metadata.&lt;/li&gt;
+&lt;li&gt;Metadata conversion between formats, including shared frame timing, disposal, blending, color table, and encoded pixel information.&lt;/li&gt;
+&lt;li&gt;New user-facing capabilities such as APNG support, animated WebP encoding, OpenEXR read/write support, PXR24-compressed OpenEXR decoding, progressive JPEG encoding, JPEG comment marker support, built-in ICO/CUR support, transform additions, exposed convolution APIs, and continued animation improvements.&lt;/li&gt;
+&lt;li&gt;Decoder and metadata hardening across PNG, WebP, GIF, TIFF, JPEG, BMP, TGA, including configurable segment integrity handling for malformed ancillary metadata.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If you use ImageSharp in services, upload pipelines, media backends, rendering workflows, or any other production imaging system, V4 changes the parts of the library that usually determine throughput, memory use, format compatibility, and failure behavior.&lt;/p&gt;
+&lt;h2 id=&quot;.net-8%2B-and-simd-work&quot; tabindex=&quot;-1&quot;&gt;.NET 8+ and SIMD work &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-400/#.net-8%2B-and-simd-work&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;V4 is the first ImageSharp release built for .NET 8+. That removes older target-framework compatibility code and lets the library use the vector, memory, and JIT behavior available in current .NET runtimes.&lt;/p&gt;
+&lt;p&gt;V4 adds &lt;code&gt;Vector512&lt;/code&gt; support to the library&#39;s SIMD infrastructure, continues modernizing &lt;code&gt;Vector128&lt;/code&gt; and &lt;code&gt;Vector256&lt;/code&gt; code paths, and updates the low-level helpers used by pixel operations, JPEG converters, and generated blender implementations.&lt;/p&gt;
+&lt;p&gt;This work is not limited to CPU-family-specific code paths. V4 moves more code onto the newer cross-platform vector APIs so the library can use SIMD across modern .NET runtimes and hardware. That includes ARM-related work in WebP utilities, correctness fixes for non-SSSE3 paths, and SIMD cleanup outside a single codec or processor family.&lt;/p&gt;
+&lt;p&gt;The result is that more per-pixel conversion, blending, and codec work can use the same modern vector APIs across x64 and ARM paths.&lt;/p&gt;
+&lt;h2 id=&quot;faster-hot-paths-from-resize-to-compositing&quot; tabindex=&quot;-1&quot;&gt;Faster hot paths from resize to compositing &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-400/#faster-hot-paths-from-resize-to-compositing&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;V4 changes several hot paths: resize loops, compositing, pixel blenders, streaming, and encoder internals.&lt;/p&gt;
+&lt;p&gt;Resize convolution has been optimized. The Porter-Duff implementation now uses newer operators. The pixel blender APIs support single-color bulk operations, and the blending pipeline uses working buffers for compositing-heavy operations. ImageSharp.Drawing uses the same underlying blending pipeline for layered composition and generated graphics.&lt;/p&gt;
+&lt;p&gt;If you rely on &lt;code&gt;DrawImage&lt;/code&gt;, overlays, watermarks, chart rendering, template-driven asset generation, or any workflow that repeatedly composites one buffer onto another, those operations now hit faster blending and compositing primitives.&lt;/p&gt;
+&lt;p&gt;Some other performance-facing highlights in this release:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Faster JPEG color conversion across RGB, grayscale, CMYK, and YCCK paths, backed by newer SIMD implementations.&lt;/li&gt;
+&lt;li&gt;Faster JPEG decode-and-scale paths, with specialized scaling routines for common factors and cleaner block normalization that improves both throughput and visual output.&lt;/li&gt;
+&lt;li&gt;A rewritten &lt;code&gt;ChunkedMemoryStream&lt;/code&gt; for ImageSharp&#39;s non-seekable load and save paths. It buffers working data for network, upload, and pipeline scenarios without repeatedly reallocating and copying one growing contiguous array.&lt;/li&gt;
+&lt;li&gt;Reduced allocations in the lossless WebP encoder, which lowers GC pressure during repeated encodes.&lt;/li&gt;
+&lt;li&gt;A new adaptive &lt;code&gt;HexadecatreeQuantizer&lt;/code&gt;, replacing the old octree quantizer with a 16-way palette builder, alongside simplified color-matching caches and cleaner palette lookup behavior for indexed workflows.&lt;/li&gt;
+&lt;li&gt;Row-stride overloads for memory APIs, allowing padded foreign buffers to be loaded or wrapped without repacking them first.&lt;/li&gt;
+&lt;li&gt;Parallel scheduling changes, including unbounded parallelism support when explicitly requested and sequential handling for memory-bandwidth-bound crop and convolution paths.&lt;/li&gt;
+&lt;li&gt;Lower-level pixel operations with updated accelerated and fallback paths.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Some of these changes reduce elapsed time. Others reduce allocation pressure or avoid scheduling overhead in paths that already saturate memory bandwidth.&lt;/p&gt;
+&lt;h2 id=&quot;explicit-color-management&quot; tabindex=&quot;-1&quot;&gt;Explicit color management &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-400/#explicit-color-management&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Color management changed in V4.&lt;/p&gt;
+&lt;p&gt;ImageSharp has long been able to preserve embedded ICC metadata. V4 adds decode-time conversion and expands the set of profiles and formats that participate in color conversion. That includes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Colorimetric normalization of JPEG image data during decode.&lt;/li&gt;
+&lt;li&gt;Decode-time ICC conversion for PNG image data.&lt;/li&gt;
+&lt;li&gt;Decode-time ICC conversion for WebP image data.&lt;/li&gt;
+&lt;li&gt;ICC conversion coverage for TIFF, including CIE Lab, CMYK, RGB, and related cases.&lt;/li&gt;
+&lt;li&gt;TIFF/JPEG separated photometric interpretation handling, including default and ICC-driven conversion for JPEG-compressed TIFF files.&lt;/li&gt;
+&lt;li&gt;CICP color metadata support, including PNG &lt;code&gt;cICP&lt;/code&gt; chunk read/write support.&lt;/li&gt;
+&lt;li&gt;Support for sparse ICC v4 LUTs.&lt;/li&gt;
+&lt;li&gt;Standards-correct handling around profile connection spaces, canonical sRGB detection, and the D50 PCS illuminant.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Profile handling is now selected on &lt;code&gt;DecoderOptions&lt;/code&gt;. A decode can preserve the source profile metadata, remove redundant canonical sRGB profile data, or convert decoded pixels into sRGB before the image reaches later processing steps.&lt;/p&gt;
+&lt;p&gt;The decode pipeline exposes that choice directly:&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats;
+
+DecoderOptions options = new()
+{
+    ColorProfileHandling = ColorProfileHandling.Convert
+};
+
+using Image image = Image.Load(options, &amp;quot;input-with-icc.jpg&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;With &lt;code&gt;ColorProfileHandling.Convert&lt;/code&gt;, ImageSharp applies the embedded profile during decode and returns pixels converted to sRGB. With the preserve behavior, ImageSharp keeps the embedded profile metadata attached instead of changing the decoded pixel values for that profile.&lt;/p&gt;
+&lt;p&gt;This affects format conversion because destination formats do not all support the same color models. WebP, for example, cannot represent CMYK source data directly. Decode-time ICC conversion can convert sources such as CMYK JPEGs to sRGB before saving to formats that store RGB pixels.&lt;/p&gt;
+&lt;p&gt;V4 also replaces the old &lt;code&gt;ColorSpaceConverter&lt;/code&gt; with &lt;code&gt;ColorProfileConverter&lt;/code&gt;, which handles working-space and ICC-profile conversion through the same API surface.&lt;/p&gt;
+&lt;p&gt;For image services, media workflows, and print-sensitive tooling, this reduces the number of cases where callers need to decode, inspect profile metadata, and run a separate conversion step before saving to another format.&lt;/p&gt;
+&lt;h2 id=&quot;pixel-metadata-and-preflight&quot; tabindex=&quot;-1&quot;&gt;Pixel metadata and preflight &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-400/#pixel-metadata-and-preflight&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;V4 also adds preflight and pixel inspection APIs. &lt;code&gt;ImageInfo.GetPixelMemorySize()&lt;/code&gt; gives you a decoded pixel-memory estimate before full decode, which helps when validating uploads, budgeting worker memory, or deciding whether a multi-frame asset should be accepted.&lt;/p&gt;
+&lt;p&gt;For allocator-level limits, &lt;code&gt;MemoryAllocatorOptions.AccumulativeAllocationLimitMegabytes&lt;/code&gt; lets applications cap the total active allocations made through a created &lt;code&gt;MemoryAllocator&lt;/code&gt;. The default &lt;code&gt;null&lt;/code&gt; value imposes no accumulative total limit. When set, it gives services another way to bound memory use across concurrent image operations, alongside per-allocation limits and preflight checks.&lt;/p&gt;
+&lt;p&gt;At the same time, the &lt;code&gt;TPixel&lt;/code&gt; model and encoded pixel metadata contract carry more data. &lt;code&gt;IPixel&lt;/code&gt; exposes &lt;code&gt;GetPixelTypeInfo()&lt;/code&gt;, &lt;code&gt;Image&lt;/code&gt; exposes &lt;code&gt;PixelType&lt;/code&gt;, and &lt;code&gt;PixelTypeInfo&lt;/code&gt; can now carry structured information through &lt;code&gt;PixelComponentInfo&lt;/code&gt;, &lt;code&gt;PixelColorType&lt;/code&gt;, and alpha representation details. That gives ImageSharp internals, codecs, converters, and custom &lt;code&gt;TPixel&lt;/code&gt; implementations a contract for questions like whether the source is indexed, luminance-based, RGB, CMYK, YCbCr, or alpha-bearing, how many components it has, and what precision those components carry.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+
+ImageInfo imageInfo = Image.Identify(&amp;quot;input.webp&amp;quot;);
+PixelTypeInfo pixelType = imageInfo.PixelType;
+
+Console.WriteLine($&amp;quot;{imageInfo.Width}x{imageInfo.Height}&amp;quot;);
+Console.WriteLine($&amp;quot;Frames: {imageInfo.FrameCount}&amp;quot;);
+Console.WriteLine($&amp;quot;Bits per pixel: {pixelType.BitsPerPixel}&amp;quot;);
+Console.WriteLine($&amp;quot;Color type: {pixelType.ColorType}&amp;quot;);
+Console.WriteLine($&amp;quot;Alpha: {pixelType.AlphaRepresentation}&amp;quot;);
+Console.WriteLine($&amp;quot;Estimated pixel memory: {imageInfo.GetPixelMemorySize():N0} bytes&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;In practice that helps with:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Rejecting dangerous uploads before a full decode.&lt;/li&gt;
+&lt;li&gt;Budgeting memory for background workers and queues.&lt;/li&gt;
+&lt;li&gt;Capping active allocator usage in services that process multiple images concurrently.&lt;/li&gt;
+&lt;li&gt;Choosing the right destination format during conversion.&lt;/li&gt;
+&lt;li&gt;Preserving higher-precision or alpha-aware workflows when the target format supports them.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For day-to-day ergonomics, V4 also adds an opt-in &lt;code&gt;UseImageSharp&lt;/code&gt; SDK property that pulls in implicit &lt;code&gt;global using&lt;/code&gt; directives for the most common ImageSharp namespaces, so new files do not need the same imports repeated everywhere.&lt;/p&gt;
+&lt;p&gt;Advanced integration points have improved too. &lt;code&gt;IImageFrameVisitor&lt;/code&gt; makes it easier for downstream libraries such as ImageSharp.Drawing to work with frame-specific pixel data without losing the generic &lt;code&gt;TPixel&lt;/code&gt; contract, while the new buffer subregion helpers expose safer ways to describe and pass bounded memory regions through lower-level code.&lt;/p&gt;
+&lt;p&gt;These APIs are aimed at callers that need to decide what to do before allocating decoded pixel buffers, or that need to pass frame data into another ImageSharp-based library without losing the concrete pixel type.&lt;/p&gt;
+&lt;h2 id=&quot;metadata-conversion-between-formats&quot; tabindex=&quot;-1&quot;&gt;Metadata conversion between formats &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-400/#metadata-conversion-between-formats&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;V4 adds explicit metadata conversion between formats.&lt;/p&gt;
+&lt;p&gt;When you load one format and save another, ImageSharp is no longer limited to &amp;quot;decode pixels, then start again from scratch&amp;quot;. V4 formalizes metadata bridging with explicit conversion contracts on the metadata types themselves. Image-level metadata converts through &lt;code&gt;FormatConnectingMetadata&lt;/code&gt; via &lt;code&gt;ToFormatConnectingMetadata()&lt;/code&gt; and &lt;code&gt;FromFormatConnectingMetadata(...)&lt;/code&gt;, and frame-level metadata uses the matching &lt;code&gt;FormatConnectingFrameMetadata&lt;/code&gt; contract.&lt;/p&gt;
+&lt;p&gt;Those joining types carry the shared semantics that can survive a format boundary: encoded pixel information, lossy-versus-lossless intent, indexed-color behavior such as shared color table mode, and animation metadata such as background color, repeat count, frame duration, blend mode, and disposal mode.&lt;/p&gt;
+&lt;p&gt;That lets conversions between PNG, GIF, WebP, TIFF, JPEG, and other formats preserve shared characteristics whenever the target format can represent them.&lt;/p&gt;
+&lt;p&gt;Lower-level metadata handling has also changed. JPEG comments now round-trip through COM marker support, PNG can carry IPTC profiles and CICP color information, XMP profile comparison is normalized through XML semantics, and EXIF encoded strings now follow the byte order declared by the containing TIFF metadata when no byte-order mark is present. Transform operations also update subject-location EXIF metadata where the transformed geometry changes the meaning of the original coordinates.&lt;/p&gt;
+&lt;h2 id=&quot;format-capabilities&quot; tabindex=&quot;-1&quot;&gt;Format capabilities &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-400/#format-capabilities&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;V4 also adds codec-facing capabilities.&lt;/p&gt;
+&lt;p&gt;The additions include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;APNG decoding and encoding.&lt;/li&gt;
+&lt;li&gt;Animated WebP encoding, alongside fuller animated WebP metadata parsing.&lt;/li&gt;
+&lt;li&gt;Progressive JPEG encoding.&lt;/li&gt;
+&lt;li&gt;JPEG COM marker support for image comments.&lt;/li&gt;
+&lt;li&gt;OpenEXR read and write support, including PXR24-compressed OpenEXR decoding.&lt;/li&gt;
+&lt;li&gt;Built-in ICO and CUR decoding.&lt;/li&gt;
+&lt;li&gt;Animation metadata handling across PNG, GIF, and WebP, including repeat counts, frame durations, blend modes, disposal modes, and background behavior.&lt;/li&gt;
+&lt;li&gt;Proper IPTC profile support in PNG.&lt;/li&gt;
+&lt;li&gt;Consistent animation encoder behavior and alpha/transparency handling across supported formats.&lt;/li&gt;
+&lt;li&gt;Metadata conversion APIs between formats.&lt;/li&gt;
+&lt;li&gt;Exposed convolution APIs.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Matrix4x4&lt;/code&gt; transform overloads and &lt;code&gt;QuadDistortion&lt;/code&gt; support in the projective transform builder.&lt;/li&gt;
+&lt;li&gt;Animation loop control for &lt;code&gt;DrawImage&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These additions sit alongside internal changes to shared metadata, alpha, and animation contracts, so the new formats are not isolated one-off codecs.&lt;/p&gt;
+&lt;p&gt;For web delivery pipelines, design tooling, conversion jobs, reporting systems, and generated-media workflows, these additions move format handling into ImageSharp instead of application-specific glue code.&lt;/p&gt;
+&lt;p&gt;APNG, GIF, and WebP describe looping, timing, transparency, blending, and disposal differently. V4 maps those fields through shared animation metadata so conversions can preserve the parts of the source behavior that the destination format can represent.&lt;/p&gt;
+&lt;h2 id=&quot;robustness-across-real-files&quot; tabindex=&quot;-1&quot;&gt;Robustness across real files &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-400/#robustness-across-real-files&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;V4 includes decoder and metadata reliability fixes across GIF, PNG, WebP, TIFF, JPEG, BMP, and TGA.&lt;/p&gt;
+&lt;p&gt;That includes handling for malformed chunks, truncated files, oversized allocations, frame-count edge cases, palette bugs, overflow conditions, transform correctness, and metadata corner cases.&lt;/p&gt;
+&lt;p&gt;V4 also adds explicit segment integrity handling during decode, so malformed ancillary data such as ICC profiles, comments, and application extensions can be handled according to decoder policy instead of each format having to make that decision in isolation.&lt;/p&gt;
+&lt;p&gt;Specific fixes include safer JPEG marker handling, tolerant GIF metadata identification, stricter PNG text and frame-control parsing, TIFF allocation and string-length hardening, WebP chunk parsing normalization, palette and transparency fixes across indexed formats, and defined behavior around odd frame counts or truncated animation data.&lt;/p&gt;
+&lt;p&gt;Some of that work appears as targeted fixes. Some shows up as explicit exceptions for invalid content. Some appears as decode limits that avoid impossible allocation requests or stop parsing truncated metadata before it corrupts later state.&lt;/p&gt;
+&lt;p&gt;These fixes are aimed at files from uploads, crawlers, archives, and third-party tools where metadata and frame data are often malformed but the decoder still has to fail cleanly or recover according to policy.&lt;/p&gt;
+&lt;h2 id=&quot;breaking-and-operational-changes&quot; tabindex=&quot;-1&quot;&gt;Breaking and operational changes &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-400/#breaking-and-operational-changes&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;V4 includes upgrade considerations.&lt;/p&gt;
+&lt;p&gt;The baseline change is that ImageSharp V4 targets .NET 8+.&lt;/p&gt;
+&lt;p&gt;There are also API cleanups and evolutions across areas such as color conversion, transforms, antialiasing, convolution, metadata, and pixel inspection. In most places the direction is simpler and more consistent, but if you maintain lower-level wrappers, custom processors, or integration-heavy code, you should review the release notes carefully before upgrading.&lt;/p&gt;
+&lt;p&gt;V4 is also the first ImageSharp release to enforce a &lt;a href=&quot;https://sixlabors.com/posts/licence-enforcement-changes/&quot;&gt;build-time license key for direct package dependencies&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The licensing behavior is:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The license terms themselves are not changing.&lt;/li&gt;
+&lt;li&gt;The new part is build-time enforcement through a &lt;code&gt;sixlabors.lic&lt;/code&gt; file.&lt;/li&gt;
+&lt;li&gt;This applies to direct dependencies, not transitive consumers.&lt;/li&gt;
+&lt;li&gt;If you already qualify under the existing terms, your entitlement does not change.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If you are using ImageSharp as a qualifying direct dependency in closed-source software, make sure your licensing setup is in place before upgrading to V4. If you qualify for community licensing, you can apply via &lt;a href=&quot;https://licensing.sixlabors.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;licensing.sixlabors.com&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;closing&quot; tabindex=&quot;-1&quot;&gt;Closing &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-400/#closing&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;It moves ImageSharp to .NET 8+, adds decode-time color conversion, expands animation and metadata handling, adds new codecs and encoder capabilities, improves resize, JPEG, compositing, blending, and memory-buffer paths, and hardens decoders against malformed data across the supported formats.&lt;/p&gt;
+&lt;p&gt;Thank you, as always, to everyone who has used ImageSharp, reported issues, contributed fixes, and tested previews.&lt;/p&gt;
+&lt;p&gt;We are excited to see what you build with it.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;ImageSharp V4.0.0 is licensed under the &lt;a href=&quot;https://raw.githubusercontent.com/SixLabors/ImageSharp/main/LICENSE&quot; target=&quot;_blank&quot;&gt;Six Labors Split License&lt;/a&gt;. This means that it is free to use in both non-commercial and certain commercial applications. However, if you are using it in a commercial application and your organization has annual gross revenue exceeding 1M USD per year, you must purchase a commercial license. Please see the &lt;a href=&quot;https://sixlabors.com/pricing/&quot;&gt;Pricing page&lt;/a&gt; for more information.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+</content>
+	</entry>
+	
+	<entry>
+		<title>Announcing Fonts 3.0.0</title>
+		<link href="https://sixlabors.com/posts/announcing-fonts-300/"/>
+		<updated>2026-05-12T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/announcing-fonts-300/</id>
+		<content type="html">&lt;div class=&quot;ratio ratio-16x9&quot;&gt;
+&lt;iframe src=&quot;https://www.youtube.com/embed/8EdxM72EZ94?si=nSx89hlKfOjNjU_J&quot; allow=&quot;autoplay; encrypted-media;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Fonts 3.0.0 is out.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Fonts 3.0.0 includes a .NET 8+ baseline, SVG and COLR v1 color fonts, variable-font support, Unicode 17 data, shaping and layout updates, FreeType v40-compatible TrueType hinting, new measurement and text interaction APIs, and fixes across font loading, shaping, line breaking, bounds, and rendering.&lt;/p&gt;
+&lt;p&gt;Fonts is a standalone text engine for loading fonts, shaping text, measuring layout, inspecting metrics, and driving custom renderers. It is also part of the Six Labors suite, the only graphics stack in any ecosystem designed top to bottom, by one team, in pure .NET.&lt;/p&gt;
+&lt;p&gt;The release targets applications that need text layout rather than simple glyph drawing: editors, dashboards, report generators, creative tools, export pipelines, game UI, diagramming systems, and graphics workflows.&lt;/p&gt;
+&lt;p&gt;V3 is also the first Fonts release to enforce a &lt;a href=&quot;https://sixlabors.com/posts/licence-enforcement-changes/&quot;&gt;build-time license key for direct package dependencies&lt;/a&gt;. More on that below.&lt;/p&gt;
+&lt;h2 id=&quot;what&#39;s-new-since-v2&quot; tabindex=&quot;-1&quot;&gt;What&#39;s new since V2 &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-fonts-300/#what&#39;s-new-since-v2&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;A &lt;code&gt;.NET 8+&lt;/code&gt; baseline for the library&lt;/li&gt;
+&lt;li&gt;Public support for SVG color fonts and COLR v1 paint-graph glyphs&lt;/li&gt;
+&lt;li&gt;Variable-font support across &lt;code&gt;fvar&lt;/code&gt;, &lt;code&gt;gvar&lt;/code&gt;, &lt;code&gt;hvar&lt;/code&gt;, &lt;code&gt;vvar&lt;/code&gt;, &lt;code&gt;cvar&lt;/code&gt;, &lt;code&gt;MVAR&lt;/code&gt;, feature variations, and CFF2&lt;/li&gt;
+&lt;li&gt;Unicode 17 data, East Asian Width support, emoji properties, and public Unicode property APIs on &lt;code&gt;CodePoint&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Grapheme cluster APIs with terminal-cell width calculation and emoji-aware metadata&lt;/li&gt;
+&lt;li&gt;Hebrew and Thai/Lao shapers, plus Indic shaping fixes for dotted-circle insertion and reordering&lt;/li&gt;
+&lt;li&gt;FreeType v40-compatible TrueType hinting&lt;/li&gt;
+&lt;li&gt;Measurement and interaction APIs including &lt;code&gt;TextMetrics&lt;/code&gt;, &lt;code&gt;TextBlock&lt;/code&gt;, line layout enumeration, hit testing, caret movement, selection bounds, soft hyphenation, ellipsis, and inline placeholders&lt;/li&gt;
+&lt;li&gt;Layout behavior changes for justification, vertical layout, fallback font metrics, and line breaking&lt;/li&gt;
+&lt;li&gt;Performance and allocation work across shaping, glyph lookup, SVG glyph caching, variation instance handling, and color glyph rendering&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;color-fonts&quot; tabindex=&quot;-1&quot;&gt;Color Fonts &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-fonts-300/#color-fonts&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Fonts 3 adds public support for SVG color fonts and COLR v1 paint-graph glyphs.&lt;/p&gt;
+&lt;p&gt;SVG color fonts and COLR v1 sit alongside COLR v0 support. The renderer can now receive gradients, transforms, clipping, layered paints, and SVG-backed glyph content through the public glyph-rendering pipeline.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using SixLabors.Fonts;
+
+FontCollection collection = new();
+FontFamily family = collection.Add(&amp;quot;fonts/NotoColorEmoji-Regular.ttf&amp;quot;);
+Font font = family.CreateFont(32);
+
+TextOptions options = new(font)
+{
+    ColorFontSupport = ColorFontSupport.ColrV1 | ColorFontSupport.ColrV0 | ColorFontSupport.Svg
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;https://sixlabors.com/img/fonts-300-colrv1.png&quot; alt=&quot;COLR v1 color font rendering&quot; class=&quot;img-fluid&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Fonts 3 renders painted glyphs through the same layout engine used for monochrome glyphs, including COLR v1 paint graphs and SVG-backed color glyphs.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Color fonts are not only for emoji. They also appear in brand, UI, icon, and display-font workflows where monochrome outlines cannot represent the source font.&lt;/p&gt;
+&lt;p&gt;Fonts resolves these color technologies into a painted-glyph flow through &lt;code&gt;IGlyphRenderer&lt;/code&gt;. Consumers can handle layered text, solid paints, linear, radial, and sweep gradients, clip quads, and fill rules without building a separate renderer path for each color-font table.&lt;/p&gt;
+&lt;p&gt;V3 also separates glyph transforms from paint transforms when flattening COLR v1 paint graphs. That matters for glyphs where the geometry and the paint node transform independently. SVG color glyph parsing now uses document-span caching and default inherited paint handling, reducing repeated parsing work and producing more consistent fallback fills.&lt;/p&gt;
+&lt;h2 id=&quot;variable-fonts-arrive-in-v3&quot; tabindex=&quot;-1&quot;&gt;Variable fonts arrive in V3 &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-fonts-300/#variable-fonts-arrive-in-v3&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Fonts 3 implements variable fonts across the main TrueType and OpenType variation tables.&lt;/p&gt;
+&lt;p&gt;Fonts 3 implements variable fonts end to end: &lt;code&gt;fvar&lt;/code&gt;, &lt;code&gt;gvar&lt;/code&gt;, &lt;code&gt;hvar&lt;/code&gt;, &lt;code&gt;vvar&lt;/code&gt;, &lt;code&gt;cvar&lt;/code&gt;, &lt;code&gt;MVAR&lt;/code&gt;, feature variations, normalized variation coordinates, and CFF2-based variation data. Design-space coordinates affect outlines, metrics, positioning, control values, and layout behavior across the stack, and V3 handles all of it.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using SixLabors.Fonts;
+
+FontCollection collection = new();
+FontFamily family = collection.Add(&amp;quot;fonts/RobotoFlex.ttf&amp;quot;);
+
+Font font = family.CreateFont(
+    16,
+    new FontVariation(KnownVariationAxes.Weight, 700),
+    new FontVariation(KnownVariationAxes.Width, 85),
+    new FontVariation(KnownVariationAxes.OpticalSize, 16));
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class=&quot;row text-center mb-3&quot;&gt;
+    &lt;div class=&quot;col-sm-6&quot;&gt;
+        &lt;img class=&quot;img-fluid&quot; src=&quot;https://sixlabors.com/img/fonts-300-variation-light-200.png&quot; alt=&quot;Adobe Variable Font Prototype at weight 200&quot; /&gt;
+        &lt;p&gt;Weight 200&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;col-sm-6&quot;&gt;
+        &lt;img class=&quot;img-fluid&quot; src=&quot;https://sixlabors.com/img/fonts-300-variation-black-900.png&quot; alt=&quot;Adobe Variable Font Prototype at weight 900&quot; /&gt;
+        &lt;p&gt;Weight 900&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;em&gt;Fonts 3 applies variation data so one font file can expose multiple positions in its design space.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The public API makes all of that accessible. &lt;code&gt;KnownVariationAxes&lt;/code&gt; gives developers a straightforward way to target common registered axes, &lt;code&gt;FontVariation&lt;/code&gt; follows CSS-style variation semantics, and &lt;code&gt;FontMetrics.TryGetVariationAxes(...)&lt;/code&gt; makes it easy to inspect what a font actually exposes.&lt;/p&gt;
+&lt;p&gt;Variation data affects outlines, metrics, positioning, and hinting. Fonts applies those values during shaping and layout instead of treating a variable font as a static outline source.&lt;/p&gt;
+&lt;h2 id=&quot;shaping%2C-unicode%2C-and-layout&quot; tabindex=&quot;-1&quot;&gt;Shaping, Unicode, and Layout &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-fonts-300/#shaping%2C-unicode%2C-and-layout&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Fonts 3 updates shaping, Unicode data, and line layout.&lt;/p&gt;
+&lt;p&gt;The shaping engine covers GSUB and GPOS, bidirectional layout, mirrored-form handling, and fallback-aware layout. V3 adds Hebrew and Thai/Lao shapers, Indic fixes for dotted-circle insertion and reordering, and layout refinements backed by browser-comparison tests.&lt;/p&gt;
+&lt;p&gt;That shows up in the API in practical ways too. &lt;code&gt;TextDirection.Auto&lt;/code&gt;, &lt;code&gt;FallbackFontFamilies&lt;/code&gt;, &lt;code&gt;TextRuns&lt;/code&gt;, known OpenType feature tags, and the line-breaking and layout machinery underneath them all depend on the same shaping core. Fonts handles mixed LTR and RTL content, emoji, fallback-heavy UI strings, scripts that need shaping, and wrapped text that follows Unicode line-breaking data.&lt;/p&gt;
+&lt;p&gt;The Unicode data has been updated to Unicode 17. &lt;code&gt;CodePoint&lt;/code&gt; now exposes public property APIs for script class, Arabic joining data, Indic shaping categories, Indic conjunct break class, East Asian Width, and emoji properties. Grapheme enumeration now returns &lt;code&gt;GraphemeCluster&lt;/code&gt; values with UTF-16 offsets, code point counts, flags, and terminal-cell width information.&lt;/p&gt;
+&lt;p&gt;Terminal-width APIs let callers compute display-cell width for East Asian wide/fullwidth clusters, emoji presentation, emoji ZWJ clusters, ambiguous-width characters, and controls using an explicit &lt;code&gt;TerminalWidthOptions&lt;/code&gt; policy.&lt;/p&gt;
+&lt;p&gt;Layout fixes include line-break state cleanup after colon-separated text, paragraph-final lines no longer being justified, vertical layout fixes, fallback glyph substitution using the resolved fallback font metrics, ligature caret fixes, and safeguards around invalid coverage tables and missing CFF tables.&lt;/p&gt;
+&lt;h2 id=&quot;freetype-v40-compatible-hinting&quot; tabindex=&quot;-1&quot;&gt;FreeType v40-compatible hinting &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-fonts-300/#freetype-v40-compatible-hinting&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;V3 adds FreeType v40-compatible TrueType hinting.&lt;/p&gt;
+&lt;p&gt;The implementation executes TrueType instructions and applies control value table data before glyph positioning. That affects small-size UI text, dashboards, editors, terminals, and other dense text surfaces where hinted outlines change pixel placement.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using SixLabors.Fonts;
+
+Font font = SystemFonts.CreateFont(&amp;quot;Segoe UI&amp;quot;, 11);
+TextOptions options = new(font)
+{
+    Dpi = 96,
+    HintingMode = HintingMode.Standard
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;The hinting path includes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;full TrueType instruction execution&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;fpgm&lt;/code&gt;, &lt;code&gt;prep&lt;/code&gt;, and &lt;code&gt;cvt&lt;/code&gt; support&lt;/li&gt;
+&lt;li&gt;variable-font &lt;code&gt;cvar&lt;/code&gt; adjustments before hinting runs&lt;/li&gt;
+&lt;li&gt;hinted contour-point handling for positioning scenarios that depend on it&lt;/li&gt;
+&lt;li&gt;behavior aligned with FreeType&#39;s v40 subpixel interpreter&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The goal is stable glyph fit and baseline behavior at UI sizes.&lt;/p&gt;
+&lt;h2 id=&quot;measurement-and-custom-rendering&quot; tabindex=&quot;-1&quot;&gt;Measurement and custom rendering &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-fonts-300/#measurement-and-custom-rendering&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Fonts 3 expands measurement, prepared layout, and renderer-facing APIs.&lt;/p&gt;
+&lt;p&gt;The measurement APIs separate layout boxes from rendered ink. &lt;code&gt;MeasureAdvance(...)&lt;/code&gt; gives you the logical layout rectangle. &lt;code&gt;MeasureBounds(...)&lt;/code&gt; gives you tight glyph ink bounds. &lt;code&gt;MeasureRenderableBounds(...)&lt;/code&gt; gives you the union of both. That distinction affects overshoot, color glyphs, decorations, and wrapped layout.&lt;/p&gt;
+&lt;p&gt;When a single layout pass needs to feed several questions at once, &lt;code&gt;TextMeasurer.Measure(...)&lt;/code&gt; returns a &lt;code&gt;TextMetrics&lt;/code&gt; value that exposes advance, ink bounds, renderable bounds, line metrics, grapheme metrics, and word metrics from one shaping pass, alongside built-in hit testing, caret positioning, and selection geometry for editor-style interactions.&lt;/p&gt;
+&lt;p&gt;Measurement runs through the same shaping and layout engine that rendering uses, so text fitting, label placement, editor chrome, diagram annotations, and UI layout can use the same glyph positions that rendering will consume.&lt;/p&gt;
+&lt;p&gt;V3 also adds wrapped-text inspection through &lt;code&gt;CountLines(...)&lt;/code&gt; and &lt;code&gt;GetLineMetrics(...)&lt;/code&gt;, with &lt;code&gt;LineMetrics&lt;/code&gt; exposing ascender, baseline, descender, line height, start, and extent for each laid-out line.&lt;/p&gt;
+&lt;p&gt;For text that is measured, wrapped, or rendered repeatedly at different widths, &lt;code&gt;TextBlock&lt;/code&gt; shapes the string once and lets callers vary the wrapping length per call. &lt;code&gt;GetLineLayouts(...)&lt;/code&gt; returns stacked block coordinates, while &lt;code&gt;EnumerateLineLayouts()&lt;/code&gt; returns line-local coordinates when each line lands in a different column, frame, or shape.&lt;/p&gt;
+&lt;p&gt;For custom renderers, &lt;code&gt;IGlyphRenderer&lt;/code&gt; now receives paint-aware inputs for layered color glyphs, normalized bounds, and layout data that includes the resolved &lt;code&gt;Font&lt;/code&gt; used for each glyph. That helps SVG export, PDF generation, game or UI engines, diagnostics tooling, and any surface where Fonts performs shaping while the application owns drawing.&lt;/p&gt;
+&lt;h2 id=&quot;performance-and-correctness&quot; tabindex=&quot;-1&quot;&gt;Performance and correctness &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-fonts-300/#performance-and-correctness&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;V3 includes performance and correctness work throughout the shaping and layout engine:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;faster glyph shaping and lookup paths&lt;/li&gt;
+&lt;li&gt;reduced allocations in color glyph processing and related render paths&lt;/li&gt;
+&lt;li&gt;variation instance caching that shares base font lookups across design-space instances&lt;/li&gt;
+&lt;li&gt;measurement and bounds handling that fixes origin and drift issues&lt;/li&gt;
+&lt;li&gt;correctness fixes across vertical layout, decoration placement, ligature carets, and clipping&lt;/li&gt;
+&lt;li&gt;compatibility logic and targeted fixes for awkward or broken fonts&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These changes reduce repeated layout work, avoid allocations in glyph streaming and color glyph paths, and fix cases where malformed or unusual fonts previously produced incorrect layout or exceptions.&lt;/p&gt;
+&lt;h2 id=&quot;breaking-and-operational-changes&quot; tabindex=&quot;-1&quot;&gt;Breaking and operational changes &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-fonts-300/#breaking-and-operational-changes&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Fonts 3 includes upgrade considerations.&lt;/p&gt;
+&lt;p&gt;The baseline change is that Fonts now targets &lt;code&gt;.NET 8+&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;There are API cleanups and behavior changes across shaping, measurement, color glyphs, decorations, layout defaults, and variation support. If you maintain custom renderers, layout-sensitive tests, or wrappers over the lower-level APIs, review the V3 release notes before upgrading.&lt;/p&gt;
+&lt;p&gt;Fonts 3 is also the first release of the library to enforce a &lt;a href=&quot;https://sixlabors.com/posts/licence-enforcement-changes/&quot;&gt;build-time license key for direct package dependencies&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The licensing behavior is:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;the license terms themselves are not changing&lt;/li&gt;
+&lt;li&gt;the new part is build-time enforcement through a &lt;code&gt;sixlabors.lic&lt;/code&gt; file&lt;/li&gt;
+&lt;li&gt;this applies to direct dependencies, not transitive consumers&lt;/li&gt;
+&lt;li&gt;if you already qualify under the existing terms, your entitlement does not change&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If you are using Fonts as a qualifying direct dependency in closed-source software, make sure your licensing setup is in place before upgrading. If you qualify for community licensing, you can apply via &lt;a href=&quot;https://licensing.sixlabors.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;licensing.sixlabors.com&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;closing&quot; tabindex=&quot;-1&quot;&gt;Closing &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-fonts-300/#closing&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Fonts 3 moves the library to .NET 8+, adds SVG and COLR v1 color glyph rendering, implements variable-font tables, updates Unicode data to version 17, adds grapheme and terminal-width APIs, expands measurement and interaction APIs, implements FreeType v40-compatible TrueType hinting, and fixes shaping, layout, bounds, and font-loading edge cases.&lt;/p&gt;
+&lt;p&gt;Thank you, as always, to everyone who has used the library, reported issues, contributed fixes, and tested previews.&lt;/p&gt;
+&lt;p&gt;We are excited to see what you build with it.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Fonts 3.0.0 is licensed under the &lt;a href=&quot;https://raw.githubusercontent.com/SixLabors/Fonts/main/LICENSE&quot; target=&quot;_blank&quot;&gt;Six Labors Split License&lt;/a&gt;. This means that it is free to use in both non-commercial and certain commercial applications. However, if you are using it in a commercial application and your organization has annual gross revenue exceeding 1M USD per year, you must purchase a commercial license. Please see the &lt;a href=&quot;https://sixlabors.com/pricing/&quot;&gt;Pricing page&lt;/a&gt; for more information.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>License Enforcement Changes and a New Subscription Tier</title>
@@ -19,7 +869,7 @@
 		<id>https://sixlabors.com/posts/licence-enforcement-changes/</id>
 		<content type="html">&lt;p&gt;Over the past few years Six Labors libraries have become a critical part of many production systems. That adoption has been fantastic to see, but it also means we need to make sure our licensing model is both sustainable and fair. To support that, we are introducing some important updates.&lt;/p&gt;
 &lt;h2 id=&quot;why-the-change%3F&quot; tabindex=&quot;-1&quot;&gt;Why the change? &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/licence-enforcement-changes/#why-the-change%3F&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;Until now, licenses have been enforced purely through legal terms. While most organizations comply, there are always some who rely on the honor system being unenforced. This hurts those who do the right thing and pay for their usage.&lt;/p&gt;
+&lt;p&gt;Until now, licenses have been enforced purely through legal terms. Some organizations comply, but our download statistics indicate that the number of compliant commercial users is a very low percentage of the expected number. That hurts those who do the right thing and pay for their usage.&lt;/p&gt;
 &lt;p&gt;To level the playing field, Six Labors projects will now introduce a &lt;strong&gt;build time license key&lt;/strong&gt;. This ensures that only organizations with the correct license can compile projects that directly depend on our libraries.&lt;/p&gt;
 &lt;p&gt;This only applies to &lt;strong&gt;direct dependencies&lt;/strong&gt;. If you use a third party package that depends on our libraries, you do not need a license. The responsibility is on the immediate consumer.&lt;/p&gt;
 &lt;h2 id=&quot;what-is-not-changing%3F&quot; tabindex=&quot;-1&quot;&gt;What is not changing? &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/licence-enforcement-changes/#what-is-not-changing%3F&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
@@ -51,16 +901,35 @@
 &lt;p&gt;This file will allow you to experiment with upcoming releases before the enforcement goes live.&lt;br /&gt;
 It expires on &lt;strong&gt;2026-09-04&lt;/strong&gt;.&lt;/p&gt;
 &lt;h2 id=&quot;how-to-use-the-license-file&quot; tabindex=&quot;-1&quot;&gt;How to use the license file &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/licence-enforcement-changes/#how-to-use-the-license-file&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;By default, the &lt;code&gt;sixlabors.lic&lt;/code&gt; file must be placed in the same folder as your project file.&lt;br /&gt;
-If you want to share a single license file across multiple projects, you can set its location using the &lt;code&gt;$(SixLaborsLicenseFile)&lt;/code&gt; property in your project file or a shared props file.&lt;/p&gt;
-&lt;p&gt;This gives you the flexibility to either keep the file local to each project or manage it centrally.&lt;/p&gt;
+&lt;p&gt;By default, the build searches from each project directory for &lt;code&gt;sixlabors.lic&lt;/code&gt;. Place the supplied file in the directory that contains the project file, or in a subdirectory below it. Use the file as supplied; it already contains the complete license string required by the build.&lt;/p&gt;
+&lt;p&gt;If you want to keep the file somewhere else, including a repository root that sits above the project directory, set &lt;code&gt;SixLaborsLicenseFile&lt;/code&gt; in your project file or a shared props file:&lt;/p&gt;
 &lt;div class=&quot;frame&quot;&gt;
 &lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt;&amp;lt;PropertyGroup&amp;gt;
-  &amp;lt;!-- Point to a shared license file for all projects --&amp;gt;
-  &amp;lt;SixLaborsLicenseFile&amp;gt;PATH_TO_YOUR\sixlabors.lic&amp;lt;/SixLaborsLicenseFile&amp;gt;
+  &amp;lt;SixLaborsLicenseFile&amp;gt;path/to/sixlabors.lic&amp;lt;/SixLaborsLicenseFile&amp;gt;
 &amp;lt;/PropertyGroup&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+&lt;p&gt;If you do not want to store the license on disk, pass the license string directly from an environment variable or secret store. When extracting the value from &lt;code&gt;sixlabors.lic&lt;/code&gt;, use the full file contents, not only the &lt;code&gt;Key&lt;/code&gt; field:&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt;&amp;lt;PropertyGroup&amp;gt;
+  &amp;lt;SixLaborsLicenseKey&amp;gt;$(SIXLABORS_LICENSE_KEY)&amp;lt;/SixLaborsLicenseKey&amp;gt;
+&amp;lt;/PropertyGroup&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;You can also pass the key to common .NET CLI commands.&lt;/p&gt;
+&lt;p&gt;PowerShell:&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;dotnet build &amp;quot;/p:SixLaborsLicenseKey=$env:SIXLABORS_LICENSE_KEY&amp;quot;
+dotnet publish &amp;quot;/p:SixLaborsLicenseKey=$env:SIXLABORS_LICENSE_KEY&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Bash and other shells that expand environment variables with &lt;code&gt;$NAME&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;dotnet build -p:SixLaborsLicenseKey=&amp;quot;$SIXLABORS_LICENSE_KEY&amp;quot;
+dotnet publish -p:SixLaborsLicenseKey=&amp;quot;$SIXLABORS_LICENSE_KEY&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Build as normal after the file or property is configured. If the license is missing or invalid, the build fails with a clear error. You do not need to reference the licensing package directly; it is carried by Six Labors libraries.&lt;/p&gt;
 &lt;h2 id=&quot;new-subscription-tier%3A-agency&quot; tabindex=&quot;-1&quot;&gt;New subscription tier: Agency &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/licence-enforcement-changes/#new-subscription-tier%3A-agency&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;We are also introducing a new subscription tier to better fit medium sized teams.&lt;/p&gt;
 &lt;p&gt;The former &lt;strong&gt;Boutique Agency&lt;/strong&gt; tier is now simply called &lt;strong&gt;Boutique&lt;/strong&gt;. We’ve also introduced a new &lt;strong&gt;Agency&lt;/strong&gt; tier for organizations with 11–20 developers. If you previously held a Boutique Agency license, you’re now in the Boutique tier with no change to your entitlement.&lt;/p&gt;

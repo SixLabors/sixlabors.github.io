@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Six Labors : Announcing PolygonClipper 1.0.0</title>
+    <meta name="description" content="PolygonClipper 1 brings polygon booleans, self-intersection cleanup, and stroke-outline generation to .NET 8+.">
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"/>
+    <link 
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet" 
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/default.min.css"/>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/highlightjs-themes@1.0.0/monokai_sublime.min.css"/>
+    <link rel="stylesheet" href="/css/style.css">
+    
+    
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Six Labors">
+    <link rel="alternate" href="/feed/feed.json" type="application/json" title="Six Labors">
+    <meta name="msvalidate.01" content="BA6460B0F12FECDF7D03F34A5709833F"/>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92691012-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-92691012-1');
+    </script>
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "6o9zxkbyg4");
+    </script>
+  </head>
+  <body>
+    <header class="navbar navbar-expand-md sl-navbar shadow-sm">
+      <nav class="container-xxl flex-wrap flex-md-nowrap">
+        <a class="navbar-brand" href="/">
+          <img
+            src="/css/img/sixlabors.text.svg"
+            alt="Six Labors"
+            class="sl-brand"/>
+          <span class="visually-hidden">Six Labors</span>
+        </a>
+        <button
+          class="navbar-toggler collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#slNavbar"
+          aria-controls="slNavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            class="bi"
+            fill="currentColor"
+            viewBox="0 0 16 16">
+            <path
+              fill-rule="evenodd"
+              d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+            ></path>
+          </svg>
+        </button>
+        <div class="navbar-collapse collapse" id="slNavbar">
+          <ul class="navbar-nav flex-row flex-wrap sl-navbar-nav pt-2 py-md-0">
+              <li class="nav-item col-6 col-md-auto" >
+                <a 
+                  class="nav-link p-2" 
+                  href="/"
+                  >Home</a>
+              </li>
+              <li class="nav-item col-6 col-md-auto" >
+                <a 
+                  class="nav-link p-2" 
+                  href="/products/"
+                  >Products</a>
+              </li>
+              <li class="nav-item col-6 col-md-auto" >
+                <a 
+                  class="nav-link p-2" 
+                  href="/pricing/"
+                  >Pricing</a>
+              </li>
+              <li class="nav-item col-6 col-md-auto" >
+                <a 
+                  class="nav-link p-2" 
+                  href="https://docs.sixlabors.com"
+                   target="_blank" rel="noopener">Documentation</a>
+              </li>
+              <li class="nav-item col-6 col-md-auto" >
+                <a 
+                  class="nav-link p-2" 
+                  href="/posts/"
+                  >Blog</a>
+              </li>
+          </ul>
+
+          <hr class="d-md-none text-secondary"/>
+
+          <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+            <li class="nav-item col-6 col-md-auto">
+              <a
+                class="nav-link p-2"
+                href="https://github.com/sixlabors"
+                target="_blank"
+                rel="noopener">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  class="navbar-nav-svg d-inline-block align-text-top"
+                  viewBox="0 0 512 499.36"
+                  role="img">
+                  <title>GitHub</title>
+                  <path
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                    d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z"
+                  ></path>
+                </svg>
+                <span class="d-md-none ms-2">GitHub</span>
+              </a>
+            </li>
+            <li class="nav-item col-6 col-md-auto">
+              <a
+                class="nav-link p-2"
+                href="https://x.com/sixlabors"
+                target="_blank"
+                rel="noopener"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  class="navbar-nav-svg d-inline-block align-text-top"
+                  viewBox="0 0 1200 1227"
+                  role="img">
+                  <title>X</title>
+                  <path
+                    fill="currentColor"
+                    d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z"
+                  ></path>
+                </svg>
+                <span class="d-md-none ms-2">X</span>
+              </a>
+            </li>
+            <li class="nav-item col-6 col-md-auto">
+              <a
+                class="nav-link p-2"
+                href="https://opencollective.com/sixlabors"
+                target="_blank"
+                rel="noopener">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                  class="navbar-nav-svg d-inline-block align-text-top"
+                  viewBox="0 0 40 41"
+                  role="img">
+                  <title>Open Collective</title>
+                  <path
+                    fill-opacity=".4"
+                    d="M32.8 21c0 2.4-.8 4.9-2 6.9l5.1 5.1c2.5-3.4 4.1-7.6 4.1-12 0-4.6-1.6-8.8-4-12.2L30.7 14c1.2 2 2 4.3 2 7z"
+                  ></path>
+                  <path
+                    d="M20 33.7a12.8 12.8 0 0 1 0-25.6c2.6 0 5 .7 7 2.1L32 5a20 20 0 1 0 .1 31.9l-5-5.2a13 13 0 0 1-7 2z"
+                  ></path>
+                </svg>
+                <span class="d-md-none ms-2">Open Collective</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main class="tmpl-post" role="main">
+      
+
+
+
+      <div class="masthead">
+  <div class="container">
+    <h1 class="mb-3">
+      Announcing PolygonClipper 1.0.0
+    </h1>
+    <p class="lead mb-4">
+      PolygonClipper 1 brings polygon booleans, self-intersection cleanup, and stroke-outline generation to .NET 8+.
+    </p>
+    <div><a href="/tags/releases/" class="post-tag btn btn-primary shadow">Releases</a><a href="/tags/polygonclipper/" class="post-tag btn btn-primary shadow">PolygonClipper</a><a href="/tags/imagesharp.drawing/" class="post-tag btn btn-primary shadow">ImageSharp.Drawing</a>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class= row>
+      <div class="col-md-8">
+        <article>
+          <time datetime="2026-05-12">12 May 2026</time>
+
+          <div class="ratio ratio-16x9">
+<iframe src="https://www.youtube.com/embed/XRGRsYg_fro?si=KmfPDxW-XpnDu_WE" allow="autoplay; encrypted-media;" allowfullscreen></iframe>
+</div>
+<p><strong>PolygonClipper 1.0.0 is out.</strong></p>
+<p>PolygonClipper is a new Six Labors geometry library for polygon boolean operations, self-intersection cleanup, and stroke-outline generation in .NET 8+. It exists because ImageSharp.Drawing needed a dedicated geometry engine for non-convex shapes, holes, multiple contours, overlapping edges, self-intersections, and imported vector input.</p>
+<p>The public API is small: build <code>Vertex</code>, <code>Contour</code>, and <code>Polygon</code> values, then call <code>PolygonClipper</code> or <code>PolygonStroker</code>. The implementation uses double-precision coordinates, sweep-line boolean operations, an explicit normalization path, and reusable internal buffers behind the static entry points.</p>
+<p>PolygonClipper is the geometry engine used by ImageSharp.Drawing 3 for boolean path work and stroke geometry generation. It now ships as a standalone package for applications that need that layer directly.</p>
+<p>As with the other current Six Labors libraries, PolygonClipper 1.0 enforces a <a href="/posts/licence-enforcement-changes/">build-time license key for direct package dependencies</a>. More on that below.</p>
+<h2 id="what's-in-polygonclipper-1" tabindex="-1">What's in PolygonClipper 1 <a class="direct-link" href="#what's-in-polygonclipper-1">#</a></h2>
+<ul>
+<li>Polygon boolean operations for <code>Intersection</code>, <code>Union</code>, <code>Difference</code>, and <code>Xor</code></li>
+<li>A separate normalization pipeline for resolving self-intersections and overlaps into canonical positive-winding output</li>
+<li>Stroke-outline generation through <code>PolygonStroker</code></li>
+<li>Support for non-convex polygons, holes, multiple disjoint regions, overlapping edges, and vertical segments</li>
+<li>Double-precision geometry without coordinate quantization</li>
+<li>An API built around <code>Vertex</code>, <code>Contour</code>, <code>Polygon</code>, <code>PolygonClipper</code>, and <code>PolygonStroker</code></li>
+<li>Internal pooling and reusable instances behind the recommended static entry points</li>
+</ul>
+<h2 id="2d-geometry-workloads" tabindex="-1">2D geometry workloads <a class="direct-link" href="#2d-geometry-workloads">#</a></h2>
+<p>Polygon clipping has few options available to .NET developers. Existing libraries often come with trade-offs: coordinate quantization, native dependencies, complex APIs, or limited scope.</p>
+<p>PolygonClipper is designed for geometry workloads that include:</p>
+<ul>
+<li>non-convex shapes</li>
+<li>nested contours and holes</li>
+<li>multiple islands in one result</li>
+<li>overlapping edges</li>
+<li>self-intersections</li>
+<li>stroke outlines with joins, caps, and miter rules</li>
+</ul>
+<p>.NET applications doing map work, diagramming, CAD-adjacent processing, export pipelines, hit regions, tool-path preparation, vector cleanup, or generated graphics can use PolygonClipper directly.</p>
+<p>The API stays small:</p>
+<ul>
+<li><code>Vertex</code> is one 2D point</li>
+<li><code>Contour</code> is one ring of vertices</li>
+<li><code>Polygon</code> is a collection of contours</li>
+</ul>
+<p>From there, most applications either combine regions with <code>PolygonClipper</code> or generate filled outline geometry with <code>PolygonStroker</code>.</p>
+<h2 id="a-quick-primer-on-clipping" tabindex="-1">A quick primer on clipping <a class="direct-link" href="#a-quick-primer-on-clipping">#</a></h2>
+<p>At a high level, clipping means taking two input regions, usually called the <code>subject</code> and the <code>clip</code>, and combining them according to one of four rules:</p>
+<ul>
+<li><code>Union</code> keeps anything covered by either shape</li>
+<li><code>Intersection</code> keeps only the shared overlap</li>
+<li><code>Difference</code> subtracts the clip shape from the subject shape</li>
+<li><code>Xor</code> keeps the non-overlapping parts and removes the shared middle</li>
+</ul>
+<p><code>Difference</code> is the one operation where argument order matters most. <code>Difference(a, b)</code> is not the same as <code>Difference(b, a)</code>.</p>
+<p>These images are a good way to visualize the four results using a star and a circle:</p>
+<div class="row text-center mb-3">
+    <div class="col-sm-6 col-md-3">
+        <img class="img-fluid" src="/img/polygonclipper-union.png" alt="Polygon union of a star and circle" />
+        <p><code>Union</code></p>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <img class="img-fluid" src="/img/polygonclipper-intersection.png" alt="Polygon intersection of a star and circle" />
+        <p><code>Intersection</code></p>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <img class="img-fluid" src="/img/polygonclipper-difference.png" alt="Polygon difference of a star and circle" />
+        <p><code>Difference</code></p>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <img class="img-fluid" src="/img/polygonclipper-xor.png" alt="Polygon exclusive-or of a star and circle" />
+        <p><code>Xor</code></p>
+    </div>
+</div>
+<p>The library applies those operations to inputs more complex than a star and circle: overlapping edges, holes, self-intersections, and multiple contours.</p>
+<h2 id="mart%C3%ADnez-2013-for-the-boolean-core" tabindex="-1">Martínez 2013 for the boolean core <a class="direct-link" href="#mart%C3%ADnez-2013-for-the-boolean-core">#</a></h2>
+<p>The boolean-operation core is built on the Martínez 2013 algorithm, specifically a Martínez-Rueda-style sweep-line pipeline for polygon clipping. The paper we used as a key reference is <a href="https://github.com/SixLabors/PolygonClipper/blob/f52404c2ee42f2daf996c67012eab3d1223aee55/reference/10.1016%40j.advengsoft.2013.04.004.pdf" target="_blank">A Simple Algorithm for Boolean Operations on Polygons</a>.</p>
+<p>That algorithm gives PolygonClipper a deterministic sweep-line boolean engine for complex input. It processes polygons with holes, multiple contours, and self-intersecting geometry, preserves contour hierarchy in the result, and handles overlapping or vertical segment relationships.</p>
+<div class="frame">
+<pre><code class="language-csharp">using SixLabors.PolygonClipper;
+
+Polygon result = PolygonClipper.Union(subject, clip);
+Polygon overlap = PolygonClipper.Intersection(subject, clip);
+Polygon remaining = PolygonClipper.Difference(subject, clip);
+Polygon exclusive = PolygonClipper.Xor(subject, clip);
+</code></pre>
+</div>
+<p>Most users should stick to those static entry points. They route work through internal thread-local reusable instances, so callers get a small static API while the implementation reuses scratch storage under load.</p>
+<h2 id="double-precision-coordinates" tabindex="-1">Double-precision coordinates <a class="direct-link" href="#double-precision-coordinates">#</a></h2>
+<p>PolygonClipper works directly in double-precision geometry. There is no integer-grid conversion step and no quantization error. Your coordinates go in, the algorithm runs, and the result comes back in the same coordinate space. That matters in any pipeline where geometry arrives from transforms, imports, mixed scales, or floating-point layout.</p>
+<h2 id="normalization-is-a-first-class-capability" tabindex="-1">Normalization is a first-class capability <a class="direct-link" href="#normalization-is-a-first-class-capability">#</a></h2>
+<p>Boolean operations combine two inputs. Normalization solves a different problem: cleaning up one polygon so it becomes a canonical positive-winding result.</p>
+<p>When your contour data self-intersects, overlaps itself, or needs to be prepared for a downstream renderer or exporter that expects positive-winding output, <code>PolygonClipper.Normalize(...)</code> gives you a dedicated path for that job.</p>
+<div class="frame">
+<pre><code class="language-csharp">using SixLabors.PolygonClipper;
+
+Polygon clean = PolygonClipper.Normalize(input);
+</code></pre>
+</div>
+<p>Under the hood, normalization is a separate pipeline from the Martínez boolean engine. In PolygonClipper it follows a Vatti/Clipper2-inspired cleanup path focused on resolving self-intersections and overlaps into positive-winding output.</p>
+<p>Keeping normalization separate from boolean operations lets callers decide when to pay for input cleanup before export, rendering, or further processing.</p>
+<h2 id="stroking-is-built-in%2C-not-bolted-on" tabindex="-1">Stroking is built in, not bolted on <a class="direct-link" href="#stroking-is-built-in%2C-not-bolted-on">#</a></h2>
+<p>PolygonClipper also includes a dedicated stroker.</p>
+<p><code>PolygonStroker</code> takes path-like input and emits the filled polygon geometry that the stroke covers. That gives renderers, exporters, and geometry pipelines filled polygons rather than centerlines.</p>
+<div class="frame">
+<pre><code class="language-csharp">using SixLabors.PolygonClipper;
+
+StrokeOptions options = new()
+{
+    LineJoin = LineJoin.Round,
+    LineCap = LineCap.Round,
+    MiterLimit = 4,
+    ArcDetailScale = 1,
+    NormalizeOutput = true
+};
+
+Polygon outline = PolygonStroker.Stroke(source, 12, options);
+</code></pre>
+</div>
+<p>Stroke options control:</p>
+<ul>
+<li>outer joins</li>
+<li>end caps</li>
+<li>miter limits</li>
+<li>arc detail</li>
+<li>whether the emitted result should be normalized before returning</li>
+</ul>
+<p><code>NormalizeOutput</code> is explicit because callers do not always need normalized stroke output. When it is disabled, callers should rasterize with a non-zero winding fill rule.</p>
+<h2 id="api-and-implementation" tabindex="-1">API and implementation <a class="direct-link" href="#api-and-implementation">#</a></h2>
+<p>You build <code>Contour</code> and <code>Polygon</code> values, call the static operations, and inspect the returned contours and hierarchy:</p>
+<div class="frame">
+<pre><code class="language-csharp">using SixLabors.PolygonClipper;
+
+static Contour Rectangle(double x, double y, double width, double height)
+{
+    Contour contour = new(4);
+    contour.Add(new Vertex(x, y));
+    contour.Add(new Vertex(x + width, y));
+    contour.Add(new Vertex(x + width, y + height));
+    contour.Add(new Vertex(x, y + height));
+    return contour;
+}
+
+Polygon subject = new();
+subject.Add(Rectangle(0, 0, 80, 60));
+
+Polygon clip = new();
+clip.Add(Rectangle(40, 20, 80, 60));
+
+Polygon result = PolygonClipper.Intersection(subject, clip);
+</code></pre>
+</div>
+<p>The recommended entry points use thread-local reusable instances. Scratch buffers are reused. Large buffers are dropped instead of being retained forever. The stroker pools work by option set to reduce repeated setup for the same stroke configuration.</p>
+<h2 id="already-proven-in-the-six-labors-stack" tabindex="-1">Already proven in the Six Labors stack <a class="direct-link" href="#already-proven-in-the-six-labors-stack">#</a></h2>
+<p>ImageSharp.Drawing 3 uses PolygonClipper internally for boolean path work and stroke geometry generation. That integration shaped the API and the performance work.</p>
+<p>The standalone package exists for applications that need polygon operations without the higher-level drawing system.</p>
+<h2 id="breaking-and-operational-notes" tabindex="-1">Breaking and operational notes <a class="direct-link" href="#breaking-and-operational-notes">#</a></h2>
+<p>This is a new library, so there is no previous stable major version to migrate from. The baseline target is .NET 8+.</p>
+<p>There are two operational points to note:</p>
+<ul>
+<li>PolygonClipper 1.0 uses the Six Labors Split License</li>
+<li>direct package dependencies must provide a <code>sixlabors.lic</code> file at build time</li>
+</ul>
+<p>As with the other current Six Labors libraries, that enforcement applies to direct dependencies only. If you qualify for community licensing, you can apply via <a href="https://licensing.sixlabors.com/" target="_blank" rel="noopener">licensing.sixlabors.com</a>.</p>
+<h2 id="closing" tabindex="-1">Closing <a class="direct-link" href="#closing">#</a></h2>
+<p>PolygonClipper 1.0 gives .NET developers a focused geometry library for polygon boolean operations, self-intersection cleanup, and stroke-outline generation. It uses double-precision input, keeps the public API small, and supplies the geometry layer used by ImageSharp.Drawing 3.</p>
+<p>Explore the docs, try the package, and let us know what you build with it.</p>
+<p><strong><em>PolygonClipper 1.0.0 is licensed under the <a href="https://raw.githubusercontent.com/SixLabors/PolygonClipper/main/LICENSE" target="_blank">Six Labors Split License</a>. This means that it is free to use in both non-commercial and certain commercial applications. However, if you are using it in a commercial application and your organization has annual gross revenue exceeding 1M USD per year, you must purchase a commercial license. Please see the <a href="/pricing/">Pricing page</a> for more information.</em></strong></p>
+
+            <hr>
+            <ul>
+                <li>Previous: <a href="/posts/announcing-imagesharp-web-400/">Announcing ImageSharp.Web 4.0.0</a>
+                </li>
+              
+            </ul>
+        </article>
+      </div>
+      <div class="col-md-3 offset-md-1">
+        <aside>
+          <h3>Tags</h3>
+          <ul>
+            
+              
+              <li>
+                <a href="/tags/imagesharp/" class="post-tag btn btn-primary shadow">ImageSharp</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/fonts/" class="post-tag btn btn-primary shadow">Fonts</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/shapes/" class="post-tag btn btn-primary shadow">Shapes</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/releases/" class="post-tag btn btn-primary shadow">Releases</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/imagesharp.drawing/" class="post-tag btn btn-primary shadow">ImageSharp.Drawing</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/drawing/" class="post-tag btn btn-primary shadow">Drawing</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/imagesharp.web/" class="post-tag btn btn-primary shadow">ImageSharp.Web</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/polygonclipper/" class="post-tag btn btn-primary shadow">PolygonClipper</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/announcements/" class="post-tag btn btn-primary shadow">Announcements</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/licensing/" class="post-tag btn btn-primary shadow">Licensing</a>
+              </li>
+            
+          </ul>
+
+        </aside>
+
+        <aside>
+          
+          <h3>Recent  Posts
+          </h3>
+
+          
+          
+          <ul class="postlist">
+            
+              <li class="postlist-item">
+                <a href="/posts/announcing-polygonclipper-100/" class="postlist-link">
+                  Announcing PolygonClipper 1.0.0
+                  
+                </a>
+              </li>
+            
+              <li class="postlist-item">
+                <a href="/posts/announcing-imagesharp-web-400/" class="postlist-link">
+                  Announcing ImageSharp.Web 4.0.0
+                  
+                </a>
+              </li>
+            
+              <li class="postlist-item">
+                <a href="/posts/announcing-imagesharp-drawing-300/" class="postlist-link">
+                  Announcing ImageSharp.Drawing 3.0.0
+                  
+                </a>
+              </li>
+            
+              <li class="postlist-item">
+                <a href="/posts/announcing-imagesharp-400/" class="postlist-link">
+                  Announcing ImageSharp 4.0.0
+                  
+                </a>
+              </li>
+            
+              <li class="postlist-item">
+                <a href="/posts/announcing-fonts-300/" class="postlist-link">
+                  Announcing Fonts 3.0.0
+                  
+                </a>
+              </li>
+            
+          </ul>
+
+          <p>More posts can be found in <a href="/posts/">the archive</a>.</p>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    </main>
+
+    <footer class="sl-footer p-3 p-md-5 mt-5 bg-light text-center text-sm-start">
+      <div class="container">
+        <ul class="sl-footer-links ps-0 mb-3">
+          <li class="d-inline-block">
+            <a href="https://github.com/sixlabors" target="_blank" rel="noopener" aria-label="GitHub">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="36"
+                height="36"
+                class="navbar-nav-svg d-inline-block align-text-top"
+                fill="currentColor"
+                viewBox="0 0 512 499.36"
+                role="img">
+                <title>GitHub</title>
+                <path
+                  fill-rule="evenodd"
+                  d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z"
+                ></path>
+              </svg>
+            </a>
+          </li>
+          <li class="d-inline-block ms-3">
+            <a href="https://x.com/sixlabors" target="_blank" rel="noopener" aria-label="X">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="36"
+                height="36"
+                class="navbar-nav-svg d-inline-block align-text-top"
+                fill="currentColor"
+                viewBox="0 0 1200 1227"
+                role="img">
+                <title>X</title>
+                <path
+                  d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z"
+                ></path>
+              </svg>
+            </a>
+          </li>
+          <li class="d-inline-block ms-3">
+            <a href="https://opencollective.com/sixlabors" target="_blank" rel="noopener" aria-label="Open Collective">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="36"
+                height="36"
+                fill="currentColor"
+                fill-rule="evenodd"
+                class="navbar-nav-svg d-inline-block align-text-top"
+                viewBox="0 0 40 41"
+                role="img">
+                <title>Open Collective</title>
+                <path
+                  fill-opacity=".4"
+                  d="M32.8 21c0 2.4-.8 4.9-2 6.9l5.1 5.1c2.5-3.4 4.1-7.6 4.1-12 0-4.6-1.6-8.8-4-12.2L30.7 14c1.2 2 2 4.3 2 7z"
+                ></path>
+                <path
+                  d="M20 33.7a12.8 12.8 0 0 1 0-25.6c2.6 0 5 .7 7 2.1L32 5a20 20 0 1 0 .1 31.9l-5-5.2a13 13 0 0 1-7 2z"
+                ></path>
+              </svg>
+            </a>
+          </li>
+        </ul>
+        <p class="mb-0">Copyright Six Labors &copy;</p>
+        <hr/>
+        <p>
+          <img
+            src="/css/img/sixlabors.text.svg"
+            alt="Six Labors"
+            class="sl-brand"/>
+        </p>
+        <p>Six Labors acknowledges the traditional owners and custodians of country throughout Australia and acknowledges their continuing connection to land, waters and community. We pay our respects to the people, the cultures and the elders past, present and emerging.</p>
+      </div>
+    </footer>
+
+    <!-- Current page: /posts/announcing-polygonclipper-100/ -->
+    <script 
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" 
+      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.9.0/dist/highlightjs-line-numbers.min.js"></script>
+    <script>
+      hljs.highlightAll();
+      hljs.initLineNumbersOnLoad({singleLine: true});
+    </script>
+  </body>
+</html>

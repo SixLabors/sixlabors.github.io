@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Six Labors : ImageSharp</title>
-    <meta name="description" content="A modern, fully featured, fully managed, cross-platform, 2D graphics library for .NET.">
+    <meta name="description" content="High-performance image processing for .NET with managed codecs, metadata, color management, and pixel-level control.">
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
       rel="stylesheet"
@@ -138,7 +138,7 @@
             <li class="nav-item col-6 col-md-auto">
               <a
                 class="nav-link p-2"
-                href="https://twitter.com/sixlabors"
+                href="https://x.com/sixlabors"
                 target="_blank"
                 rel="noopener"
               >
@@ -147,15 +147,15 @@
                   width="36"
                   height="36"
                   class="navbar-nav-svg d-inline-block align-text-top"
-                  viewBox="0 0 512 416.32"
+                  viewBox="0 0 1200 1227"
                   role="img">
-                  <title>Twitter</title>
+                  <title>X</title>
                   <path
                     fill="currentColor"
-                    d="M160.83 416.32c193.2 0 298.92-160.22 298.92-298.92 0-4.51 0-9-.2-13.52A214 214 0 0 0 512 49.38a212.93 212.93 0 0 1-60.44 16.6 105.7 105.7 0 0 0 46.3-58.19 209 209 0 0 1-66.79 25.37 105.09 105.09 0 0 0-181.73 71.91 116.12 116.12 0 0 0 2.66 24c-87.28-4.3-164.73-46.3-216.56-109.82A105.48 105.48 0 0 0 68 159.6a106.27 106.27 0 0 1-47.53-13.11v1.43a105.28 105.28 0 0 0 84.21 103.06 105.67 105.67 0 0 1-47.33 1.84 105.06 105.06 0 0 0 98.14 72.94A210.72 210.72 0 0 1 25 370.84a202.17 202.17 0 0 1-25-1.43 298.85 298.85 0 0 0 160.83 46.92"
+                    d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z"
                   ></path>
                 </svg>
-                <span class="d-md-none ms-2">Twitter</span>
+                <span class="d-md-none ms-2">X</span>
               </a>
             </li>
             <li class="nav-item col-6 col-md-auto">
@@ -200,14 +200,14 @@
         ImageSharp
       </h1>
       <p class="lead mb-4">
-        A modern, fully featured, fully managed, cross-platform, 2D graphics library for .NET.
+        High-performance image processing for .NET with managed codecs, metadata, color management, and pixel-level control.
       </p>
       
         <div class="d-flex flex-column flex-md-row">
           <a href="https://docs.sixlabors.com/articles/imagesharp/"
              class="btn btn-lg btn-primary shadow mb-3 me-md-3"
               target="_blank" rel="noopener"}>
-          Get started</a>
+          Explore the docs</a>
         </div>
       
     </div>
@@ -218,25 +218,27 @@
     <div class="row">
       <div class="col">
         <p class="lead mb-5">
-          <strong>Boost your projects with ImageSharp, the ultimate image processing tool for the modern .NET development stack</strong>. Its powerful, agile, and user-friendly features accelerate your workflow, ensuring seamless integration and top-notch performance. 
+          <strong>ImageSharp lets .NET teams load, inspect, process, and save images with one managed API</strong>, whether you are building upload pipelines, thumbnail services, media conversion jobs, photo workflows, asset tooling, or custom imaging systems.
         </p>
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <h3 class="display-5">Install anywhere</h3>
+        <h3 class="display-5">Built for real image workloads</h3>
         <p>
-          Fully Managed Code: With no native dependencies or interop code, ImageSharp simplifies your development process and can be installed
-          anywhere that supports
+          With no native graphics stack or platform interop layer to ship, ImageSharp keeps deployment simple while giving you a modern, fully managed API for image processing in .NET.
+        </p>
+        <p>
+          It runs anywhere that supports
           <a
-            href="https://docs.microsoft.com/en-us/dotnet/standard/net-standard"
-            >.NET 6+</a
-          >, ImageSharp can be used in device, cloud, and embedded/IoT scenarios.
+            href="https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-8/overview"
+            >.NET 8+</a
+          >, making it a strong fit for web apps, background services, containers, cloud workloads, desktop tools, and device or edge scenarios.
         </p>
       </div>
       <div class="col">
         <div class="frame">
-          <pre><code class="language-bash">PM > Install-Package SixLabors.ImageSharp</code></pre>
+          <pre><code class="language-bash">dotnet add package SixLabors.ImageSharp</code></pre>
         </div>
       </div>
     </div>
@@ -246,23 +248,31 @@
   <div class="container">
     <div class="row">
       <div class="col order-md-last">
-        <h3 class="display-5">An API for everyone</h3>
+        <h3 class="display-5">Simple pipelines, deep control</h3>
         <p>
-          ImageSharp's API is unparalleled for it's ease of use. Designed
-          from the ground up to be flexible and extensible, the library
-          provides API endpoints for common image processing operations
-          and the building blocks to allow for the development of
-          additional operations.
+          Most work in ImageSharp happens through small ordered processing pipelines, so the code you write usually reads in the same order the pixels are transformed.
+        </p>
+        <p>
+          Common jobs stay easy to follow, while advanced scenarios still have access to explicit encoders, metadata, color-profile handling, pixel buffers, configuration, quantization, and raw memory interop when the pipeline needs more control.
         </p>
       </div>
       <div class="col order-md-first">
         <div class="frame">
           <pre><code class="language-c#">using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Webp;
 using SixLabors.ImageSharp.Processing;
 
-using Image image = Image.Load("original.jpg");
-image.Mutate(x => x.Resize(image.Width / 2, image.Height / 2));
-image.Save("result.jpg");</code></pre>
+using Image image = Image.Load("upload.jpg");
+
+image.Mutate(x => x
+    .AutoOrient()
+    .Resize(new ResizeOptions
+    {
+        Size = new Size(1600, 1600),
+        Mode = ResizeMode.Max
+    }));
+
+image.Save("output.webp", new WebpEncoder());</code></pre>
         </div>
       </div>
     </div>
@@ -272,43 +282,94 @@ image.Save("result.jpg");</code></pre>
   <div class="container">
     <div class="row">
       <div class="col">
-        <h3 class="display-5">A powerful feature set</h3>
+        <h3 class="display-5">Format-aware conversion</h3>
         <p>
-          ImageSharp is brimming with features. Common operations are only
-          a few keystrokes away.
+          ImageSharp keeps decoded pixels separate from the file format while preserving enough source information for output decisions to stay deliberate.
+        </p>
+        <p>
+          Detect formats before loading, choose encoders explicitly at public boundaries, preserve or strip metadata intentionally, and bridge animation, indexed color, and frame metadata when the destination format supports it.
         </p>
         <ul>
-          <li>
-            Complete support for jpeg, bmp, gif, pbm, png, tga, tiff, webp, and qoi with more
-            formats on the way.
-          </li>
-          <li>Supports over 25 different pixel formats.</li>
-          <li>Metadata editing support (IPTC EXIF, XMP).</li>
-          <li>
-            Colorspace transforms (RGB/CMYK/Grayscale/CIELab and many
-            more).
-          </li>
-          <li>Over 40 common processing operations.</li>
-          <li>
-            Great performance and memory friendly; work with any
-            dimensions (even hundreds of megapixels)
-          </li>
+          <li>Read and write JPEG, PNG, WebP, GIF, TIFF, OpenEXR, ICO, CUR, BMP, PBM, QOI, and TGA.</li>
+          <li>Use WebP for lossy, lossless, transparent, or animated output from the same format family.</li>
+          <li>Use TIFF and OpenEXR for archival, print, HDR, high-precision, and imaging-pipeline workflows.</li>
+          <li>Control JPEG quality and progressive output, PNG bit depth and filtering, WebP quality and method, and metadata handling through explicit encoders.</li>
+          <li>Use quantizers, palettes, dithering, and transparent-color handling when indexed output is the right representation.</li>
         </ul>
       </div>
       <div class="col">
         <div class="frame">
-          <pre><code class="language-c#">using SixLabors.ImageSharp.Formats.Gif;
-using SixLabors.ImageSharp.Metadata;
+          <pre><code class="language-c#">using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.Formats.Png;
+using SixLabors.ImageSharp.Processing;
 
-using Image image = await Image.LoadAsync("original.gif");
-foreach (ImageFrame frame in image.Frames)
+ImageInfo info = Image.Identify("input.bin");
+
+using Image image = Image.Load("input.bin");
+
+image.Mutate(x => x
+    .AutoOrient()
+    .Resize(new ResizeOptions
+    {
+        Size = new Size(1200, 1200),
+        Mode = ResizeMode.Max
+    }));
+
+// Explicit encoders make output policy visible at the product boundary.
+ImageEncoder encoder = info.PixelType.BitsPerPixel > 32
+    ? new PngEncoder { BitDepth = PngBitDepth.Bit16 }
+    : new JpegEncoder { Quality = 82, Progressive = true };
+
+image.Save("output", encoder);</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col order-md-last">
+        <h3 class="display-5">Production controls</h3>
+        <p>
+          ImageSharp gives production pipelines the controls they need for untrusted source files, predictable output, and high-throughput services.
+        </p>
+        <ul>
+          <li>Identify dimensions, frame count, pixel type, metadata, and decoded memory cost before committing to a full decode.</li>
+          <li>Use <code>DecoderOptions</code> to limit frames, skip metadata, decode directly to a target size, and normalize ICC profiles.</li>
+          <li>Preserve, compact, or convert embedded ICC profiles depending on whether the workflow needs original metadata or predictable sRGB pixels.</li>
+          <li>Inspect and preserve EXIF, ICC, IPTC, XMP, CICP, and format-specific metadata when it is part of the output contract.</li>
+          <li>More than 25 pixel formats plus low-level pixel access for custom processing and interop scenarios.</li>
+          <li>Process known pixel formats row by row, or use Vector4 row access when logic should stay pixel-format agnostic.</li>
+          <li>Clone configuration for targeted format registration, allocator, stream, and parallelism policies instead of mutating global defaults.</li>
+        </ul>
+      </div>
+      <div class="col order-md-first">
+        <div class="frame">
+          <pre><code class="language-c#">using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats;
+
+ImageInfo info = Image.Identify("upload.bin");
+
+if (info.Width > 8000
+    || info.Height > 8000
+    || info.FrameCount > 1
+    || info.GetPixelMemorySize() > 256_000_000)
 {
-  GifFrameMetadata metaData = frame.Metadata.GetGifMetadata();
-  metaData.FrameDelay = 42;
-  metaData.DisposalMethod = GifDisposalMethod.RestoreToBackground;
+    throw new InvalidOperationException("Unsupported upload.");
 }
 
-await image.SaveAsync("result.gif");</code></pre>
+DecoderOptions options = new()
+{
+    MaxFrames = 1,
+    SkipMetadata = true,
+    TargetSize = new Size(1600, 1600),
+    ColorProfileHandling = ColorProfileHandling.Convert
+};
+
+using Image image = Image.Load(options, "upload.bin");</code></pre>
         </div>
       </div>
     </div>
@@ -321,10 +382,61 @@ await image.SaveAsync("result.gif");</code></pre>
       <div class="container">
         <ul class="sl-footer-links ps-0 mb-3">
           <li class="d-inline-block">
-            <a href="https://github.com/sixlabors">GitHub</a>
+            <a href="https://github.com/sixlabors" target="_blank" rel="noopener" aria-label="GitHub">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="36"
+                height="36"
+                class="navbar-nav-svg d-inline-block align-text-top"
+                fill="currentColor"
+                viewBox="0 0 512 499.36"
+                role="img">
+                <title>GitHub</title>
+                <path
+                  fill-rule="evenodd"
+                  d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z"
+                ></path>
+              </svg>
+            </a>
           </li>
           <li class="d-inline-block ms-3">
-            <a href="https://twitter.com/sixlabors">Twitter</a>
+            <a href="https://x.com/sixlabors" target="_blank" rel="noopener" aria-label="X">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="36"
+                height="36"
+                class="navbar-nav-svg d-inline-block align-text-top"
+                fill="currentColor"
+                viewBox="0 0 1200 1227"
+                role="img">
+                <title>X</title>
+                <path
+                  d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z"
+                ></path>
+              </svg>
+            </a>
+          </li>
+          <li class="d-inline-block ms-3">
+            <a href="https://opencollective.com/sixlabors" target="_blank" rel="noopener" aria-label="Open Collective">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="36"
+                height="36"
+                fill="currentColor"
+                fill-rule="evenodd"
+                class="navbar-nav-svg d-inline-block align-text-top"
+                viewBox="0 0 40 41"
+                role="img">
+                <title>Open Collective</title>
+                <path
+                  fill-opacity=".4"
+                  d="M32.8 21c0 2.4-.8 4.9-2 6.9l5.1 5.1c2.5-3.4 4.1-7.6 4.1-12 0-4.6-1.6-8.8-4-12.2L30.7 14c1.2 2 2 4.3 2 7z"
+                ></path>
+                <path
+                  d="M20 33.7a12.8 12.8 0 0 1 0-25.6c2.6 0 5 .7 7 2.1L32 5a20 20 0 1 0 .1 31.9l-5-5.2a13 13 0 0 1-7 2z"
+                ></path>
+              </svg>
+            </a>
           </li>
         </ul>
         <p class="mb-0">Copyright Six Labors &copy;</p>
