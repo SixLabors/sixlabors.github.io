@@ -20,50 +20,39 @@
 		<content type="html">&lt;div class=&quot;ratio ratio-16x9&quot;&gt;
 &lt;iframe src=&quot;https://www.youtube.com/embed/XRGRsYg_fro?si=KmfPDxW-XpnDu_WE&quot; allow=&quot;autoplay; encrypted-media;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
 &lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;PolygonClipper 1.0.0 is out.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;PolygonClipper is a new Six Labors geometry library for polygon boolean operations, self-intersection cleanup, and stroke-outline generation in .NET 8+. It exists because ImageSharp.Drawing needed a dedicated geometry engine for non-convex shapes, holes, multiple contours, overlapping edges, self-intersections, and imported vector input.&lt;/p&gt;
-&lt;p&gt;The public API is small: build &lt;code&gt;Vertex&lt;/code&gt;, &lt;code&gt;Contour&lt;/code&gt;, and &lt;code&gt;Polygon&lt;/code&gt; values, then call &lt;code&gt;PolygonClipper&lt;/code&gt; or &lt;code&gt;PolygonStroker&lt;/code&gt;. The implementation uses double-precision coordinates, sweep-line boolean operations, an explicit normalization path, and reusable internal buffers behind the static entry points.&lt;/p&gt;
-&lt;p&gt;PolygonClipper is the geometry engine used by ImageSharp.Drawing 3 for boolean path work and stroke geometry generation. It now ships as a standalone package for applications that need that layer directly.&lt;/p&gt;
-&lt;p&gt;As with the other current Six Labors libraries, PolygonClipper 1.0 enforces a &lt;a href=&quot;https://sixlabors.com/posts/licence-enforcement-changes/&quot;&gt;build-time license key for direct package dependencies&lt;/a&gt;. More on that below.&lt;/p&gt;
+&lt;p&gt;Today we are announcing &lt;strong&gt;PolygonClipper 1.0.0&lt;/strong&gt;, a new Six Labors geometry library for polygon boolean operations, contour normalization, and stroke-outline generation in managed .NET.&lt;/p&gt;
+&lt;p&gt;PolygonClipper started as the lower-level geometry engine needed by ImageSharp.Drawing. Drawing systems do not only see neat rectangles and simple convex shapes. They see imported paths, overlapping contours, holes, multiple disjoint regions, self-intersections, vertical edges, and strokes that need to become filled geometry before they can be rasterized. We needed a focused library that could handle that kind of input without pushing native dependencies or a large object model onto callers.&lt;/p&gt;
+&lt;p&gt;With 1.0.0, that geometry layer is now available as its own package. ImageSharp.Drawing 3 uses PolygonClipper internally for boolean path work and stroke generation, but applications that need the geometry layer directly can now use it without taking a dependency on the higher-level drawing stack.&lt;/p&gt;
 &lt;h2 id=&quot;what&#39;s-in-polygonclipper-1&quot; tabindex=&quot;-1&quot;&gt;What&#39;s in PolygonClipper 1 &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#what&#39;s-in-polygonclipper-1&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;Polygon boolean operations for &lt;code&gt;Intersection&lt;/code&gt;, &lt;code&gt;Union&lt;/code&gt;, &lt;code&gt;Difference&lt;/code&gt;, and &lt;code&gt;Xor&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;A separate normalization pipeline for resolving self-intersections and overlaps into canonical positive-winding output&lt;/li&gt;
-&lt;li&gt;Stroke-outline generation through &lt;code&gt;PolygonStroker&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Support for non-convex polygons, holes, multiple disjoint regions, overlapping edges, and vertical segments&lt;/li&gt;
-&lt;li&gt;Double-precision geometry without coordinate quantization&lt;/li&gt;
-&lt;li&gt;An API built around &lt;code&gt;Vertex&lt;/code&gt;, &lt;code&gt;Contour&lt;/code&gt;, &lt;code&gt;Polygon&lt;/code&gt;, &lt;code&gt;PolygonClipper&lt;/code&gt;, and &lt;code&gt;PolygonStroker&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Internal pooling and reusable instances behind the recommended static entry points&lt;/li&gt;
+&lt;li&gt;Polygon boolean operations for &lt;code&gt;Intersection&lt;/code&gt;, &lt;code&gt;Union&lt;/code&gt;, &lt;code&gt;Difference&lt;/code&gt;, and &lt;code&gt;Xor&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;A dedicated normalization path for resolving self-intersections and overlaps into positive-winding output.&lt;/li&gt;
+&lt;li&gt;Stroke-outline generation through &lt;code&gt;PolygonStroker&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Support for non-convex polygons, holes, multiple disjoint regions, overlapping edges, and vertical segments.&lt;/li&gt;
+&lt;li&gt;Double-precision geometry without an integer-grid conversion step.&lt;/li&gt;
+&lt;li&gt;A small public model built around &lt;code&gt;Vertex&lt;/code&gt;, &lt;code&gt;Contour&lt;/code&gt;, &lt;code&gt;Polygon&lt;/code&gt;, &lt;code&gt;PolygonClipper&lt;/code&gt;, and &lt;code&gt;PolygonStroker&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Static entry points for common clipping, normalization, and stroking operations.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&quot;2d-geometry-workloads&quot; tabindex=&quot;-1&quot;&gt;2D geometry workloads &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#2d-geometry-workloads&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;Polygon clipping has few options available to .NET developers. Existing libraries often come with trade-offs: coordinate quantization, native dependencies, complex APIs, or limited scope.&lt;/p&gt;
-&lt;p&gt;PolygonClipper is designed for geometry workloads that include:&lt;/p&gt;
+&lt;p&gt;The package targets .NET 8+ and is licensed under the Six Labors Split License. Projects that directly depend on &lt;code&gt;SixLabors.PolygonClipper&lt;/code&gt; must provide a valid Six Labors license at build time, following the same model described in our recent &lt;a href=&quot;https://sixlabors.com/posts/licence-enforcement-changes/&quot;&gt;license enforcement changes&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;a-small-geometry-model&quot; tabindex=&quot;-1&quot;&gt;A Small Geometry Model &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#a-small-geometry-model&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The public model is intentionally small:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;non-convex shapes&lt;/li&gt;
-&lt;li&gt;nested contours and holes&lt;/li&gt;
-&lt;li&gt;multiple islands in one result&lt;/li&gt;
-&lt;li&gt;overlapping edges&lt;/li&gt;
-&lt;li&gt;self-intersections&lt;/li&gt;
-&lt;li&gt;stroke outlines with joins, caps, and miter rules&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Vertex&lt;/code&gt; is one 2D point.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Contour&lt;/code&gt; is one ring of vertices.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Polygon&lt;/code&gt; is a collection of contours.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;.NET applications doing map work, diagramming, CAD-adjacent processing, export pipelines, hit regions, tool-path preparation, vector cleanup, or generated graphics can use PolygonClipper directly.&lt;/p&gt;
-&lt;p&gt;The API stays small:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;Vertex&lt;/code&gt; is one 2D point&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Contour&lt;/code&gt; is one ring of vertices&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Polygon&lt;/code&gt; is a collection of contours&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;From there, most applications either combine regions with &lt;code&gt;PolygonClipper&lt;/code&gt; or generate filled outline geometry with &lt;code&gt;PolygonStroker&lt;/code&gt;.&lt;/p&gt;
-&lt;h2 id=&quot;a-quick-primer-on-clipping&quot; tabindex=&quot;-1&quot;&gt;A quick primer on clipping &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#a-quick-primer-on-clipping&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;PolygonClipper works with regions, not drawing commands. A returned polygon describes the filled area produced by an operation, so it may contain new contours, fewer contours, holes, or multiple disjoint islands. That is expected behavior for clipping and normalization work.&lt;/p&gt;
+&lt;p&gt;Coordinates are unitless doubles. Your application decides whether a vertex represents pixels, points, millimeters, tiles, or some world coordinate system. PolygonClipper keeps those coordinates in the same space; there is no coordinate quantization step before the algorithm runs.&lt;/p&gt;
+&lt;h2 id=&quot;boolean-operations&quot; tabindex=&quot;-1&quot;&gt;Boolean Operations &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#boolean-operations&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;At a high level, clipping means taking two input regions, usually called the &lt;code&gt;subject&lt;/code&gt; and the &lt;code&gt;clip&lt;/code&gt;, and combining them according to one of four rules:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;Union&lt;/code&gt; keeps anything covered by either shape&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Intersection&lt;/code&gt; keeps only the shared overlap&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Difference&lt;/code&gt; subtracts the clip shape from the subject shape&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Xor&lt;/code&gt; keeps the non-overlapping parts and removes the shared middle&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Union&lt;/code&gt; keeps anything covered by either shape.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Intersection&lt;/code&gt; keeps only the shared overlap.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Difference&lt;/code&gt; subtracts the clip shape from the subject shape.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Xor&lt;/code&gt; keeps the non-overlapping parts and removes the shared middle.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;code&gt;Difference&lt;/code&gt; is the one operation where argument order matters most. &lt;code&gt;Difference(a, b)&lt;/code&gt; is not the same as &lt;code&gt;Difference(b, a)&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;These images are a good way to visualize the four results using a star and a circle:&lt;/p&gt;
+&lt;p&gt;Here are the four operations using a star and a circle:&lt;/p&gt;
 &lt;div class=&quot;row text-center mb-3&quot;&gt;
     &lt;div class=&quot;col-sm-6 col-md-3&quot;&gt;
         &lt;img class=&quot;img-fluid&quot; src=&quot;https://sixlabors.com/img/polygonclipper-union.png&quot; alt=&quot;Polygon union of a star and circle&quot; /&gt;
@@ -82,36 +71,31 @@
         &lt;p&gt;&lt;code&gt;Xor&lt;/code&gt;&lt;/p&gt;
     &lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;The library applies those operations to inputs more complex than a star and circle: overlapping edges, holes, self-intersections, and multiple contours.&lt;/p&gt;
-&lt;h2 id=&quot;mart%C3%ADnez-2013-for-the-boolean-core&quot; tabindex=&quot;-1&quot;&gt;Martínez 2013 for the boolean core &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#mart%C3%ADnez-2013-for-the-boolean-core&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;The boolean-operation core is built on the Martínez 2013 algorithm, specifically a Martínez-Rueda-style sweep-line pipeline for polygon clipping. The paper we used as a key reference is &lt;a href=&quot;https://github.com/SixLabors/PolygonClipper/blob/f52404c2ee42f2daf996c67012eab3d1223aee55/reference/10.1016%40j.advengsoft.2013.04.004.pdf&quot; target=&quot;_blank&quot;&gt;A Simple Algorithm for Boolean Operations on Polygons&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;That algorithm gives PolygonClipper a deterministic sweep-line boolean engine for complex input. It processes polygons with holes, multiple contours, and self-intersecting geometry, preserves contour hierarchy in the result, and handles overlapping or vertical segment relationships.&lt;/p&gt;
+&lt;p&gt;In code, the common entry points look like this:&lt;/p&gt;
 &lt;div class=&quot;frame&quot;&gt;
 &lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using SixLabors.PolygonClipper;
 
-Polygon result = PolygonClipper.Union(subject, clip);
+Polygon merged = PolygonClipper.Union(subject, clip);
 Polygon overlap = PolygonClipper.Intersection(subject, clip);
-Polygon remaining = PolygonClipper.Difference(subject, clip);
+Polygon remaining = PolygonClipper.Difference(subject, clip); // The clip polygon is subtracted from the subject.
 Polygon exclusive = PolygonClipper.Xor(subject, clip);
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;p&gt;Most users should stick to those static entry points. They route work through internal thread-local reusable instances, so callers get a small static API while the implementation reuses scratch storage under load.&lt;/p&gt;
-&lt;h2 id=&quot;double-precision-coordinates&quot; tabindex=&quot;-1&quot;&gt;Double-precision coordinates &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#double-precision-coordinates&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;PolygonClipper works directly in double-precision geometry. There is no integer-grid conversion step and no quantization error. Your coordinates go in, the algorithm runs, and the result comes back in the same coordinate space. That matters in any pipeline where geometry arrives from transforms, imports, mixed scales, or floating-point layout.&lt;/p&gt;
-&lt;h2 id=&quot;normalization-is-a-first-class-capability&quot; tabindex=&quot;-1&quot;&gt;Normalization is a first-class capability &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#normalization-is-a-first-class-capability&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;Boolean operations combine two inputs. Normalization solves a different problem: cleaning up one polygon so it becomes a canonical positive-winding result.&lt;/p&gt;
-&lt;p&gt;When your contour data self-intersects, overlaps itself, or needs to be prepared for a downstream renderer or exporter that expects positive-winding output, &lt;code&gt;PolygonClipper.Normalize(...)&lt;/code&gt; gives you a dedicated path for that job.&lt;/p&gt;
+&lt;p&gt;The boolean core uses a Martínez-Rueda-style sweep-line pipeline for complex polygon clipping. One of the key references behind the implementation is &lt;a href=&quot;https://github.com/SixLabors/PolygonClipper/blob/f52404c2ee42f2daf996c67012eab3d1223aee55/reference/10.1016%40j.advengsoft.2013.04.004.pdf&quot; target=&quot;_blank&quot;&gt;A Simple Algorithm for Boolean Operations on Polygons&lt;/a&gt;. You do not need to understand the paper to use the API, but it helps explain why the library is comfortable with holes, multiple contours, non-convex input, overlapping edges, and vertical segment relationships.&lt;/p&gt;
+&lt;p&gt;Most applications should use the static methods shown above. They keep the public surface small and make the common operations easy to spot at call sites.&lt;/p&gt;
+&lt;h2 id=&quot;normalization&quot; tabindex=&quot;-1&quot;&gt;Normalization &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#normalization&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Boolean operations combine two regions. Normalization solves a different problem: it cleans up one polygon by resolving self-intersections and overlaps into a canonical positive-winding result.&lt;/p&gt;
+&lt;p&gt;That makes &lt;code&gt;PolygonClipper.Normalize(...)&lt;/code&gt; useful when geometry has come from a drawing tool, importer, user edit, or any source that can produce self-overlapping contour data. It is not a visual simplifier and it is not a general-purpose path optimizer. It converts messy regional input into polygon output that downstream geometry code can reason about more consistently.&lt;/p&gt;
 &lt;div class=&quot;frame&quot;&gt;
 &lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using SixLabors.PolygonClipper;
 
-Polygon clean = PolygonClipper.Normalize(input);
+Polygon clean = PolygonClipper.Normalize(input); // Resolves self-overlap into positive-winding output.
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;p&gt;Under the hood, normalization is a separate pipeline from the Martínez boolean engine. In PolygonClipper it follows a Vatti/Clipper2-inspired cleanup path focused on resolving self-intersections and overlaps into positive-winding output.&lt;/p&gt;
-&lt;p&gt;Keeping normalization separate from boolean operations lets callers decide when to pay for input cleanup before export, rendering, or further processing.&lt;/p&gt;
-&lt;h2 id=&quot;stroking-is-built-in%2C-not-bolted-on&quot; tabindex=&quot;-1&quot;&gt;Stroking is built in, not bolted on &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#stroking-is-built-in%2C-not-bolted-on&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;PolygonClipper also includes a dedicated stroker.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;PolygonStroker&lt;/code&gt; takes path-like input and emits the filled polygon geometry that the stroke covers. That gives renderers, exporters, and geometry pipelines filled polygons rather than centerlines.&lt;/p&gt;
+&lt;p&gt;Normalization has its own implementation path, inspired by Vatti/Clipper2-style cleanup. Keeping it separate from two-input boolean operations lets callers decide when they want to pay for canonical output. In many applications that is an import, export, cache, or rendering boundary rather than every single edit.&lt;/p&gt;
+&lt;h2 id=&quot;stroking&quot; tabindex=&quot;-1&quot;&gt;Stroking &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#stroking&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;PolygonClipper also includes &lt;code&gt;PolygonStroker&lt;/code&gt;, which turns path-like input into filled outline geometry. Instead of returning a centerline plus styling information, the stroker returns the polygon region covered by the stroke.&lt;/p&gt;
+&lt;p&gt;That is useful for renderers, exporters, hit-testing systems, and geometry pipelines that want the stroke as actual filled geometry.&lt;/p&gt;
 &lt;div class=&quot;frame&quot;&gt;
 &lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using SixLabors.PolygonClipper;
 
@@ -121,23 +105,16 @@ StrokeOptions options = new()
     LineCap = LineCap.Round,
     MiterLimit = 4,
     ArcDetailScale = 1,
-    NormalizeOutput = true
+    NormalizeOutput = true // Ask the stroker to clean up overlaps before returning.
 };
 
 Polygon outline = PolygonStroker.Stroke(source, 12, options);
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;p&gt;Stroke options control:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;outer joins&lt;/li&gt;
-&lt;li&gt;end caps&lt;/li&gt;
-&lt;li&gt;miter limits&lt;/li&gt;
-&lt;li&gt;arc detail&lt;/li&gt;
-&lt;li&gt;whether the emitted result should be normalized before returning&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;code&gt;NormalizeOutput&lt;/code&gt; is explicit because callers do not always need normalized stroke output. When it is disabled, callers should rasterize with a non-zero winding fill rule.&lt;/p&gt;
-&lt;h2 id=&quot;api-and-implementation&quot; tabindex=&quot;-1&quot;&gt;API and implementation &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#api-and-implementation&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;You build &lt;code&gt;Contour&lt;/code&gt; and &lt;code&gt;Polygon&lt;/code&gt; values, call the static operations, and inspect the returned contours and hierarchy:&lt;/p&gt;
+&lt;p&gt;Stroke options control joins, caps, miter limits, round-arc detail, and whether the generated outline should be normalized before returning. &lt;code&gt;NormalizeOutput&lt;/code&gt; is explicit because not every caller needs that cleanup step. When it is disabled, callers should render the result with a non-zero winding fill rule.&lt;/p&gt;
+&lt;p&gt;For stroking, input contours can behave as open polylines or closed loops. If the last vertex returns to the first vertex, the stroker treats the contour as closed and does not emit end caps. Otherwise, it treats the contour as open and emits caps according to the selected &lt;code&gt;LineCap&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;a-complete-first-operation&quot; tabindex=&quot;-1&quot;&gt;A Complete First Operation &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#a-complete-first-operation&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The basic flow is to create contours, add them to polygons, and run the operation you need:&lt;/p&gt;
 &lt;div class=&quot;frame&quot;&gt;
 &lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using SixLabors.PolygonClipper;
 
@@ -148,6 +125,8 @@ static Contour Rectangle(double x, double y, double width, double height)
     contour.Add(new Vertex(x + width, y));
     contour.Add(new Vertex(x + width, y + height));
     contour.Add(new Vertex(x, y + height));
+
+    // Contours are implicitly closed for polygon operations.
     return contour;
 }
 
@@ -160,21 +139,37 @@ clip.Add(Rectangle(40, 20, 80, 60));
 Polygon result = PolygonClipper.Intersection(subject, clip);
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;p&gt;The recommended entry points use thread-local reusable instances. Scratch buffers are reused. Large buffers are dropped instead of being retained forever. The stroker pools work by option set to reduce repeated setup for the same stroke configuration.&lt;/p&gt;
-&lt;h2 id=&quot;already-proven-in-the-six-labors-stack&quot; tabindex=&quot;-1&quot;&gt;Already proven in the Six Labors stack &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#already-proven-in-the-six-labors-stack&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;ImageSharp.Drawing 3 uses PolygonClipper internally for boolean path work and stroke geometry generation. That integration shaped the API and the performance work.&lt;/p&gt;
-&lt;p&gt;The standalone package exists for applications that need polygon operations without the higher-level drawing system.&lt;/p&gt;
-&lt;h2 id=&quot;breaking-and-operational-notes&quot; tabindex=&quot;-1&quot;&gt;Breaking and operational notes &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#breaking-and-operational-notes&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;This is a new library, so there is no previous stable major version to migrate from. The baseline target is .NET 8+.&lt;/p&gt;
-&lt;p&gt;There are two operational points to note:&lt;/p&gt;
+&lt;p&gt;Contours used for normal polygon operations are implicitly closed, so there is no need to repeat the first vertex at the end of the contour.&lt;/p&gt;
+&lt;p&gt;Returned polygons can contain more than one contour, including holes. Production code should inspect the returned polygon instead of assuming a single-contour result:&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using System;
+using SixLabors.PolygonClipper;
+
+for (int i = 0; i &amp;lt; result.Count; i++)
+{
+    Contour contour = result[i];
+
+    // Results can contain holes and nested contours, so inspect every returned contour.
+    Console.WriteLine($&amp;quot;Contour {i}: Count={contour.Count}&amp;quot;);
+    Console.WriteLine($&amp;quot;Parent={contour.ParentIndex}, Depth={contour.Depth}, Holes={contour.HoleCount}&amp;quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;That hierarchy metadata is important when exporting to formats or renderers that distinguish exterior rings from holes.&lt;/p&gt;
+&lt;h2 id=&quot;where-it-fits&quot; tabindex=&quot;-1&quot;&gt;Where It Fits &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#where-it-fits&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;PolygonClipper is useful anywhere you need the region itself rather than a raster mask or a high-level drawing command. That includes map work, diagramming, CAD-adjacent processing, export pipelines, hit regions, tool-path preparation, vector cleanup, and generated graphics.&lt;/p&gt;
+&lt;p&gt;The most important split is simple:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;PolygonClipper 1.0 uses the Six Labors Split License&lt;/li&gt;
-&lt;li&gt;direct package dependencies must provide a &lt;code&gt;sixlabors.lic&lt;/code&gt; file at build time&lt;/li&gt;
+&lt;li&gt;Use boolean operations when combining two regions.&lt;/li&gt;
+&lt;li&gt;Use normalization when cleaning one messy region.&lt;/li&gt;
+&lt;li&gt;Use stroking when a path or polyline needs to become filled outline geometry.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;As with the other current Six Labors libraries, that enforcement applies to direct dependencies only. If you qualify for community licensing, you can apply via &lt;a href=&quot;https://licensing.sixlabors.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;licensing.sixlabors.com&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&quot;https://docs.sixlabors.com/articles/polygonclipper/&quot; target=&quot;_blank&quot;&gt;PolygonClipper documentation&lt;/a&gt; covers getting started, contour hierarchy, boolean operations, normalization, and stroking in more detail.&lt;/p&gt;
+&lt;h2 id=&quot;operational-notes&quot; tabindex=&quot;-1&quot;&gt;Operational Notes &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#operational-notes&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;This is a new library, so there is no previous stable major version to migrate from. The baseline target is .NET 8+.&lt;/p&gt;
+&lt;p&gt;PolygonClipper 1.0 uses the Six Labors Split License, and direct package dependencies must provide a &lt;code&gt;sixlabors.lic&lt;/code&gt; file or &lt;code&gt;SixLaborsLicenseKey&lt;/code&gt; MSBuild property at build time. Enforcement applies to direct dependencies only. If you qualify for community licensing, you can apply via &lt;a href=&quot;https://licensing.sixlabors.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;licensing.sixlabors.com&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&quot;closing&quot; tabindex=&quot;-1&quot;&gt;Closing &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-polygonclipper-100/#closing&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;PolygonClipper 1.0 gives .NET developers a focused geometry library for polygon boolean operations, self-intersection cleanup, and stroke-outline generation. It uses double-precision input, keeps the public API small, and supplies the geometry layer used by ImageSharp.Drawing 3.&lt;/p&gt;
-&lt;p&gt;Explore the docs, try the package, and let us know what you build with it.&lt;/p&gt;
+&lt;p&gt;PolygonClipper 1.0 gives .NET developers a focused managed geometry library for boolean operations, self-intersection cleanup, and stroke-outline generation. It uses double-precision coordinates, keeps the public API small, and brings the geometry layer behind ImageSharp.Drawing 3 to applications that need it directly.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;PolygonClipper 1.0.0 is licensed under the &lt;a href=&quot;https://raw.githubusercontent.com/SixLabors/PolygonClipper/main/LICENSE&quot; target=&quot;_blank&quot;&gt;Six Labors Split License&lt;/a&gt;. This means that it is free to use in both non-commercial and certain commercial applications. However, if you are using it in a commercial application and your organization has annual gross revenue exceeding 1M USD per year, you must purchase a commercial license. Please see the &lt;a href=&quot;https://sixlabors.com/pricing/&quot;&gt;Pricing page&lt;/a&gt; for more information.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 </content>
 	</entry>
