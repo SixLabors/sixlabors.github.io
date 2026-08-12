@@ -333,7 +333,7 @@ GraphicsOptions options = new()
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;Not every case wins. A few small fixed-size kernels pay a dispatch cost, and the PNG up-filter crosses over to a win at 2 KB scanlines. The complete before-and-after tables are in the pull request.&lt;/p&gt;
+&lt;p&gt;The complete before-and-after tables are in the pull request.&lt;/p&gt;
 &lt;p&gt;Removing the replaced generated SIMD code also cut the managed assembly from 4,100,608 to 2,433,024 bytes, a 40.7% reduction.&lt;/p&gt;
 &lt;h2 id=&quot;apple-cgbi-pngs&quot; tabindex=&quot;-1&quot;&gt;Apple CgBI PNGs &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-410/#apple-cgbi-pngs&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;The PNG decoder now reads Apple CgBI files, the iOS-optimized variant that &lt;code&gt;pngcrush -iphone&lt;/code&gt; produces. These files store raw DEFLATE image data, swap the channel order, and premultiply color by alpha. ImageSharp detects the &lt;code&gt;CgBI&lt;/code&gt; chunk and reverses those changes automatically, with SIMD-accelerated scanline restoration and chunk-order validation. No decoder option is required, and the encoder always writes standard PNG output. This support also came through community contributions.&lt;/p&gt;
