@@ -290,7 +290,7 @@ image.Save("output.webp", new WebpEncoder());</code></pre>
           Detect formats before loading, choose encoders explicitly at public boundaries, preserve or strip metadata intentionally, and bridge animation, indexed color, and frame metadata when the destination format supports it.
         </p>
         <ul>
-          <li>Read and write JPEG, PNG, WebP, GIF, TIFF, OpenEXR, ICO, CUR, BMP, PBM, QOI, and TGA.</li>
+          <li>Read and write JPEG, PNG, WebP, GIF, TIFF, OpenEXR, ICO, CUR, ANI, BMP, PBM, QOI, and TGA.</li>
           <li>Use WebP for lossy, lossless, transparent, or animated output from the same format family.</li>
           <li>Use TIFF and OpenEXR for archival, print, HDR, high-precision, and imaging-pipeline workflows.</li>
           <li>Control JPEG quality and progressive output, PNG bit depth and filtering, WebP quality and method, and metadata handling through explicit encoders.</li>
@@ -341,8 +341,8 @@ image.Save("output", encoder);</code></pre>
           <li>Use <code>DecoderOptions</code> to limit frames, skip metadata, decode directly to a target size, and normalize ICC profiles.</li>
           <li>Preserve, compact, or convert embedded ICC profiles depending on whether the workflow needs original metadata or predictable sRGB pixels.</li>
           <li>Inspect and preserve EXIF, ICC, IPTC, XMP, CICP, and format-specific metadata when it is part of the output contract.</li>
-          <li>More than 25 pixel formats plus low-level pixel access for custom processing and interop scenarios.</li>
-          <li>Process known pixel formats row by row, or use Vector4 row access when logic should stay pixel-format agnostic.</li>
+          <li>More than 35 pixel formats, including premultiplied-alpha formats for GPU interop, plus low-level pixel access for custom processing.</li>
+          <li>Process known pixel formats row by row, or use Vector4 row access when logic must stay pixel-format agnostic.</li>
           <li>Clone configuration for targeted format registration, allocator, stream, and parallelism policies instead of mutating global defaults.</li>
         </ul>
       </div>
@@ -370,6 +370,49 @@ DecoderOptions options = new()
 };
 
 using Image image = Image.Load(options, "upload.bin");</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h3 class="display-5">Built for throughput</h3>
+        <p>
+          ImageSharp accelerates pixel operations, codecs, and color conversion with SIMD. The code uses the portable <code>Vector128</code>, <code>Vector256</code>, and <code>Vector512</code> APIs and selects the widest width the processor supports. This applies on both x64 and ARM processors.
+        </p>
+        <p>
+          We benchmark every release across decode, resize, compositing, and encode workloads. The release notes publish the numbers.
+        </p>
+        <ul>
+          <li>SIMD acceleration through the portable vector APIs, at the widest width the processor supports.</li>
+          <li>Pooled, limit-aware memory that holds steady under service load.</li>
+          <li>One shared configuration that tunes parallelism and allocation for the whole pipeline.</li>
+        </ul>
+      </div>
+      <div class="col">
+        <div class="frame">
+          <pre><code class="language-c#">using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats;
+using SixLabors.ImageSharp.Memory;
+
+// Tune one shared configuration for a high-throughput service.
+Configuration config = Configuration.Default.Clone();
+config.MaxDegreeOfParallelism = Environment.ProcessorCount;
+config.MemoryAllocator = MemoryAllocator.Create(new MemoryAllocatorOptions
+{
+    MaximumPoolSizeMegabytes = 256,
+    AccumulativeAllocationLimitMegabytes = 2048
+});
+
+DecoderOptions options = new()
+{
+    Configuration = config
+};
+
+using Image image = Image.Load(options, "input.jpg");</code></pre>
         </div>
       </div>
     </div>

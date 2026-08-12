@@ -355,9 +355,10 @@ image.Save("headline-card.png");</code></pre>
         </p>
         <ul>
           <li>Use <code>DrawImage(...)</code> for rectangular placement, crop, and scale operations.</li>
-          <li>Use image brushes when a source image should fill a path, text shape, mask, or repeated decorative element.</li>
+          <li>Use image brushes when a source image must fill a path, text shape, mask, or repeated decorative element.</li>
           <li>Use <code>Apply(...)</code> as a replay barrier when normal ImageSharp processors must affect only earlier drawing inside a rectangle or path.</li>
           <li>Use <code>SaveLayer(...)</code> when several commands need to composite back to the parent as one group.</li>
+          <li>Pass a <code>LayerEffect</code> to <code>SaveLayer(...)</code> for blur, drop shadow, glow, inner shadow, and color-matrix treatments, or a backdrop effect for CSS-style frosted-glass and acrylic panels.</li>
         </ul>
       </div>
       <div class="col order-md-first">
@@ -408,6 +409,7 @@ image.Mutate(x => x.Paint(canvas =>
         <ul>
           <li>Drive a native window with <code>WebGPUWindow</code>, attach to a host-owned drawable through <code>WebGPUExternalSurface</code>, or render offscreen into a texture with <code>WebGPURenderTarget</code>.</li>
           <li>Probe support up front through <code>WebGPUEnvironment.ProbeAvailability()</code> and <code>ProbeComputePipelineSupport()</code> before constructing any target.</li>
+          <li>Apply the built-in layer and backdrop effects as GPU shader passes, and render premultiplied output that composites over native content.</li>
           <li>Target common WebGPU texture formats and read GPU output back into a managed <code>Image&lt;TPixel&gt;</code> when offline rendering needs to encode to PNG, JPEG, or WebP.</li>
         </ul>
       </div>

@@ -5,12 +5,548 @@
 	
 	<link href="https://sixlabors.com/feed/feed.xml" rel="self"/>
 	<link href="https://sixlabors.com/"/>
-	<updated>2026-05-12T00:00:00Z</updated>
+	<updated>2026-08-12T00:00:00Z</updated>
 	<id>https://sixlabors.com/</id>
 	<author>
 		<name>Your Name Here</name>
 		<email>youremailaddress@example.com</email>
 	</author>
+	
+	<entry>
+		<title>Announcing ImageSharp.Drawing 3.1.0</title>
+		<link href="https://sixlabors.com/posts/announcing-imagesharp-drawing-310/"/>
+		<updated>2026-08-12T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/announcing-imagesharp-drawing-310/</id>
+		<content type="html">&lt;div class=&quot;ratio ratio-16x9&quot;&gt;
+&lt;iframe src=&quot;https://www.youtube.com/embed/SSbBvKaM6sk&quot; allow=&quot;autoplay; encrypted-media;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;ImageSharp.Drawing 3.1.0 is out.&lt;/strong&gt; You can &lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp.Drawing/3.1.0&quot; target=&quot;_blank&quot;&gt;download it today&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;V3 introduced the canvas model, retained scenes, and optional WebGPU rendering. 3.1 builds on that foundation with a declarative effect system for layers, backdrop filters in the CSS mold, and exact aliased rasterization. It also adds premultiplied GPU rendering and a faster text pipeline built on Fonts 3.1.&lt;/p&gt;
+&lt;h2 id=&quot;what&#39;s-new-since-3.0.0&quot; tabindex=&quot;-1&quot;&gt;What&#39;s new since 3.0.0 &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-drawing-310/#what&#39;s-new-since-3.0.0&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The main changes since 3.0.0 are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Layer effects: blur, drop shadow, glow, inner shadow, and color matrix treatments applied through &lt;code&gt;SaveLayer(...)&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Backdrop effects: blur, acrylic, drop shadow, and a family of color filters applied to the pixels behind a region.&lt;/li&gt;
+&lt;li&gt;WebGPU shader implementations for the built-in effects, so GPU-backed canvases apply them without a CPU round trip.&lt;/li&gt;
+&lt;li&gt;Exact center-sampled aliased rasterization on both the CPU and WebGPU backends.&lt;/li&gt;
+&lt;li&gt;Premultiplied rendering, alpha-aware readback, and a surface alpha mode for compositing over native content.&lt;/li&gt;
+&lt;li&gt;Public drawing backend APIs and a staged WebGPU support probe that names each failing capability.&lt;/li&gt;
+&lt;li&gt;Text rendering improvements: positioned-glyph drawing APIs, glyph batching, culling, decoration fixes, and shared glyph caches.&lt;/li&gt;
+&lt;li&gt;Font palette selection and correct COLR v1 composite group rendering, on both the CPU and WebGPU backends.&lt;/li&gt;
+&lt;li&gt;Performance work and fixes across clipping, &lt;code&gt;DrawImage&lt;/code&gt;, gradients, strokes, and the WebGPU runtime.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;layer-effects&quot; tabindex=&quot;-1&quot;&gt;Layer effects &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-drawing-310/#layer-effects&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;SaveLayer(...)&lt;/code&gt; already gave the canvas isolated compositing groups. 3.1 adds &lt;code&gt;LayerEffect&lt;/code&gt;, a declarative treatment that transforms the layer content when the layer is restored.&lt;/p&gt;
+&lt;p&gt;The built-in content effects are &lt;code&gt;BlurLayerEffect&lt;/code&gt;, &lt;code&gt;DropShadowLayerEffect&lt;/code&gt;, &lt;code&gt;GlowLayerEffect&lt;/code&gt;, &lt;code&gt;InnerShadowLayerEffect&lt;/code&gt;, and &lt;code&gt;ColorMatrixLayerEffect&lt;/code&gt;. The layer isolates the content, so the effect operates on exactly what was drawn into it, against transparency. Layer bounds expand automatically by the effect&#39;s reach, so blurred or offset output is never cut off.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing.Processing;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+
+using Image&amp;lt;Rgba32&amp;gt; image = new(360, 220, Color.White.ToPixel&amp;lt;Rgba32&amp;gt;());
+
+image.Mutate(ctx =&amp;gt; ctx.Paint(canvas =&amp;gt;
+{
+    _ = canvas.SaveLayer(
+        new GraphicsOptions(),
+        new Rectangle(60, 40, 240, 140),
+        new DropShadowLayerEffect(new Point(6, 6), 4F, Color.Black.WithAlpha(0.5F)));
+
+    canvas.FillEllipse(Brushes.Solid(Color.OrangeRed), new(180, 110), new(90, 50));
+    canvas.Restore();
+}));
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;An overload accepts an &lt;code&gt;IPath&lt;/code&gt; region instead of a rectangle. The effect then processes only pixels covered by the path, and its output lands on the path translated by the effect&#39;s offset.&lt;/p&gt;
+&lt;h2 id=&quot;backdrop-filters&quot; tabindex=&quot;-1&quot;&gt;Backdrop filters &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-drawing-310/#backdrop-filters&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;BackdropLayerEffect&lt;/code&gt; brings the CSS &lt;code&gt;backdrop-filter&lt;/code&gt; model to the canvas. The filter runs against the pixels already beneath the layer&#39;s region when the layer opens. The result is clipped to the region, and the layer&#39;s own content renders above it, staying sharp.&lt;/p&gt;
+&lt;p&gt;The built-in backdrop effects are &lt;code&gt;BackdropBlurLayerEffect&lt;/code&gt;, &lt;code&gt;BackdropAcrylicLayerEffect&lt;/code&gt;, &lt;code&gt;BackdropDropShadowLayerEffect&lt;/code&gt;, and &lt;code&gt;BackdropColorMatrixLayerEffect&lt;/code&gt;, with prebuilt variants for brightness, contrast, grayscale, hue rotation, inversion, opacity, sepia, and saturation.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing.Processing;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+
+using Image&amp;lt;Rgba32&amp;gt; image = Image.Load&amp;lt;Rgba32&amp;gt;(&amp;quot;photo.jpg&amp;quot;);
+
+image.Mutate(ctx =&amp;gt; ctx.Paint(canvas =&amp;gt;
+{
+    Rectangle panel = new(70, 46, 220, 128);
+
+    _ = canvas.SaveLayer(
+        new GraphicsOptions(),
+        panel,
+        new BackdropAcrylicLayerEffect(10F, Color.White.WithAlpha(0.3F)));
+
+    // The backdrop inside the panel is blurred and tinted; content here stays sharp.
+    canvas.Draw(Pens.Solid(Color.White, 2), panel);
+    canvas.Restore();
+}));
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;The WebGPU package ships shader-backed versions of the whole set, such as &lt;code&gt;WebGPUGaussianBlurLayerEffect&lt;/code&gt; and &lt;code&gt;WebGPUBackdropAcrylicLayerEffect&lt;/code&gt;. These execute as WGSL shader passes, so a &lt;code&gt;SaveLayer(...)&lt;/code&gt; effect stays on the GPU. An equivalent &lt;code&gt;Apply(...)&lt;/code&gt; processor round-trips through CPU memory instead. Each carries its CPU equivalent as a built-in fallback, so one instance renders identically on both backends.&lt;/p&gt;
+&lt;p&gt;Both families are also open for extension, on both backends. On the CPU side, derive from &lt;code&gt;LayerEffect&lt;/code&gt; or &lt;code&gt;BackdropLayerEffect&lt;/code&gt; and pass the base constructor any ImageSharp processing operation. On the GPU side, derive from &lt;code&gt;WebGPUShaderLayerEffect&lt;/code&gt; or &lt;code&gt;WebGPUBackdropShaderLayerEffect&lt;/code&gt; with your own WGSL source, declared uniforms, and a CPU fallback. The shader contract is one entry function, with &lt;code&gt;layer_load&lt;/code&gt;, &lt;code&gt;layer_load_unassociated&lt;/code&gt;, and &lt;code&gt;layer_sample&lt;/code&gt; provided for reading the input, plus multi-pass support.&lt;/p&gt;
+&lt;h2 id=&quot;exact-aliased-rasterization&quot; tabindex=&quot;-1&quot;&gt;Exact aliased rasterization &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-drawing-310/#exact-aliased-rasterization&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Aliased rendering was rebuilt. When antialiasing is off, coverage is now decided by sampling the geometry at each pixel center, on both the CPU and WebGPU backends. Thin fill features that fall between pixel centers are recovered, so hairline geometry does not disappear.&lt;/p&gt;
+&lt;p&gt;This replaces the old threshold model, and &lt;code&gt;GraphicsOptions.AntialiasThreshold&lt;/code&gt; is gone with it. Binary-coverage output for masks, hit-test surfaces, and pixel-art-style rendering now matches classic center-sampled rasterizers, with nothing to tune.&lt;/p&gt;
+&lt;h2 id=&quot;premultiplied-rendering-and-gpu-interop&quot; tabindex=&quot;-1&quot;&gt;Premultiplied rendering and GPU interop &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-drawing-310/#premultiplied-rendering-and-gpu-interop&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;WebGPU render targets can now store associated (premultiplied) alpha, the working representation of GPU pipelines. Construct a &lt;code&gt;WebGPURenderTarget&lt;/code&gt; with &lt;code&gt;PixelAlphaRepresentation.Associated&lt;/code&gt;, and readback returns the matching premultiplied pixel type from ImageSharp 4.1: &lt;code&gt;Rgba32P&lt;/code&gt;, &lt;code&gt;Bgra32P&lt;/code&gt;, &lt;code&gt;NormalizedByte4P&lt;/code&gt;, or &lt;code&gt;RgbaHalfP&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;External surfaces gain an &lt;code&gt;AlphaMode&lt;/code&gt; option. &lt;code&gt;Premultiplied&lt;/code&gt; lets a WebGPU surface blend over other native content, &lt;code&gt;Opaque&lt;/code&gt; presents every pixel as solid, and &lt;code&gt;Auto&lt;/code&gt; lets WebGPU choose.&lt;/p&gt;
+&lt;p&gt;The drawing backend types behind the WebGPU package are now public. Applications can share device contexts, manage surfaces, and integrate the renderer with their own native plumbing. Before any target is constructed, the staged support probe reports exactly which capability is missing on machines that cannot render.&lt;/p&gt;
+&lt;h2 id=&quot;text-rendering&quot; tabindex=&quot;-1&quot;&gt;Text rendering &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-drawing-310/#text-rendering&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;3.1 runs on Fonts 3.1 and picks up its improvements directly: skip-ink decorations, hinting modes, weight synthesis, and faster, corpus-verified multilingual shaping.&lt;/p&gt;
+&lt;p&gt;The drawing side changed too:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Text entry points on &lt;code&gt;DrawingCanvas&lt;/code&gt; and &lt;code&gt;TextBuilder&lt;/code&gt; now accept positioned glyph spans (&lt;code&gt;glyphIds&lt;/code&gt; plus &lt;code&gt;points&lt;/code&gt;), so shaped output from the new Fonts &lt;code&gt;TextShaper&lt;/code&gt; API can be drawn directly.&lt;/li&gt;
+&lt;li&gt;Glyphs batch by subpixel position, and text outside the visible bounds is culled.&lt;/li&gt;
+&lt;li&gt;Decorations on path text merge into continuous bands instead of per-glyph segments, and skip-ink carving matches the rendered geometry.&lt;/li&gt;
+&lt;li&gt;Glyph outlines now cache per canvas and persist across &lt;code&gt;DrawText&lt;/code&gt; calls, a community contribution. A new public &lt;code&gt;DrawingTextCache&lt;/code&gt; can also be shared across canvases.&lt;/li&gt;
+&lt;li&gt;Color text follows the Fonts 3.1 palette selection through &lt;code&gt;RichTextOptions&lt;/code&gt;, and COLR v1 composite groups render with their declared blend modes. The WebGPU blend shaders implement the same composite set, so emoji and color glyphs match across backends.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;performance&quot; tabindex=&quot;-1&quot;&gt;Performance &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-drawing-310/#performance&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The 3.0 announcement measured &lt;code&gt;FillParis&lt;/code&gt;, a Paris street map with 50K fill paths rendered at 1096×1060 with per-path transforms and opacity. Re-measured on this release against SkiaSharp as the baseline (AMD Ryzen AI Max+ 395 with Radeon 8060S, Windows 11, .NET 10, BenchmarkDotNet, Server GC):&lt;/p&gt;
+&lt;table class=&quot;table&quot;&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Method&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Mean&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Ratio&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;SkiaSharp&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;103.4 ms&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;1.00&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;System.Drawing&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;147.3 ms&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;1.42&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ImageSharp.Drawing CPU&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;43.0 ms&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.42&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ImageSharp.Drawing CPU, retained scene&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;11.9 ms&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.11&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ImageSharp.Drawing WebGPU&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;20.0 ms&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.19&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ImageSharp.Drawing WebGPU, retained scene&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;5.6 ms&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.05&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;small&gt;&lt;i&gt;The CPU row reports the median: one benchmark launch of three degraded, and the ratio is computed from the median.&lt;/i&gt;&lt;/small&gt;&lt;/p&gt;
+&lt;p&gt;The same scene also moved against the 3.0 release. The CPU backend improved from 48.5 ms to 43.0 ms, and the retained CPU path improved from 17.9 ms to 11.9 ms, 1.5x faster. The immediate WebGPU path improved from 24.8 ms to 20.0 ms, 1.24x faster. The retained WebGPU path held at roughly 5.5 ms, already bound by the GPU. Both runs used the same machine, with both native baselines steady across the two runs.&lt;/p&gt;
+&lt;p&gt;Repeated text benefits from three 3.1 changes at once: the per-canvas glyph cache, subpixel glyph batching, and the zero-allocation Fonts 3.1 shaper. We measured 3.0.0 against 3.1.0 with one harness on the same machine as the table above. The harness draws the same phrase repeatedly on one canvas, best of ten repetitions per row, on .NET 10:&lt;/p&gt;
+&lt;table class=&quot;table&quot;&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;&lt;code&gt;DrawText&lt;/code&gt; runs&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;3.0.0&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;3.1.0&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Speedup&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;3.0.0 allocations&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;3.1.0 allocations&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;50&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;69.8 ms&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;27.6 ms&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;2.5x&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;53.3 MB&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;6.8 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;250&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;107.1 ms&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;49.7 ms&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;2.2x&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;266.3 MB&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;31.4 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;1,000&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;456.6 ms&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;105.3 ms&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;4.3x&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;1,075.3 MB&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;125.7 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;At 1,000 runs, 3.1 renders the workload 4.3x faster and allocates 8.6x less. The glyph cache itself started as a community contribution.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;DrawImage&lt;/code&gt; also gains a measured community improvement. It now converts only the required source region. Drawing a one-eighth region of a 22.9-megapixel source dropped from 103 MB and 24.4 ms to 24 MB and 14.4 ms.&lt;/p&gt;
+&lt;h2 id=&quot;fixes&quot; tabindex=&quot;-1&quot;&gt;Fixes &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-drawing-310/#fixes&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Other changes worth knowing about:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The clipping API was refactored, with difference clips supported and rectangular clips optimized.&lt;/li&gt;
+&lt;li&gt;Elliptic gradient brushes and clip layers were fixed.&lt;/li&gt;
+&lt;li&gt;Stroke cap and join arcs derive their sweep from relative angles, fixing round caps that vanished on the WebGPU backend.&lt;/li&gt;
+&lt;li&gt;Huge path coordinates no longer overflow the stack during scanline conversion.&lt;/li&gt;
+&lt;li&gt;The WebGPU runtime resolves native assets across deployment layouts, shares one instance across surfaces, warms pipelines ahead of first use, and scopes device polling to submission indexes for reliable readback.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;closing&quot; tabindex=&quot;-1&quot;&gt;Closing &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-drawing-310/#closing&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;3.1 adds effects to the canvas model: grouped treatments, backdrop filters, exact binary coverage, and premultiplied GPU output. The API stays the same on the CPU and GPU backends.&lt;/p&gt;
+&lt;p&gt;Please read the &lt;a href=&quot;https://github.com/SixLabors/ImageSharp.Drawing/releases/tag/v3.1.0&quot; target=&quot;_blank&quot;&gt;release notes&lt;/a&gt; for detailed information.&lt;/p&gt;
+&lt;p&gt;Thank you to everyone who reported issues and contributed code to this release.&lt;/p&gt;
+</content>
+	</entry>
+	
+	<entry>
+		<title>Announcing ImageSharp 4.1.0</title>
+		<link href="https://sixlabors.com/posts/announcing-imagesharp-410/"/>
+		<updated>2026-08-12T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/announcing-imagesharp-410/</id>
+		<content type="html">&lt;div class=&quot;ratio ratio-16x9&quot;&gt;
+&lt;iframe src=&quot;https://www.youtube.com/embed/HgzGwKwLmgM&quot; allow=&quot;autoplay; encrypted-media;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;ImageSharp 4.1.0 is out.&lt;/strong&gt; You can &lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp/4.1.0&quot; target=&quot;_blank&quot;&gt;download it today&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;ImageSharp 4.1.0 adds a complete Windows animated cursor codec, a family of premultiplied pixel formats, and the full W3C blend mode set. It also rebuilds the SIMD layer on &lt;code&gt;TensorPrimitives&lt;/code&gt;, decodes Apple CgBI PNG files, and hardens decoders across the formats people feed it every day.&lt;/p&gt;
+&lt;h2 id=&quot;what&#39;s-new-since-4.0.0&quot; tabindex=&quot;-1&quot;&gt;What&#39;s new since 4.0.0 &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-410/#what&#39;s-new-since-4.0.0&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The main changes since 4.0.0 are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ANI decoding and encoding, completing the Windows icon family that started with built-in ICO and CUR support in V4.&lt;/li&gt;
+&lt;li&gt;Seven premultiplied pixel formats plus a new &lt;code&gt;RgbaHalf&lt;/code&gt; format, with an alpha-representation-aware conversion contract on &lt;code&gt;IPixel&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Nine new color blending modes, completing the W3C blend mode set, plus a &lt;code&gt;Plus&lt;/code&gt; alpha composition mode.&lt;/li&gt;
+&lt;li&gt;SIMD pipelines normalized onto &lt;code&gt;TensorPrimitives&lt;/code&gt;, with AVX-512 paths, kernel operations up to 14.9x faster, and a 40% smaller managed assembly.&lt;/li&gt;
+&lt;li&gt;Decode support for Apple CgBI PNG files.&lt;/li&gt;
+&lt;li&gt;Simplified aliased rendering: &lt;code&gt;GraphicsOptions.AntialiasThreshold&lt;/code&gt; is gone, and binary coverage is now exact.&lt;/li&gt;
+&lt;li&gt;Configurable and extensible memory allocator limits, including a cap for single contiguous buffers.&lt;/li&gt;
+&lt;li&gt;Fixes across TIFF, GIF, PBM, EXIF, ICO, resize, and convolution paths.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;windows-animated-cursors&quot; tabindex=&quot;-1&quot;&gt;Windows animated cursors &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-410/#windows-animated-cursors&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;V4 added ICO and CUR. 4.1 completes the family with ANI, the RIFF-based Windows animated cursor format.&lt;/p&gt;
+&lt;p&gt;The codec reads and writes the full container:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;embedded CUR, ICO, or BMP frame resources&lt;/li&gt;
+&lt;li&gt;the &lt;code&gt;seq &lt;/code&gt; chunk that maps animation steps to resources&lt;/li&gt;
+&lt;li&gt;per-step timing from the &lt;code&gt;rate&lt;/code&gt; chunk&lt;/li&gt;
+&lt;li&gt;hotspots, and the name and artist metadata&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Decoding projects every animation step onto a shared canvas, so multi-resolution cursor resources survive a round trip.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Ani;
+using SixLabors.ImageSharp.PixelFormats;
+
+using Image&amp;lt;Rgba32&amp;gt; image = Image.Load&amp;lt;Rgba32&amp;gt;(&amp;quot;frame-source.png&amp;quot;);
+
+AniFrameMetadata frameMetadata = image.Frames.RootFrame.Metadata.GetAniMetadata();
+frameMetadata.FrameDelay = 10; // Sixtieths of a second.
+frameMetadata.HotspotX = 4;
+frameMetadata.HotspotY = 4;
+
+image.SaveAsAni(&amp;quot;pointer.ani&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;ANI registers as a built-in format, so detection, &lt;code&gt;Image.Identify()&lt;/code&gt;, and format conversion work the same way they do for every other codec. This work started as a community contribution, and we are grateful for it.&lt;/p&gt;
+&lt;h2 id=&quot;premultiplied-pixel-formats&quot; tabindex=&quot;-1&quot;&gt;Premultiplied pixel formats &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-410/#premultiplied-pixel-formats&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;GPU pipelines and compositors work in associated (premultiplied) alpha. Until now, moving pixel data between ImageSharp and those systems meant a conversion pass at the boundary.&lt;/p&gt;
+&lt;p&gt;4.1 adds pixel formats that store associated alpha natively: &lt;code&gt;Rgba32P&lt;/code&gt;, &lt;code&gt;Bgra32P&lt;/code&gt;, &lt;code&gt;Argb32P&lt;/code&gt;, &lt;code&gt;Abgr32P&lt;/code&gt;, &lt;code&gt;RgbaHalfP&lt;/code&gt;, &lt;code&gt;HalfVector4P&lt;/code&gt;, and &lt;code&gt;NormalizedByte4P&lt;/code&gt;. A new straight-alpha &lt;code&gt;RgbaHalf&lt;/code&gt; format joins them. &lt;code&gt;RgbaHalf&lt;/code&gt; and &lt;code&gt;RgbaHalfP&lt;/code&gt; are binary-compatible with the &lt;code&gt;DXGI_FORMAT_R16G16B16A16_FLOAT&lt;/code&gt; GPU format.&lt;/p&gt;
+&lt;p&gt;The formats are only part of the change. &lt;code&gt;IPixel&lt;/code&gt; now carries an alpha-representation-aware conversion contract, and the pixel blenders include dedicated associated-alpha Porter-Duff implementations at every SIMD width. Blending an associated format never round-trips through straight alpha.&lt;/p&gt;
+&lt;p&gt;ImageSharp.Drawing 3.1 builds on this directly: its WebGPU render targets can render premultiplied and read back into the matching &lt;code&gt;P&lt;/code&gt; format without conversion.&lt;/p&gt;
+&lt;h2 id=&quot;the-complete-blend-mode-set&quot; tabindex=&quot;-1&quot;&gt;The complete blend mode set &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-410/#the-complete-blend-mode-set&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;PixelColorBlendingMode&lt;/code&gt; previously stopped at &lt;code&gt;HardLight&lt;/code&gt;. 4.1 adds &lt;code&gt;ColorDodge&lt;/code&gt;, &lt;code&gt;ColorBurn&lt;/code&gt;, &lt;code&gt;SoftLight&lt;/code&gt;, &lt;code&gt;Difference&lt;/code&gt;, &lt;code&gt;Exclusion&lt;/code&gt;, and the non-separable &lt;code&gt;Hue&lt;/code&gt;, &lt;code&gt;Saturation&lt;/code&gt;, &lt;code&gt;Color&lt;/code&gt;, and &lt;code&gt;Luminosity&lt;/code&gt; modes. That completes the W3C blend mode set, alongside the existing &lt;code&gt;Add&lt;/code&gt; and &lt;code&gt;Subtract&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;PixelAlphaCompositionMode&lt;/code&gt; gains &lt;code&gt;Plus&lt;/code&gt;, which adds source and destination with clamping. It is the standard operator for additive light effects.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+
+GraphicsOptions options = new()
+{
+    ColorBlendingMode = PixelColorBlendingMode.SoftLight,
+    AlphaCompositionMode = PixelAlphaCompositionMode.SrcOver
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;The immediate driver is COLRv1 color glyph rendering, which composites paint layers with exactly these modes. Every mode is implemented across straight-alpha and associated-alpha blenders, and tests confirm the two paths produce identical results.&lt;/p&gt;
+&lt;h2 id=&quot;simd-through-tensorprimitives&quot; tabindex=&quot;-1&quot;&gt;SIMD through TensorPrimitives &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-410/#simd-through-tensorprimitives&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;4.1 moves a large amount of hand-written SIMD onto &lt;code&gt;System.Numerics.Tensors.TensorPrimitives&lt;/code&gt;, with a compatibility implementation covering the operations the BCL does not expose.&lt;/p&gt;
+&lt;p&gt;Gaussian and Bokeh blur kernel normalization, sharpening, and histogram offsets now run through tensor operations. JPEG ICC color conversion was flattened, ICC LUT normalization optimized, byte tensor addition uses AVX-512 where available, and the pixel blender hierarchy was flattened. PNG filter encoding, packed pixel conversion shuffles, and stateful &lt;code&gt;Vector4&lt;/code&gt; transforms were normalized onto the same helpers.&lt;/p&gt;
+&lt;p&gt;The gains are large where the old code was scalar or narrow. Every row below measured zero managed allocation:&lt;/p&gt;
+&lt;table class=&quot;table&quot;&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Operation&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Elements&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Before&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;After&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Change&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Histogram add&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;65,536&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;24.43 μs&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;1.64 μs&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;14.9x faster&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ICC byte LUT normalization&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;256&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;145.2 ns&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;10.0 ns&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;14.5x faster&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Sharpen-kernel negate&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;161&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;83.4 ns&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;4.7 ns&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;94.3% faster&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Gaussian normalization&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;161&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;88.2 ns&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;7.0 ns&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;92.0% faster&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;JPEG normalize + interleave 4&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;4,096&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;2,959 ns&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;1,108 ns&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;62.6% faster&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ICC max&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;2,048&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;230.4 ns&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;96.9 ns&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;57.9% faster&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Not every case wins. A few small fixed-size kernels pay a dispatch cost, and the PNG up-filter crosses over to a win at 2 KB scanlines. The complete before-and-after tables are in the pull request.&lt;/p&gt;
+&lt;p&gt;Removing the replaced generated SIMD code also cut the managed assembly from 4,100,608 to 2,433,024 bytes, a 40.7% reduction.&lt;/p&gt;
+&lt;h2 id=&quot;apple-cgbi-pngs&quot; tabindex=&quot;-1&quot;&gt;Apple CgBI PNGs &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-410/#apple-cgbi-pngs&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The PNG decoder now reads Apple CgBI files, the iOS-optimized variant that &lt;code&gt;pngcrush -iphone&lt;/code&gt; produces. These files store raw DEFLATE image data, swap the channel order, and premultiply color by alpha. ImageSharp detects the &lt;code&gt;CgBI&lt;/code&gt; chunk and reverses those changes automatically, with SIMD-accelerated scanline restoration and chunk-order validation. No decoder option is required, and the encoder always writes standard PNG output. This support also came through community contributions.&lt;/p&gt;
+&lt;h2 id=&quot;simpler-aliased-rendering&quot; tabindex=&quot;-1&quot;&gt;Simpler aliased rendering &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-410/#simpler-aliased-rendering&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;GraphicsOptions.AntialiasThreshold&lt;/code&gt; has been removed. When &lt;code&gt;Antialias&lt;/code&gt; is &lt;code&gt;false&lt;/code&gt;, coverage is now exact: a pixel is fully covered or not covered, with nothing to tune. ImageSharp.Drawing 3.1 pairs this with center-sampled aliased rasterization, so binary-coverage output matches classic rasterizers instead of depending on a threshold value.&lt;/p&gt;
+&lt;p&gt;If you set &lt;code&gt;AntialiasThreshold&lt;/code&gt; in existing code, delete the assignment. No other action is needed.&lt;/p&gt;
+&lt;h2 id=&quot;configurable-allocator-limits&quot; tabindex=&quot;-1&quot;&gt;Configurable allocator limits &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-410/#configurable-allocator-limits&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;MemoryAllocatorOptions&lt;/code&gt; gains &lt;code&gt;SingleBufferAllocationLimitMegabytes&lt;/code&gt;, which caps the size of one contiguous buffer alongside the existing group and accumulative limits. The resolved limits are now public on &lt;code&gt;MemoryAllocator&lt;/code&gt;, so custom allocator implementations can enforce the same policies the default allocator does.&lt;/p&gt;
+&lt;h2 id=&quot;fixes-and-hardening&quot; tabindex=&quot;-1&quot;&gt;Fixes and hardening &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-410/#fixes-and-hardening&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;4.1 also fixes a set of real-world issues:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;TIFF ICC, EXIF, and XMP profiles are cloned into image metadata during decode, so they survive re-encoding to other formats.&lt;/li&gt;
+&lt;li&gt;EXIF Long values now accept &lt;code&gt;ulong&lt;/code&gt; writes within range.&lt;/li&gt;
+&lt;li&gt;GIF transparency handling and dithering were corrected for frames with transparent palette entries.&lt;/li&gt;
+&lt;li&gt;ICO directory entries pointing at the end of the stream are rejected instead of producing empty frames.&lt;/li&gt;
+&lt;li&gt;ANI decoding handles oversized chunks and partial icon masks without over-allocating.&lt;/li&gt;
+&lt;li&gt;PBM decoding validates the declared maximum pixel value.&lt;/li&gt;
+&lt;li&gt;Binary PGM and PPM files with 16-bit samples now decode and encode with the correct big-endian byte order.&lt;/li&gt;
+&lt;li&gt;Resizing to a single pixel row or column no longer trips the transform degeneracy check.&lt;/li&gt;
+&lt;li&gt;Convolutions over very small bounds compute correct sampling offsets.&lt;/li&gt;
+&lt;li&gt;AOT compilation seeds cover the ICO, CUR, and QOI formats, fixing NativeAOT trimming of their generic pipelines.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;closing&quot; tabindex=&quot;-1&quot;&gt;Closing &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-imagesharp-410/#closing&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;4.1 is a focused release: one new codec, new premultiplied pixel formats, the complete blend mode set, and a faster, more uniform SIMD core. The target framework and the license terms do not change.&lt;/p&gt;
+&lt;p&gt;Please read the &lt;a href=&quot;https://github.com/SixLabors/ImageSharp/releases/tag/v4.1.0&quot; target=&quot;_blank&quot;&gt;release notes&lt;/a&gt; for detailed information.&lt;/p&gt;
+&lt;p&gt;Thank you to everyone who used the previews, reported issues, and contributed code to this release.&lt;/p&gt;
+</content>
+	</entry>
+	
+	<entry>
+		<title>Announcing Fonts 3.1.0</title>
+		<link href="https://sixlabors.com/posts/announcing-fonts-310/"/>
+		<updated>2026-08-12T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/announcing-fonts-310/</id>
+		<content type="html">&lt;div class=&quot;ratio ratio-16x9&quot;&gt;
+&lt;iframe src=&quot;https://www.youtube.com/embed/MZjAantupsA&quot; allow=&quot;autoplay; encrypted-media;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Fonts 3.1.0 is out.&lt;/strong&gt; You can &lt;a href=&quot;https://www.nuget.org/packages/SixLabors.Fonts/3.1.0&quot; target=&quot;_blank&quot;&gt;download it today&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Fonts 3.1.0 opens the shaping engine as a public API and adds a full hinting mode that grid-fits both TrueType and CFF outlines. It synthesizes bold and italic styles when a face lacks them, and matches fallback fonts through the operating system. It also shapes complex scripts with more coverage, more correctness, and more speed.&lt;/p&gt;
+&lt;h2 id=&quot;what&#39;s-new-since-3.0.0&quot; tabindex=&quot;-1&quot;&gt;What&#39;s new since 3.0.0 &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-fonts-310/#what&#39;s-new-since-3.0.0&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The main changes since 3.0.0 are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A public text shaping API: &lt;code&gt;TextShaper&lt;/code&gt;, &lt;code&gt;TextShapingBuffer&lt;/code&gt;, and &lt;code&gt;ShapedGlyph&lt;/code&gt;, plus glyph-id measurement and rendering.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;HintingMode.Full&lt;/code&gt;, with complete bidirectional TrueType instruction execution and declared-hint grid fitting for CFF outlines.&lt;/li&gt;
+&lt;li&gt;A &lt;code&gt;FontWeight&lt;/code&gt; API with variable-font instancing, synthetic bold, and synthetic oblique fallbacks.&lt;/li&gt;
+&lt;li&gt;Native OS font matching through DirectWrite, CoreText, and Fontconfig via &lt;code&gt;SystemFonts.TryMatchCharacter(...)&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Resolver-based fallback: shaping consults &lt;code&gt;TextOptions.FontFallbackResolver&lt;/code&gt; for code points no configured font can shape.&lt;/li&gt;
+&lt;li&gt;Skip-ink text decorations: underlines and overlines break around glyph ink.&lt;/li&gt;
+&lt;li&gt;Color font palette selection with per-entry overrides, and correct COLR v1 composite group rendering.&lt;/li&gt;
+&lt;li&gt;Shaping upgrades: a Khmer shaper, kern format 2, Arabic fallback shaping, correct automatic fractions, and refined line layout.&lt;/li&gt;
+&lt;li&gt;Visible-bounds culling, baseline anchoring, x-height and cap-height metrics, and memory-backed font loading.&lt;/li&gt;
+&lt;li&gt;Zero-allocation steady-state shaping, benchmarked head to head against HarfBuzz.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;a-public-text-shaper&quot; tabindex=&quot;-1&quot;&gt;A public text shaper &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-fonts-310/#a-public-text-shaper&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Fonts has always shaped text internally. 3.1 makes the shaper a first-class API for callers that build their own line layout, cache shaped runs, or feed glyphs to an external renderer.&lt;/p&gt;
+&lt;p&gt;You fill a reusable, caller-owned &lt;code&gt;TextShapingBuffer&lt;/code&gt;, shape it against a font, and read back glyph IDs, advances, offsets, and source indexes. &lt;code&gt;Shape(...)&lt;/code&gt; handles logical lines with bidirectional resolution. &lt;code&gt;ShapeRun(...)&lt;/code&gt; shapes one directional run you have already selected.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using SixLabors.Fonts;
+
+Font font = SystemFonts.CreateFont(&amp;quot;Segoe UI&amp;quot;, 16);
+
+TextShapingBuffer buffer = new()
+{
+    TextDirection = TextDirection.Auto
+};
+buffer.Add(&amp;quot;Hello world&amp;quot;);
+
+TextShaper.Shape(font, buffer);
+
+float penX = 0;
+foreach (ShapedGlyph glyph in buffer.Glyphs)
+{
+    // Draw the glyph at penX + glyph.Offset.X, then advance the pen.
+    penX += glyph.AdvanceWidth;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;The other half of the contract is glyph-id measurement and rendering. &lt;code&gt;TextMeasurer&lt;/code&gt; and &lt;code&gt;TextRenderer&lt;/code&gt; accept a shaped buffer, or raw glyph IDs with explicit positions, through the new &lt;code&gt;GlyphOptions&lt;/code&gt; type. ImageSharp.Drawing 3.1 accepts the same positioned glyph spans, so shaped output draws directly into images.&lt;/p&gt;
+&lt;p&gt;Shaping into a caller-owned buffer also anchors a performance push. The steady-state shaping path allocates zero managed bytes in every benchmarked script, enforced by allocation tests. Feature registrations are collected once per plan, and Unicode normalization lookups were rebuilt.&lt;/p&gt;
+&lt;p&gt;Managed code races a native engine here. The benchmark shapes the same run and font bytes through SixLabors.Fonts and HarfBuzzSharp, reusing one buffer per side. The ratio is SixLabors.Fonts time divided by HarfBuzz time, so lower is better. On .NET 10, Fonts wins three of the ten scripts outright and runs within 12% in another four:&lt;/p&gt;
+&lt;table class=&quot;table&quot;&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Scenario&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;SixLabors.Fonts&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;HarfBuzz&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Ratio&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Latin&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;2.6744 μs&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;2.2843 μs&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;1.17x&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Arabic&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;4.9651 μs&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;3.9115 μs&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;1.27x&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Hebrew&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;4.5843 μs&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;4.6725 μs&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.98x&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Thai&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;4.2530 μs&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;3.9104 μs&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;1.09x&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Hangul&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.9258 μs&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.5645 μs&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;1.64x&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Devanagari&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;7.7347 μs&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;9.3177 μs&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.83x&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Khmer&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;4.1790 μs&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;3.7335 μs&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;1.12x&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Myanmar&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;25.2861 μs&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;22.9402 μs&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;1.10x&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Myanmar Zawgyi&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.7797 μs&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.8248 μs&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.95x&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Balinese&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;2.6941 μs&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;3.0572 μs&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.88x&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Every scenario measured zero bytes allocated per shape, on both sides. HarfBuzz reaches that through pooled buffers. Fonts reaches it the same way, with a reusable caller-owned buffer and pooled scratch state. The .NET 8 results and the measurement configuration are in the pull request.&lt;/p&gt;
+&lt;h2 id=&quot;full-hinting%2C-now-including-cff&quot; tabindex=&quot;-1&quot;&gt;Full hinting, now including CFF &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-fonts-310/#full-hinting%2C-now-including-cff&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;3.0 shipped FreeType v40-compatible TrueType hinting: vertical instruction processing with smooth horizontal placement. 3.1 adds &lt;a href=&quot;https://docs.sixlabors.com/articles/fonts/hinting.html&quot; target=&quot;_blank&quot;&gt;&lt;code&gt;HintingMode.Full&lt;/code&gt;&lt;/a&gt;, which reproduces the classic bi-level rasterizer pipeline that font hints were originally authored for.&lt;/p&gt;
+&lt;p&gt;Under full hinting, Fonts executes the complete horizontal and vertical TrueType instruction set and rounds the em size to whole pixels. It aligns glyph origins to the pixel grid on both axes. Flow-axis advances become whole-pixel values, taken from the font&#39;s &lt;code&gt;hdmx&lt;/code&gt; device records where they exist. Measurement uses the same advances as rendering, so layout and raster output agree exactly.&lt;/p&gt;
+&lt;p&gt;CFF outlines are hinted for the first time. Fonts collects the stem hints, hint masks, and counter masks declared in each charstring, plus the alignment zones and stem widths from the Private DICT. It then fits the outline through a hint map. Standard hinting fits the vertical axis only. Full hinting fits both axes.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using SixLabors.Fonts;
+
+Font font = SystemFonts.CreateFont(&amp;quot;Segoe UI&amp;quot;, 11);
+TextOptions options = new(font)
+{
+    Dpi = 96,
+    HintingMode = HintingMode.Full
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Full hinting is the sharpest choice for small UI text. Standard remains the right default for smooth, fractional spacing.&lt;/p&gt;
+&lt;h2 id=&quot;weight-and-style-synthesis&quot; tabindex=&quot;-1&quot;&gt;Weight and style synthesis &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-fonts-310/#weight-and-style-synthesis&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;TextOptions.FontWeight&lt;/code&gt; and &lt;code&gt;TextRun.FontWeight&lt;/code&gt; request a weight on the OpenType and CSS scale, from &lt;code&gt;Thin&lt;/code&gt; (100) to &lt;code&gt;Black&lt;/code&gt; (900). A variable font with a &lt;code&gt;wght&lt;/code&gt; axis is instanced at the requested weight, preserving every other configured axis. A static face that cannot satisfy a bold request is thickened with a synthetic bold operation, using the CSS weight boundary of 600. When a run requests italic and the resolved face has none, glyph outlines are sheared to a synthetic oblique.&lt;/p&gt;
+&lt;p&gt;Color glyphs are excluded from synthesis, because thickening independently colored layers distorts them. The synthetic bold and oblique work came from community contributions, and we are grateful for them.&lt;/p&gt;
+&lt;h2 id=&quot;native-font-matching&quot; tabindex=&quot;-1&quot;&gt;Native font matching &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-fonts-310/#native-font-matching&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;SystemFonts.TryMatchCharacter(...)&lt;/code&gt; asks the operating system which installed font covers a code point, through DirectWrite on Windows, CoreText on macOS, and Fontconfig on Linux. The result is a &lt;code&gt;FontMatch&lt;/code&gt; carrying the family and style, ready to use as a fallback for characters your bundled fonts cannot map.&lt;/p&gt;
+&lt;p&gt;Shaping can use this matching automatically. Set &lt;code&gt;TextOptions.FontFallbackResolver&lt;/code&gt; to &lt;code&gt;SystemFonts.FallbackResolver&lt;/code&gt;, and shaping consults the operating system for code points no configured font can shape. The resolver runs after the primary font and every explicit fallback family, at most once per distinct unresolved code point. Implement &lt;code&gt;IFontFallbackResolver&lt;/code&gt; for a custom policy.&lt;/p&gt;
+&lt;p&gt;Alongside it, stream-loaded fonts now copy their data into owned memory, so a &lt;code&gt;FontCollection&lt;/code&gt; stays valid after the source stream closes. &lt;code&gt;FontMetrics&lt;/code&gt; exposes &lt;code&gt;TryGetGlyphMetrics(...)&lt;/code&gt;, &lt;code&gt;TryGetTableData(...)&lt;/code&gt;, and &lt;code&gt;OpenStream()&lt;/code&gt; for tooling that needs raw font data.&lt;/p&gt;
+&lt;h2 id=&quot;color-font-palettes-and-composite-groups&quot; tabindex=&quot;-1&quot;&gt;Color font palettes and composite groups &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-fonts-310/#color-font-palettes-and-composite-groups&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;COLR glyphs take their colors from the font&#39;s CPAL palette table, and many color fonts ship more than one palette. &lt;a href=&quot;https://docs.sixlabors.com/articles/fonts/colorfonts.html&quot; target=&quot;_blank&quot;&gt;&lt;code&gt;TextOptions.FontPalette&lt;/code&gt;&lt;/a&gt; selects the palette that resolves the colors. &lt;code&gt;TextRun.FontPalette&lt;/code&gt; swaps it over a range of text, and each &lt;code&gt;FontPaletteOverride&lt;/code&gt; replaces one palette entry with your own color.&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;using SixLabors.Fonts;
+
+TextOptions options = new(font)
+{
+    // Resolve COLR glyph colors with the font&#39;s second palette.
+    // Palette indexes are zero-based; null keeps the font&#39;s default.
+    FontPalette = new FontPalette(1)
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;COLR v1 rendering also gained fidelity. Composite groups now render as isolated units that blend onto the content below with their declared composite mode, matching the specification. The &lt;code&gt;IGlyphRenderer&lt;/code&gt; contract changed to carry this: &lt;code&gt;BeginGroup(...)&lt;/code&gt; and &lt;code&gt;EndGroup()&lt;/code&gt; wrap grouped layers, &lt;code&gt;BeginLayer(...)&lt;/code&gt; lost its clip parameter, and clips arrive through &lt;code&gt;GlyphRendererParameters.ClipBounds&lt;/code&gt;. If you implement a custom renderer, add the two new members when you upgrade.&lt;/p&gt;
+&lt;h2 id=&quot;shaping-coverage-and-correctness&quot; tabindex=&quot;-1&quot;&gt;Shaping coverage and correctness &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-fonts-310/#shaping-coverage-and-correctness&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Differential tests compare glyph IDs, advances, and offsets against HarfBuzz across a font corpus on Windows and Linux. All 4,851 available cases pass:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Line breaking, run segmentation, and metrics resolution follow the same rules as web engines, so text lays out consistently across your stack.&lt;/li&gt;
+&lt;li&gt;A dedicated Khmer shaper, and kern table format 2 support.&lt;/li&gt;
+&lt;li&gt;Arabic fallback shaping and positioning for fonts without OpenType layout tables, and a fix for Arabic in vertical layout.&lt;/li&gt;
+&lt;li&gt;Joiner transparency during sequence matching, and nested lookups applied at the positions their context matched.&lt;/li&gt;
+&lt;li&gt;Fractions now form automatically around the Unicode fraction slash and no longer trigger on the ordinary solidus, so &amp;quot;1⁄2&amp;quot; forms a fraction and &amp;quot;1/2&amp;quot; does not.&lt;/li&gt;
+&lt;li&gt;Characters map through the single &lt;code&gt;cmap&lt;/code&gt; subtable a font intends, instead of merging candidates across subtables.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;layout-and-rendering-additions&quot; tabindex=&quot;-1&quot;&gt;Layout and rendering additions &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-fonts-310/#layout-and-rendering-additions&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;TextDecorationSkipInk&lt;/code&gt; breaks underlines and overlines around glyph descenders and ascenders, measured from the real outline geometry.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;TextOptions.VisibleBounds&lt;/code&gt; culls whole lines outside a visible region while keeping the remaining lines positioned as if everything had rendered.&lt;/li&gt;
+&lt;li&gt;Baseline anchoring reads the OpenType &lt;code&gt;BASE&lt;/code&gt; table, and &lt;code&gt;FontMetrics&lt;/code&gt; exposes &lt;code&gt;XHeight&lt;/code&gt; and &lt;code&gt;CapHeight&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Recursion in composite glyphs and CFF subroutines is guarded, the TrueType interpreter pool resets state correctly, and SVG tables with zero entries load cleanly.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;closing&quot; tabindex=&quot;-1&quot;&gt;Closing &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/announcing-fonts-310/#closing&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Fonts 3.1 opens the whole text pipeline to callers. You can shape, measure, hint, synthesize, and render through public APIs. Thousands of corpus cases verify the output, and it runs at native-engine speed.&lt;/p&gt;
+&lt;p&gt;Please read the &lt;a href=&quot;https://github.com/SixLabors/Fonts/releases/tag/v3.1.0&quot; target=&quot;_blank&quot;&gt;release notes&lt;/a&gt; for detailed information.&lt;/p&gt;
+&lt;p&gt;Thank you to everyone who reported issues and contributed code to this release.&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>Announcing PolygonClipper 1.0.0</title>

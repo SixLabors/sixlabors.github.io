@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Six Labors : Announcing ImageSharp 1.0 Release Candidate 1</title>
-    <meta name="description" content="Today were very happy to announce ImageSharp 1.0 Release Candidate 1.">
+    <title>Six Labors : Announcing Fonts 3.1.0</title>
+    <meta name="description" content="Fonts 3.1 - a public text shaper, full hinting for TrueType and CFF, weight and style synthesis, native font matching, and faster multilingual shaping.">
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
       rel="stylesheet"
@@ -197,12 +197,12 @@
       <div class="masthead">
   <div class="container">
     <h1 class="mb-3">
-      Announcing ImageSharp 1.0 Release Candidate 1
+      Announcing Fonts 3.1.0
     </h1>
     <p class="lead mb-4">
-      Today were very happy to announce ImageSharp 1.0 Release Candidate 1.
+      Fonts 3.1 - a public text shaper, full hinting for TrueType and CFF, weight and style synthesis, native font matching, and faster multilingual shaping.
     </p>
-    <div><a href="/tags/imagesharp/" class="post-tag btn btn-primary shadow">ImageSharp</a><a href="/tags/releases/" class="post-tag btn btn-primary shadow">Releases</a>
+    <div><a href="/tags/releases/" class="post-tag btn btn-primary shadow">Releases</a><a href="/tags/fonts/" class="post-tag btn btn-primary shadow">Fonts</a>
     </div>
   </div>
 </div>
@@ -212,34 +212,192 @@
     <div class= row>
       <div class="col-md-8">
         <article>
-          <time datetime="2020-05-01">01 May 2020</time>
+          <time datetime="2026-08-12">12 Aug 2026</time>
 
-          <p><img src="/img/fireworks.jpg" alt="Fireworks in a night sky" class="img-fluid"></p>
-<p>Today, we’re announcing ImageSharp 1.0 Release Candidate 1. With this release, along with the usual performance improvements and bug fixes we’ve focused on polishing ImageSharp 1.0 for a final release. We are now getting very, very close.</p>
-<p><a href="https://www.nuget.org/packages/SixLabors.ImageSharp/" target="_blank">Download ImageSharp 1.0 RC1</a> on Windows, macOS, and Linux, available now.</p>
-<p>This is a momentous day for us. ImageSharp has been in development now for 4 1/2 years and we're proud to deliver what we believe to be a comprehensive, well performing, solution with a great modern API.</p>
-<h2 id="license" tabindex="-1">License <a class="direct-link" href="#license">#</a></h2>
-<p>As announced in <a href="https://sixlabors.com/blog/beta-six-labors/#licensing-plans" target="_blank">January 2019</a> the Release Candidate comes with a new license. We've worked hard to try to strike the correct balance between supporting the open source community and protecting the future of the project. We believe we have now found that balance.</p>
+          <div class="ratio ratio-16x9">
+<iframe src="https://www.youtube.com/embed/MZjAantupsA" allow="autoplay; encrypted-media;" allowfullscreen></iframe>
+</div>
+<p><strong>Fonts 3.1.0 is out.</strong> You can <a href="https://www.nuget.org/packages/SixLabors.Fonts/3.1.0" target="_blank">download it today</a>.</p>
+<p>Fonts 3.1.0 opens the shaping engine as a public API and adds a full hinting mode that grid-fits both TrueType and CFF outlines. It synthesizes bold and italic styles when a face lacks them, and matches fallback fonts through the operating system. It also shapes complex scripts with more coverage, more correctness, and more speed.</p>
+<h2 id="what's-new-since-3.0.0" tabindex="-1">What's new since 3.0.0 <a class="direct-link" href="#what's-new-since-3.0.0">#</a></h2>
+<p>The main changes since 3.0.0 are:</p>
 <ul>
-<li>ImageSharp is licensed under the <a href="https://www.gnu.org/licenses/agpl-3.0" target="_blank">GNU Affero General Public License v3</a></li>
-<li>An alternative Commercial License can be purchased for Closed Source projects and applications.<br>
-Please visit <a href="https://sixlabors.com/pricing" target="_blank">https://sixlabors.com/pricing</a> for details.</li>
-<li>Open Source projects who have taken a dependency on ImageSharp prior to adoption of the AGPL v3 license are permitted to use ImageSharp (including all future versions) under the previous <a href="https://opensource.org/licenses/Apache-2.0" target="_blank">Apache 2.0 License</a>.</li>
+<li>A public text shaping API: <code>TextShaper</code>, <code>TextShapingBuffer</code>, and <code>ShapedGlyph</code>, plus glyph-id measurement and rendering.</li>
+<li><code>HintingMode.Full</code>, with complete bidirectional TrueType instruction execution and declared-hint grid fitting for CFF outlines.</li>
+<li>A <code>FontWeight</code> API with variable-font instancing, synthetic bold, and synthetic oblique fallbacks.</li>
+<li>Native OS font matching through DirectWrite, CoreText, and Fontconfig via <code>SystemFonts.TryMatchCharacter(...)</code>.</li>
+<li>Resolver-based fallback: shaping consults <code>TextOptions.FontFallbackResolver</code> for code points no configured font can shape.</li>
+<li>Skip-ink text decorations: underlines and overlines break around glyph ink.</li>
+<li>Color font palette selection with per-entry overrides, and correct COLR v1 composite group rendering.</li>
+<li>Shaping upgrades: a Khmer shaper, kern format 2, Arabic fallback shaping, correct automatic fractions, and refined line layout.</li>
+<li>Visible-bounds culling, baseline anchoring, x-height and cap-height metrics, and memory-backed font loading.</li>
+<li>Zero-allocation steady-state shaping, benchmarked head to head against HarfBuzz.</li>
 </ul>
-<p>Going forward the license changes will also apply for ImageSharp.Web 1.0 RC1, ImageSharp.Drawing 1.0-Beta8, and Fonts 1.0-Beta10.</p>
-<h2 id="documentation" tabindex="-1">Documentation <a class="direct-link" href="#documentation">#</a></h2>
-<p>Full API documentation for all the Six Labors libraries is available at <a href="https://docs.sixlabors.com" target="_blank">https://docs.sixlabors.com</a> alongside conceptual documentation and links to runnable sample applications. We will continue to add to this documentation to provide</p>
-<h2 id="go-live" tabindex="-1">Go Live <a class="direct-link" href="#go-live">#</a></h2>
-<p>ImageSharp 1.0 Release Candidate 11 is supported by Six Labors and can be used in production. We strongly recommend that you test your app running on the RC1 before deploying into production. If you find an issue with ImageSharp, please file a <a href="https://github.com/SixLabors/ImageSharp/issues/new/choose" target="_blank">GitHub issue</a>.</p>
-<h2 id="1.0" tabindex="-1">1.0 <a class="direct-link" href="#1.0">#</a></h2>
-<p>We hope to release the final 1.0 version within the next few months. The API is be considered stable and work will be focused on performance improvements and bug fixes with no additional feature planned.</p>
+<h2 id="a-public-text-shaper" tabindex="-1">A public text shaper <a class="direct-link" href="#a-public-text-shaper">#</a></h2>
+<p>Fonts has always shaped text internally. 3.1 makes the shaper a first-class API for callers that build their own line layout, cache shaped runs, or feed glyphs to an external renderer.</p>
+<p>You fill a reusable, caller-owned <code>TextShapingBuffer</code>, shape it against a font, and read back glyph IDs, advances, offsets, and source indexes. <code>Shape(...)</code> handles logical lines with bidirectional resolution. <code>ShapeRun(...)</code> shapes one directional run you have already selected.</p>
+<div class="frame">
+<pre><code class="language-csharp">using SixLabors.Fonts;
+
+Font font = SystemFonts.CreateFont(&quot;Segoe UI&quot;, 16);
+
+TextShapingBuffer buffer = new()
+{
+    TextDirection = TextDirection.Auto
+};
+buffer.Add(&quot;Hello world&quot;);
+
+TextShaper.Shape(font, buffer);
+
+float penX = 0;
+foreach (ShapedGlyph glyph in buffer.Glyphs)
+{
+    // Draw the glyph at penX + glyph.Offset.X, then advance the pen.
+    penX += glyph.AdvanceWidth;
+}
+</code></pre>
+</div>
+<p>The other half of the contract is glyph-id measurement and rendering. <code>TextMeasurer</code> and <code>TextRenderer</code> accept a shaped buffer, or raw glyph IDs with explicit positions, through the new <code>GlyphOptions</code> type. ImageSharp.Drawing 3.1 accepts the same positioned glyph spans, so shaped output draws directly into images.</p>
+<p>Shaping into a caller-owned buffer also anchors a performance push. The steady-state shaping path allocates zero managed bytes in every benchmarked script, enforced by allocation tests. Feature registrations are collected once per plan, and Unicode normalization lookups were rebuilt.</p>
+<p>Managed code races a native engine here. The benchmark shapes the same run and font bytes through SixLabors.Fonts and HarfBuzzSharp, reusing one buffer per side. The ratio is SixLabors.Fonts time divided by HarfBuzz time, so lower is better. On .NET 10, Fonts wins three of the ten scripts outright and runs within 12% in another four:</p>
+<table class="table">
+<thead>
+<tr>
+<th>Scenario</th>
+<th style="text-align:right">SixLabors.Fonts</th>
+<th style="text-align:right">HarfBuzz</th>
+<th style="text-align:right">Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latin</td>
+<td style="text-align:right">2.6744 μs</td>
+<td style="text-align:right">2.2843 μs</td>
+<td style="text-align:right">1.17x</td>
+</tr>
+<tr>
+<td>Arabic</td>
+<td style="text-align:right">4.9651 μs</td>
+<td style="text-align:right">3.9115 μs</td>
+<td style="text-align:right">1.27x</td>
+</tr>
+<tr>
+<td>Hebrew</td>
+<td style="text-align:right">4.5843 μs</td>
+<td style="text-align:right">4.6725 μs</td>
+<td style="text-align:right">0.98x</td>
+</tr>
+<tr>
+<td>Thai</td>
+<td style="text-align:right">4.2530 μs</td>
+<td style="text-align:right">3.9104 μs</td>
+<td style="text-align:right">1.09x</td>
+</tr>
+<tr>
+<td>Hangul</td>
+<td style="text-align:right">0.9258 μs</td>
+<td style="text-align:right">0.5645 μs</td>
+<td style="text-align:right">1.64x</td>
+</tr>
+<tr>
+<td>Devanagari</td>
+<td style="text-align:right">7.7347 μs</td>
+<td style="text-align:right">9.3177 μs</td>
+<td style="text-align:right">0.83x</td>
+</tr>
+<tr>
+<td>Khmer</td>
+<td style="text-align:right">4.1790 μs</td>
+<td style="text-align:right">3.7335 μs</td>
+<td style="text-align:right">1.12x</td>
+</tr>
+<tr>
+<td>Myanmar</td>
+<td style="text-align:right">25.2861 μs</td>
+<td style="text-align:right">22.9402 μs</td>
+<td style="text-align:right">1.10x</td>
+</tr>
+<tr>
+<td>Myanmar Zawgyi</td>
+<td style="text-align:right">0.7797 μs</td>
+<td style="text-align:right">0.8248 μs</td>
+<td style="text-align:right">0.95x</td>
+</tr>
+<tr>
+<td>Balinese</td>
+<td style="text-align:right">2.6941 μs</td>
+<td style="text-align:right">3.0572 μs</td>
+<td style="text-align:right">0.88x</td>
+</tr>
+</tbody>
+</table>
+<p>Every scenario measured zero bytes allocated per shape, on both sides. HarfBuzz reaches that through pooled buffers. Fonts reaches it the same way, with a reusable caller-owned buffer and pooled scratch state. The .NET 8 results and the measurement configuration are in the pull request.</p>
+<h2 id="full-hinting%2C-now-including-cff" tabindex="-1">Full hinting, now including CFF <a class="direct-link" href="#full-hinting%2C-now-including-cff">#</a></h2>
+<p>3.0 shipped FreeType v40-compatible TrueType hinting: vertical instruction processing with smooth horizontal placement. 3.1 adds <a href="https://docs.sixlabors.com/articles/fonts/hinting.html" target="_blank"><code>HintingMode.Full</code></a>, which reproduces the classic bi-level rasterizer pipeline that font hints were originally authored for.</p>
+<p>Under full hinting, Fonts executes the complete horizontal and vertical TrueType instruction set and rounds the em size to whole pixels. It aligns glyph origins to the pixel grid on both axes. Flow-axis advances become whole-pixel values, taken from the font's <code>hdmx</code> device records where they exist. Measurement uses the same advances as rendering, so layout and raster output agree exactly.</p>
+<p>CFF outlines are hinted for the first time. Fonts collects the stem hints, hint masks, and counter masks declared in each charstring, plus the alignment zones and stem widths from the Private DICT. It then fits the outline through a hint map. Standard hinting fits the vertical axis only. Full hinting fits both axes.</p>
+<div class="frame">
+<pre><code class="language-csharp">using SixLabors.Fonts;
+
+Font font = SystemFonts.CreateFont(&quot;Segoe UI&quot;, 11);
+TextOptions options = new(font)
+{
+    Dpi = 96,
+    HintingMode = HintingMode.Full
+};
+</code></pre>
+</div>
+<p>Full hinting is the sharpest choice for small UI text. Standard remains the right default for smooth, fractional spacing.</p>
+<h2 id="weight-and-style-synthesis" tabindex="-1">Weight and style synthesis <a class="direct-link" href="#weight-and-style-synthesis">#</a></h2>
+<p><code>TextOptions.FontWeight</code> and <code>TextRun.FontWeight</code> request a weight on the OpenType and CSS scale, from <code>Thin</code> (100) to <code>Black</code> (900). A variable font with a <code>wght</code> axis is instanced at the requested weight, preserving every other configured axis. A static face that cannot satisfy a bold request is thickened with a synthetic bold operation, using the CSS weight boundary of 600. When a run requests italic and the resolved face has none, glyph outlines are sheared to a synthetic oblique.</p>
+<p>Color glyphs are excluded from synthesis, because thickening independently colored layers distorts them. The synthetic bold and oblique work came from community contributions, and we are grateful for them.</p>
+<h2 id="native-font-matching" tabindex="-1">Native font matching <a class="direct-link" href="#native-font-matching">#</a></h2>
+<p><code>SystemFonts.TryMatchCharacter(...)</code> asks the operating system which installed font covers a code point, through DirectWrite on Windows, CoreText on macOS, and Fontconfig on Linux. The result is a <code>FontMatch</code> carrying the family and style, ready to use as a fallback for characters your bundled fonts cannot map.</p>
+<p>Shaping can use this matching automatically. Set <code>TextOptions.FontFallbackResolver</code> to <code>SystemFonts.FallbackResolver</code>, and shaping consults the operating system for code points no configured font can shape. The resolver runs after the primary font and every explicit fallback family, at most once per distinct unresolved code point. Implement <code>IFontFallbackResolver</code> for a custom policy.</p>
+<p>Alongside it, stream-loaded fonts now copy their data into owned memory, so a <code>FontCollection</code> stays valid after the source stream closes. <code>FontMetrics</code> exposes <code>TryGetGlyphMetrics(...)</code>, <code>TryGetTableData(...)</code>, and <code>OpenStream()</code> for tooling that needs raw font data.</p>
+<h2 id="color-font-palettes-and-composite-groups" tabindex="-1">Color font palettes and composite groups <a class="direct-link" href="#color-font-palettes-and-composite-groups">#</a></h2>
+<p>COLR glyphs take their colors from the font's CPAL palette table, and many color fonts ship more than one palette. <a href="https://docs.sixlabors.com/articles/fonts/colorfonts.html" target="_blank"><code>TextOptions.FontPalette</code></a> selects the palette that resolves the colors. <code>TextRun.FontPalette</code> swaps it over a range of text, and each <code>FontPaletteOverride</code> replaces one palette entry with your own color.</p>
+<div class="frame">
+<pre><code class="language-csharp">using SixLabors.Fonts;
+
+TextOptions options = new(font)
+{
+    // Resolve COLR glyph colors with the font's second palette.
+    // Palette indexes are zero-based; null keeps the font's default.
+    FontPalette = new FontPalette(1)
+};
+</code></pre>
+</div>
+<p>COLR v1 rendering also gained fidelity. Composite groups now render as isolated units that blend onto the content below with their declared composite mode, matching the specification. The <code>IGlyphRenderer</code> contract changed to carry this: <code>BeginGroup(...)</code> and <code>EndGroup()</code> wrap grouped layers, <code>BeginLayer(...)</code> lost its clip parameter, and clips arrive through <code>GlyphRendererParameters.ClipBounds</code>. If you implement a custom renderer, add the two new members when you upgrade.</p>
+<h2 id="shaping-coverage-and-correctness" tabindex="-1">Shaping coverage and correctness <a class="direct-link" href="#shaping-coverage-and-correctness">#</a></h2>
+<p>Differential tests compare glyph IDs, advances, and offsets against HarfBuzz across a font corpus on Windows and Linux. All 4,851 available cases pass:</p>
+<ul>
+<li>Line breaking, run segmentation, and metrics resolution follow the same rules as web engines, so text lays out consistently across your stack.</li>
+<li>A dedicated Khmer shaper, and kern table format 2 support.</li>
+<li>Arabic fallback shaping and positioning for fonts without OpenType layout tables, and a fix for Arabic in vertical layout.</li>
+<li>Joiner transparency during sequence matching, and nested lookups applied at the positions their context matched.</li>
+<li>Fractions now form automatically around the Unicode fraction slash and no longer trigger on the ordinary solidus, so &quot;1⁄2&quot; forms a fraction and &quot;1/2&quot; does not.</li>
+<li>Characters map through the single <code>cmap</code> subtable a font intends, instead of merging candidates across subtables.</li>
+</ul>
+<h2 id="layout-and-rendering-additions" tabindex="-1">Layout and rendering additions <a class="direct-link" href="#layout-and-rendering-additions">#</a></h2>
+<ul>
+<li><code>TextDecorationSkipInk</code> breaks underlines and overlines around glyph descenders and ascenders, measured from the real outline geometry.</li>
+<li><code>TextOptions.VisibleBounds</code> culls whole lines outside a visible region while keeping the remaining lines positioned as if everything had rendered.</li>
+<li>Baseline anchoring reads the OpenType <code>BASE</code> table, and <code>FontMetrics</code> exposes <code>XHeight</code> and <code>CapHeight</code>.</li>
+<li>Recursion in composite glyphs and CFF subroutines is guarded, the TrueType interpreter pool resets state correctly, and SVG tables with zero entries load cleanly.</li>
+</ul>
+<h2 id="closing" tabindex="-1">Closing <a class="direct-link" href="#closing">#</a></h2>
+<p>Fonts 3.1 opens the whole text pipeline to callers. You can shape, measure, hint, synthesize, and render through public APIs. Thousands of corpus cases verify the output, and it runs at native-engine speed.</p>
+<p>Please read the <a href="https://github.com/SixLabors/Fonts/releases/tag/v3.1.0" target="_blank">release notes</a> for detailed information.</p>
+<p>Thank you to everyone who reported issues and contributed code to this release.</p>
 
             <hr>
             <ul>
-                <li>Next: <a href="/posts/announcing-imagesharp-100/">Announcing ImageSharp 1.0.0</a>
+                <li>Next: <a href="/posts/announcing-imagesharp-410/">Announcing ImageSharp 4.1.0</a>
                 </li>
               
-                <li>Previous: <a href="/posts/beta-7/">Beta 7.</a>
+                <li>Previous: <a href="/posts/announcing-polygonclipper-100/">Announcing PolygonClipper 1.0.0</a>
                 </li>
               
             </ul>
@@ -433,7 +591,7 @@ Please visit <a href="https://sixlabors.com/pricing" target="_blank">https://six
       </div>
     </footer>
 
-    <!-- Current page: /posts/announcing-imagesharp-10-release-candidate-1/ -->
+    <!-- Current page: /posts/announcing-fonts-310/ -->
     <script 
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" 
       integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"

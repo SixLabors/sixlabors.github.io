@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Six Labors : Announcing ImageSharp 1.0 Release Candidate 1</title>
-    <meta name="description" content="Today were very happy to announce ImageSharp 1.0 Release Candidate 1.">
+    <title>Six Labors : Announcing ImageSharp 4.1.0</title>
+    <meta name="description" content="ImageSharp 4.1 - ANI animated cursors, premultiplied pixel formats, the complete blend mode set, TensorPrimitives SIMD, and decoder hardening.">
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
       rel="stylesheet"
@@ -197,12 +197,12 @@
       <div class="masthead">
   <div class="container">
     <h1 class="mb-3">
-      Announcing ImageSharp 1.0 Release Candidate 1
+      Announcing ImageSharp 4.1.0
     </h1>
     <p class="lead mb-4">
-      Today were very happy to announce ImageSharp 1.0 Release Candidate 1.
+      ImageSharp 4.1 - ANI animated cursors, premultiplied pixel formats, the complete blend mode set, TensorPrimitives SIMD, and decoder hardening.
     </p>
-    <div><a href="/tags/imagesharp/" class="post-tag btn btn-primary shadow">ImageSharp</a><a href="/tags/releases/" class="post-tag btn btn-primary shadow">Releases</a>
+    <div><a href="/tags/releases/" class="post-tag btn btn-primary shadow">Releases</a><a href="/tags/imagesharp/" class="post-tag btn btn-primary shadow">ImageSharp</a>
     </div>
   </div>
 </div>
@@ -212,34 +212,164 @@
     <div class= row>
       <div class="col-md-8">
         <article>
-          <time datetime="2020-05-01">01 May 2020</time>
+          <time datetime="2026-08-12">12 Aug 2026</time>
 
-          <p><img src="/img/fireworks.jpg" alt="Fireworks in a night sky" class="img-fluid"></p>
-<p>Today, we’re announcing ImageSharp 1.0 Release Candidate 1. With this release, along with the usual performance improvements and bug fixes we’ve focused on polishing ImageSharp 1.0 for a final release. We are now getting very, very close.</p>
-<p><a href="https://www.nuget.org/packages/SixLabors.ImageSharp/" target="_blank">Download ImageSharp 1.0 RC1</a> on Windows, macOS, and Linux, available now.</p>
-<p>This is a momentous day for us. ImageSharp has been in development now for 4 1/2 years and we're proud to deliver what we believe to be a comprehensive, well performing, solution with a great modern API.</p>
-<h2 id="license" tabindex="-1">License <a class="direct-link" href="#license">#</a></h2>
-<p>As announced in <a href="https://sixlabors.com/blog/beta-six-labors/#licensing-plans" target="_blank">January 2019</a> the Release Candidate comes with a new license. We've worked hard to try to strike the correct balance between supporting the open source community and protecting the future of the project. We believe we have now found that balance.</p>
+          <div class="ratio ratio-16x9">
+<iframe src="https://www.youtube.com/embed/HgzGwKwLmgM" allow="autoplay; encrypted-media;" allowfullscreen></iframe>
+</div>
+<p><strong>ImageSharp 4.1.0 is out.</strong> You can <a href="https://www.nuget.org/packages/SixLabors.ImageSharp/4.1.0" target="_blank">download it today</a>.</p>
+<p>ImageSharp 4.1.0 adds a complete Windows animated cursor codec, a family of premultiplied pixel formats, and the full W3C blend mode set. It also rebuilds the SIMD layer on <code>TensorPrimitives</code>, decodes Apple CgBI PNG files, and hardens decoders across the formats people feed it every day.</p>
+<h2 id="what's-new-since-4.0.0" tabindex="-1">What's new since 4.0.0 <a class="direct-link" href="#what's-new-since-4.0.0">#</a></h2>
+<p>The main changes since 4.0.0 are:</p>
 <ul>
-<li>ImageSharp is licensed under the <a href="https://www.gnu.org/licenses/agpl-3.0" target="_blank">GNU Affero General Public License v3</a></li>
-<li>An alternative Commercial License can be purchased for Closed Source projects and applications.<br>
-Please visit <a href="https://sixlabors.com/pricing" target="_blank">https://sixlabors.com/pricing</a> for details.</li>
-<li>Open Source projects who have taken a dependency on ImageSharp prior to adoption of the AGPL v3 license are permitted to use ImageSharp (including all future versions) under the previous <a href="https://opensource.org/licenses/Apache-2.0" target="_blank">Apache 2.0 License</a>.</li>
+<li>ANI decoding and encoding, completing the Windows icon family that started with built-in ICO and CUR support in V4.</li>
+<li>Seven premultiplied pixel formats plus a new <code>RgbaHalf</code> format, with an alpha-representation-aware conversion contract on <code>IPixel</code>.</li>
+<li>Nine new color blending modes, completing the W3C blend mode set, plus a <code>Plus</code> alpha composition mode.</li>
+<li>SIMD pipelines normalized onto <code>TensorPrimitives</code>, with AVX-512 paths, kernel operations up to 14.9x faster, and a 40% smaller managed assembly.</li>
+<li>Decode support for Apple CgBI PNG files.</li>
+<li>Simplified aliased rendering: <code>GraphicsOptions.AntialiasThreshold</code> is gone, and binary coverage is now exact.</li>
+<li>Configurable and extensible memory allocator limits, including a cap for single contiguous buffers.</li>
+<li>Fixes across TIFF, GIF, PBM, EXIF, ICO, resize, and convolution paths.</li>
 </ul>
-<p>Going forward the license changes will also apply for ImageSharp.Web 1.0 RC1, ImageSharp.Drawing 1.0-Beta8, and Fonts 1.0-Beta10.</p>
-<h2 id="documentation" tabindex="-1">Documentation <a class="direct-link" href="#documentation">#</a></h2>
-<p>Full API documentation for all the Six Labors libraries is available at <a href="https://docs.sixlabors.com" target="_blank">https://docs.sixlabors.com</a> alongside conceptual documentation and links to runnable sample applications. We will continue to add to this documentation to provide</p>
-<h2 id="go-live" tabindex="-1">Go Live <a class="direct-link" href="#go-live">#</a></h2>
-<p>ImageSharp 1.0 Release Candidate 11 is supported by Six Labors and can be used in production. We strongly recommend that you test your app running on the RC1 before deploying into production. If you find an issue with ImageSharp, please file a <a href="https://github.com/SixLabors/ImageSharp/issues/new/choose" target="_blank">GitHub issue</a>.</p>
-<h2 id="1.0" tabindex="-1">1.0 <a class="direct-link" href="#1.0">#</a></h2>
-<p>We hope to release the final 1.0 version within the next few months. The API is be considered stable and work will be focused on performance improvements and bug fixes with no additional feature planned.</p>
+<h2 id="windows-animated-cursors" tabindex="-1">Windows animated cursors <a class="direct-link" href="#windows-animated-cursors">#</a></h2>
+<p>V4 added ICO and CUR. 4.1 completes the family with ANI, the RIFF-based Windows animated cursor format.</p>
+<p>The codec reads and writes the full container:</p>
+<ul>
+<li>embedded CUR, ICO, or BMP frame resources</li>
+<li>the <code>seq </code> chunk that maps animation steps to resources</li>
+<li>per-step timing from the <code>rate</code> chunk</li>
+<li>hotspots, and the name and artist metadata</li>
+</ul>
+<p>Decoding projects every animation step onto a shared canvas, so multi-resolution cursor resources survive a round trip.</p>
+<div class="frame">
+<pre><code class="language-csharp">using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Ani;
+using SixLabors.ImageSharp.PixelFormats;
+
+using Image&lt;Rgba32&gt; image = Image.Load&lt;Rgba32&gt;(&quot;frame-source.png&quot;);
+
+AniFrameMetadata frameMetadata = image.Frames.RootFrame.Metadata.GetAniMetadata();
+frameMetadata.FrameDelay = 10; // Sixtieths of a second.
+frameMetadata.HotspotX = 4;
+frameMetadata.HotspotY = 4;
+
+image.SaveAsAni(&quot;pointer.ani&quot;);
+</code></pre>
+</div>
+<p>ANI registers as a built-in format, so detection, <code>Image.Identify()</code>, and format conversion work the same way they do for every other codec. This work started as a community contribution, and we are grateful for it.</p>
+<h2 id="premultiplied-pixel-formats" tabindex="-1">Premultiplied pixel formats <a class="direct-link" href="#premultiplied-pixel-formats">#</a></h2>
+<p>GPU pipelines and compositors work in associated (premultiplied) alpha. Until now, moving pixel data between ImageSharp and those systems meant a conversion pass at the boundary.</p>
+<p>4.1 adds pixel formats that store associated alpha natively: <code>Rgba32P</code>, <code>Bgra32P</code>, <code>Argb32P</code>, <code>Abgr32P</code>, <code>RgbaHalfP</code>, <code>HalfVector4P</code>, and <code>NormalizedByte4P</code>. A new straight-alpha <code>RgbaHalf</code> format joins them. <code>RgbaHalf</code> and <code>RgbaHalfP</code> are binary-compatible with the <code>DXGI_FORMAT_R16G16B16A16_FLOAT</code> GPU format.</p>
+<p>The formats are only part of the change. <code>IPixel</code> now carries an alpha-representation-aware conversion contract, and the pixel blenders include dedicated associated-alpha Porter-Duff implementations at every SIMD width. Blending an associated format never round-trips through straight alpha.</p>
+<p>ImageSharp.Drawing 3.1 builds on this directly: its WebGPU render targets can render premultiplied and read back into the matching <code>P</code> format without conversion.</p>
+<h2 id="the-complete-blend-mode-set" tabindex="-1">The complete blend mode set <a class="direct-link" href="#the-complete-blend-mode-set">#</a></h2>
+<p><code>PixelColorBlendingMode</code> previously stopped at <code>HardLight</code>. 4.1 adds <code>ColorDodge</code>, <code>ColorBurn</code>, <code>SoftLight</code>, <code>Difference</code>, <code>Exclusion</code>, and the non-separable <code>Hue</code>, <code>Saturation</code>, <code>Color</code>, and <code>Luminosity</code> modes. That completes the W3C blend mode set, alongside the existing <code>Add</code> and <code>Subtract</code>.</p>
+<p><code>PixelAlphaCompositionMode</code> gains <code>Plus</code>, which adds source and destination with clamping. It is the standard operator for additive light effects.</p>
+<div class="frame">
+<pre><code class="language-csharp">using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+
+GraphicsOptions options = new()
+{
+    ColorBlendingMode = PixelColorBlendingMode.SoftLight,
+    AlphaCompositionMode = PixelAlphaCompositionMode.SrcOver
+};
+</code></pre>
+</div>
+<p>The immediate driver is COLRv1 color glyph rendering, which composites paint layers with exactly these modes. Every mode is implemented across straight-alpha and associated-alpha blenders, and tests confirm the two paths produce identical results.</p>
+<h2 id="simd-through-tensorprimitives" tabindex="-1">SIMD through TensorPrimitives <a class="direct-link" href="#simd-through-tensorprimitives">#</a></h2>
+<p>4.1 moves a large amount of hand-written SIMD onto <code>System.Numerics.Tensors.TensorPrimitives</code>, with a compatibility implementation covering the operations the BCL does not expose.</p>
+<p>Gaussian and Bokeh blur kernel normalization, sharpening, and histogram offsets now run through tensor operations. JPEG ICC color conversion was flattened, ICC LUT normalization optimized, byte tensor addition uses AVX-512 where available, and the pixel blender hierarchy was flattened. PNG filter encoding, packed pixel conversion shuffles, and stateful <code>Vector4</code> transforms were normalized onto the same helpers.</p>
+<p>The gains are large where the old code was scalar or narrow. Every row below measured zero managed allocation:</p>
+<table class="table">
+<thead>
+<tr>
+<th>Operation</th>
+<th style="text-align:right">Elements</th>
+<th style="text-align:right">Before</th>
+<th style="text-align:right">After</th>
+<th style="text-align:right">Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Histogram add</td>
+<td style="text-align:right">65,536</td>
+<td style="text-align:right">24.43 μs</td>
+<td style="text-align:right">1.64 μs</td>
+<td style="text-align:right">14.9x faster</td>
+</tr>
+<tr>
+<td>ICC byte LUT normalization</td>
+<td style="text-align:right">256</td>
+<td style="text-align:right">145.2 ns</td>
+<td style="text-align:right">10.0 ns</td>
+<td style="text-align:right">14.5x faster</td>
+</tr>
+<tr>
+<td>Sharpen-kernel negate</td>
+<td style="text-align:right">161</td>
+<td style="text-align:right">83.4 ns</td>
+<td style="text-align:right">4.7 ns</td>
+<td style="text-align:right">94.3% faster</td>
+</tr>
+<tr>
+<td>Gaussian normalization</td>
+<td style="text-align:right">161</td>
+<td style="text-align:right">88.2 ns</td>
+<td style="text-align:right">7.0 ns</td>
+<td style="text-align:right">92.0% faster</td>
+</tr>
+<tr>
+<td>JPEG normalize + interleave 4</td>
+<td style="text-align:right">4,096</td>
+<td style="text-align:right">2,959 ns</td>
+<td style="text-align:right">1,108 ns</td>
+<td style="text-align:right">62.6% faster</td>
+</tr>
+<tr>
+<td>ICC max</td>
+<td style="text-align:right">2,048</td>
+<td style="text-align:right">230.4 ns</td>
+<td style="text-align:right">96.9 ns</td>
+<td style="text-align:right">57.9% faster</td>
+</tr>
+</tbody>
+</table>
+<p>Not every case wins. A few small fixed-size kernels pay a dispatch cost, and the PNG up-filter crosses over to a win at 2 KB scanlines. The complete before-and-after tables are in the pull request.</p>
+<p>Removing the replaced generated SIMD code also cut the managed assembly from 4,100,608 to 2,433,024 bytes, a 40.7% reduction.</p>
+<h2 id="apple-cgbi-pngs" tabindex="-1">Apple CgBI PNGs <a class="direct-link" href="#apple-cgbi-pngs">#</a></h2>
+<p>The PNG decoder now reads Apple CgBI files, the iOS-optimized variant that <code>pngcrush -iphone</code> produces. These files store raw DEFLATE image data, swap the channel order, and premultiply color by alpha. ImageSharp detects the <code>CgBI</code> chunk and reverses those changes automatically, with SIMD-accelerated scanline restoration and chunk-order validation. No decoder option is required, and the encoder always writes standard PNG output. This support also came through community contributions.</p>
+<h2 id="simpler-aliased-rendering" tabindex="-1">Simpler aliased rendering <a class="direct-link" href="#simpler-aliased-rendering">#</a></h2>
+<p><code>GraphicsOptions.AntialiasThreshold</code> has been removed. When <code>Antialias</code> is <code>false</code>, coverage is now exact: a pixel is fully covered or not covered, with nothing to tune. ImageSharp.Drawing 3.1 pairs this with center-sampled aliased rasterization, so binary-coverage output matches classic rasterizers instead of depending on a threshold value.</p>
+<p>If you set <code>AntialiasThreshold</code> in existing code, delete the assignment. No other action is needed.</p>
+<h2 id="configurable-allocator-limits" tabindex="-1">Configurable allocator limits <a class="direct-link" href="#configurable-allocator-limits">#</a></h2>
+<p><code>MemoryAllocatorOptions</code> gains <code>SingleBufferAllocationLimitMegabytes</code>, which caps the size of one contiguous buffer alongside the existing group and accumulative limits. The resolved limits are now public on <code>MemoryAllocator</code>, so custom allocator implementations can enforce the same policies the default allocator does.</p>
+<h2 id="fixes-and-hardening" tabindex="-1">Fixes and hardening <a class="direct-link" href="#fixes-and-hardening">#</a></h2>
+<p>4.1 also fixes a set of real-world issues:</p>
+<ul>
+<li>TIFF ICC, EXIF, and XMP profiles are cloned into image metadata during decode, so they survive re-encoding to other formats.</li>
+<li>EXIF Long values now accept <code>ulong</code> writes within range.</li>
+<li>GIF transparency handling and dithering were corrected for frames with transparent palette entries.</li>
+<li>ICO directory entries pointing at the end of the stream are rejected instead of producing empty frames.</li>
+<li>ANI decoding handles oversized chunks and partial icon masks without over-allocating.</li>
+<li>PBM decoding validates the declared maximum pixel value.</li>
+<li>Binary PGM and PPM files with 16-bit samples now decode and encode with the correct big-endian byte order.</li>
+<li>Resizing to a single pixel row or column no longer trips the transform degeneracy check.</li>
+<li>Convolutions over very small bounds compute correct sampling offsets.</li>
+<li>AOT compilation seeds cover the ICO, CUR, and QOI formats, fixing NativeAOT trimming of their generic pipelines.</li>
+</ul>
+<h2 id="closing" tabindex="-1">Closing <a class="direct-link" href="#closing">#</a></h2>
+<p>4.1 is a focused release: one new codec, new premultiplied pixel formats, the complete blend mode set, and a faster, more uniform SIMD core. The target framework and the license terms do not change.</p>
+<p>Please read the <a href="https://github.com/SixLabors/ImageSharp/releases/tag/v4.1.0" target="_blank">release notes</a> for detailed information.</p>
+<p>Thank you to everyone who used the previews, reported issues, and contributed code to this release.</p>
 
             <hr>
             <ul>
-                <li>Next: <a href="/posts/announcing-imagesharp-100/">Announcing ImageSharp 1.0.0</a>
+                <li>Next: <a href="/posts/announcing-imagesharp-drawing-310/">Announcing ImageSharp.Drawing 3.1.0</a>
                 </li>
               
-                <li>Previous: <a href="/posts/beta-7/">Beta 7.</a>
+                <li>Previous: <a href="/posts/announcing-fonts-310/">Announcing Fonts 3.1.0</a>
                 </li>
               
             </ul>
@@ -433,7 +563,7 @@ Please visit <a href="https://sixlabors.com/pricing" target="_blank">https://six
       </div>
     </footer>
 
-    <!-- Current page: /posts/announcing-imagesharp-10-release-candidate-1/ -->
+    <!-- Current page: /posts/announcing-imagesharp-410/ -->
     <script 
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" 
       integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"

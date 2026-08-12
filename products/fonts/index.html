@@ -254,7 +254,7 @@
           Fonts gives you the layout controls and shaping behavior needed for multilingual text, mixed scripts, emoji, fallback families, and production UI strings.
         </p>
         <p>
-          Use one consistent API to control wrapping, alignment, direction, fallback families, OpenType features, FreeType v40-compatible TrueType hinting, tracking, color-font support, and variable-font settings while keeping measurement and rendering aligned.
+          Use one consistent API to control wrapping, alignment, direction, fallback families, OpenType features, standard and full hinting for TrueType and CFF outlines, tracking, color-font support, and variable-font settings while keeping measurement and rendering aligned.
         </p>
         <p>
           Capture a full layout once with <code>TextMetrics</code>, or reuse a prepared <code>TextBlock</code> across redraws when the same string is measured, wrapped, hit-tested, selected, or rendered repeatedly.
@@ -342,8 +342,11 @@ ReadOnlyMemory&lt;FontRectangle&gt; selection =
           Fonts gives .NET teams the tools they need when text quality matters, whether the destination is ImageSharp.Drawing, a custom renderer, or another output system entirely.
         </p>
         <ul>
-          <li>Load TrueType, OpenType, CFF and CFF2 outlines, WOFF, WOFF2, COLR v0 and v1 paint-graph color fonts, SVG color fonts, and variable fonts.</li>
-          <li>Handle bidirectional text, Arabic, Hebrew, Indic, Myanmar, Thai, and Lao shaping, fallback families, and multilingual content correctly.</li>
+          <li>Load TrueType, OpenType, CFF and CFF2 outlines, WOFF, WOFF2, COLR v0 and v1 paint-graph color fonts with palette selection, SVG color fonts, and variable fonts.</li>
+          <li>Handle bidirectional text, Arabic, Hebrew, Indic, Khmer, Myanmar, Thai, and Lao shaping, fallback families, and multilingual content correctly.</li>
+          <li>Shape text directly with <code>TextShaper</code> into caller-owned buffers, then measure or render the shaped glyphs by ID.</li>
+          <li>Request font weights that instance variable fonts, with browser-style synthetic bold and oblique fallbacks for static faces.</li>
+          <li>Match fallback fonts through the operating system with <code>SystemFonts.TryMatchCharacter(...)</code>, backed by DirectWrite, CoreText, and Fontconfig.</li>
           <li>Work with Unicode code points, graphemes, line metrics, hit testing, caret movement, and selection geometry for editor-grade text behavior.</li>
           <li>Request OpenType features such as ligatures, fractions, tabular figures, and stylistic sets.</li>
           <li>Drive layout decisions with logical advance, glyph ink bounds, renderable bounds, and per-line metrics from a single measurement pass.</li>

@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Six Labors : Announcing ImageSharp 1.0 Release Candidate 1</title>
-    <meta name="description" content="Today were very happy to announce ImageSharp 1.0 Release Candidate 1.">
+    <title>Six Labors : Announcing ImageSharp.Drawing 3.1.0</title>
+    <meta name="description" content="ImageSharp.Drawing 3.1 - layer effects, backdrop filters, exact aliased rasterization, premultiplied GPU rendering, and faster text.">
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
       rel="stylesheet"
@@ -197,12 +197,12 @@
       <div class="masthead">
   <div class="container">
     <h1 class="mb-3">
-      Announcing ImageSharp 1.0 Release Candidate 1
+      Announcing ImageSharp.Drawing 3.1.0
     </h1>
     <p class="lead mb-4">
-      Today were very happy to announce ImageSharp 1.0 Release Candidate 1.
+      ImageSharp.Drawing 3.1 - layer effects, backdrop filters, exact aliased rasterization, premultiplied GPU rendering, and faster text.
     </p>
-    <div><a href="/tags/imagesharp/" class="post-tag btn btn-primary shadow">ImageSharp</a><a href="/tags/releases/" class="post-tag btn btn-primary shadow">Releases</a>
+    <div><a href="/tags/releases/" class="post-tag btn btn-primary shadow">Releases</a><a href="/tags/imagesharp.drawing/" class="post-tag btn btn-primary shadow">ImageSharp.Drawing</a><a href="/tags/imagesharp/" class="post-tag btn btn-primary shadow">ImageSharp</a><a href="/tags/fonts/" class="post-tag btn btn-primary shadow">Fonts</a>
     </div>
   </div>
 </div>
@@ -212,34 +212,198 @@
     <div class= row>
       <div class="col-md-8">
         <article>
-          <time datetime="2020-05-01">01 May 2020</time>
+          <time datetime="2026-08-12">12 Aug 2026</time>
 
-          <p><img src="/img/fireworks.jpg" alt="Fireworks in a night sky" class="img-fluid"></p>
-<p>Today, we’re announcing ImageSharp 1.0 Release Candidate 1. With this release, along with the usual performance improvements and bug fixes we’ve focused on polishing ImageSharp 1.0 for a final release. We are now getting very, very close.</p>
-<p><a href="https://www.nuget.org/packages/SixLabors.ImageSharp/" target="_blank">Download ImageSharp 1.0 RC1</a> on Windows, macOS, and Linux, available now.</p>
-<p>This is a momentous day for us. ImageSharp has been in development now for 4 1/2 years and we're proud to deliver what we believe to be a comprehensive, well performing, solution with a great modern API.</p>
-<h2 id="license" tabindex="-1">License <a class="direct-link" href="#license">#</a></h2>
-<p>As announced in <a href="https://sixlabors.com/blog/beta-six-labors/#licensing-plans" target="_blank">January 2019</a> the Release Candidate comes with a new license. We've worked hard to try to strike the correct balance between supporting the open source community and protecting the future of the project. We believe we have now found that balance.</p>
+          <div class="ratio ratio-16x9">
+<iframe src="https://www.youtube.com/embed/SSbBvKaM6sk" allow="autoplay; encrypted-media;" allowfullscreen></iframe>
+</div>
+<p><strong>ImageSharp.Drawing 3.1.0 is out.</strong> You can <a href="https://www.nuget.org/packages/SixLabors.ImageSharp.Drawing/3.1.0" target="_blank">download it today</a>.</p>
+<p>V3 introduced the canvas model, retained scenes, and optional WebGPU rendering. 3.1 builds on that foundation with a declarative effect system for layers, backdrop filters in the CSS mold, and exact aliased rasterization. It also adds premultiplied GPU rendering and a faster text pipeline built on Fonts 3.1.</p>
+<h2 id="what's-new-since-3.0.0" tabindex="-1">What's new since 3.0.0 <a class="direct-link" href="#what's-new-since-3.0.0">#</a></h2>
+<p>The main changes since 3.0.0 are:</p>
 <ul>
-<li>ImageSharp is licensed under the <a href="https://www.gnu.org/licenses/agpl-3.0" target="_blank">GNU Affero General Public License v3</a></li>
-<li>An alternative Commercial License can be purchased for Closed Source projects and applications.<br>
-Please visit <a href="https://sixlabors.com/pricing" target="_blank">https://sixlabors.com/pricing</a> for details.</li>
-<li>Open Source projects who have taken a dependency on ImageSharp prior to adoption of the AGPL v3 license are permitted to use ImageSharp (including all future versions) under the previous <a href="https://opensource.org/licenses/Apache-2.0" target="_blank">Apache 2.0 License</a>.</li>
+<li>Layer effects: blur, drop shadow, glow, inner shadow, and color matrix treatments applied through <code>SaveLayer(...)</code>.</li>
+<li>Backdrop effects: blur, acrylic, drop shadow, and a family of color filters applied to the pixels behind a region.</li>
+<li>WebGPU shader implementations for the built-in effects, so GPU-backed canvases apply them without a CPU round trip.</li>
+<li>Exact center-sampled aliased rasterization on both the CPU and WebGPU backends.</li>
+<li>Premultiplied rendering, alpha-aware readback, and a surface alpha mode for compositing over native content.</li>
+<li>Public drawing backend APIs and a staged WebGPU support probe that names each failing capability.</li>
+<li>Text rendering improvements: positioned-glyph drawing APIs, glyph batching, culling, decoration fixes, and shared glyph caches.</li>
+<li>Font palette selection and correct COLR v1 composite group rendering, on both the CPU and WebGPU backends.</li>
+<li>Performance work and fixes across clipping, <code>DrawImage</code>, gradients, strokes, and the WebGPU runtime.</li>
 </ul>
-<p>Going forward the license changes will also apply for ImageSharp.Web 1.0 RC1, ImageSharp.Drawing 1.0-Beta8, and Fonts 1.0-Beta10.</p>
-<h2 id="documentation" tabindex="-1">Documentation <a class="direct-link" href="#documentation">#</a></h2>
-<p>Full API documentation for all the Six Labors libraries is available at <a href="https://docs.sixlabors.com" target="_blank">https://docs.sixlabors.com</a> alongside conceptual documentation and links to runnable sample applications. We will continue to add to this documentation to provide</p>
-<h2 id="go-live" tabindex="-1">Go Live <a class="direct-link" href="#go-live">#</a></h2>
-<p>ImageSharp 1.0 Release Candidate 11 is supported by Six Labors and can be used in production. We strongly recommend that you test your app running on the RC1 before deploying into production. If you find an issue with ImageSharp, please file a <a href="https://github.com/SixLabors/ImageSharp/issues/new/choose" target="_blank">GitHub issue</a>.</p>
-<h2 id="1.0" tabindex="-1">1.0 <a class="direct-link" href="#1.0">#</a></h2>
-<p>We hope to release the final 1.0 version within the next few months. The API is be considered stable and work will be focused on performance improvements and bug fixes with no additional feature planned.</p>
+<h2 id="layer-effects" tabindex="-1">Layer effects <a class="direct-link" href="#layer-effects">#</a></h2>
+<p><code>SaveLayer(...)</code> already gave the canvas isolated compositing groups. 3.1 adds <code>LayerEffect</code>, a declarative treatment that transforms the layer content when the layer is restored.</p>
+<p>The built-in content effects are <code>BlurLayerEffect</code>, <code>DropShadowLayerEffect</code>, <code>GlowLayerEffect</code>, <code>InnerShadowLayerEffect</code>, and <code>ColorMatrixLayerEffect</code>. The layer isolates the content, so the effect operates on exactly what was drawn into it, against transparency. Layer bounds expand automatically by the effect's reach, so blurred or offset output is never cut off.</p>
+<div class="frame">
+<pre><code class="language-csharp">using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing.Processing;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+
+using Image&lt;Rgba32&gt; image = new(360, 220, Color.White.ToPixel&lt;Rgba32&gt;());
+
+image.Mutate(ctx =&gt; ctx.Paint(canvas =&gt;
+{
+    _ = canvas.SaveLayer(
+        new GraphicsOptions(),
+        new Rectangle(60, 40, 240, 140),
+        new DropShadowLayerEffect(new Point(6, 6), 4F, Color.Black.WithAlpha(0.5F)));
+
+    canvas.FillEllipse(Brushes.Solid(Color.OrangeRed), new(180, 110), new(90, 50));
+    canvas.Restore();
+}));
+</code></pre>
+</div>
+<p>An overload accepts an <code>IPath</code> region instead of a rectangle. The effect then processes only pixels covered by the path, and its output lands on the path translated by the effect's offset.</p>
+<h2 id="backdrop-filters" tabindex="-1">Backdrop filters <a class="direct-link" href="#backdrop-filters">#</a></h2>
+<p><code>BackdropLayerEffect</code> brings the CSS <code>backdrop-filter</code> model to the canvas. The filter runs against the pixels already beneath the layer's region when the layer opens. The result is clipped to the region, and the layer's own content renders above it, staying sharp.</p>
+<p>The built-in backdrop effects are <code>BackdropBlurLayerEffect</code>, <code>BackdropAcrylicLayerEffect</code>, <code>BackdropDropShadowLayerEffect</code>, and <code>BackdropColorMatrixLayerEffect</code>, with prebuilt variants for brightness, contrast, grayscale, hue rotation, inversion, opacity, sepia, and saturation.</p>
+<div class="frame">
+<pre><code class="language-csharp">using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing.Processing;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+
+using Image&lt;Rgba32&gt; image = Image.Load&lt;Rgba32&gt;(&quot;photo.jpg&quot;);
+
+image.Mutate(ctx =&gt; ctx.Paint(canvas =&gt;
+{
+    Rectangle panel = new(70, 46, 220, 128);
+
+    _ = canvas.SaveLayer(
+        new GraphicsOptions(),
+        panel,
+        new BackdropAcrylicLayerEffect(10F, Color.White.WithAlpha(0.3F)));
+
+    // The backdrop inside the panel is blurred and tinted; content here stays sharp.
+    canvas.Draw(Pens.Solid(Color.White, 2), panel);
+    canvas.Restore();
+}));
+</code></pre>
+</div>
+<p>The WebGPU package ships shader-backed versions of the whole set, such as <code>WebGPUGaussianBlurLayerEffect</code> and <code>WebGPUBackdropAcrylicLayerEffect</code>. These execute as WGSL shader passes, so a <code>SaveLayer(...)</code> effect stays on the GPU. An equivalent <code>Apply(...)</code> processor round-trips through CPU memory instead. Each carries its CPU equivalent as a built-in fallback, so one instance renders identically on both backends.</p>
+<p>Both families are also open for extension, on both backends. On the CPU side, derive from <code>LayerEffect</code> or <code>BackdropLayerEffect</code> and pass the base constructor any ImageSharp processing operation. On the GPU side, derive from <code>WebGPUShaderLayerEffect</code> or <code>WebGPUBackdropShaderLayerEffect</code> with your own WGSL source, declared uniforms, and a CPU fallback. The shader contract is one entry function, with <code>layer_load</code>, <code>layer_load_unassociated</code>, and <code>layer_sample</code> provided for reading the input, plus multi-pass support.</p>
+<h2 id="exact-aliased-rasterization" tabindex="-1">Exact aliased rasterization <a class="direct-link" href="#exact-aliased-rasterization">#</a></h2>
+<p>Aliased rendering was rebuilt. When antialiasing is off, coverage is now decided by sampling the geometry at each pixel center, on both the CPU and WebGPU backends. Thin fill features that fall between pixel centers are recovered, so hairline geometry does not disappear.</p>
+<p>This replaces the old threshold model, and <code>GraphicsOptions.AntialiasThreshold</code> is gone with it. Binary-coverage output for masks, hit-test surfaces, and pixel-art-style rendering now matches classic center-sampled rasterizers, with nothing to tune.</p>
+<h2 id="premultiplied-rendering-and-gpu-interop" tabindex="-1">Premultiplied rendering and GPU interop <a class="direct-link" href="#premultiplied-rendering-and-gpu-interop">#</a></h2>
+<p>WebGPU render targets can now store associated (premultiplied) alpha, the working representation of GPU pipelines. Construct a <code>WebGPURenderTarget</code> with <code>PixelAlphaRepresentation.Associated</code>, and readback returns the matching premultiplied pixel type from ImageSharp 4.1: <code>Rgba32P</code>, <code>Bgra32P</code>, <code>NormalizedByte4P</code>, or <code>RgbaHalfP</code>.</p>
+<p>External surfaces gain an <code>AlphaMode</code> option. <code>Premultiplied</code> lets a WebGPU surface blend over other native content, <code>Opaque</code> presents every pixel as solid, and <code>Auto</code> lets WebGPU choose.</p>
+<p>The drawing backend types behind the WebGPU package are now public. Applications can share device contexts, manage surfaces, and integrate the renderer with their own native plumbing. Before any target is constructed, the staged support probe reports exactly which capability is missing on machines that cannot render.</p>
+<h2 id="text-rendering" tabindex="-1">Text rendering <a class="direct-link" href="#text-rendering">#</a></h2>
+<p>3.1 runs on Fonts 3.1 and picks up its improvements directly: skip-ink decorations, hinting modes, weight synthesis, and faster, corpus-verified multilingual shaping.</p>
+<p>The drawing side changed too:</p>
+<ul>
+<li>Text entry points on <code>DrawingCanvas</code> and <code>TextBuilder</code> now accept positioned glyph spans (<code>glyphIds</code> plus <code>points</code>), so shaped output from the new Fonts <code>TextShaper</code> API can be drawn directly.</li>
+<li>Glyphs batch by subpixel position, and text outside the visible bounds is culled.</li>
+<li>Decorations on path text merge into continuous bands instead of per-glyph segments, and skip-ink carving matches the rendered geometry.</li>
+<li>Glyph outlines now cache per canvas and persist across <code>DrawText</code> calls, a community contribution. A new public <code>DrawingTextCache</code> can also be shared across canvases.</li>
+<li>Color text follows the Fonts 3.1 palette selection through <code>RichTextOptions</code>, and COLR v1 composite groups render with their declared blend modes. The WebGPU blend shaders implement the same composite set, so emoji and color glyphs match across backends.</li>
+</ul>
+<h2 id="performance" tabindex="-1">Performance <a class="direct-link" href="#performance">#</a></h2>
+<p>The 3.0 announcement measured <code>FillParis</code>, a Paris street map with 50K fill paths rendered at 1096×1060 with per-path transforms and opacity. Re-measured on this release against SkiaSharp as the baseline (AMD Ryzen AI Max+ 395 with Radeon 8060S, Windows 11, .NET 10, BenchmarkDotNet, Server GC):</p>
+<table class="table">
+<thead>
+<tr>
+<th>Method</th>
+<th style="text-align:right">Mean</th>
+<th style="text-align:right">Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SkiaSharp</td>
+<td style="text-align:right">103.4 ms</td>
+<td style="text-align:right">1.00</td>
+</tr>
+<tr>
+<td>System.Drawing</td>
+<td style="text-align:right">147.3 ms</td>
+<td style="text-align:right">1.42</td>
+</tr>
+<tr>
+<td>ImageSharp.Drawing CPU</td>
+<td style="text-align:right">43.0 ms</td>
+<td style="text-align:right">0.42</td>
+</tr>
+<tr>
+<td>ImageSharp.Drawing CPU, retained scene</td>
+<td style="text-align:right">11.9 ms</td>
+<td style="text-align:right">0.11</td>
+</tr>
+<tr>
+<td>ImageSharp.Drawing WebGPU</td>
+<td style="text-align:right">20.0 ms</td>
+<td style="text-align:right">0.19</td>
+</tr>
+<tr>
+<td>ImageSharp.Drawing WebGPU, retained scene</td>
+<td style="text-align:right">5.6 ms</td>
+<td style="text-align:right">0.05</td>
+</tr>
+</tbody>
+</table>
+<p><small><i>The CPU row reports the median: one benchmark launch of three degraded, and the ratio is computed from the median.</i></small></p>
+<p>The same scene also moved against the 3.0 release. The CPU backend improved from 48.5 ms to 43.0 ms, and the retained CPU path improved from 17.9 ms to 11.9 ms, 1.5x faster. The immediate WebGPU path improved from 24.8 ms to 20.0 ms, 1.24x faster. The retained WebGPU path held at roughly 5.5 ms, already bound by the GPU. Both runs used the same machine, with both native baselines steady across the two runs.</p>
+<p>Repeated text benefits from three 3.1 changes at once: the per-canvas glyph cache, subpixel glyph batching, and the zero-allocation Fonts 3.1 shaper. We measured 3.0.0 against 3.1.0 with one harness on the same machine as the table above. The harness draws the same phrase repeatedly on one canvas, best of ten repetitions per row, on .NET 10:</p>
+<table class="table">
+<thead>
+<tr>
+<th style="text-align:right"><code>DrawText</code> runs</th>
+<th style="text-align:right">3.0.0</th>
+<th style="text-align:right">3.1.0</th>
+<th style="text-align:right">Speedup</th>
+<th style="text-align:right">3.0.0 allocations</th>
+<th style="text-align:right">3.1.0 allocations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">50</td>
+<td style="text-align:right">69.8 ms</td>
+<td style="text-align:right">27.6 ms</td>
+<td style="text-align:right">2.5x</td>
+<td style="text-align:right">53.3 MB</td>
+<td style="text-align:right">6.8 MB</td>
+</tr>
+<tr>
+<td style="text-align:right">250</td>
+<td style="text-align:right">107.1 ms</td>
+<td style="text-align:right">49.7 ms</td>
+<td style="text-align:right">2.2x</td>
+<td style="text-align:right">266.3 MB</td>
+<td style="text-align:right">31.4 MB</td>
+</tr>
+<tr>
+<td style="text-align:right">1,000</td>
+<td style="text-align:right">456.6 ms</td>
+<td style="text-align:right">105.3 ms</td>
+<td style="text-align:right">4.3x</td>
+<td style="text-align:right">1,075.3 MB</td>
+<td style="text-align:right">125.7 MB</td>
+</tr>
+</tbody>
+</table>
+<p>At 1,000 runs, 3.1 renders the workload 4.3x faster and allocates 8.6x less. The glyph cache itself started as a community contribution.</p>
+<p><code>DrawImage</code> also gains a measured community improvement. It now converts only the required source region. Drawing a one-eighth region of a 22.9-megapixel source dropped from 103 MB and 24.4 ms to 24 MB and 14.4 ms.</p>
+<h2 id="fixes" tabindex="-1">Fixes <a class="direct-link" href="#fixes">#</a></h2>
+<p>Other changes worth knowing about:</p>
+<ul>
+<li>The clipping API was refactored, with difference clips supported and rectangular clips optimized.</li>
+<li>Elliptic gradient brushes and clip layers were fixed.</li>
+<li>Stroke cap and join arcs derive their sweep from relative angles, fixing round caps that vanished on the WebGPU backend.</li>
+<li>Huge path coordinates no longer overflow the stack during scanline conversion.</li>
+<li>The WebGPU runtime resolves native assets across deployment layouts, shares one instance across surfaces, warms pipelines ahead of first use, and scopes device polling to submission indexes for reliable readback.</li>
+</ul>
+<h2 id="closing" tabindex="-1">Closing <a class="direct-link" href="#closing">#</a></h2>
+<p>3.1 adds effects to the canvas model: grouped treatments, backdrop filters, exact binary coverage, and premultiplied GPU output. The API stays the same on the CPU and GPU backends.</p>
+<p>Please read the <a href="https://github.com/SixLabors/ImageSharp.Drawing/releases/tag/v3.1.0" target="_blank">release notes</a> for detailed information.</p>
+<p>Thank you to everyone who reported issues and contributed code to this release.</p>
 
             <hr>
             <ul>
-                <li>Next: <a href="/posts/announcing-imagesharp-100/">Announcing ImageSharp 1.0.0</a>
-                </li>
-              
-                <li>Previous: <a href="/posts/beta-7/">Beta 7.</a>
+                <li>Previous: <a href="/posts/announcing-imagesharp-410/">Announcing ImageSharp 4.1.0</a>
                 </li>
               
             </ul>
@@ -433,7 +597,7 @@ Please visit <a href="https://sixlabors.com/pricing" target="_blank">https://six
       </div>
     </footer>
 
-    <!-- Current page: /posts/announcing-imagesharp-10-release-candidate-1/ -->
+    <!-- Current page: /posts/announcing-imagesharp-drawing-310/ -->
     <script 
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" 
       integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
