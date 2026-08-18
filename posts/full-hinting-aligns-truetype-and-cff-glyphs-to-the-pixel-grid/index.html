@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Six Labors : Fitting Type to the Pixel Grid</title>
+    <meta name="description" content="What font hinting is, why TrueType and CFF hint so differently, and how SixLabors.Fonts 3.1 grid-fits both formats for sharp small text.">
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"/>
+    <link 
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet" 
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/default.min.css"/>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/highlightjs-themes@1.0.0/monokai_sublime.min.css"/>
+    <link rel="stylesheet" href="/css/style.css">
+    
+    
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Six Labors">
+    <link rel="alternate" href="/feed/feed.json" type="application/json" title="Six Labors">
+    <meta name="msvalidate.01" content="BA6460B0F12FECDF7D03F34A5709833F"/>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ENHDZFJNJY"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-ENHDZFJNJY');
+    </script>
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "6o9zxkbyg4");
+    </script>
+  </head>
+  <body>
+    <header class="navbar navbar-expand-md sl-navbar shadow-sm">
+      <nav class="container-xxl flex-wrap flex-md-nowrap">
+        <a class="navbar-brand" href="/">
+          <img
+            src="/css/img/sixlabors.text.svg"
+            alt="Six Labors"
+            class="sl-brand"/>
+          <span class="visually-hidden">Six Labors</span>
+        </a>
+        <button
+          class="navbar-toggler collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#slNavbar"
+          aria-controls="slNavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            class="bi"
+            fill="currentColor"
+            viewBox="0 0 16 16">
+            <path
+              fill-rule="evenodd"
+              d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+            ></path>
+          </svg>
+        </button>
+        <div class="navbar-collapse collapse" id="slNavbar">
+          <ul class="navbar-nav flex-row flex-wrap sl-navbar-nav pt-2 py-md-0">
+              <li class="nav-item col-6 col-md-auto" >
+                <a 
+                  class="nav-link p-2" 
+                  href="/"
+                  >Home</a>
+              </li>
+              <li class="nav-item col-6 col-md-auto" >
+                <a 
+                  class="nav-link p-2" 
+                  href="/products/"
+                  >Products</a>
+              </li>
+              <li class="nav-item col-6 col-md-auto" >
+                <a 
+                  class="nav-link p-2" 
+                  href="/pricing/"
+                  >Pricing</a>
+              </li>
+              <li class="nav-item col-6 col-md-auto" >
+                <a 
+                  class="nav-link p-2" 
+                  href="https://docs.sixlabors.com"
+                   target="_blank" rel="noopener">Documentation</a>
+              </li>
+              <li class="nav-item col-6 col-md-auto" >
+                <a 
+                  class="nav-link p-2" 
+                  href="/posts/"
+                  >Blog</a>
+              </li>
+          </ul>
+
+          <hr class="d-md-none text-secondary"/>
+
+          <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+            <li class="nav-item col-6 col-md-auto">
+              <a
+                class="nav-link p-2"
+                href="https://github.com/sixlabors"
+                target="_blank"
+                rel="noopener">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  class="navbar-nav-svg d-inline-block align-text-top"
+                  viewBox="0 0 512 499.36"
+                  role="img">
+                  <title>GitHub</title>
+                  <path
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                    d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z"
+                  ></path>
+                </svg>
+                <span class="d-md-none ms-2">GitHub</span>
+              </a>
+            </li>
+            <li class="nav-item col-6 col-md-auto">
+              <a
+                class="nav-link p-2"
+                href="https://x.com/sixlabors"
+                target="_blank"
+                rel="noopener"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  class="navbar-nav-svg d-inline-block align-text-top"
+                  viewBox="0 0 1200 1227"
+                  role="img">
+                  <title>X</title>
+                  <path
+                    fill="currentColor"
+                    d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z"
+                  ></path>
+                </svg>
+                <span class="d-md-none ms-2">X</span>
+              </a>
+            </li>
+            <li class="nav-item col-6 col-md-auto">
+              <a
+                class="nav-link p-2"
+                href="https://opencollective.com/sixlabors"
+                target="_blank"
+                rel="noopener">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                  class="navbar-nav-svg d-inline-block align-text-top"
+                  viewBox="0 0 40 41"
+                  role="img">
+                  <title>Open Collective</title>
+                  <path
+                    fill-opacity=".4"
+                    d="M32.8 21c0 2.4-.8 4.9-2 6.9l5.1 5.1c2.5-3.4 4.1-7.6 4.1-12 0-4.6-1.6-8.8-4-12.2L30.7 14c1.2 2 2 4.3 2 7z"
+                  ></path>
+                  <path
+                    d="M20 33.7a12.8 12.8 0 0 1 0-25.6c2.6 0 5 .7 7 2.1L32 5a20 20 0 1 0 .1 31.9l-5-5.2a13 13 0 0 1-7 2z"
+                  ></path>
+                </svg>
+                <span class="d-md-none ms-2">Open Collective</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main class="tmpl-post" role="main">
+      
+
+
+
+      <div class="masthead">
+  <div class="container">
+    <h1 class="mb-3">
+      Fitting Type to the Pixel Grid
+    </h1>
+    <p class="lead mb-4">
+      What font hinting is, why TrueType and CFF hint so differently, and how SixLabors.Fonts 3.1 grid-fits both formats for sharp small text.
+    </p>
+    <div><a href="/tags/fonts/" class="post-tag btn btn-primary shadow">Fonts</a><a href="/tags/typography/" class="post-tag btn btn-primary shadow">Typography</a><a href="/tags/hinting/" class="post-tag btn btn-primary shadow">Hinting</a><a href="/tags/truetype/" class="post-tag btn btn-primary shadow">TrueType</a><a href="/tags/cff/" class="post-tag btn btn-primary shadow">CFF</a><a href="/tags/opentype/" class="post-tag btn btn-primary shadow">OpenType</a>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class= row>
+      <div class="col-md-8">
+        <article>
+          <time datetime="2026-08-18">18 Aug 2026</time>
+
+          <p>In May 2021 we received <a href="https://github.com/SixLabors/ImageSharp.Drawing/issues/134" target="_blank">a report</a> that text drawn with ImageSharp.Drawing came out deformed. The reporter was driving a small monochrome LCD, 128 by 64 pixels, from a rendered bitmap, and drew the same string, Tahoma at 8 points, through System.Drawing and through us. Their photographs of the physical panel made the comparison brutal: the System.Drawing text was clean, ours was misshapen, and on a screen whose pixels are simply on or off there is no antialiasing to soften anything. Strokes either land on the right pixels or the letterforms fall apart.</p>
+<p>The diagnosis arrived within hours, and it was correct: no font hinting. It took us five years to act on it fully, though. Vertical-only TrueType hinting shipped first and improved release after release, yet the panel's text never matched System.Drawing's, and in March 2026 I closed the issue as won't-fix, convinced that closing the remaining gap meant reimplementing a proprietary rasterizer. That verdict lasted five months. <a href="/posts/announcing-fonts-310/">Fonts 3.1</a> shipped <code>HintingMode.Full</code>, built on a rewrite of the hinter and of aliased rendering, and the reply I finally left on a five-year-old issue was that it could be done after all. Here is its scenario, reproduced from the regression test that now pins it.</p>
+<p><strong><code>HintingMode.None</code> with antialiasing off, as the issue reported it:</strong></p>
+<p><img src="/img/full-hinting-issue134-none.png" alt="Lorem ipsum dolor sit amet in Tahoma at 8 points on a 128 by 64 pixel canvas, aliased and unhinted, magnified five times: strokes land off the grid and the letterforms deform" class="img-fluid"></p>
+<p><strong><code>HintingMode.Full</code> with antialiasing still off:</strong></p>
+<p><img src="/img/full-hinting-issue134-full.png" alt="The same text with full hinting: strokes land on whole pixels and the two lines read cleanly" class="img-fluid"></p>
+<p>That panel is the general case made visible. A screen is a fixed lattice of pixels, and each pixel shows a single color across its whole square face. A phone packs several hundred of them into an inch; a desktop monitor gets roughly 96. Everything a screen displays is built from those whole pixels, and antialiasing does not loosen the constraint; it only lets a pixel show the average of whatever geometry covers it. At 11 points on that desktop monitor, a line of text gets an em square about fifteen pixels tall. A lowercase letter lives in about seven of those rows, and the strokes that form it are each about one pixel wide.</p>
+<p>Font outlines know nothing about that lattice. They are continuous curves, scaled by real-number arithmetic and placed at whatever fractional position layout produces, so a stroke that scales to 0.99 pixels wide lands with its edges at x = 1.98 and x = 2.97 as easily as on whole numbers. The best a rasterizer can do with that overlap is average it: two columns of partial coverage, two shades of gray, standing in for one solid stroke the designer drew. Multiply this across a paragraph, every stem landing on its own fraction, and small text goes soft, uneven, and tiring to read. That is the problem hinting exists to solve.</p>
+<p>On an everyday antialiased desktop render the failure is subtler than the panel's, but identical in kind. Here are two lines of Arial, rendered at 9 and 13 pixels per em from a deliberately fractional starting position and enlarged four times, once under each of the three hinting modes the library exposes.</p>
+<p><strong><code>HintingMode.None</code> scales the outlines and rasterizes them exactly where they land:</strong></p>
+<p><img src="/img/full-hinting-truetype-none.png" alt="Two lines of Arial at 9 and 13 pixels per em with no hinting, magnified four times: stems smear across neighboring pixel columns in shades of gray" class="img-fluid"></p>
+<p><strong><code>HintingMode.Standard</code> fits the vertical axis and leaves horizontal placement smooth:</strong></p>
+<p><img src="/img/full-hinting-truetype-standard.png" alt="The same two lines of Arial with standard hinting: baselines and x-heights hold to pixel rows while stems remain fractional and gray" class="img-fluid"></p>
+<p><strong><code>HintingMode.Full</code> fits both axes, snaps the origins, and rounds the advances:</strong></p>
+<p><img src="/img/full-hinting-truetype-full.png" alt="The same two lines of Arial with full hinting: nearly every stem is a single black pixel column on a steady baseline" class="img-fluid"></p>
+<p>Nothing about the input changed across those renders. The letterforms, the sizes, and the starting positions are identical. What changed is how much of the font's own rendering intelligence we executed.</p>
+<h2 id="what-a-hint-is" tabindex="-1">What a hint is <a class="direct-link" href="#what-a-hint-is">#</a></h2>
+<p>A glyph in an outline font is a set of contours whose coordinates live on an abstract design grid called the em square, usually 1,000 units for CFF and 2,048 for TrueType. Rendering at a device size scales those coordinates. At 96 DPI, an 11-point font has an em of <code>11 × 96 ÷ 72 = 14.67</code> pixels, so a 100-unit stem in a 1,000-unit em scales to 1.47 pixels, and a stem drawn 90 units wide lands at 0.99 pixels. The proportions survive the scaling perfectly. What fails is placement: a 0.99-pixel stem whose left edge lands at x = 1.98 covers parts of three pixel columns, and an antialiased rasterizer faithfully reports that ambiguity as gray.</p>
+<p>A hint is information the type designer ships inside the font file, next to the contours, describing how the glyph's features relate to each other: these two edges form a stem, these curves sit on the baseline, this counter matters. Hints are size-independent. A renderer applies them at a specific pixel size to move outline points onto positions the grid can represent, a process called grid fitting. The fitted outline is a small, deliberate distortion of the design, built once per size, so that rasterization produces even black stems instead of accidental gray ones.</p>
+<p>Fitting cannot be done one coordinate at a time, and a small experiment shows why. Take two stems, each 0.99 pixels wide, separated by a counter of 2.14 pixels. In each panel below, the shaded top strip shows the stems where scaling placed them, and the black bottom strip shows the same stems after every edge rounds to its nearest pixel boundary. In the left panel the rounding lands well: two one-pixel stems survive with a two-pixel counter between them. In the right panel the identical pair starts 0.46 pixels further left, and the rounded counter collapses to a single pixel while both stems stay one pixel wide. The letter becomes darker and narrower because of nothing except where on the grid it happened to start.</p>
+<p><img src="/img/full-hinting-stem-rounding.png" alt="Two before-and-after panels. In each, a pair of shaded fractional stems sits above its rounded black pixel result. The left counter keeps two pixel columns; the right pair, shifted 0.46 pixels left, collapses its counter to one column" class="img-fluid"></p>
+<p>Useful fitting therefore works on relationships rather than points: stem widths, counter rhythm, and shared alignment heights such as the baseline and x-height. Those relationships are exactly what hints record. Where they come from, and who is trusted to apply them, is where the two font formats part ways.</p>
+<h2 id="two-answers-from-the-font-wars" tabindex="-1">Two answers from the font wars <a class="direct-link" href="#two-answers-from-the-font-wars">#</a></h2>
+<p>Adobe's PostScript Type 1 fonts, introduced in the mid 1980s, carry declarative hints: the charstring for a glyph states where its stems are and which alignment zones it participates in, and Adobe's rasterizer decides what to do with those declarations. The format was proprietary, the hint semantics were undocumented, and the quality of Adobe's interpreter was a product Adobe sold. Apple wanted out of those royalties and built TrueType, which shipped with System 7 in 1991 and took the opposite position: the font itself contains an executable program for every glyph, and the rasterizer is a small virtual machine that runs it. Microsoft adopted TrueType for Windows 3.1, Adobe published the <a href="https://adobe-type-tools.github.io/font-tech-notes/pdfs/T1_SPEC.pdf" target="_blank">Type 1 specification</a> in 1990 under that competitive pressure, and when the OpenType container later unified the camps it kept both glyph formats: TrueType outlines with programs, and Type 1's compact successor CFF with declarations.</p>
+<p>OpenType admits both formats, so a renderer that promises sharp small text inherits both philosophies at once: it must be an obedient interpreter for TrueType and a skilled reader of declarations for CFF. Much of what makes small-text rendering interesting, and most of what shipped in Fonts 3.1, follows from that split.</p>
+<p>Hinting also has a long politics of its own. Apple patented key TrueType instruction techniques, so FreeType spent a decade shipping its bytecode interpreter disabled and inferring stems geometrically with an autohinter until the patents expired in 2010. Antialiasing and subpixel rendering then changed what &quot;good&quot; meant: modern rasterizers mostly fit the vertical axis and keep horizontal placement smooth, which is what <a href="/posts/announcing-fonts-300/">Fonts 3.0's FreeType v40-compatible hinting</a> does, and what <code>HintingMode.Standard</code> still does. Beat Stamm, who spent years building Microsoft's hinting tools, wrote the definitive account of these trade-offs in <a href="http://rastertragedy.com/" target="_blank">The Raster Tragedy at Low-Resolution</a>, and Maxim Shemanarev's <a href="https://agg.sourceforge.net/antigrain.com/research/font_rasterization/index.html" target="_blank">Anti-Grain Geometry essay on font rasterization</a> surveys how each vendor chose differently. <code>HintingMode.Full</code> targets the oldest point in that design space on purpose: classic bi-level grid fitting on both axes, the environment the instructions in fonts like Arial were originally written for.</p>
+<h2 id="truetype-runs-the-font's-own-program" tabindex="-1">TrueType runs the font's own program <a class="direct-link" href="#truetype-runs-the-font's-own-program">#</a></h2>
+<p>A hinted TrueType glyph carries instructions that execute against its scaled outline before rasterization. The font also ships shared machinery: a font program in <code>fpgm</code>, a size-dependent preparation program in <code>prep</code>, and a control value table, <code>cvt </code>, holding distances the designer wants treated consistently, such as the standard weight of lowercase stems. The <a href="https://learn.microsoft.com/en-us/typography/opentype/spec/tt_instructions" target="_blank">TrueType instruction set</a> is a real, if small, machine language: a stack, projection and freedom vectors that define the direction of measurement and movement, a rounding state, and instructions that move points relative to other points.</p>
+<p>A stem fit makes the model concrete. Suppose the control value table lists the standard stem of a 2,048-unit font as 166 units. At 11 pixels per em that distance scales to <code>166 × 11 ÷ 2048 = 0.89</code> pixels. The glyph program touches the stem's left edge point, then moves the right edge point to the control value's rounded distance, one pixel, from it. Both edges now sit on pixel boundaries exactly one pixel apart. A final pass with <code>IUP</code> interpolates every untouched point so the curves between fitted edges shift along with them. The interpreter does all of this in 26.6 fixed-point device coordinates, where 2.5 pixels is the integer 160, and Fonts performs its scaling and instruction arithmetic in the same integer domain, because a floating-point shortcut that rounds at a different moment moves a point differently than the program's author intended.</p>
+<p>Here is that program's work on Arial's lowercase m at 11 pixels per em, the plain scaled contour on the left and the same contour after Arial's instructions have run on the right. Each orange stem is about nine tenths of a pixel wide with neither wall on a boundary. Each black stem is exactly one pixel wide with both walls on grid lines, the glyph has come out slightly narrower, and the arches have been dragged along with the stems they connect. The fitted contour is visibly cruder than the design, down to a hard diagonal where the right shoulder used to curve, and that is intentional: this outline exists only to produce pixel coverage at one size, and its rasterization, three crisp stems under an even arch row, is all the reader ever sees.</p>
+<p><img src="/img/full-hinting-truetype-outline.png" alt="Arial lowercase m at 11 pixels per em drawn twice as outlines on one device pixel grid: the scaled contour on the left with fractional stems, and the instructed contour on the right with one-pixel stems on grid boundaries and a hard diagonal shoulder" class="img-fluid"></p>
+<p>Instructions can also ask about their world. <code>GETINFO</code> reports the rasterizer's version and mode, and font programs branch on it: Arial takes different code paths for a classic bi-level engine than for a ClearType-era one. Under <code>Full</code>, Fonts presents the classic engine identity and executes the complete horizontal and vertical instruction set, so those fonts run the branch their sharpest small-size behavior lives in. Under <code>Standard</code> it presents the modern identity and fits the vertical axis only.</p>
+<p>Four invisible points ride along with every glyph. The phantom points represent the glyph's side bearings and advances, the instruction stream can move them, and that mechanism is how a hinted glyph legitimately ends up with a different advance width at 11 pixels per em than linear scaling predicts. Fitting a stem is pointless if the next glyph starts at a fractional position and smears, so under <code>Full</code> the flow-axis advance becomes a whole-pixel value, resolved in a strict order: a device record from the font's <a href="https://learn.microsoft.com/en-us/typography/opentype/spec/hdmx" target="_blank"><code>hdmx</code> table</a> when one exists for the size, the hinted phantom advance otherwise, and the rounded linear advance only when the interpreter could not run.</p>
+<p>Layout consumes the same values. Measurement under <code>Full</code> uses the identical whole-pixel advances that rendering uses, so a measured line and its rasterized pixels agree exactly, and two consequences follow that we accepted with open eyes. Spacing can differ from the type designer's fractional intent by up to half a pixel per glyph, and sub-pixel pair kerning is not applied on the flow axis, because the classic pipeline never applied it either, and folding a quarter-pixel kern into a whole-pixel pen position shifts a glyph a full pixel away from the reference rendering. Subscript and superscript runs keep their fractional advances, since their glyphs scale through a different ratio than the base em and whole-pixel device values would round-trip into the wrong pen movement.</p>
+<h2 id="cff-declares%2C-the-renderer-decides" tabindex="-1">CFF declares, the renderer decides <a class="direct-link" href="#cff-declares%2C-the-renderer-decides">#</a></h2>
+<p>A CFF glyph is a Type 2 charstring: a compact drawing program that emits moves, lines, and cubic curves. It contains no point-moving instructions. Instead it opens by declaring its stems: <code>hstem</code> pairs mark horizontal features and govern y coordinates, <code>vstem</code> pairs mark vertical stems and govern x, and where stems overlap, <code>hintmask</code> operators activate the subset that applies to each region of the outline. A <code>cntrmask</code> names groups of stems whose counters the designer wants controlled together. Font-wide policy lives in the Private DICT: alignment zones for the baseline, x-height, and cap height, standard stem widths, and stem-snap lists. The <a href="https://adobe-type-tools.github.io/font-tech-notes/pdfs/5177.Type2.pdf" target="_blank">Type 2 charstring specification</a> requires the declarations before the path data, so a renderer knows every load-bearing edge before it sees the first curve.</p>
+<p>All of the fitting intelligence therefore belongs to us, and Fonts builds it around a hint map: a piecewise-linear transform per fitted axis, constructed from the declarations, that every outline coordinate passes through. Alignment zones act first: a feature that lands within a zone's tolerance is pulled to the zone's fitted position and locked to a whole pixel row. Remaining stems are placed relative to those anchors. At 11 pixels per em in a 1,000-unit font, the map takes the baseline at 0 units to row 0 and takes the x-height flat at 500 units, which plain scaling would put at 5.5, up to row 6. The cap height, ascender, and descender zones anchor their own intervals the same way.</p>
+<p>Everything between two anchors stretches with them. A curve point at 450 units maps to 450 ÷ 500 × 6 = 5.4 pixels, where plain scaling would have put it at 4.95, because the whole span below the x-height stretched together when the x-height moved up to row 6. Curves keep their shape relative to the features around them instead of having each control point snapped to its nearest row, which is precisely the failure the two-stem experiment demonstrated.</p>
+<p>Here is the map's work on Source Sans Pro's lowercase h at 11 pixels per em, the plain scaled contour on the left and the hint-mapped contour on the right. On the left, both stems are fractional and neither the baseline nor the ascender sits on a pixel row. On the right, each stem is exactly one pixel wide on column boundaries, the baseline and the ascender top lock to rows, and the arch has stretched along with them.</p>
+<p><img src="/img/full-hinting-cff-outline.png" alt="Source Sans Pro lowercase h at 11 pixels per em drawn twice as outlines on one device pixel grid: the scaled contour on the left with fractional stems and edges, the hint-mapped contour on the right with one-pixel stems on column boundaries and flats locked to rows" class="img-fluid"></p>
+<p>The declarations earn their keep in the details. When a counter mask covers an axis's stems, Fonts chains the fitted stem centers at a common pitch, the spacing from one stem center to the next, so the accumulated rounding spreads across the chain and two counters the designer drew equal stay equal, rather than one winning a rounding decision the other loses. Declared stems whose flanks run the full height of the zone, the upright walls of an n or a bowl, regularize down to crisp one-pixel widths at small sizes, while diagonal strokes are left out of that rule because their flanks only graze the zone and narrowing them tears their coverage apart row by row. Charstrings are evaluated once into a buffered outline per pixel size and hinting mode, with their stems, masks, and Private DICT values retained, so fitting never reparses a charstring per render. <code>Standard</code> fits the vertical axis only, from the horizontal stems and alignment zones. <code>Full</code> fits both axes and rounds the em to a whole pixel size, so the map's arithmetic lands on exact rows and columns.</p>
+<p>Here is Source Sans Pro, a CFF font, through the same three modes.</p>
+<p><strong><code>HintingMode.None</code>:</strong></p>
+<p><img src="/img/full-hinting-cff-none.png" alt="Two lines of Source Sans Pro at 9 and 13 pixels per em, unhinted and magnified four times: stems and bowls land in gray between pixel columns" class="img-fluid"></p>
+<p><strong><code>HintingMode.Standard</code>, fitting the vertical axis from the declared horizontal stems and zones:</strong></p>
+<p><img src="/img/full-hinting-cff-standard.png" alt="The same Source Sans Pro lines with standard hinting: the baseline and x-height hold to pixel rows while horizontal placement stays fractional" class="img-fluid"></p>
+<p><strong><code>HintingMode.Full</code>, fitting both axes through the hint map:</strong></p>
+<p><img src="/img/full-hinting-cff-full.png" alt="The same Source Sans Pro lines with full hinting: whole-pixel stems, and word spacing that varies visibly as advances round to whole pixels" class="img-fluid"></p>
+<p>The spacing in the last render is visibly less even than in the two above it: whole-pixel advances at work, and the half-pixel variation they cost is the price of the crisp stems.</p>
+<h2 id="one-resolved-placement%2C-everywhere" tabindex="-1">One resolved placement, everywhere <a class="direct-link" href="#one-resolved-placement%2C-everywhere">#</a></h2>
+<p>A fitted outline is only sharp until something translates it. Text rendering composes several offsets after fitting: the pen position, positioning adjustments, side bearings, and whatever transform the caller supplies. If that composition lands the glyph at x = 10.3, the stem so carefully fitted to column 10 is fractional again and the whole exercise dissolves. So under <code>Full</code>, Fonts resolves the final outline placement first and snaps the composed translation of upright glyphs to whole device pixels, and every consumer reads that one resolved placement: emitted outlines, reported bounds, decoration origins for underlines and strike-throughs, and renderer cache hits alike. A renderer that short-circuits emission because it already holds cached geometry still receives bounds computed from the same snapped origin that produced the cache entry.</p>
+<p>The same glyph at the same size owns three different geometries under <code>None</code>, <code>Standard</code>, and <code>Full</code>, so identity follows placement: <code>GlyphRendererParameters</code> includes the hinting mode in its equality and hash code, and the scaled-outline caches key on pixel size and mode together. Without the mode in the key, whichever mode renders a glyph first fills the cache, and every later render under a different mode silently receives that first geometry.</p>
+<h2 id="choosing-a-mode" tabindex="-1">Choosing a mode <a class="direct-link" href="#choosing-a-mode">#</a></h2>
+<p>The API surface for all of the above is one property:</p>
+<div class="frame">
+<pre><code class="language-csharp">TextOptions options = new(font)
+{
+    Dpi = 96,
+    HintingMode = HintingMode.Full
+};
+</code></pre>
+</div>
+<p><code>Full</code> is for pixels as the final medium at small sizes: UI labels, dashboards, terminal-style text, document previews, bitmap exports, and, with antialiasing off, the tiny monochrome panels that opened this story. It buys whole-pixel stems, aligned baselines, and open counters, and it pays with altered shapes, up to half a pixel of spacing variation, and no sub-pixel kerning on the flow axis. <code>Standard</code> keeps baselines and x-heights steady while preserving smooth fractional spacing, the right default for antialiased text at reading sizes. <code>None</code> preserves the scaled outline exactly, which is what large display typography wants. The <a href="https://docs.sixlabors.com/articles/fonts/hinting.html" target="_blank">hinting documentation</a> covers the details, and the implementation, both interpreters and the hint map, is in <a href="https://github.com/SixLabors/Fonts/pull/552" target="_blank">SixLabors.Fonts #552</a>.</p>
+<p>The next time small text looks damaged in one application and deliberate in another, the difference is rarely the font. Both applications hold the same outlines, the same instructions, and the same declarations. They differ in how much of that machinery they chose to run.</p>
+
+            <hr>
+            <ul>
+                <li>Previous: <a href="/posts/announcing-imagesharp-drawing-310/">Announcing ImageSharp.Drawing 3.1.0</a>
+                </li>
+              
+            </ul>
+        </article>
+      </div>
+      <div class="col-md-3 offset-md-1">
+        <aside>
+          <h3>Tags</h3>
+          <ul>
+            
+              
+              <li>
+                <a href="/tags/imagesharp/" class="post-tag btn btn-primary shadow">ImageSharp</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/fonts/" class="post-tag btn btn-primary shadow">Fonts</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/shapes/" class="post-tag btn btn-primary shadow">Shapes</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/releases/" class="post-tag btn btn-primary shadow">Releases</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/imagesharp.drawing/" class="post-tag btn btn-primary shadow">ImageSharp.Drawing</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/imagesharp.web/" class="post-tag btn btn-primary shadow">ImageSharp.Web</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/polygonclipper/" class="post-tag btn btn-primary shadow">PolygonClipper</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/announcements/" class="post-tag btn btn-primary shadow">Announcements</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/licensing/" class="post-tag btn btn-primary shadow">Licensing</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/typography/" class="post-tag btn btn-primary shadow">Typography</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/hinting/" class="post-tag btn btn-primary shadow">Hinting</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/truetype/" class="post-tag btn btn-primary shadow">TrueType</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/cff/" class="post-tag btn btn-primary shadow">CFF</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/opentype/" class="post-tag btn btn-primary shadow">OpenType</a>
+              </li>
+            
+              
+              <li>
+                <a href="/tags/drawing/" class="post-tag btn btn-primary shadow">Drawing</a>
+              </li>
+            
+          </ul>
+
+        </aside>
+
+        <aside>
+          
+          <h3>Recent  Posts
+          </h3>
+
+          
+          
+          <ul class="postlist">
+            
+              <li class="postlist-item">
+                <a href="/posts/full-hinting-aligns-truetype-and-cff-glyphs-to-the-pixel-grid/" class="postlist-link">
+                  Fitting Type to the Pixel Grid
+                  
+                </a>
+              </li>
+            
+              <li class="postlist-item">
+                <a href="/posts/announcing-imagesharp-drawing-310/" class="postlist-link">
+                  Announcing ImageSharp.Drawing 3.1.0
+                  
+                </a>
+              </li>
+            
+              <li class="postlist-item">
+                <a href="/posts/announcing-imagesharp-410/" class="postlist-link">
+                  Announcing ImageSharp 4.1.0
+                  
+                </a>
+              </li>
+            
+              <li class="postlist-item">
+                <a href="/posts/announcing-fonts-310/" class="postlist-link">
+                  Announcing Fonts 3.1.0
+                  
+                </a>
+              </li>
+            
+              <li class="postlist-item">
+                <a href="/posts/announcing-polygonclipper-100/" class="postlist-link">
+                  Announcing PolygonClipper 1.0.0
+                  
+                </a>
+              </li>
+            
+          </ul>
+
+          <p>More posts can be found in <a href="/posts/">the archive</a>.</p>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    </main>
+
+    <footer class="sl-footer p-3 p-md-5 mt-5 bg-light text-center text-sm-start">
+      <div class="container">
+        <ul class="sl-footer-links ps-0 mb-3">
+          <li class="d-inline-block">
+            <a href="https://github.com/sixlabors" target="_blank" rel="noopener" aria-label="GitHub">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="36"
+                height="36"
+                class="navbar-nav-svg d-inline-block align-text-top"
+                fill="currentColor"
+                viewBox="0 0 512 499.36"
+                role="img">
+                <title>GitHub</title>
+                <path
+                  fill-rule="evenodd"
+                  d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z"
+                ></path>
+              </svg>
+            </a>
+          </li>
+          <li class="d-inline-block ms-3">
+            <a href="https://x.com/sixlabors" target="_blank" rel="noopener" aria-label="X">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="36"
+                height="36"
+                class="navbar-nav-svg d-inline-block align-text-top"
+                fill="currentColor"
+                viewBox="0 0 1200 1227"
+                role="img">
+                <title>X</title>
+                <path
+                  d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z"
+                ></path>
+              </svg>
+            </a>
+          </li>
+          <li class="d-inline-block ms-3">
+            <a href="https://opencollective.com/sixlabors" target="_blank" rel="noopener" aria-label="Open Collective">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="36"
+                height="36"
+                fill="currentColor"
+                fill-rule="evenodd"
+                class="navbar-nav-svg d-inline-block align-text-top"
+                viewBox="0 0 40 41"
+                role="img">
+                <title>Open Collective</title>
+                <path
+                  fill-opacity=".4"
+                  d="M32.8 21c0 2.4-.8 4.9-2 6.9l5.1 5.1c2.5-3.4 4.1-7.6 4.1-12 0-4.6-1.6-8.8-4-12.2L30.7 14c1.2 2 2 4.3 2 7z"
+                ></path>
+                <path
+                  d="M20 33.7a12.8 12.8 0 0 1 0-25.6c2.6 0 5 .7 7 2.1L32 5a20 20 0 1 0 .1 31.9l-5-5.2a13 13 0 0 1-7 2z"
+                ></path>
+              </svg>
+            </a>
+          </li>
+        </ul>
+        <p class="mb-0">Copyright Six Labors &copy;</p>
+        <hr/>
+        <p>
+          <img
+            src="/css/img/sixlabors.text.svg"
+            alt="Six Labors"
+            class="sl-brand"/>
+        </p>
+        <p>Six Labors acknowledges the traditional owners and custodians of country throughout Australia and acknowledges their continuing connection to land, waters and community. We pay our respects to the people, the cultures and the elders past, present and emerging.</p>
+      </div>
+    </footer>
+
+    <!-- Current page: /posts/full-hinting-aligns-truetype-and-cff-glyphs-to-the-pixel-grid/ -->
+    <script 
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" 
+      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.9.0/dist/highlightjs-line-numbers.min.js"></script>
+    <script>
+      hljs.highlightAll();
+      hljs.initLineNumbersOnLoad({singleLine: true});
+    </script>
+  </body>
+</html>
