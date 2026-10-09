@@ -5,12 +5,108 @@
 	
 	<link href="https://sixlabors.com/feed/feed.xml" rel="self"/>
 	<link href="https://sixlabors.com/"/>
-	<updated>2026-08-18T00:00:00Z</updated>
+	<updated>2026-10-09T00:00:00Z</updated>
 	<id>https://sixlabors.com/</id>
 	<author>
 		<name>Your Name Here</name>
 		<email>youremailaddress@example.com</email>
 	</author>
+	
+	<entry>
+		<title>Security Support and License Enforcement</title>
+		<link href="https://sixlabors.com/posts/security-support-and-license-enforcement/"/>
+		<updated>2026-10-09T00:00:00Z</updated>
+		<id>https://sixlabors.com/posts/security-support-and-license-enforcement/</id>
+		<content type="html">&lt;p&gt;Today we are announcing expanded security support for Six Labors libraries, giving users greater flexibility to upgrade on a schedule that works for them.&lt;/p&gt;
+&lt;p&gt;We are also making Six Labors easier to use in open-source and source-available projects. New assembly-scoped community keys can be committed to a public repository, so contributors can build the named projects with the included key. Maintainers can share that key openly instead of managing it as a private build secret.&lt;/p&gt;
+&lt;p&gt;Previously, security updates were available only for the latest major version. Under the expanded policy, each major version will remain eligible for security updates for 12 months after the first stable release of its successor. This gives teams more time to plan, test, and deploy major version upgrades while keeping their existing applications secure.&lt;/p&gt;
+&lt;p&gt;To make this extended support sustainable, new releases within supported older majors will include the build-time license enforcement already used by the current major versions.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Enforcement is not a license change.&lt;/strong&gt; ImageSharp v3 and v4 use the same Six Labors Split License. The requirement to purchase a commercial license, where applicable, already exists. A license key makes that requirement enforceable during the build.&lt;/p&gt;
+&lt;h2 id=&quot;why-we-are-making-this-change&quot; tabindex=&quot;-1&quot;&gt;Why we are making this change &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/security-support-and-license-enforcement/#why-we-are-making-this-change&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Over the last six months, ImageSharp v3 has accounted for around 95% of ImageSharp downloads on NuGet, despite v4 having been available for several months. V3 also targets .NET 6, for which Microsoft ended support on 12 November 2024.&lt;/p&gt;
+&lt;p&gt;Maintaining older versions takes time. Backporting security fixes means maintaining the code, build infrastructure, and release process for each supported version. We cannot sustain that work if organizations that are required to purchase a license continue using the libraries without paying.&lt;/p&gt;
+&lt;p&gt;Organizations that comply with the license support the continued development and maintenance of the libraries. Consistent enforcement ensures that organizations required to purchase a license contribute to that work.&lt;/p&gt;
+&lt;p&gt;We want users to be able to install security updates without immediately moving to a new major version. Extending enforcement to the maintained older versions makes that work more sustainable.&lt;/p&gt;
+&lt;h2 id=&quot;what-changes&quot; tabindex=&quot;-1&quot;&gt;What changes &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/security-support-and-license-enforcement/#what-changes&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The upcoming releases bring security fixes to supported older major versions of Six Labors libraries. These releases will also require a valid license key for projects that directly reference the packages. For ImageSharp v3, these changes arrive in &lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp/3.2.0&quot; target=&quot;_blank&quot;&gt;ImageSharp 3.2.0&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Our &lt;a href=&quot;https://sixlabors.com/posts/licence-enforcement-changes/&quot;&gt;previous announcement&lt;/a&gt; described enforcement starting with future major releases. We are now extending it to new releases within supported older majors as well. This changes the build requirements for those releases. &lt;strong&gt;It does not change their license terms.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Existing published packages are not being modified. To receive the security fixes, you need to install the updated package and configure a valid key.&lt;/p&gt;
+&lt;div class=&quot;alert alert-warning&quot;&gt;
+&lt;p class=&quot;alert-heading fw-bold&quot;&gt;Temporary NuGet advisory warnings&lt;/p&gt;
+&lt;p&gt;The GitHub Advisory Database corrections for the security fixes backported to ImageSharp 3.2.0 are awaiting review. Until those corrections reach NuGet, package auditing can still flag this release for those fixed issues. If these warnings block your build, use &lt;code&gt;NuGetAuditSuppress&lt;/code&gt; entries for the specific corrected advisories. Keep auditing enabled for other issues, and remove the suppressions once the corrections reach NuGet.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;If you already have a valid Six Labors key, use it. If you qualify for a community license, you can &lt;a href=&quot;https://licensing.sixlabors.com/&quot; target=&quot;_blank&quot;&gt;apply for a free key&lt;/a&gt;. If your use requires a commercial license, you can &lt;a href=&quot;https://sixlabors.com/pricing/&quot;&gt;purchase one&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;security-support&quot; tabindex=&quot;-1&quot;&gt;Security support &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/security-support-and-license-enforcement/#security-support&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The latest major version of each library remains eligible for security updates until its successor is released. It then remains eligible for another 12 months, measured from the successor&#39;s first stable release date.&lt;/p&gt;
+&lt;p&gt;The same policy applies to every Six Labors library. Each library has its own release dates and support deadlines.&lt;/p&gt;
+&lt;h3 id=&quot;example%3A-imagesharp-support-dates&quot; tabindex=&quot;-1&quot;&gt;Example: ImageSharp support dates &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/security-support-and-license-enforcement/#example%3A-imagesharp-support-dates&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;table class=&quot;table&quot;&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Major version&lt;/th&gt;
+&lt;th&gt;Status&lt;/th&gt;
+&lt;th&gt;End of security support&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;V4&lt;/td&gt;
+&lt;td&gt;Current major&lt;/td&gt;
+&lt;td&gt;12 months after the first stable v5 release&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;V3&lt;/td&gt;
+&lt;td&gt;Security maintenance&lt;/td&gt;
+&lt;td&gt;12 May 2027, 12 months after v4&#39;s first stable release on 12 May 2026&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Each major version has its own deadline. A v5 release before 12 May 2027 would not change v3&#39;s deadline.&lt;/p&gt;
+&lt;p&gt;After its deadline, a major version is end-of-life and no longer receives security updates.&lt;/p&gt;
+&lt;p&gt;Within a supported major, you must install the latest available patch or minor release to receive the fixes. For v3, this means upgrading to &lt;a href=&quot;https://www.nuget.org/packages/SixLabors.ImageSharp/3.2.0&quot; target=&quot;_blank&quot;&gt;ImageSharp 3.2.0&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This policy covers security fixes. It does not include feature backports or extend Microsoft&#39;s support for the underlying .NET version. Security fixes remain at Six Labors&#39; discretion.&lt;/p&gt;
+&lt;h2 id=&quot;community-keys-built-for-open-source-collaboration&quot; tabindex=&quot;-1&quot;&gt;Community keys built for open-source collaboration &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/security-support-and-license-enforcement/#community-keys-built-for-open-source-collaboration&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Currently, each contributor to an open-source or source-available project needs their own license key to build projects that directly reference Six Labors packages. The maintainer cannot commit an unrestricted key to the public repository, so every new contributor must obtain and configure their own key before they can build and test those projects.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;With assembly-scoped community keys, maintainers can commit a single key to the public repository for contributors to use.&lt;/strong&gt; The key is valid for the assembly names registered in the application, so sharing it does not make it an unrestricted key for other assemblies.&lt;/p&gt;
+&lt;p&gt;That gives projects a simpler way to work:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Contributors can use the included key to build the named projects without applying for their own key for those assemblies.&lt;/li&gt;
+&lt;li&gt;Forks can use the same key while retaining the registered assembly names.&lt;/li&gt;
+&lt;li&gt;CI can use the committed license file without storing that key as a secret.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This brings the license configuration into the repository alongside the code. Maintainers can configure it once and share it with everyone contributing to the named projects. The key still has an expiry date and must be renewed.&lt;/p&gt;
+&lt;p&gt;New open-source and source-available applications must provide the exact assembly names of the projects that will use the key.&lt;/p&gt;
+&lt;p&gt;For example, if your project contains:&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt;&amp;lt;PropertyGroup&amp;gt;
+  &amp;lt;!-- Use this exact value when applying for an assembly-scoped key. --&amp;gt;
+  &amp;lt;AssemblyName&amp;gt;MyProject.Core&amp;lt;/AssemblyName&amp;gt;
+&amp;lt;/PropertyGroup&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;The application needs the &lt;strong&gt;assembly name of each project that directly references a Six Labors package&lt;/strong&gt;. Enter one name per field.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;If &lt;code&gt;MyProject.csproj&lt;/code&gt; sets &lt;code&gt;&amp;lt;AssemblyName&amp;gt;MyProject.Core&amp;lt;/AssemblyName&amp;gt;&lt;/code&gt;, enter &lt;code&gt;MyProject.Core&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;If &lt;code&gt;MyProject.Core.csproj&lt;/code&gt; does not set &lt;code&gt;AssemblyName&lt;/code&gt;, enter &lt;code&gt;MyProject.Core&lt;/code&gt;. The project filename supplies the default assembly name.&lt;/li&gt;
+&lt;li&gt;If both &lt;code&gt;MyProject.Core.csproj&lt;/code&gt; and &lt;code&gt;MyProject.Tests.csproj&lt;/code&gt; directly reference Six Labors packages, add two fields: &lt;code&gt;MyProject.Core&lt;/code&gt; and &lt;code&gt;MyProject.Tests&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Enter the name without &lt;code&gt;.dll&lt;/code&gt; or &lt;code&gt;.csproj&lt;/code&gt;. Use the exact capitalization. This is the assembly name, not the namespace, solution name, or Six Labors package name. If a shared props file sets &lt;code&gt;AssemblyName&lt;/code&gt;, use that value.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Existing community license holders can request one early replacement with an assembly-scoped key. These upgrade requests are approved automatically, without another eligibility review. You do not need to wait for your current key to enter its renewal window.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Select open-source or source-available, use the same email address, and provide the exact assembly names. Later requests follow the normal renewal window: the final 90 days before the expiry date in your license. Commercial licenses are not eligible for this early replacement.&lt;/p&gt;
+&lt;p&gt;Unrestricted keys must remain private.&lt;/p&gt;
+&lt;h2 id=&quot;configure-the-build&quot; tabindex=&quot;-1&quot;&gt;Configure the build &lt;a class=&quot;direct-link&quot; href=&quot;https://sixlabors.com/posts/security-support-and-license-enforcement/#configure-the-build&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Use the supplied &lt;code&gt;sixlabors.lic&lt;/code&gt; file without changing its contents. Place it in the project directory, or set its path in the project file or a shared props file:&lt;/p&gt;
+&lt;div class=&quot;frame&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt;&amp;lt;PropertyGroup&amp;gt;
+  &amp;lt;!-- Set the path to your supplied license file. --&amp;gt;
+  &amp;lt;SixLaborsLicenseFile&amp;gt;path/to/sixlabors.lic&amp;lt;/SixLaborsLicenseFile&amp;gt;
+&amp;lt;/PropertyGroup&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;For environment variables, CI secrets, and other build configuration options, see the &lt;a href=&quot;https://docs.sixlabors.com/articles/imagesharp/index.html#how-to-use-the-license-file&quot; target=&quot;_blank&quot;&gt;license configuration documentation&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We will continue to provide security updates within this support window, giving users time to plan major version upgrades. This policy supports that work through consistent enforcement of the existing license terms.&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>Fitting Type to the Pixel Grid</title>
